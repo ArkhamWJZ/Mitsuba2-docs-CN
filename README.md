@@ -1,5 +1,5 @@
 # Mitsuba2-CN
-mitsuba2 中文文档翻译
+mitsuba2（v2.2.1） 中文文档翻译
 
 ## requirements
 
