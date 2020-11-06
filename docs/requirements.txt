@@ -1,5 +1,0 @@
-sphinx>=2.4
-guzzle_sphinx_theme
-pygments-mathematica
-sphinxcontrib-bibtex
-pybtex

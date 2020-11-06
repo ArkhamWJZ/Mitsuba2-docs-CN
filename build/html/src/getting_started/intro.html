@@ -1,0 +1,279 @@
+<!-- Based on https://stackoverflow.com/a/25543713/1130282 -->
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>Getting started &#8212; mitsuba2 0.1.dev0 documentation</title>
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/theme_overrides.css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Cloning the repository" href="cloning.html" />
+    <link rel="prev" title="Mitsuba 2: A Retargetable Forward and Inverse Renderer" href="../../index.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="cloning.html" title="Cloning the repository"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../../index.html" title="Mitsuba 2: A Retargetable Forward and Inverse Renderer"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Getting started</a></li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar"><a href="
+    ../../index.html" class="text-logo">Mitsuba 2</a>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Table Of Contents</h2>
+  </div>
+  <div class="sidebar-toc">
+    
+    
+      <p class="caption"><span class="caption-text">Overview</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#about">About</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloning.html">Cloning the repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="variants.html">Choosing variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compiling.html">Compiling the system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file_format.html">Scene file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="differences.html">Differences to Mitsuba 0.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python interface</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/parsing_xml.html">Parsing XML code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/rendering_scene.html">Rendering a scene</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/bsdf_eval.html">Custom applications</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Inverse rendering</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/diff_render.html">Differentiable rendering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/advanced.html">More advanced examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/pytorch.html">Integration with PyTorch</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/variants_cpp.html">Variants in C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/writing_plugin.html">Plugins &amp; Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/debugging.html">Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/building_documentation.html">Building the documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/polarization.html">Polarization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/custom_plugins.html">Custom plugins in Python</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Plugin reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../plugin_reference/intro.html">Plugin reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html">Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#bsdfs">BSDFs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#phase-functions">Phase functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#emitters">Emitters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#sensors">Sensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#textures">Textures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#spectra">Spectra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#integrators">Integrators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#samplers">Samplers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#films">Films</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#reconstruction-filters">Reconstruction filters</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/core_api.html">Core API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/render_api.html">Render API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/python_api.html">Python API Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../zz_bibliography.html">Bibliography</a></li>
+</ul>
+
+    
+  </div>
+</div>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="../../search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="../../index.html">Docs</a></li>
+              
+              <li>Getting started</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <div class="section" id="getting-started">
+<h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<a class="reference internal image-reference" href="../../_images/features.svg"><img alt="../../_images/features.svg" class="align-center" src="../../_images/features.svg" width="100%" /></a>
+<p>Mitsuba 2 是一个研究向的 rendering system written in portable C++17. It
+consists of a small set of core libraries and a wide variety of plugins that
+implement functionality ranging from materials and light sources to complete
+rendering algorithms. Mitsuba 2 strives to retain scene compatibility with its
+predecessor <a class="reference external" href="https://github.com/mitsuba-renderer/mitsuba">Mitsuba 0.6</a>.
+However, in most other respects, it is a completely new system following a
+different set of goals.</p>
+<p>The most significant change of Mitsuba 2 is that it is a <em>retargetable</em>
+renderer: this means that the underlying implementations and data structures
+are specified in a generic fashion that can be transformed to accomplish a
+number of different tasks. For example:</p>
+<ol class="arabic simple">
+<li><p>In the simplest case, Mitsuba 2 is an ordinary CPU-based RGB renderer that
+processes one ray at a time similar to its predecessor <a class="reference external" href="https://github.com/mitsuba-renderer/mitsuba">Mitsuba
+0.6</a>.</p></li>
+<li><p>Alternatively, Mitsuba 2 can be transformed into a differentiable renderer
+that runs on NVIDIA RTX GPUs. A differentiable rendering algorithm is able
+to compute derivatives of the entire simulation with respect to input
+parameters such as camera pose, geometry, BSDFs, textures, and volumes. In
+conjunction with gradient-based optimization, this opens door to solving challenging
+inverse problems including computational material design and scene reconstruction.</p></li>
+<li><p>Another type of transformation turns Mitsuba 2 into a vectorized CPU
+renderer that leverages Single Instruction/Multiple Data (SIMD) instruction
+sets such as AVX512 on modern CPUs to efficiently sample many light paths in
+parallel.</p></li>
+<li><p>Yet another type of transformation rewrites physical aspects of the
+simulation: Mitsuba can be used as a monochromatic renderer, a RGB-based
+renderer, or as a spectral renderer. Each variant can optionally account for
+the effects of polarization if desired.</p></li>
+</ol>
+<p>In addition to the above transformations, there are several other noteworthy
+changes:</p>
+<ol class="arabic simple">
+<li><p>Mitsuba 2 provides very fine-grained Python bindings to essentially every
+function using <a class="reference external" href="https://github.com/pybind/pybind11">pybind11</a>. This makes
+it possible to import the renderer into a Jupyter notebook and develop new
+algorithms interactively while visualizing their behavior using plots.</p></li>
+<li><p>The renderer includes a large automated test suite written in Python, and
+its development relies on several continuous integration servers that
+compile and test new commits on different operating systems using various
+compilation settings (e.g. debug/release builds, single/double precision,
+etc). Manually checking that external contributions don’t break existing
+functionality had become a severe bottleneck in the previous Mitsuba 0.6
+codebase, hence the goal of this infrastructure is to avoid such manual
+checks and streamline interactions with the community (Pull Requests, etc.)
+in the future.</p></li>
+<li><p>An all-new cross-platform user interface is currently being developed using
+the <a class="reference external" href="https://github.com/mitsuba-renderer/nanogui">NanoGUI</a> library. <em>Note
+that this is not yet complete.</em></p></li>
+</ol>
+<div class="section" id="about">
+<h2>About<a class="headerlink" href="#about" title="Permalink to this headline">¶</a></h2>
+<p>This project was created by <a class="reference external" href="http://rgl.epfl.ch/people/wjakob">Wenzel Jakob</a>.
+Significant features and/or improvements to the code were contributed by
+<a class="reference external" href="https://merlin.nimierdavid.fr/">Merlin Nimier-David</a>,
+<a class="reference external" href="https://maverick.inria.fr/Membres/Guillaume.Loubet/">Guillaume Loubet</a>,
+<a class="reference external" href="https://github.com/Speierers">Sébastien Speierer</a>,
+<a class="reference external" href="https://github.com/4str0m">Benoît Ruiz</a>,
+<a class="reference external" href="https://dvicini.github.io/">Delio Vicini</a>,
+and <a class="reference external" href="https://tizianzeltner.com/">Tizian Zeltner</a>.</p>
+</div>
+</div>
+
+
+          </div>
+            
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="../../index.html" title="previous chapter (use the left arrow)">Mitsuba 2: A Retargetable Forward and Inverse Renderer</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="cloning.html" title="next chapter (use the right arrow)">Cloning the repository</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="cloning.html" title="Cloning the repository"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../../index.html" title="Mitsuba 2: A Retargetable Forward and Inverse Renderer"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Getting started</a></li> 
+      </ul>
+    </div>
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $(".toggle > *").hide();
+        $(".toggle .header").show();
+        $(".toggle .header").click(function() {
+            $(this).parent().children().not(".header").toggle(400);
+            $(this).parent().children(".header").toggleClass("open");
+        })
+    });
+</script>
+
+  </body>
+</html>
