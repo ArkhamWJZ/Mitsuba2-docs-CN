@@ -1,0 +1,241 @@
+<!-- Based on https://stackoverflow.com/a/25543713/1130282 -->
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>Polarization &#8212; mitsuba2 0.1.dev0 documentation</title>
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/theme_overrides.css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Custom plugins in Python" href="../advanced_topics/custom_plugins.html" />
+    <link rel="prev" title="Building the documentation" href="building_documentation.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../advanced_topics/custom_plugins.html" title="Custom plugins in Python"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="building_documentation.html" title="Building the documentation"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Polarization</a></li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar"><a href="
+    ../../index.html" class="text-logo">Mitsuba 2</a>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Table Of Contents</h2>
+  </div>
+  <div class="sidebar-toc">
+    
+    
+      <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/intro.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/cloning.html">Cloning the repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/variants.html">Choosing variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/compiling.html">Compiling the system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/file_format.html">Scene file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/differences.html">Differences to Mitsuba 0.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python interface</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/parsing_xml.html">Parsing XML code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/rendering_scene.html">Rendering a scene</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/bsdf_eval.html">Custom applications</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Inverse rendering</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/diff_render.html">Differentiable rendering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/advanced.html">More advanced examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/pytorch.html">Integration with PyTorch</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="variants_cpp.html">Variants in C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="writing_plugin.html">Plugins &amp; Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debugging.html">Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_documentation.html">Building the documentation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Polarization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/custom_plugins.html">Custom plugins in Python</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Plugin reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../plugin_reference/intro.html">Plugin reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html">Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#bsdfs">BSDFs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#phase-functions">Phase functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#emitters">Emitters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#sensors">Sensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#textures">Textures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#spectra">Spectra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#integrators">Integrators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#samplers">Samplers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#films">Films</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#reconstruction-filters">Reconstruction filters</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/core_api.html">Core API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/render_api.html">Render API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/python_api.html">Python API Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../zz_bibliography.html">Bibliography</a></li>
+</ul>
+
+    
+  </div>
+</div>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="../../search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="../../index.html">Docs</a></li>
+              
+              <li>Polarization</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <div class="section" id="polarization">
+<span id="developer-guide-polarization"></span><h1>Polarization<a class="headerlink" href="#polarization" title="Permalink to this headline">¶</a></h1>
+<p>When run in <em>polarized</em> rendering modes (e.g. <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">scalar_spectral_polarized</span></code>) Mitsuba 2 will track the full polarization state of light during a simulation. This state is described using a 4-dimensional quantity known as the <em>Stokes vector</em> <span class="math notranslate nohighlight">\(\mathbf{s} = [s_0, s_1, s_2, s_3]\)</span>, which parameterizes the elliptical shape of the associated transverse oscillation <a class="bibtex reference internal" href="../../zz_bibliography.html#collett1993polarizedlight" id="id1">[Col93]</a>.</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(s_0\)</span> is equivalent to radiance and does not carry information about polarization.</p></li>
+<li><p><span class="math notranslate nohighlight">\(s_1\)</span> distinguishes horizontal vs. vertical linear polarization, where <span class="math notranslate nohighlight">\(s_1 = \pm 1\)</span> stand for completely horizontally or vertically polarized light respectively.</p></li>
+<li><p><span class="math notranslate nohighlight">\(s_2\)</span> is similar to <span class="math notranslate nohighlight">\(s_1\)</span> but distinguishes “diagonal” linear polarization at 45 degree angles.</p></li>
+<li><p><span class="math notranslate nohighlight">\(s_3\)</span> distinguishes right vs. left circular polarization, where <span class="math notranslate nohighlight">\(s_3 = \pm 1\)</span> stand for fully right or left circularly polarized light respectively.</p></li>
+<li><p>Physically plausible stokes vectors need to fulfill <span class="math notranslate nohighlight">\(s_0 \ge \sqrt{s_1^2 + s_2^2 + s_3^2}\)</span>.</p></li>
+</ul>
+<p>Note that this information has to be tracked separately per wavelength.</p>
+<a class="reference internal image-reference" href="../../_images/polarization_stokes_vector.svg"><img alt="../../_images/polarization_stokes_vector.svg" class="align-center" src="../../_images/polarization_stokes_vector.svg" width="90%" /></a>
+<p>A crucial detail here is the reference coordinate system (or frame) that is chosen to perform these “measurements”. As long as it is orthogonal to the beam of light, this is purely a matter of convention. Mitsuba 2 follows the standard textbook description of polarization and chooses a right-handed coordinate system where the z-axis is along the light propagation direction like so:</p>
+<a class="reference internal image-reference" href="../../_images/polarization_wave.svg"><img alt="../../_images/polarization_wave.svg" class="align-center" src="../../_images/polarization_wave.svg" width="60%" /></a>
+<p>In other words, when describing the polarization state using a Stokes vector, we look “into” the beam of light from the sensor side.
+The horizontally polarized light (with <span class="math notranslate nohighlight">\(\mathbf{s} = [1, 1, 0, 0]\)</span>) shown above is only described as such in this specific frame <span class="math notranslate nohighlight">\({\mathbf{x}, \mathbf{y}}\)</span>. It is completely equivalent to choose a different frame <span class="math notranslate nohighlight">\(\mathbf{x}', \mathbf{y}'\)</span> and then the polarization state would be described with Stokes vector <span class="math notranslate nohighlight">\(\mathbf{s} = [1, 0, -1, 0]\)</span> instead:</p>
+<a class="reference internal image-reference" href="../../_images/polarization_stokes_rotation.svg"><img alt="../../_images/polarization_stokes_rotation.svg" class="align-center" src="../../_images/polarization_stokes_rotation.svg" width="50%" /></a>
+<p>During rendering, light will of course also interact with matter which will generally affect its polarization state. This change is described by a <em>Mueller matrix</em> <span class="math notranslate nohighlight">\(\mathbf{M} \in \mathbb{R}^{4\times4}\)</span>. After a reflection (or transmission), the incident (<span class="math notranslate nohighlight">\(\mathbf{s}_i\)</span>) and outgoing (<span class="math notranslate nohighlight">\(\mathbf{s}_o\)</span>) Stokes vectors are related by <span class="math notranslate nohighlight">\(\mathbf{s}_o = \mathbf{M}\mathbf{s}_i\)</span>. This raises the same questions about reference frames as in the Stokes vector case, only that now <em>two</em> frames need to be defined for both incident and outgoing direction of the interaction:</p>
+<a class="reference internal image-reference" href="../../_images/polarization_mueller_matrix.svg"><img alt="../../_images/polarization_mueller_matrix.svg" class="align-center" src="../../_images/polarization_mueller_matrix.svg" width="100%" /></a>
+<p>(Note that here <span class="math notranslate nohighlight">\(\omega_i\)</span> is assumed to point towards the light source, thus the frame needs to be constructed based on <span class="math notranslate nohighlight">\(-\omega_i\)</span> which is along the flow of light.)</p>
+<p>With Mueller matrices, the standard BSDF definition <span class="math notranslate nohighlight">\(f_r(\lambda, \omega_i, \omega_o)\)</span> used in unpolarized rendering can be generalized to a polarized pBSDF <span class="math notranslate nohighlight">\(\mathbf{M}(\lambda, \omega_i, \omega_o)\)</span>. Mitsuba 2 includes pBSDF implementation for conductors and dielectrics (following the polarized Fresnel equations), as well as standard optical elements such as linear polarizers and retarders.</p>
+<p>Full light transport simulations with multiple interactions complicate things even further. Multiplications of subsequent Mueller matrices along a light path are only meaningful, if their reference frames match at this connection. In practice, additional coordinate rotations (red arrows in Figure below) are necessary to ensure this.</p>
+<a class="reference internal image-reference" href="../../_images/polarization_light_transport.svg"><img alt="../../_images/polarization_light_transport.svg" class="align-center" src="../../_images/polarization_light_transport.svg" width="100%" /></a>
+<p>Luckily, such a frame rotation can itself be expressed with a simple Mueller matrix. In Mitsuba 2, sampling or evaluation routines of pBSDFs always return matrices that are already pre-rotated on both ends to align with the desired incident and outgoing directions to make this process simpler.</p>
+<p>A last important detail in polarized rendering is the question of reciprocity. Unfortunately, pBSDFs generally do not follow <em>Helmholtz reciprocity</em> like standard BSDFs do, and are only defined along the direction of light. This complicates the implementation of some (e.g. bidirectional) rendering techniques slightly <a class="bibtex reference internal" href="../../zz_bibliography.html#jarabo2018bidirectionalpol" id="id2">[JA18]</a> <a class="bibtex reference internal" href="../../zz_bibliography.html#mojzik2016bidirectionalpol" id="id3">[MSWK16]</a>:</p>
+<ul class="simple">
+<li><p>When tracing radiance emitted from the light sources (e.g. in a light tracer), everything follows the standard flow of light. Here, the simulation can simply track Stokes vectors instead of radiance and perform the necessary Mueller matrix multiplications.</p></li>
+<li><p>When tracing importance “emitted” from sensors (e.g. in a path tracer), things are reversed and we need to track the (Mueller matrix valued) throughput from the sensor side. Additional care is needed in order to apply the right order of operations when multiplying Mueller matrices at the encountered surfaces here.</p></li>
+</ul>
+</div>
+
+
+          </div>
+            
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="building_documentation.html" title="previous chapter (use the left arrow)">Building the documentation</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="../advanced_topics/custom_plugins.html" title="next chapter (use the right arrow)">Custom plugins in Python</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../advanced_topics/custom_plugins.html" title="Custom plugins in Python"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="building_documentation.html" title="Building the documentation"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Polarization</a></li> 
+      </ul>
+    </div>
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $(".toggle > *").hide();
+        $(".toggle .header").show();
+        $(".toggle .header").click(function() {
+            $(this).parent().children().not(".header").toggle(400);
+            $(this).parent().children(".header").toggleClass("open");
+        })
+    });
+</script>
+
+  </body>
+</html>

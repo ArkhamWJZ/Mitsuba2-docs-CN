@@ -1,0 +1,499 @@
+<!-- Based on https://stackoverflow.com/a/25543713/1130282 -->
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>Choosing variants &#8212; mitsuba2 0.1.dev0 documentation</title>
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/theme_overrides.css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Compiling the system" href="compiling.html" />
+    <link rel="prev" title="Cloning the repository" href="cloning.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="compiling.html" title="Compiling the system"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="cloning.html" title="Cloning the repository"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Choosing variants</a></li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar"><a href="
+    ../../index.html" class="text-logo">Mitsuba 2</a>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Table Of Contents</h2>
+  </div>
+  <div class="sidebar-toc">
+    
+    
+      <p class="caption"><span class="caption-text">Overview</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloning.html">Cloning the repository</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Choosing variants</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#part-1-computational-backend">Part 1: Computational backend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#part-2-color-representation">Part 2: Color representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#part-3-polarization">Part 3: Polarization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#part-4-precision">Part 4: Precision</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuring-mitsuba-conf">Configuring <span class="monosp">mitsuba.conf</span></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="compiling.html">Compiling the system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file_format.html">Scene file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="differences.html">Differences to Mitsuba 0.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python interface</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/parsing_xml.html">Parsing XML code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/rendering_scene.html">Rendering a scene</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/bsdf_eval.html">Custom applications</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Inverse rendering</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/diff_render.html">Differentiable rendering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/advanced.html">More advanced examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/pytorch.html">Integration with PyTorch</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/variants_cpp.html">Variants in C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/writing_plugin.html">Plugins &amp; Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/debugging.html">Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/building_documentation.html">Building the documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/polarization.html">Polarization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/custom_plugins.html">Custom plugins in Python</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Plugin reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../plugin_reference/intro.html">Plugin reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html">Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#bsdfs">BSDFs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#phase-functions">Phase functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#emitters">Emitters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#sensors">Sensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#textures">Textures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#spectra">Spectra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#integrators">Integrators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#samplers">Samplers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#films">Films</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#reconstruction-filters">Reconstruction filters</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/core_api.html">Core API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/render_api.html">Render API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/python_api.html">Python API Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../zz_bibliography.html">Bibliography</a></li>
+</ul>
+
+    
+  </div>
+</div>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="../../search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="../../index.html">Docs</a></li>
+              
+              <li>Choosing variants</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <div class="section" id="choosing-variants">
+<span id="sec-variants"></span><h1>Choosing variants<a class="headerlink" href="#choosing-variants" title="Permalink to this headline">¶</a></h1>
+<p>Mitsuba 2 is a retargetable rendering system that provides a set of different
+system “<em>variants</em>” that change elementary aspects of simulation—they can for
+instance replace the representation of color to support monochromatic, RGB,
+spectral, or even polarized illumination. Similarly, the numerical
+representation underlying the simulation can be exchanged to perform renderings
+using a higher amount of precision, vectorization to process many light paths
+at once, or it can be mathematically differentiated to to solve inverse
+problems. All variants are automatically created from a single generic codebase.</p>
+<p>As many as 36 different variants of the renderer are presently available, shown
+in the list below. Before building Mitsuba 2, you will therefore need to decide
+which of these are relevant for your intended application.</p>
+<blockquote>
+<div><div class="toggle docutils container">
+<div class="header docutils container">
+<p><strong>Show/hide available variants</strong></p>
+</div>
+<ul class="simple">
+<li><p><span class="monosp">scalar_mono</span></p></li>
+<li><p><span class="monosp">scalar_mono_double</span></p></li>
+<li><p><span class="monosp">scalar_mono_polarized</span></p></li>
+<li><p><span class="monosp">scalar_mono_polarized_double</span></p></li>
+<li><p><span class="monosp">scalar_rgb</span></p></li>
+<li><p><span class="monosp">scalar_rgb_double</span></p></li>
+<li><p><span class="monosp">scalar_rgb_polarized</span></p></li>
+<li><p><span class="monosp">scalar_rgb_polarized_double</span></p></li>
+<li><p><span class="monosp">scalar_spectral</span></p></li>
+<li><p><span class="monosp">scalar_spectral_double</span></p></li>
+<li><p><span class="monosp">scalar_spectral_polarized</span></p></li>
+<li><p><span class="monosp">scalar_spectral_polarized_double</span></p></li>
+<li><p><span class="monosp">packet_mono</span></p></li>
+<li><p><span class="monosp">packet_mono_double</span></p></li>
+<li><p><span class="monosp">packet_mono_polarized</span></p></li>
+<li><p><span class="monosp">packet_mono_polarized_double</span></p></li>
+<li><p><span class="monosp">packet_rgb</span></p></li>
+<li><p><span class="monosp">packet_rgb_double</span></p></li>
+<li><p><span class="monosp">packet_rgb_polarized</span></p></li>
+<li><p><span class="monosp">packet_rgb_polarized_double</span></p></li>
+<li><p><span class="monosp">packet_spectral</span></p></li>
+<li><p><span class="monosp">packet_spectral_double</span></p></li>
+<li><p><span class="monosp">packet_spectral_polarized</span></p></li>
+<li><p><span class="monosp">packet_spectral_polarized_double</span></p></li>
+<li><p><span class="monosp">gpu_mono</span></p></li>
+<li><p><span class="monosp">gpu_mono_polarized</span></p></li>
+<li><p><span class="monosp">gpu_rgb</span></p></li>
+<li><p><span class="monosp">gpu_rgb_polarized</span></p></li>
+<li><p><span class="monosp">gpu_spectral</span></p></li>
+<li><p><span class="monosp">gpu_spectral_polarized</span></p></li>
+<li><p><span class="monosp">gpu_autodiff_mono</span></p></li>
+<li><p><span class="monosp">gpu_autodiff_mono_polarized</span></p></li>
+<li><p><span class="monosp">gpu_autodiff_rgb</span></p></li>
+<li><p><span class="monosp">gpu_autodiff_rgb_polarized</span></p></li>
+<li><p><span class="monosp">gpu_autodiff_spectral</span></p></li>
+<li><p><span class="monosp">gpu_autodiff_spectral_polarized</span></p></li>
+</ul>
+</div>
+</div></blockquote>
+<p>Note that compilation time and compilation memory usage is roughly proportional
+to the number of enabled variants, hence including many of them (more than
+five) may not be advisable. Mitsuba 2 developers will typically want to
+restrict themselves to 1-2 variants used by their current experiment to
+minimize edit-recompile times. Each variant is associated with an identifying
+name that is composed of several parts:</p>
+<a class="reference internal image-reference" href="../../_images/variant.svg"><img alt="../../_images/variant.svg" class="align-center" src="../../_images/variant.svg" width="80%" /></a>
+<p>We will now discuss each part in turn.</p>
+<div class="section" id="part-1-computational-backend">
+<h2>Part 1: Computational backend<a class="headerlink" href="#part-1-computational-backend" title="Permalink to this headline">¶</a></h2>
+<p>The computational backend controls how basic arithmetic operations like
+additions or multiplications are realized by the system. The following choices
+are available:</p>
+<ul>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">scalar</span></code> backend performs computation on the CPU using normal floating
+point arithmetic similar to older versions of Mitsuba. This is the default
+choice for generating renderings using the <span class="monosp">mitsuba</span> command line
+executable, or using the graphical user interface.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">packet</span></code> backend efficiently performs calculations on groups of 4, 8,
+or 16 floating point numbers, exploiting instruction set extensions such as
+SSE4.2, AVX, AVX2, and AVX512. In packet mode, every single operation in a
+rendering algorithm (ray tracing, BSDF sampling, etc.) will therefore operate on
+multiple inputs at once. The following visualizations of tracing light
+paths in scalar and packet mode gives an idea of this difference:</p>
+<a class="reference internal image-reference" href="src/getting_started/../../../resources/data/docs/images/variants/vectorization.jpg"><img alt="src/getting_started/../../../resources/data/docs/images/variants/vectorization.jpg" class="align-center" src="src/getting_started/../../../resources/data/docs/images/variants/vectorization.jpg" style="width: 100%;" /></a>
+<p>Note, however, that packet mode is not a magic bullet: standard algorithms
+won’t automatically be 8 or 16x faster. Packet mode requires special
+algorithms and is intended to be used by developers, whose software can
+exploit this type of parallelism.</p>
+</li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gpu</span></code> backend offloads computation to the GPU using <a class="reference external" href="https://github.com/mitsuba-renderer/enoki">Enoki’s</a> just-in-time (JIT) compiler
+that transforms computation into CUDA kernels. Using this backend, each
+operation typically operates on millions of inputs at the same time. Mitsuba
+then becomes what is known as a <em>wavefront path tracer</em> and delegates ray
+tracing on the GPU to NVIDIA’s OptiX library. Note that this requires a
+relatively recent NVIDIA GPU: ideally <em>Turing</em> or newer. The older <em>Pascal</em>
+architecture is also supported but tends to be slower because it lacks ray
+tracing hardware acceleration.</p></li>
+<li><p>Building on the <code class="docutils literal notranslate"><span class="pre">gpu</span></code> backend, <code class="docutils literal notranslate"><span class="pre">gpu_autodiff</span></code> furthermore propagates
+derivative information through the simulation, which is a crucial ingredient
+for solving <em>inverse problems</em> using rendering algorithms.</p>
+<p>The following shows an example from <a class="bibtex reference internal" href="../../zz_bibliography.html#nimierdavidvicini2019mitsuba2" id="id1">[NDVZJ19]</a>.
+Here, Mitsuba 2 is used to compute the height profile of a transparent glass
+panel that refracts red, green, and blue light in such a way as to reproduce
+a specified color image.</p>
+<a class="reference internal image-reference" href="src/getting_started/../../../resources/data/docs/images/autodiff/caustic.jpg"><img alt="src/getting_started/../../../resources/data/docs/images/autodiff/caustic.jpg" class="align-center" src="src/getting_started/../../../resources/data/docs/images/autodiff/caustic.jpg" style="width: 100%;" /></a>
+<p>The main use case of the <code class="docutils literal notranslate"><span class="pre">gpu_autodiff</span></code> backend is <em>differentiable
+rendering</em>, which interprets the rendering algorithm as a function
+<span class="math notranslate nohighlight">\(f(\mathbf{x})\)</span> that converts an input <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> (the scene
+description) into an output <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> (the rendering). This function
+<span class="math notranslate nohighlight">\(f\)</span> is then mathematically differentiated to obtain
+<span class="math notranslate nohighlight">\(\frac{\mathrm{d}\mathbf{y}}{\mathrm{d}\mathbf{x}}\)</span>, providing a
+first-order approximation of how a desired change in the output
+<span class="math notranslate nohighlight">\(\mathbf{y}\)</span> (the rendering) can be achieved by changing the inputs
+<span class="math notranslate nohighlight">\(\mathbf{x}\)</span> (the scene description). Together with a differentiable
+<em>objective function</em> <span class="math notranslate nohighlight">\(g(\mathbf{y})\)</span> that quantifies the suitability of
+tentative scene parameters and a gradient-based optimization algorithm, a
+differentiable renderer can be used to solve complex inverse problems
+involving light.</p>
+<a class="reference internal image-reference" href="src/getting_started/../../../resources/data/docs/images/autodiff/autodiff.jpg"><img alt="src/getting_started/../../../resources/data/docs/images/autodiff/autodiff.jpg" class="align-center" src="src/getting_started/../../../resources/data/docs/images/autodiff/autodiff.jpg" style="width: 100%;" /></a>
+<p>The documentations provides several applied examples on <a class="reference internal" href="../inverse_rendering/intro.html#sec-inverse-rendering"><span class="std std-ref">differentiable
+and inverse rendering</span></a>.</p>
+</li>
+</ul>
+<p>An appealing aspect of <code class="docutils literal notranslate"><span class="pre">packet</span></code>, <code class="docutils literal notranslate"><span class="pre">gpu</span></code>, and <code class="docutils literal notranslate"><span class="pre">gpu_autodiff</span></code> modes, is that
+they expose <em>vectorized</em> Python interfaces that operate on arbitrarily large
+set of inputs (even in the case of <code class="docutils literal notranslate"><span class="pre">packet</span></code> mode that works with smaller
+arrays. The C++ implementation sweeps over larger inputs in this case). This
+means that millions of ray tracing operations or BSDF evaluations can be
+performed with a single Python function call, enabling efficient prototyping
+within Python or Jupyter notebooks without costly iteration over many elements.</p>
+<div class="section" id="how-to-choose">
+<h3>How to choose?<a class="headerlink" href="#how-to-choose" title="Permalink to this headline">¶</a></h3>
+<p>We generally recommend compiling <code class="docutils literal notranslate"><span class="pre">scalar</span></code> variants for command line
+rendering, and <code class="docutils literal notranslate"><span class="pre">packet</span></code> or <code class="docutils literal notranslate"><span class="pre">gpu_autodiff</span></code> variants for Python
+development—the latter only if differentiable rendering is desired.</p>
+</div>
+</div>
+<div class="section" id="part-2-color-representation">
+<h2>Part 2: Color representation<a class="headerlink" href="#part-2-color-representation" title="Permalink to this headline">¶</a></h2>
+<p>The next part determines how Mitsuba represents color information. The
+following choices are available:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">mono</span></code> completely disables the concept of color, which is useful when
+simulating scenes that are inherently monochromatic (e.g. illumination due to
+a laser). This mode is great for writing testcases where color is simply not
+relevant. When an input scene provides color information, <span class="monosp">mono</span> mode
+automatically converts it to grayscale.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rgb</span></code> mode selects an RGB-based color representation. This is a reasonable
+default choice and matches the typical behavior of the previous generation of
+Mitsuba. On the flipside, RGB mode can be a poor approximation of how color
+works in the real world. Please click on the following for a longer
+explanation.</p>
+<blockquote>
+<div><div class="toggle docutils container">
+<div class="header docutils container">
+<p><strong>Issues involving RGB-based rendering (click to expand)</strong></p>
+</div>
+<p><strong>Problematic aspects of RGB-based color representations:</strong> A RGB
+rendering algorithm frequently performs two color-related operations:
+component-wise addition to combine different sources of light, and
+component-wise multiplication of RGB color vectors to model
+interreflection. While addition is fine, RGB multiplication turns out
+to be a nonsensical operation, that can give very different answers
+depending on the underlying RGB color space.</p>
+<p>Suppose we are rendering a scene in an sRGB color space, where a green
+light with radiance <span class="math notranslate nohighlight">\([0, 0, 1]\)</span> reflects from a very green
+surface with albedo <span class="math notranslate nohighlight">\([0, 0, 1]\)</span>. The component-wise
+multiplication <span class="math notranslate nohighlight">\([0, 0, 1] \otimes [0, 0, 1] = [0, 0, 1]\)</span> tells us
+that no light is absorbed by the surface. So good so far.</p>
+<p>Let’s now switch to a larger color space named <em>Rec. 2020</em>. That same
+green color is no longer at the extreme of the color gamut but lies
+somewhere inside.</p>
+<a class="reference internal image-reference" href="src/getting_started/../../../resources/data/docs/images/variants/rgb-mode-issue.svg"><img alt="src/getting_started/../../../resources/data/docs/images/variants/rgb-mode-issue.svg" class="align-center" src="src/getting_started/../../../resources/data/docs/images/variants/rgb-mode-issue.svg" width="100%" /></a>
+<p>For simplicity, let’s suppose it has coordinates <span class="math notranslate nohighlight">\([0, 0,
+\frac{1}{2}]\)</span>. Now, the same calculation <span class="math notranslate nohighlight">\([0, 0,
+\frac{1}{2}]\otimes[0, 0, \frac{1}{2}]=[0, 0, \frac{1}{4}]\)</span> tells us
+that half of the light is absorbed by the surface, which illustrates
+the problem with RGB multiplication. The solution to this problem is to
+multiply colors in the spectral domain instead.</p>
+</div>
+</div></blockquote>
+</li>
+<li><p>Finally, <code class="docutils literal notranslate"><span class="pre">spectral</span></code> mode switches to a fully spectral color representation
+spanning the visible range <span class="math notranslate nohighlight">\((360\ldots 830 \mathrm{nm})\)</span>. The
+wavelength domain is simply treated as yet another dimension of the space of
+light paths over which the rendering algorithm must integrate.</p>
+<p>This improves accuracy especially in scenarios where measured spectral data
+is available. Consider for example the two Cornell box renderings below: on
+the left side, the spectral reflectance data of all materials is first
+converted to RGB and rendered using the <code class="docutils literal notranslate"><span class="pre">scalar_rgb</span></code> variant, producing a
+deceivingly colorful image. In contrast, the <code class="docutils literal notranslate"><span class="pre">scalar_spectral</span></code> variant that
+correctly accounts for the spectral characteristics, produces a more muted
+coloration.</p>
+<div class="figure compound align-center" id="fig-cbox-spectral">
+<div style="width: 49%" class="subfigure align-center" id="id4">
+<a class="reference internal image-reference" href="src/getting_started/../../../resources/data/docs/images/render/variants_cbox_rgb.jpg"><img alt="src/getting_started/../../../resources/data/docs/images/render/variants_cbox_rgb.jpg" src="src/getting_started/../../../resources/data/docs/images/render/variants_cbox_rgb.jpg" style="width: 95%;" /></a>
+<p class="caption"><span class="caption-text">RGB Mode</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+<div style="width: 49%" class="subfigure align-center" id="id5">
+<a class="reference internal image-reference" href="src/getting_started/../../../resources/data/docs/images/render/variants_cbox_spectral.jpg"><img alt="src/getting_started/../../../resources/data/docs/images/render/variants_cbox_spectral.jpg" src="src/getting_started/../../../resources/data/docs/images/render/variants_cbox_spectral.jpg" style="width: 95%;" /></a>
+<p class="caption"><span class="caption-text">Spectral Mode</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+</div><p id="fig-cbox-spectral">Note that Mitsuba still generates RGB output images by default even when
+spectral mode is active. It is also important to note that many existing
+Mitsuba scenes only specify RGB color information. Spectral Mitsuba can still
+render such scenes – in this case, it determines plausible smooth spectra
+corresponding to the specified RGB colors <a class="bibtex reference internal" href="../../zz_bibliography.html#jakob2019spectral" id="id2">[JH19]</a>.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="part-3-polarization">
+<h2>Part 3: Polarization<a class="headerlink" href="#part-3-polarization" title="Permalink to this headline">¶</a></h2>
+<p>If desired, Mitsuba 2 can keep track of the full polarization state of light.
+Polarization refers to the property that light is an electromagnetic wave that
+oscillates perpendicularly to the direction of travel. This oscillation can
+take on infinitely many different shapes—the following images show examples
+of <em>horizontal</em> and <em>elliptical</em> polarization.</p>
+<a class="reference internal image-reference" href="../../_images/polarization_wave_variations.svg"><img alt="../../_images/polarization_wave_variations.svg" class="align-center" src="../../_images/polarization_wave_variations.svg" width="90%" /></a>
+<p>Because humans do not perceive polarization, accounting for it is usually not
+necessary when rendering images that are intended to be look realistic.
+However, polarization is easily observed using a variety of measurement devices
+and cameras, and it tends to provide a wealth of information about the material
+and shape of visible objects. For this reason, polarization is a powerful tool
+for solving inverse problems, and this is one of the reasons why we chose to
+support it in Mitsuba 2. Note that accounting for polarization comes at a
+cost—roughly a 1.5-2X increase in rendering time.</p>
+<p>Inside the light transport simulation, <em>Stokes vectors</em> are used to
+parameterize the elliptical shape of the transverse oscillations, and <em>Mueller
+matrices</em> are used to compute the effect of surface scattering on the
+polarization <a class="bibtex reference internal" href="../../zz_bibliography.html#collett1993polarizedlight" id="id3">[Col93]</a>. For more details regarding the
+implementation of the polarized rendering modes, please refer to the
+<a class="reference internal" href="../developer_guide/polarization.html#developer-guide-polarization"><span class="std std-ref">Polarization</span></a> section in the developer guide.</p>
+</div>
+<div class="section" id="part-4-precision">
+<h2>Part 4: Precision<a class="headerlink" href="#part-4-precision" title="Permalink to this headline">¶</a></h2>
+<p>Mitsuba 2 normally relies on single precision (32 bit) arithmetic, but double
+precision (64 bit) is optionally available. We find this particularly helpful
+for debugging: whether or not an observed problem arises due to floating point
+imprecisions can normally be determined after switching to double precision.
+Note that double precision currently not available for <code class="docutils literal notranslate"><span class="pre">gpu_*</span></code> variants. This
+is because OptiX performs ray tracing in single precision.</p>
+</div>
+<div class="section" id="configuring-mitsuba-conf">
+<h2>Configuring <span class="monosp">mitsuba.conf</span><a class="headerlink" href="#configuring-mitsuba-conf" title="Permalink to this headline">¶</a></h2>
+<p>Mitsuba 2 variants are specified in the file <span class="monosp">mitsuba.conf</span>. To get
+started, first copy the default template to the root directory of the Mitsuba 2
+repository.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> &lt;..mitsuba repository..&gt;
+cp resources/mitsuba.conf.template mitsuba.conf
+</pre></div>
+</div>
+<p>Next, open <span class="monosp">mitsuba.conf</span> in your favorite text editor and scroll down
+to the declaration of the enabled variants (around line 70):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&quot;enabled&quot;: [
+    # The &quot;scalar_rgb&quot; variant *must* be included at the moment.
+    &quot;scalar_rgb&quot;,
+    &quot;scalar_spectral&quot;
+],
+</pre></div>
+</div>
+<p>The default file specifies two scalar variants that you may wish to extend
+according to your requirements and the explanations given above. Note that
+<code class="docutils literal notranslate"><span class="pre">scalar_spectral</span></code> can be removed, but <code class="docutils literal notranslate"><span class="pre">scalar_rgb</span></code> <em>must</em> currently be part
+of the list as some core components of Mitsuba depend on it. You may also wish
+to change the <em>default</em> variant that is executed if no variant is explicitly
+specified (this must be one of the entries of the <code class="docutils literal notranslate"><span class="pre">enabled</span></code> list):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># If mitsuba is launched without any specific mode parameter,
+# the configuration below will be used by default
+
+&quot;default&quot;: &quot;scalar_spectral&quot;,
+</pre></div>
+</div>
+<p>The remainder of this file lists the C++ types defining the available variants
+and can safely be ignored.</p>
+<p>TLDR: If you plan to use Mitsuba from Python, we recommend adding one of
+<code class="docutils literal notranslate"><span class="pre">packet_rgb</span></code> or <code class="docutils literal notranslate"><span class="pre">packet_spectral</span></code> for CPU rendering, or one of
+<code class="docutils literal notranslate"><span class="pre">gpu_autodiff_rgb</span></code> or <code class="docutils literal notranslate"><span class="pre">gpu_autodiff_spectral</span></code> for differentiable GPU
+rendering.</p>
+<p>Once you are finished with <span class="monosp">mitsuba.conf</span>, proceed to the next section
+on <a class="reference internal" href="compiling.html#sec-compiling"><span class="std std-ref">compiling the system</span></a>.</p>
+</div>
+</div>
+
+
+          </div>
+            
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="cloning.html" title="previous chapter (use the left arrow)">Cloning the repository</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="compiling.html" title="next chapter (use the right arrow)">Compiling the system</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="compiling.html" title="Compiling the system"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="cloning.html" title="Cloning the repository"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Choosing variants</a></li> 
+      </ul>
+    </div>
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $(".toggle > *").hide();
+        $(".toggle .header").show();
+        $(".toggle .header").click(function() {
+            $(this).parent().children().not(".header").toggle(400);
+            $(this).parent().children(".header").toggleClass("open");
+        })
+    });
+</script>
+
+  </body>
+</html>

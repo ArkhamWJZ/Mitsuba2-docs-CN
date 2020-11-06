@@ -1,0 +1,621 @@
+<!-- Based on https://stackoverflow.com/a/25543713/1130282 -->
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>Scene file format &#8212; mitsuba2 0.1.dev0 documentation</title>
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/theme_overrides.css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Differences to Mitsuba 0.6" href="differences.html" />
+    <link rel="prev" title="Compiling the system" href="compiling.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="differences.html" title="Differences to Mitsuba 0.6"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="compiling.html" title="Compiling the system"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Scene file format</a></li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar"><a href="
+    ../../index.html" class="text-logo">Mitsuba 2</a>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Table Of Contents</h2>
+  </div>
+  <div class="sidebar-toc">
+    
+    
+      <p class="caption"><span class="caption-text">Overview</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloning.html">Cloning the repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="variants.html">Choosing variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compiling.html">Compiling the system</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Scene file format</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#properties">Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#default-parameters">Default parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#including-external-files">Including external files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#aliases">Aliases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#external-resource-folders">External resource folders</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="differences.html">Differences to Mitsuba 0.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python interface</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/parsing_xml.html">Parsing XML code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/rendering_scene.html">Rendering a scene</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/bsdf_eval.html">Custom applications</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Inverse rendering</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/diff_render.html">Differentiable rendering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/advanced.html">More advanced examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/pytorch.html">Integration with PyTorch</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/variants_cpp.html">Variants in C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/writing_plugin.html">Plugins &amp; Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/debugging.html">Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/building_documentation.html">Building the documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/polarization.html">Polarization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/custom_plugins.html">Custom plugins in Python</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Plugin reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../plugin_reference/intro.html">Plugin reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html">Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#bsdfs">BSDFs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#phase-functions">Phase functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#emitters">Emitters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#sensors">Sensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#textures">Textures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#spectra">Spectra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#integrators">Integrators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#samplers">Samplers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#films">Films</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#reconstruction-filters">Reconstruction filters</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/core_api.html">Core API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/render_api.html">Render API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/python_api.html">Python API Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../zz_bibliography.html">Bibliography</a></li>
+</ul>
+
+    
+  </div>
+</div>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="../../search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="../../index.html">Docs</a></li>
+              
+              <li>Scene file format</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <div class="section" id="scene-file-format">
+<span id="sec-file-format"></span><h1>Scene file format<a class="headerlink" href="#scene-file-format" title="Permalink to this headline">¶</a></h1>
+<p>Mitsuba uses a simple and general XML-based format to represent scenes. Since
+the framework’s philosophy is to represent discrete blocks of functionality as
+plugins, a scene file can be interpreted as “recipe” specifying which plugins
+should be instantiated and how they should be put together. In the following,
+we will look at a few examples to get a feeling for the scope of the format.</p>
+<p>A simple scene with a single mesh and the default lighting and camera setup
+might look something like this:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;scene</span> <span class="na">version=</span><span class="s">&quot;2.0.0&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;shape</span> <span class="na">type=</span><span class="s">&quot;obj&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">&quot;filename&quot;</span> <span class="na">value=</span><span class="s">&quot;dragon.obj&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/shape&gt;</span>
+<span class="nt">&lt;/scene&gt;</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">version</span></code> attribute in the first line denotes the release of Mitsuba that
+was used to create the scene. This information allows Mitsuba to correctly
+process the file regardless of any potential future changes in the scene
+description language.</p>
+<p>This example already contains the most important things to know about format:
+it consists of <em>objects</em> (such as the objects instantiated by the <code class="docutils literal notranslate"><span class="pre">&lt;scene&gt;</span></code> or
+<code class="docutils literal notranslate"><span class="pre">&lt;shape&gt;</span></code> tags), which can furthermore be nested within each other. Each object
+optionally accepts <em>properties</em> (such as the <code class="docutils literal notranslate"><span class="pre">&lt;string&gt;</span></code> tag) that characterize
+its behavior. All objects except for the root object (the <code class="docutils literal notranslate"><span class="pre">&lt;scene&gt;</span></code>) cause the
+renderer to search and load a plugin from disk, hence you must provide the
+plugin name using <code class="docutils literal notranslate"><span class="pre">type=&quot;..&quot;</span></code> parameter.</p>
+<p>The object tags also let the renderer know <em>what kind</em> of object is to be
+instantiated: for instance, any plugin loaded using the <code class="docutils literal notranslate"><span class="pre">&lt;shape&gt;</span></code> tag must
+conform to the <em>Shape</em> interface, which is certainly the case for the plugin
+named <code class="docutils literal notranslate"><span class="pre">obj</span></code> (it contains a <span class="xref std std-ref">Wavefront OBJ loader</span>).
+Similarly, you could write</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;scene</span> <span class="na">version=</span><span class="s">&quot;2.0.0&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;shape</span> <span class="na">type=</span><span class="s">&quot;sphere&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;float</span> <span class="na">name=</span><span class="s">&quot;radius&quot;</span> <span class="na">value=</span><span class="s">&quot;10&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/shape&gt;</span>
+<span class="nt">&lt;/scene&gt;</span>
+</pre></div>
+</div>
+<p>This loads a different plugin (<code class="docutils literal notranslate"><span class="pre">sphere</span></code>) which is still a <em>Shape</em> but instead
+represents a <span class="xref std std-ref">sphere</span> configured with a radius of 10
+world-space units. Mitsuba ships with a large number of plugins; please refer
+to the next chapter for a detailed overview of them.</p>
+<p>The most common scene setup is to declare an integrator, some geometry, a
+sensor (e.g. a camera), a film, a sampler and one or more emitters. Here is a
+more complex example:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;scene</span> <span class="na">version=</span><span class="s">&quot;2.0.0&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;integrator</span> <span class="na">type=</span><span class="s">&quot;path&quot;</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!-- Instantiate a path tracer with a max. path length of 8 --&gt;</span>
+        <span class="nt">&lt;integer</span> <span class="na">name=</span><span class="s">&quot;max_depth&quot;</span> <span class="na">value=</span><span class="s">&quot;8&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/integrator&gt;</span>
+
+    <span class="c">&lt;!-- Instantiate a perspective camera with 45 degrees field of view --&gt;</span>
+    <span class="nt">&lt;sensor</span> <span class="na">type=</span><span class="s">&quot;perspective&quot;</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!-- Rotate the camera around the Y axis by 180 degrees --&gt;</span>
+        <span class="nt">&lt;transform</span> <span class="na">name=</span><span class="s">&quot;to_world&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;rotate</span> <span class="na">y=</span><span class="s">&quot;1&quot;</span> <span class="na">angle=</span><span class="s">&quot;180&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/transform&gt;</span>
+        <span class="nt">&lt;float</span> <span class="na">name=</span><span class="s">&quot;fov&quot;</span> <span class="na">value=</span><span class="s">&quot;45&quot;</span><span class="nt">/&gt;</span>
+
+        <span class="c">&lt;!-- Render with 32 samples per pixel using a basic</span>
+<span class="c">             independent sampling strategy --&gt;</span>
+        <span class="nt">&lt;sampler</span> <span class="na">type=</span><span class="s">&quot;independent&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;integer</span> <span class="na">name=</span><span class="s">&quot;sample_count&quot;</span> <span class="na">value=</span><span class="s">&quot;32&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/sampler&gt;</span>
+
+        <span class="c">&lt;!-- Generate an EXR image at HD resolution --&gt;</span>
+        <span class="nt">&lt;film</span> <span class="na">type=</span><span class="s">&quot;hdrfilm&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;integer</span> <span class="na">name=</span><span class="s">&quot;width&quot;</span> <span class="na">value=</span><span class="s">&quot;1920&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;integer</span> <span class="na">name=</span><span class="s">&quot;height&quot;</span> <span class="na">value=</span><span class="s">&quot;1080&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/film&gt;</span>
+    <span class="nt">&lt;/sensor&gt;</span>
+
+    <span class="c">&lt;!-- Add a dragon mesh made of rough glass (stored as OBJ file) --&gt;</span>
+    <span class="nt">&lt;shape</span> <span class="na">type=</span><span class="s">&quot;obj&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">&quot;filename&quot;</span> <span class="na">value=</span><span class="s">&quot;dragon.obj&quot;</span><span class="nt">/&gt;</span>
+
+        <span class="nt">&lt;bsdf</span> <span class="na">type=</span><span class="s">&quot;roughdielectric&quot;</span><span class="nt">&gt;</span>
+            <span class="c">&lt;!-- Tweak the roughness parameter of the material --&gt;</span>
+            <span class="nt">&lt;float</span> <span class="na">name=</span><span class="s">&quot;alpha&quot;</span> <span class="na">value=</span><span class="s">&quot;0.01&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/bsdf&gt;</span>
+    <span class="nt">&lt;/shape&gt;</span>
+
+    <span class="c">&lt;!-- Add another mesh, this time, stored using Mitsuba&#39;s own</span>
+<span class="c">         (compact) binary representation --&gt;</span>
+    <span class="nt">&lt;shape</span> <span class="na">type=</span><span class="s">&quot;serialized&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">&quot;filename&quot;</span> <span class="na">value=</span><span class="s">&quot;lightsource.serialized&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;transform</span> <span class="na">name=</span><span class="s">&quot;toWorld&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;translate</span> <span class="na">x=</span><span class="s">&quot;5&quot;</span> <span class="na">y=</span><span class="s">&quot;-3&quot;</span> <span class="na">z=</span><span class="s">&quot;1&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/transform&gt;</span>
+
+        <span class="c">&lt;!-- This mesh is an area emitter --&gt;</span>
+        <span class="nt">&lt;emitter</span> <span class="na">type=</span><span class="s">&quot;area&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;rgb</span> <span class="na">name=</span><span class="s">&quot;radiance&quot;</span> <span class="na">value=</span><span class="s">&quot;100,400,100&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/emitter&gt;</span>
+    <span class="nt">&lt;/shape&gt;</span>
+<span class="nt">&lt;/scene&gt;</span>
+</pre></div>
+</div>
+<p>This example introduces several new object types (<code class="docutils literal notranslate"><span class="pre">integrator</span></code>, <code class="docutils literal notranslate"><span class="pre">sensor</span></code>,
+<code class="docutils literal notranslate"><span class="pre">bsdf</span></code>, <code class="docutils literal notranslate"><span class="pre">sampler</span></code>, <code class="docutils literal notranslate"><span class="pre">film</span></code>, and``emitter``) and property types
+(<code class="docutils literal notranslate"><span class="pre">integer</span></code>, <code class="docutils literal notranslate"><span class="pre">transform</span></code>, and <code class="docutils literal notranslate"><span class="pre">rgb</span></code>). As you can see in the example,
+objects are usually declared at the top level except if there is some inherent
+relation that links them to another object. For instance, BSDFs are usually
+specific to a certain geometric object, so they appear as a child object of a
+shape. Similarly, the sampler and film affect the way in which rays are
+generated from the sensor and how it records the resulting radiance samples,
+hence they are nested inside it. The following table provides an overview of
+the available object types:</p>
+<div class="figure align-center" id="table-xml-objects">
+<center><table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 53%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>XML tag</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">type</span></code> examples</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">bsdf</span></code></p></td>
+<td><p>BSDF describe the manner in which light interacts with surfaces in the scene (i.e., the <em>material</em>)</p></td>
+<td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">diffuse</span></code>, <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">conductor</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">emitter</span></code></p></td>
+<td><p>Emitter plugins specify light sources and their characteristic emission profiles.</p></td>
+<td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">constant</span></code>, <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">envmap</span></code>, <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">point</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">film</span></code></p></td>
+<td><p>Film plugins convert measurements into the final output file that is written to disk</p></td>
+<td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">hdrfilm</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">integrator</span></code></p></td>
+<td><p>Integrators implement rendering techniques for solving the light transport equation</p></td>
+<td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">path</span></code>, <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">direct</span></code>, <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">depth</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">rfilter</span></code></p></td>
+<td><p>Reconstruction filters control how the <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">film</span></code> converts a set of samples into the output image</p></td>
+<td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">box</span></code>, <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">gaussian</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">sampler</span></code></p></td>
+<td><p>Sample generator plugins used by the <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">integrator</span></code></p></td>
+<td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">independent</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">sensor</span></code></p></td>
+<td><p>Sensor plugins like cameras are responsible for measuring radiance</p></td>
+<td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">perspective</span></code>, <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">orthogonal</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">shape</span></code></p></td>
+<td><p>Shape puglins define surfaces that mark transitions between different types of materials</p></td>
+<td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">obj</span></code>, <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">ply</span></code>, <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">serialized</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">texture</span></code></p></td>
+<td><p>Texture plugins represent spatially varying signals on surfaces</p></td>
+<td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">bitmap</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p class="caption"><span class="caption-text">This table lists the different kind of <em>objects</em> and their respective tags. It also provides an exemplary list of plugins for each category.</span></p>
+</center></div><div class="section" id="properties">
+<span id="table-xml-objects"></span><h2>Properties<a class="headerlink" href="#properties" title="Permalink to this headline">¶</a></h2>
+<p>This subsection documents all of the ways in which properties can be supplied
+to objects. If you are more interested in knowing which properties a certain
+plugin accepts, you should look at the <a class="reference internal" href="../plugin_reference/intro.html#sec-plugins"><span class="std std-ref">plugin documentation</span></a> instead.</p>
+<div class="section" id="numbers">
+<h3>Numbers<a class="headerlink" href="#numbers" title="Permalink to this headline">¶</a></h3>
+<p>Integer and floating point values can be passed as follows:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;integer</span> <span class="na">name=</span><span class="s">&quot;int_property&quot;</span> <span class="na">value=</span><span class="s">&quot;1234&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;float</span> <span class="na">name=</span><span class="s">&quot;float_property&quot;</span> <span class="na">value=</span><span class="s">&quot;-1.5e3&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p>Note that you must adhere to the format expected by the object, i.e. you can’t
+pass an integer property to an object that expects a floating-point property
+associated with that name.</p>
+</div>
+<div class="section" id="booleans">
+<h3>Booleans<a class="headerlink" href="#booleans" title="Permalink to this headline">¶</a></h3>
+<p>Boolean values can be passed as follows:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;boolean</span> <span class="na">name=</span><span class="s">&quot;bool_property&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="strings">
+<h3>Strings<a class="headerlink" href="#strings" title="Permalink to this headline">¶</a></h3>
+<p>Passing strings is similarly straightforward:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">&quot;string_property&quot;</span> <span class="na">value=</span><span class="s">&quot;This is a string&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="vectors-positions">
+<h3>Vectors, Positions<a class="headerlink" href="#vectors-positions" title="Permalink to this headline">¶</a></h3>
+<p>Points and vectors can be specified as follows:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;point</span> <span class="na">name=</span><span class="s">&quot;point_property&quot;</span> <span class="na">value=</span><span class="s">&quot;3, 4, 5&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;vector</span> <span class="na">name=</span><span class="s">&quot;vector_property&quot;</span> <span class="na">value=</span><span class="s">&quot;3, 4, 5&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Mitsuba does not dictate a specific unit for position values (meters,
+centimeters, inches, etc.). The only requirement is that you consistently
+use one convention throughout the scene specification.</p>
+</div>
+</div>
+<div class="section" id="rgb-colors">
+<h3>RGB Colors<a class="headerlink" href="#rgb-colors" title="Permalink to this headline">¶</a></h3>
+<p>In Mitsuba, colors are either specified using the <code class="docutils literal notranslate"><span class="pre">&lt;rgb&gt;</span></code> or <code class="docutils literal notranslate"><span class="pre">&lt;spectrum&gt;</span></code> tags.
+The interpretation of a RGB color value like</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rgb</span> <span class="na">name=</span><span class="s">&quot;color_property&quot;</span> <span class="na">value=</span><span class="s">&quot;0.2, 0.8, 0.4&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p>depends on the variant of the renderer that is currently active. For instance,
+<code class="docutils literal notranslate"><span class="pre">scalar_rgb</span></code> will simply forward the color value to the underlying plugin
+without changes. In contrast, <code class="docutils literal notranslate"><span class="pre">scalar_spectral</span></code> operates in the spectral
+domain where a RGB value is not meaningful—worse, there is an infinite set of
+spectra corresponding to each RGB color. Mitsuba uses the method of Jakob and
+Hanika <a class="bibtex reference internal" href="../../zz_bibliography.html#jakob2019spectral" id="id1">[JH19]</a> to choose a plausible smooth spectrum amongst
+all of these these possibilities. An example is shown below:</p>
+<a class="reference internal image-reference" href="src/getting_started/../../../resources/data/docs/images/variants/upsampling.jpg"><img alt="src/getting_started/../../../resources/data/docs/images/variants/upsampling.jpg" class="align-center" src="src/getting_started/../../../resources/data/docs/images/variants/upsampling.jpg" style="width: 100%;" /></a>
+</div>
+<div class="section" id="color-spectra">
+<h3>Color spectra<a class="headerlink" href="#color-spectra" title="Permalink to this headline">¶</a></h3>
+<p>A more accurate way or specifying color information involves the <code class="docutils literal notranslate"><span class="pre">&lt;spectrum&gt;</span></code>
+tag, which records a reflectance/intensity value for multiple discrete
+wavelengths specified in <em>nanometers</em>.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;spectrum</span> <span class="na">name=</span><span class="s">&quot;color_property&quot;</span> <span class="na">value=</span><span class="s">&quot;400:0.56, 500:0.18, 600:0.58, 700:0.24&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p>The resulting spectrum uses linearly interpolation for in-between wavelengths
+and equals zero outside of the specified wavelength range. The following short-hand
+notation creates a spectrum that is uniform across wavelengths:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;spectrum</span> <span class="na">name=</span><span class="s">&quot;color_property&quot;</span> <span class="na">value=</span><span class="s">&quot;0.5&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p>When spectral power or reflectance distributions are obtained from measurements
+(e.g. at 10nm intervals), they are usually quite unwieldy and can clutter the
+scene description. For this reason, there is yet another way to pass a spectrum
+by loading it from an external file:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;spectrum</span> <span class="na">name=</span><span class="s">&quot;color_property&quot;</span> <span class="na">filename=</span><span class="s">&quot;measured_spectrum.spd&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p>The file should contain a single measurement per line, with the corresponding
+wavelength in nanometers and the measured value separated by a space. Comments
+are allowed. Here is an example:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># This file contains a measured spectral power/reflectance distribution
+406.13 0.703313
+413.88 0.744563
+422.03 0.791625
+430.62 0.822125
+435.09 0.834000
+...
+</pre></div>
+</div>
+<p>For more details regarding spectral information in Mitsuba 2, please have a look
+at the <a class="reference internal" href="../../generated/plugins.html#sec-spectra"><span class="std std-ref">corresponding section</span></a> in the plugin documentation.</p>
+</div>
+<div class="section" id="transformations">
+<h3>Transformations<a class="headerlink" href="#transformations" title="Permalink to this headline">¶</a></h3>
+<p>Transformations are the only kind of property that require more than a single
+tag. The idea is that, starting with the identity, one can build up a
+transformation using a sequence of commands. For instance, a transformation
+that does a translation followed by a rotation might be written like this:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;transform</span> <span class="na">name=</span><span class="s">&quot;trafo_property&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;translate</span> <span class="na">value=</span><span class="s">&quot;-1, 3, 4&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;rotate</span> <span class="na">y=</span><span class="s">&quot;1&quot;</span> <span class="na">angle=</span><span class="s">&quot;45&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/transform&gt;</span>
+</pre></div>
+</div>
+<p>Mathematically, each incremental transformation in the sequence is
+left-multiplied onto the current one. The following choices are available:</p>
+<ul>
+<li><p>Translations:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;translate</span> <span class="na">value=</span><span class="s">&quot;-1, 3, 4&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Counter-clockwise rotations around a specified axis. The angle is given in degrees:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rotate</span> <span class="na">value=</span><span class="s">&quot;0.701, 0.701, 0&quot;</span> <span class="na">angle=</span><span class="s">&quot;180&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Scaling operation. The coefficients may also be negative to obtain a flip:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;scale</span> <span class="na">value=</span><span class="s">&quot;5&quot;</span><span class="nt">/&gt;</span>        <span class="c">&lt;!-- uniform scale --&gt;</span>
+<span class="nt">&lt;scale</span> <span class="na">value=</span><span class="s">&quot;2, 1, -1&quot;</span><span class="nt">/&gt;</span> <span class="c">&lt;!-- non-uniform scale --&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Explicit 4x4 matrices in row-major order:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;matrix</span> <span class="na">value=</span><span class="s">&quot;0 -0.53 0 -1.79 0.92 0 0 8.03 0 0 0.53 0 0 0 0 1&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Explicit 3x3 matrices in row-major order. Internally, this will be converted to a 4x4 matrix with the same last row and column as the identity matrix.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;matrix</span> <span class="na">value=</span><span class="s">&quot;0.57 0.2 0 0.1 -1 0 0 0 1&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">lookat</span></code> transformations – this is primarily useful for setting up cameras. The <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">origin</span></code> coordinates specify the camera origin, <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">target</span></code> is the point that the camera will look at, and the (optional) <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">up</span></code> parameter determines the <em>upward</em> direction in the final rendered image.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;lookat</span> <span class="na">origin=</span><span class="s">&quot;10, 50, -800&quot;</span> <span class="na">target=</span><span class="s">&quot;0, 0, 0&quot;</span> <span class="na">up=</span><span class="s">&quot;0, 1, 0&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<p>Quite often, you will find yourself using an object (such as a material) in
+many places. To avoid having to declare it over and over again, which wastes
+memory, you can make use of references. Here is an example of how this works:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;scene</span> <span class="na">version=</span><span class="s">&quot;2.0.0&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;texture</span> <span class="na">type=</span><span class="s">&quot;bitmap&quot;</span> <span class="na">id=</span><span class="s">&quot;my_image&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">&quot;filename&quot;</span> <span class="na">value=</span><span class="s">&quot;textures/my_image.jpg&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/texture&gt;</span>
+
+    <span class="nt">&lt;bsdf</span> <span class="na">type=</span><span class="s">&quot;diffuse&quot;</span> <span class="na">id=</span><span class="s">&quot;my_material&quot;</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!-- Reference the texture named my_image and pass it</span>
+<span class="c">             to the BRDF as the reflectance parameter --&gt;</span>
+        <span class="nt">&lt;ref</span> <span class="na">name=</span><span class="s">&quot;reflectance&quot;</span> <span class="na">id=</span><span class="s">&quot;my_image&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/bsdf&gt;</span>
+
+    <span class="nt">&lt;shape</span> <span class="na">type=</span><span class="s">&quot;obj&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">&quot;filename&quot;</span> <span class="na">value=</span><span class="s">&quot;meshes/my_shape.obj&quot;</span><span class="nt">/&gt;</span>
+
+        <span class="c">&lt;!-- Reference the material named my_material --&gt;</span>
+        <span class="nt">&lt;ref</span> <span class="na">id=</span><span class="s">&quot;my_material&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/shape&gt;</span>
+<span class="nt">&lt;/scene&gt;</span>
+</pre></div>
+</div>
+<p>By providing a unique <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">id</span></code> attribute in the object declaration, the object is
+bound to that identifier upon instantiation. Referencing this identifier at a
+later point (using the <code class="docutils literal notranslate"><span class="pre">&lt;ref</span> <span class="pre">id=&quot;..&quot;/&gt;</span></code> tag) will add the instance to the
+parent object.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note that while this feature is meant to efficiently handle materials,
+textures, and particiapating media that are referenced from multiple
+places, it cannot be used to instantiate geometry. (the <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">instance</span></code> plugin
+should be used for that purpose. This is not yet part of Mitsuba 2
+but will be added at a later point.)</p>
+</div>
+</div>
+<div class="section" id="default-parameters">
+<span id="sec-scene-file-format-params"></span><h2>Default parameters<a class="headerlink" href="#default-parameters" title="Permalink to this headline">¶</a></h2>
+<p>Scene may contain named parameters that are supplied via the command line:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;bsdf</span> <span class="na">type=</span><span class="s">&quot;diffuse&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;rgb</span> <span class="na">name=</span><span class="s">&quot;reflectance&quot;</span> <span class="na">value=</span><span class="s">&quot;$reflectance&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/bsdf&gt;</span>
+</pre></div>
+</div>
+<p>In this case, an error will be raised when the scene is loaded without an
+explicit command line argument of the form <code class="docutils literal notranslate"><span class="pre">-Dreflectance=...</span></code>. For
+convenience, it is possible to specify a default parameter value that take
+precedence when no command line arguments are given. The syntax for this is:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;default</span> <span class="na">name=</span><span class="s">&quot;reflectance&quot;</span> <span class="na">value=</span><span class="s">&quot;something&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p>and must precede the occurrences of the parameter in the XML file.</p>
+</div>
+<div class="section" id="including-external-files">
+<h2>Including external files<a class="headerlink" href="#including-external-files" title="Permalink to this headline">¶</a></h2>
+<p>A scene can be split into multiple pieces for better readability. To include an
+external file, please use the following command:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;include</span> <span class="na">filename=</span><span class="s">&quot;nested-scene.xml&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p>In this case, the file <code class="docutils literal notranslate"><span class="pre">nested-scene.xml</span></code> must be a proper scene file with a
+<code class="docutils literal notranslate"><span class="pre">&lt;scene&gt;</span></code> tag at the root.</p>
+<p>This feature is often very convenient in conjunction with the <code class="docutils literal notranslate"><span class="pre">-D</span> <span class="pre">key=value</span></code>
+flag of the <code class="docutils literal notranslate"><span class="pre">mitsuba</span></code> command line renderer. This enables including different
+variants of a scene configuration by changing the command line parameters,
+without without having to touch the XML file:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;include</span> <span class="na">filename=</span><span class="s">&quot;nested-scene-$version.xml&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="aliases">
+<h2>Aliases<a class="headerlink" href="#aliases" title="Permalink to this headline">¶</a></h2>
+<p>It is sometimes useful to associate an object with multiple identifiers. This
+can be accomplished using the <code class="docutils literal notranslate"><span class="pre">alias</span> <span class="pre">as=&quot;..&quot;</span></code> tag:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;bsdf</span> <span class="na">type=</span><span class="s">&quot;diffuse&quot;</span> <span class="na">id=</span><span class="s">&quot;my_material_1&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;alias</span> <span class="na">id=</span><span class="s">&quot;my_material_1&quot;</span> <span class="na">as=</span><span class="s">&quot;my_material_2&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p>After this statement, the diffuse scattering model will be bound to <em>both</em>
+identifiers <code class="docutils literal notranslate"><span class="pre">my_material_1</span></code> and <code class="docutils literal notranslate"><span class="pre">my_material_2</span></code>.</p>
+</div>
+<div class="section" id="external-resource-folders">
+<h2>External resource folders<a class="headerlink" href="#external-resource-folders" title="Permalink to this headline">¶</a></h2>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">path</span></code> tag, it is possible to add a path to the list of search paths. This can
+be useful for instance when some meshes and textures are stored in a different directory, (e.g. when
+shared with other scenes). If the path is a relative path, Mitsuba 2 will first try to interpret it
+relative to the scene directory, then to other paths that are already on the search path (e.g. added
+using the <code class="docutils literal notranslate"><span class="pre">-a</span> <span class="pre">&lt;path1&gt;;&lt;path2&gt;;..</span></code> command line argument).</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;path</span> <span class="na">value=</span><span class="s">&quot;../../my_resources&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+            
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="compiling.html" title="previous chapter (use the left arrow)">Compiling the system</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="differences.html" title="next chapter (use the right arrow)">Differences to Mitsuba 0.6</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="differences.html" title="Differences to Mitsuba 0.6"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="compiling.html" title="Compiling the system"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Scene file format</a></li> 
+      </ul>
+    </div>
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $(".toggle > *").hide();
+        $(".toggle .header").show();
+        $(".toggle .header").click(function() {
+            $(this).parent().children().not(".header").toggle(400);
+            $(this).parent().children(".header").toggleClass("open");
+        })
+    });
+</script>
+
+  </body>
+</html>

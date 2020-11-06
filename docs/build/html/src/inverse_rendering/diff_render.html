@@ -1,0 +1,551 @@
+<!-- Based on https://stackoverflow.com/a/25543713/1130282 -->
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>Differentiable rendering &#8212; mitsuba2 0.1.dev0 documentation</title>
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/theme_overrides.css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="More advanced examples" href="advanced.html" />
+    <link rel="prev" title="Introduction" href="intro.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="advanced.html" title="More advanced examples"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="Introduction"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Differentiable rendering</a></li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar"><a href="
+    ../../index.html" class="text-logo">Mitsuba 2</a>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Table Of Contents</h2>
+  </div>
+  <div class="sidebar-toc">
+    
+    
+      <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/intro.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/cloning.html">Cloning the repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/variants.html">Choosing variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/compiling.html">Compiling the system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/file_format.html">Scene file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/differences.html">Differences to Mitsuba 0.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python interface</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/parsing_xml.html">Parsing XML code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/rendering_scene.html">Rendering a scene</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/bsdf_eval.html">Custom applications</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Inverse rendering</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Differentiable rendering</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#enumerating-scene-parameters">Enumerating scene parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#problem-statement">Problem statement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gradient-based-optimization">Gradient-based optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#forward-mode-differentiation">Forward-mode differentiation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">More advanced examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pytorch.html">Integration with PyTorch</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/variants_cpp.html">Variants in C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/writing_plugin.html">Plugins &amp; Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/debugging.html">Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/building_documentation.html">Building the documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/polarization.html">Polarization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/custom_plugins.html">Custom plugins in Python</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Plugin reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../plugin_reference/intro.html">Plugin reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html">Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#bsdfs">BSDFs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#phase-functions">Phase functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#emitters">Emitters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#sensors">Sensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#textures">Textures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#spectra">Spectra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#integrators">Integrators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#samplers">Samplers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#films">Films</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#reconstruction-filters">Reconstruction filters</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/core_api.html">Core API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/render_api.html">Render API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/python_api.html">Python API Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../zz_bibliography.html">Bibliography</a></li>
+</ul>
+
+    
+  </div>
+</div>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="../../search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="../../index.html">Docs</a></li>
+              
+              <li>Differentiable rendering</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <div class="section" id="differentiable-rendering">
+<span id="sec-differentiable-rendering"></span><h1>Differentiable rendering<a class="headerlink" href="#differentiable-rendering" title="Permalink to this headline">¶</a></h1>
+<p>We now progressively build up a simple example application that showcases
+differentiation and optimization of a light transport simulation involving the
+well-known Cornell Box scene that can be downloaded <a class="reference external" href="http://mitsuba-renderer.org/scenes/cbox.zip">here</a>.</p>
+<p>Please make the following three changes to the <code class="docutils literal notranslate"><span class="pre">cbox.xml</span></code> file:</p>
+<ol class="arabic">
+<li><p><code class="docutils literal notranslate"><span class="pre">ldsampler</span></code> must be replaced by <code class="docutils literal notranslate"><span class="pre">independent</span></code> (<code class="docutils literal notranslate"><span class="pre">ldsampler</span></code> has not yet
+been ported to Mitsuba 2). Note that the sample count specified here will be overriden
+in the optimization script below.</p></li>
+<li><p>The integrator at the top should be defined as follows:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;integrator</span> <span class="na">type=</span><span class="s">&quot;path&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;integer</span> <span class="na">name=</span><span class="s">&quot;max_depth&quot;</span> <span class="na">value=</span><span class="s">&quot;3&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/integrator&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p>The film should specify a box reconstruction filter instead of <code class="docutils literal notranslate"><span class="pre">gaussian</span></code>.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rfilter</span> <span class="na">type=</span><span class="s">&quot;box&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>In the context of differentiable rendering, we are typically interested in
+rendering many fairly low-quality images as quickly as possible, and the above
+changes reduce the quality of the rendered images accordingly.</p>
+<div class="section" id="enumerating-scene-parameters">
+<h2>Enumerating scene parameters<a class="headerlink" href="#enumerating-scene-parameters" title="Permalink to this headline">¶</a></h2>
+<p>Since differentiable rendering requires a starting guess (i.e. an initial scene
+configuration), most applications will begin by loading the Cornell box scene
+and enumerating and selecting scene parameters that will subsequently be
+differentiated:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">enoki</span> <span class="k">as</span> <span class="nn">ek</span>
+<span class="kn">import</span> <span class="nn">mitsuba</span>
+<span class="n">mitsuba</span><span class="o">.</span><span class="n">set_variant</span><span class="p">(</span><span class="s1">&#39;gpu_autodiff_rgb&#39;</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">mitsuba.core</span> <span class="kn">import</span> <span class="n">Thread</span>
+<span class="kn">from</span> <span class="nn">mitsuba.core.xml</span> <span class="kn">import</span> <span class="n">load_file</span>
+<span class="kn">from</span> <span class="nn">mitsuba.python.util</span> <span class="kn">import</span> <span class="n">traverse</span>
+
+<span class="c1"># Load the Cornell Box</span>
+<span class="n">Thread</span><span class="o">.</span><span class="n">thread</span><span class="p">()</span><span class="o">.</span><span class="n">file_resolver</span><span class="p">()</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;cbox&#39;</span><span class="p">)</span>
+<span class="n">scene</span> <span class="o">=</span> <span class="n">load_file</span><span class="p">(</span><span class="s1">&#39;cbox/cbox.xml&#39;</span><span class="p">)</span>
+
+<span class="c1"># Find differentiable scene parameters</span>
+<span class="n">params</span> <span class="o">=</span> <span class="n">traverse</span><span class="p">(</span><span class="n">scene</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The call to <a class="reference internal" href="../../generated/python_api.html#mitsuba.python.util.traverse" title="mitsuba.python.util.traverse"><code class="xref py py-func docutils literal notranslate"><span class="pre">traverse()</span></code></a> in the second-to-last
+line serves this purpose. It returns a dictionary-like <a class="reference internal" href="../../generated/python_api.html#mitsuba.python.util.ParameterMap" title="mitsuba.python.util.ParameterMap"><code class="xref py py-class docutils literal notranslate"><span class="pre">mitsuba.python.util.ParameterMap</span></code></a>
+instance, which exposes modifiable and differentiable scene parameters. Passing
+it to <code class="docutils literal notranslate"><span class="pre">print()</span></code> yields the following summary (abbreviated):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ParameterMap[
+    ...
+  * box.reflectance.value,
+  * white.reflectance.value,
+  * red.reflectance.value,
+  * green.reflectance.value,
+  * light.reflectance.value,
+    ...
+  * OBJMesh.emitter.radiance.value,
+    OBJMesh.vertex_count,
+    OBJMesh.face_count,
+    OBJMesh.faces,
+  * OBJMesh.vertex_positions,
+  * OBJMesh.vertex_normals,
+  * OBJMesh.vertex_texcoords,
+    OBJMesh_1.vertex_count,
+    OBJMesh_1.face_count,
+
+    OBJMesh_1.faces,
+  * OBJMesh_1.vertex_positions,
+  * OBJMesh_1.vertex_normals,
+  * OBJMesh_1.vertex_texcoords,
+    ...
+]
+</pre></div>
+</div>
+<p>The Cornell box scene consists of a single light source, and multiple multiple
+meshes and BRDFs. Each component contributes certain entries to the above
+list—for instance, meshes specify their face and vertex counts in addition to
+per-face (<code class="docutils literal notranslate"><span class="pre">.faces</span></code>) and per-vertex data (<code class="docutils literal notranslate"><span class="pre">.vertex_positions</span></code>,
+<code class="docutils literal notranslate"><span class="pre">.vertex_normals</span></code>, <code class="docutils literal notranslate"><span class="pre">.vertex_texcoords</span></code>). Each BRDF adds a
+<code class="docutils literal notranslate"><span class="pre">.reflectance.value</span></code> entry. Not all of these parameters are
+differentiable—some, e.g., store integer values. The asterisk (<code class="docutils literal notranslate"><span class="pre">*</span></code>) on the
+left of some parameters indicates that they are differentiable.</p>
+<p>The parameter names are generated using a simple naming scheme based on the
+position in the scene graph and class name of the underlying implementation.
+Whenever an object was assigned a unique identifier via the <code class="docutils literal notranslate"><span class="pre">id=&quot;...&quot;</span></code>
+attribute in the XML scene description, this identifier has precedence. For
+instance, The <code class="docutils literal notranslate"><span class="pre">red.reflectance.value</span></code> entry corresponds to the albedo of the
+following declaration in the original scene description:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;bsdf</span> <span class="na">type=</span><span class="s">&quot;diffuse&quot;</span> <span class="na">id=</span><span class="s">&quot;red&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;spectrum</span> <span class="na">name=</span><span class="s">&quot;reflectance&quot;</span> <span class="na">value=</span><span class="s">&quot;400:0.04, 404:0.046, ..., 696:0.635, 700:0.642&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/bsdf&gt;</span>
+</pre></div>
+</div>
+<p>We can also query the <a class="reference internal" href="../../generated/python_api.html#mitsuba.python.util.ParameterMap" title="mitsuba.python.util.ParameterMap"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterMap</span></code></a> to see the actual parameter value:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;red.reflectance.value&#39;</span><span class="p">])</span>
+
+<span class="c1"># Prints:</span>
+<span class="c1"># [[0.569717, 0.0430141, 0.0443234]]</span>
+</pre></div>
+</div>
+<p>Here, we can see how Mitsuba converted the original spectral curve from the
+above XML fragment into an RGB value due to the <code class="docutils literal notranslate"><span class="pre">gpu_autodiff_rgb</span></code> variant
+being used to run this example.</p>
+<p>In most cases, we will only be interested in differentiating a small subset of
+the (typically very large) parameter map. Use the <a class="reference internal" href="../../generated/python_api.html#mitsuba.python.util.ParameterMap.keep" title="mitsuba.python.util.ParameterMap.keep"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ParameterMap.keep()</span></code></a>
+method to discard all entries except for the specified list of keys.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">params</span><span class="o">.</span><span class="n">keep</span><span class="p">([</span><span class="s1">&#39;red.reflectance.value&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+
+<span class="c1"># Prints:</span>
+<span class="c1"># ParameterMap[</span>
+<span class="c1">#   * red.reflectance.value</span>
+<span class="c1"># ]</span>
+</pre></div>
+</div>
+<p>Let’s also make a backup copy of this color value for later use.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mitsuba.core</span> <span class="kn">import</span> <span class="n">Color3f</span>
+<span class="n">param_ref</span> <span class="o">=</span> <span class="n">Color3f</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;red.reflectance.value&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="problem-statement">
+<h2>Problem statement<a class="headerlink" href="#problem-statement" title="Permalink to this headline">¶</a></h2>
+<p>In contrast to the <a class="reference internal" href="../python_interface/rendering_scene.html#sec-rendering-scene"><span class="std std-ref">previous example</span></a> on using the
+Python API to render images, the differentiable rendering path involves another
+rendering function <a class="reference internal" href="../../generated/python_api.html#mitsuba.python.autodiff.render" title="mitsuba.python.autodiff.render"><code class="xref py py-func docutils literal notranslate"><span class="pre">mitsuba.python.autodiff.render()</span></code></a> that is more
+optimized for this use case. It directly returns a GPU array containing the
+generated image. The function
+<a class="reference internal" href="../../generated/python_api.html#mitsuba.python.autodiff.write_bitmap" title="mitsuba.python.autodiff.write_bitmap"><code class="xref py py-func docutils literal notranslate"><span class="pre">write_bitmap()</span></code></a> reshapes the output into an
+image of the correct size and exports it to any of the supported image formats
+(OpenEXR, PNG, JPG, RGBE, PFM) while automatically performing format conversion
+and gamma correction in the case of an 8-bit output format.</p>
+<p>Using this functionality, we will now generate a reference image using 8
+samples per pixel (<code class="docutils literal notranslate"><span class="pre">spp</span></code>).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Render a reference image (no derivatives used yet)</span>
+<span class="kn">from</span> <span class="nn">mitsuba.python.autodiff</span> <span class="kn">import</span> <span class="n">render</span><span class="p">,</span> <span class="n">write_bitmap</span>
+<span class="n">image_ref</span> <span class="o">=</span> <span class="n">render</span><span class="p">(</span><span class="n">scene</span><span class="p">,</span> <span class="n">spp</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">crop_size</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">sensors</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">film</span><span class="p">()</span><span class="o">.</span><span class="n">crop_size</span><span class="p">()</span>
+<span class="n">write_bitmap</span><span class="p">(</span><span class="s1">&#39;out_ref.png&#39;</span><span class="p">,</span> <span class="n">image_ref</span><span class="p">,</span> <span class="n">crop_size</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Our first experiment is going to be very simple: we will change the color of
+the red wall and then try to recover the original color using differentiation
+along with the reference image generated above.</p>
+<p>For this, let’s first change the current color value: the parameter map enables
+such changes without having to reload the scene. The call to the
+<a class="reference internal" href="../../generated/python_api.html#mitsuba.python.util.ParameterMap.update" title="mitsuba.python.util.ParameterMap.update"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ParameterMap.update()</span></code></a> method at the end is
+mandatory to inform changed scene objects that they should refresh their
+internal state.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Change the left wall into a bright white surface</span>
+<span class="n">params</span><span class="p">[</span><span class="s1">&#39;red.reflectance.value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">.</span><span class="mi">9</span><span class="p">,</span> <span class="o">.</span><span class="mi">9</span><span class="p">,</span> <span class="o">.</span><span class="mi">9</span><span class="p">]</span>
+<span class="n">params</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="gradient-based-optimization">
+<h2>Gradient-based optimization<a class="headerlink" href="#gradient-based-optimization" title="Permalink to this headline">¶</a></h2>
+<p>Mitsuba can either optimize scene parameters in <em>standalone mode</em> using
+optimization algorithms implemented on top of Enoki, or it can be used as a
+differentiable node within a larger PyTorch computation graph. Communication
+between PyTorch and Enoki causes certain overheads, hence we generally
+recommend standalone mode unless your computation contains elements where
+PyTorch provides a clear advantage (for example, neural network building blocks
+like fully connected layers or convolutions). The remainder of this section
+discusses standalone mode, and the section on <a class="reference internal" href="pytorch.html#sec-pytorch"><span class="std std-ref">PyTorch integration</span></a> shows how to adapt the example code for PyTorch.</p>
+<p>Mitsuba ships with standard optimizers including <em>Stochastic Gradient Descent</em>
+(<a class="reference internal" href="../../generated/python_api.html#mitsuba.python.autodiff.SGD" title="mitsuba.python.autodiff.SGD"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGD</span></code></a>) with and without momentum, as well
+as <a class="reference internal" href="../../generated/python_api.html#mitsuba.python.autodiff.Adam" title="mitsuba.python.autodiff.Adam"><code class="xref py py-class docutils literal notranslate"><span class="pre">Adam</span></code></a> <a class="bibtex reference internal" href="../../zz_bibliography.html#kingma2014adam" id="id1">[KB14]</a> We will
+instantiate the latter and optimize our reduced
+<a class="reference internal" href="../../generated/python_api.html#mitsuba.python.util.ParameterMap" title="mitsuba.python.util.ParameterMap"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterMap</span></code></a> <code class="docutils literal notranslate"><span class="pre">params</span></code> with a learning rate
+of 0.2. The optimizer class automatically requests derivative information for
+selected parameters and updates their value after each step, hence it is not
+necessary to directly modify <code class="docutils literal notranslate"><span class="pre">params</span></code> or call <code class="docutils literal notranslate"><span class="pre">ek.set_requires_gradient</span></code> as
+explained in the introduction.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Construct an Adam optimizer that will adjust the parameters &#39;params&#39;</span>
+<span class="kn">from</span> <span class="nn">mitsuba.python.autodiff</span> <span class="kn">import</span> <span class="n">Adam</span>
+<span class="n">opt</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">lr</span><span class="o">=.</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The remaining commands are all part of a loop that executes 100 differentiable
+rendering iterations.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="c1"># Perform a differentiable rendering of the scene</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">render</span><span class="p">(</span><span class="n">scene</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="n">opt</span><span class="p">,</span> <span class="n">unbiased</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">spp</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">write_bitmap</span><span class="p">(</span><span class="s1">&#39;out_</span><span class="si">%03i</span><span class="s1">.png&#39;</span> <span class="o">%</span> <span class="n">it</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">crop_size</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Regarding bias in gradients</strong>: One potential issue when naively
+differentiating a rendering algorithm is that the same set of Monte Carlo
+sample is used to generate both the primal output (i.e. the image) along
+with derivative output. When the rendering algorithm and objective are
+jointly differentiated, we end up with expectations of products that do
+<em>not</em> satisfy the equality <span class="math notranslate nohighlight">\(\mathbb{E}[X Y]=\mathbb{E}[X]\,
+\mathbb{E}[Y]\)</span> due to correlations between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> that
+result from this sample re-use.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">unbiased=True</span></code> parameter to the
+<a class="reference internal" href="../../generated/python_api.html#mitsuba.python.autodiff.render" title="mitsuba.python.autodiff.render"><code class="xref py py-func docutils literal notranslate"><span class="pre">render()</span></code></a> function switches the function
+into a special unbiased mode that de-correlates primal and derivative
+components, which boils down to rendering the image twice and naturally
+comes at some cost in performance <span class="math notranslate nohighlight">\((\sim 1.6 \times\!)\)</span>. Often,
+biased gradients are good enough, in which case <code class="docutils literal notranslate"><span class="pre">unbiased=False</span></code> should
+be specified instead.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Regarding the number of samples per pixel</strong>: An extremely low number of
+samples per pixel (<code class="docutils literal notranslate"><span class="pre">spp=1</span></code>) is being used in the differentiable rendering
+iterations above, which produces both noisy renderings and noisy gradients.
+Alternatively, we could have used many more samples to take correspondingly
+larger gradient steps (i.e. a higher <code class="docutils literal notranslate"><span class="pre">lr=..</span></code> parameter to the optimizer).
+We generally find the first variant with few samples preferable, since it
+greatly reduces memory usage and is more adaptive to changes in the
+parameter value.</p>
+</div>
+<p>Still within the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop, we can now evaluate a suitable objective
+function, propagate derivatives with respect to the objective, and take
+gradient steps.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># for loop body (continued)</span>
+    <span class="c1"># Objective: MSE between &#39;image&#39; and &#39;image_ref&#39;</span>
+    <span class="n">ob_val</span> <span class="o">=</span> <span class="n">ek</span><span class="o">.</span><span class="n">hsum</span><span class="p">(</span><span class="n">ek</span><span class="o">.</span><span class="n">sqr</span><span class="p">(</span><span class="n">image</span> <span class="o">-</span> <span class="n">image_ref</span><span class="p">))</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+
+    <span class="c1"># Back-propagate errors to input parameters</span>
+    <span class="n">ek</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="n">ob_val</span><span class="p">)</span>
+
+    <span class="c1"># Optimizer: take a gradient step</span>
+    <span class="n">opt</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>We can also plot the error during each iteration. Note that it makes little
+sense to visualize the objective <code class="docutils literal notranslate"><span class="pre">ob_val</span></code>, since differences between
+<code class="docutils literal notranslate"><span class="pre">image</span></code> and <code class="docutils literal notranslate"><span class="pre">image_ref</span></code> are by far dominated by Monte Carlo noise that is
+not related to the parameter being optimized. Since we know the “true” target
+parameter in this scene (previously stored in <code class="docutils literal notranslate"><span class="pre">param_ref</span></code>), we can validate
+the convergence of the iteration:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">err_ref</span> <span class="o">=</span> <span class="n">ek</span><span class="o">.</span><span class="n">hsum</span><span class="p">(</span><span class="n">ek</span><span class="o">.</span><span class="n">sqr</span><span class="p">(</span><span class="n">param_ref</span> <span class="o">-</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;red.reflectance.value&#39;</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Iteration </span><span class="si">%03i</span><span class="s1">: error=</span><span class="si">%g</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">err_ref</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+</pre></div>
+</div>
+<p>The following video shows a recording of the convergence during the first 100
+iterations. The gradient steps quickly recover the original red color of the
+left wall.</p>
+<center>
+    <video controls loop autoplay muted
+    src="https://rgl.s3.eu-central-1.amazonaws.com/media/uploads/wjakob/2020/03/02/convergence.mp4"></video>
+</center><p>Note the oscillatory behavior, which is also visible in the convergence plot
+shown below. This indicates that the learning rate is potentially set to an
+overly large value.</p>
+<a class="reference internal image-reference" href="src/inverse_rendering/../../../resources/data/docs/images/autodiff/convergence.png"><img alt="src/inverse_rendering/../../../resources/data/docs/images/autodiff/convergence.png" class="align-center" src="src/inverse_rendering/../../../resources/data/docs/images/autodiff/convergence.png" style="width: 50%;" /></a>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Regarding performance</strong>: this optimization should finish very quickly. On
+an NVIDIA Titan RTX, it takes roughly 50 ms per iteration when the
+<code class="docutils literal notranslate"><span class="pre">write_bitmap</span></code> routine is commented out, and 27 ms per iteration when
+furthermore setting <code class="docutils literal notranslate"><span class="pre">unbiased=False</span></code>.</p>
+<p>We have noticed that simultaneous GPU usage by another application (e.g.
+Chrome or Firefox) that appears completely innocuous (YouTube open in a
+tab, etc.) can reduce differentiable rendering performance ten-fold. If you
+find that your numbers are very different from the ones mentioned above,
+try closing all other software.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The full Python script of this tutorial can be found in the file:
+<code class="file docutils literal notranslate"><span class="pre">docs/examples/10_diff_render/invert_cbox.py</span></code>.</p>
+</div>
+</div>
+<div class="section" id="forward-mode-differentiation">
+<h2>Forward-mode differentiation<a class="headerlink" href="#forward-mode-differentiation" title="Permalink to this headline">¶</a></h2>
+<p>The previous example demonstrated <em>reverse-mode differentiation</em> (a.k.a.
+backpropagation) where a desired small change to the output image was converted
+into a small change to the scene parameters. Mitsuba and Enoki can also
+propagate derivatives in the other direction, i.e., from input parameters to
+the output image. This technique, known as <em>forward mode differentiation</em>, is
+not usable for optimization, as each parameter must be handled using a separate
+rendering pass. That said, this mode can be very educational since it enables
+visualizations of the effect of individual scene parameters on the rendered
+image.</p>
+<p>Forward mode differentiable rendering begins analogously to reverse mode, by
+declaring parameters and marking them as differentiable (we do so manually
+instead of using an <a class="reference internal" href="../../generated/python_api.html#mitsuba.python.autodiff.Optimizer" title="mitsuba.python.autodiff.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">mitsuba.python.autodiff.Optimizer</span></code></a>).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Keep track of derivatives with respect to one parameter</span>
+<span class="n">param_0</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;red.reflectance.value&#39;</span><span class="p">]</span>
+<span class="n">ek</span><span class="o">.</span><span class="n">set_requires_gradient</span><span class="p">(</span><span class="n">param_0</span><span class="p">)</span>
+
+<span class="c1"># Differentiable simulation</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">render</span><span class="p">(</span><span class="n">scene</span><span class="p">,</span> <span class="n">spp</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Once the computation has been recorded, we can specify a perturbation with
+respect to the previously flagged parameter and forward-propagate it through
+the graph.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign the gradient [1, 1, 1] to the &#39;red.reflectance.value&#39; input</span>
+<span class="n">ek</span><span class="o">.</span><span class="n">set_gradient</span><span class="p">(</span><span class="n">param_0</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">backward</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">mitsuba.core</span> <span class="kn">import</span> <span class="n">Float</span>
+
+<span class="c1"># Forward-propagate previously assigned gradients. The set_gradient call</span>
+<span class="c1"># above already indicated which derivatives to propagate, hence we use the</span>
+<span class="c1"># static FloatD.forward() function. See the Enoki documentation for further</span>
+<span class="c1"># explanations of the various ways in which derivatives can be propagated.</span>
+<span class="n">Float</span><span class="o">.</span><span class="n">forward</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>See Enoki’s documentation regarding <a class="reference external" href="https://enoki.readthedocs.io/en/master/autodiff.html">automatic differentiation</a> for further details on
+these steps. Finally, we can write the resulting gradient visualization to
+disk.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># The gradients have been propagated to the output image</span>
+<span class="n">image_grad</span> <span class="o">=</span> <span class="n">ek</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+
+<span class="c1"># .. write them to a PNG file</span>
+<span class="n">crop_size</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">sensors</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">film</span><span class="p">()</span><span class="o">.</span><span class="n">crop_size</span><span class="p">()</span>
+<span class="n">write_bitmap</span><span class="p">(</span><span class="s1">&#39;out.png&#39;</span><span class="p">,</span> <span class="n">image_grad</span><span class="p">,</span> <span class="n">crop_size</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This should produce a result similar to the following image:</p>
+<a class="reference internal image-reference" href="src/inverse_rendering/../../../resources/data/docs/images/autodiff/forward.jpg"><img alt="src/inverse_rendering/../../../resources/data/docs/images/autodiff/forward.jpg" class="align-center" src="src/inverse_rendering/../../../resources/data/docs/images/autodiff/forward.jpg" style="width: 50%;" /></a>
+<p>Observe how changing the color of the red wall has a global effect on the
+entire image due to global illumination. Since we are differentiating with
+respect to albedo, the red color disappears.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The full Python script of this tutorial can be found in the file:
+<code class="file docutils literal notranslate"><span class="pre">docs/examples/10_diff_render/forward_diff.py</span></code>.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+            
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="intro.html" title="previous chapter (use the left arrow)">Introduction</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="advanced.html" title="next chapter (use the right arrow)">More advanced examples</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="advanced.html" title="More advanced examples"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="Introduction"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Differentiable rendering</a></li> 
+      </ul>
+    </div>
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $(".toggle > *").hide();
+        $(".toggle .header").show();
+        $(".toggle .header").click(function() {
+            $(this).parent().children().not(".header").toggle(400);
+            $(this).parent().children(".header").toggleClass("open");
+        })
+    });
+</script>
+
+  </body>
+</html>

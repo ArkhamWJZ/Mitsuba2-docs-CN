@@ -1,0 +1,272 @@
+<!-- Based on https://stackoverflow.com/a/25543713/1130282 -->
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>Frequently asked questions &#8212; mitsuba2 0.1.dev0 documentation</title>
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/theme_overrides.css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Release notes" href="../../release_notes.html" />
+    <link rel="prev" title="Differences to Mitsuba 0.6" href="differences.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../release_notes.html" title="Release notes"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="differences.html" title="Differences to Mitsuba 0.6"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Frequently asked questions</a></li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar"><a href="
+    ../../index.html" class="text-logo">Mitsuba 2</a>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Table Of Contents</h2>
+  </div>
+  <div class="sidebar-toc">
+    
+    
+      <p class="caption"><span class="caption-text">Overview</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloning.html">Cloning the repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="variants.html">Choosing variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compiling.html">Compiling the system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file_format.html">Scene file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="differences.html">Differences to Mitsuba 0.6</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python interface</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/parsing_xml.html">Parsing XML code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/rendering_scene.html">Rendering a scene</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/bsdf_eval.html">Custom applications</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Inverse rendering</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/diff_render.html">Differentiable rendering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/advanced.html">More advanced examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/pytorch.html">Integration with PyTorch</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/variants_cpp.html">Variants in C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/writing_plugin.html">Plugins &amp; Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/debugging.html">Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/building_documentation.html">Building the documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/polarization.html">Polarization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/custom_plugins.html">Custom plugins in Python</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Plugin reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../plugin_reference/intro.html">Plugin reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html">Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#bsdfs">BSDFs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#phase-functions">Phase functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#emitters">Emitters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#sensors">Sensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#textures">Textures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#spectra">Spectra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#integrators">Integrators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#samplers">Samplers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#films">Films</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#reconstruction-filters">Reconstruction filters</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/core_api.html">Core API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/render_api.html">Render API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/python_api.html">Python API Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../zz_bibliography.html">Bibliography</a></li>
+</ul>
+
+    
+  </div>
+</div>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="../../search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="../../index.html">Docs</a></li>
+              
+              <li>Frequently asked questions</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <div class="section" id="frequently-asked-questions">
+<span id="sec-faq"></span><h1>Frequently asked questions<a class="headerlink" href="#frequently-asked-questions" title="Permalink to this headline">¶</a></h1>
+<ul>
+<li><p>Compilation fails with the error message: “<span class="monosp">Error: always_inline
+function &lt;..&gt; requires target feature &lt;..&gt; but would be inlined into function
+&lt;..&gt; that is compiled without support for &lt;..&gt;</span>”.</p>
+<blockquote>
+<div><p>You are likely trying to compile Mitsuba within a virtual machine such as
+VirtualBox, QEmu, etc. This is not recommended: most of these virtual
+machines expose “funky” virtualized processors that are missing standard
+instructions extensions, which breaks compilation. You can work around this
+issue by completely disabling vectorization at some cost in performance. In
+this case, add the following line to the top-level <span class="monosp">CMakeLists.txt</span>
+file (e.g. in line 4 after the <span class="monosp">project()</span> declaration).</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">add_definitions</span><span class="p">(</span><span class="s">-DENOKI_DISABLE_VECTORIZATION=1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Differentiable rendering fails with the error message “<span class="monosp">Failed to load
+Optix library</span>”.</p>
+<blockquote>
+<div><p>It is likely that the version of OptiX installed on your system is not
+compatible with the video driver (the two must satisfy version requirements
+that are detailed on the OptiX website)</p>
+</div></blockquote>
+</li>
+<li><p>Differentiable rendering fails with an error message similar to “<span class="monosp">RuntimeError:
+cuda_malloc(): out of memory!</span>”.</p>
+<blockquote>
+<div><p>The rendering or autodiff graph exhausted your GPU’s memory. Try reducing the sample count
+and / or resolution. If high sample count renders are necessary, it is possible to split computation
+in several low sample count passes and average together the gradients.</p>
+</div></blockquote>
+</li>
+<li><p>Citing Mitsuba 2 in scientific literature.</p>
+<p>Please use the following BibTeX entry to cite Mitsuba 2 in research articles,
+books, etc.</p>
+<div class="highlight-bibtex notranslate"><div class="highlight"><pre><span></span><span class="nc">@article</span><span class="p">{</span><span class="nl">NimierDavidVicini2019Mitsuba2</span><span class="p">,</span>
+    <span class="na">author</span> <span class="p">=</span> <span class="s">{Merlin Nimier-David and Delio Vicini and Tizian Zeltner and Wenzel Jakob}</span><span class="p">,</span>
+    <span class="na">title</span> <span class="p">=</span> <span class="s">{Mitsuba 2: A Retargetable Forward and Inverse Renderer}</span><span class="p">,</span>
+    <span class="na">journal</span> <span class="p">=</span> <span class="s">{Transactions on Graphics (Proceedings of SIGGRAPH Asia)}</span><span class="p">,</span>
+    <span class="na">volume</span> <span class="p">=</span> <span class="s">{38}</span><span class="p">,</span>
+    <span class="na">number</span> <span class="p">=</span> <span class="s">{6}</span><span class="p">,</span>
+    <span class="na">year</span> <span class="p">=</span> <span class="s">{2019}</span><span class="p">,</span>
+    <span class="na">month</span> <span class="p">=</span> <span class="nv">dec</span><span class="p">,</span>
+    <span class="na">doi</span> <span class="p">=</span> <span class="s">{10.1145/3355089.3356498}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Here is a plain-text version of the above:</p>
+<blockquote>
+<div><p>Merlin Nimier-David, Delio Vicini, Tizian Zeltner, and Wenzel Jakob.
+2019. Mitsuba 2: A Retargetable Forward and Inverse Renderer. In
+Transactions on Graphics (Proceedings of SIGGRAPH Asia)
+38(6).</p>
+</div></blockquote>
+<p>A pre-print of this article is available <a class="reference external" href="http://rgl.epfl.ch/publications/NimierDavidVicini2019Mitsuba2">here</a>.</p>
+</li>
+</ul>
+</div>
+
+
+          </div>
+            
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="differences.html" title="previous chapter (use the left arrow)">Differences to Mitsuba 0.6</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="../../release_notes.html" title="next chapter (use the right arrow)">Release notes</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../release_notes.html" title="Release notes"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="differences.html" title="Differences to Mitsuba 0.6"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Frequently asked questions</a></li> 
+      </ul>
+    </div>
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $(".toggle > *").hide();
+        $(".toggle .header").show();
+        $(".toggle .header").click(function() {
+            $(this).parent().children().not(".header").toggle(400);
+            $(this).parent().children(".header").toggleClass("open");
+        })
+    });
+</script>
+
+  </body>
+</html>

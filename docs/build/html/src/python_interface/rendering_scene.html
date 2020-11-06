@@ -1,0 +1,378 @@
+<!-- Based on https://stackoverflow.com/a/25543713/1130282 -->
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>Rendering a scene &#8212; mitsuba2 0.1.dev0 documentation</title>
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/theme_overrides.css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Custom applications" href="bsdf_eval.html" />
+    <link rel="prev" title="Parsing XML code" href="parsing_xml.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="bsdf_eval.html" title="Custom applications"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="parsing_xml.html" title="Parsing XML code"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Rendering a scene</a></li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar"><a href="
+    ../../index.html" class="text-logo">Mitsuba 2</a>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Table Of Contents</h2>
+  </div>
+  <div class="sidebar-toc">
+    
+    
+      <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/intro.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/cloning.html">Cloning the repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/variants.html">Choosing variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/compiling.html">Compiling the system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/file_format.html">Scene file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/differences.html">Differences to Mitsuba 0.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python interface</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parsing_xml.html">Parsing XML code</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Rendering a scene</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#custom-rendering-pipeline-in-python">Custom rendering pipeline in Python</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bsdf_eval.html">Custom applications</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Inverse rendering</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/diff_render.html">Differentiable rendering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/advanced.html">More advanced examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/pytorch.html">Integration with PyTorch</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/variants_cpp.html">Variants in C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/writing_plugin.html">Plugins &amp; Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/debugging.html">Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/building_documentation.html">Building the documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/polarization.html">Polarization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/custom_plugins.html">Custom plugins in Python</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Plugin reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../plugin_reference/intro.html">Plugin reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html">Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#bsdfs">BSDFs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#phase-functions">Phase functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#emitters">Emitters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#sensors">Sensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#textures">Textures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#spectra">Spectra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#integrators">Integrators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#samplers">Samplers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#films">Films</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#reconstruction-filters">Reconstruction filters</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/core_api.html">Core API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/render_api.html">Render API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/python_api.html">Python API Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../zz_bibliography.html">Bibliography</a></li>
+</ul>
+
+    
+  </div>
+</div>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="../../search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="../../index.html">Docs</a></li>
+              
+              <li>Rendering a scene</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <div class="section" id="rendering-a-scene">
+<span id="sec-rendering-scene"></span><h1>Rendering a scene<a class="headerlink" href="#rendering-a-scene" title="Permalink to this headline">¶</a></h1>
+<p>In the previous section, we learned how to load a scene from an XML file. Once a scene has been
+loaded, it can be rendered as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
+
+<span class="c1"># Load the scene for an XML file</span>
+<span class="n">scene</span> <span class="o">=</span> <span class="n">load_file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+<span class="c1"># Get the scene&#39;s sensor (if many, can pick one by specifying the index)</span>
+<span class="n">sensor</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">sensors</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Call the scene&#39;s integrator to render the loaded scene with the desired sensor</span>
+<span class="n">scene</span><span class="o">.</span><span class="n">integrator</span><span class="p">()</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">scene</span><span class="p">,</span> <span class="n">sensor</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>After rendering, it is possible to write out the rendered data as an HDR OpenEXR file like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># The rendered data is stored in the film</span>
+<span class="n">film</span> <span class="o">=</span> <span class="n">sensor</span><span class="o">.</span><span class="n">film</span><span class="p">()</span>
+
+<span class="c1"># Write out data as high dynamic range OpenEXR file</span>
+<span class="n">film</span><span class="o">.</span><span class="n">set_destination_file</span><span class="p">(</span><span class="s1">&#39;/path/to/output.exr&#39;</span><span class="p">)</span>
+<span class="n">film</span><span class="o">.</span><span class="n">develop</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>One can also write out a gamma tone-mapped JPEG file of the same rendering
+using the <a class="reference internal" href="../../generated/core_api.html#mitsuba.core.Bitmap" title="mitsuba.core.Bitmap"><code class="xref py py-class docutils literal notranslate"><span class="pre">mitsuba.core.Bitmap</span></code></a> class:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write out a tone-mapped JPG of the same rendering</span>
+<span class="kn">from</span> <span class="nn">mitsuba.core</span> <span class="kn">import</span> <span class="n">Bitmap</span><span class="p">,</span> <span class="n">Struct</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">film</span><span class="o">.</span><span class="n">bitmap</span><span class="p">(</span><span class="n">raw</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">Bitmap</span><span class="o">.</span><span class="n">PixelFormat</span><span class="o">.</span><span class="n">RGB</span><span class="p">,</span> <span class="n">Struct</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">UInt8</span><span class="p">,</span> <span class="n">srgb_gamma</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">img</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;/path/to/output.jpg&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">raw=True</span></code> argument in <code class="code docutils literal notranslate"><span class="pre">film.bitmap()</span></code> specifies that we are
+interested in the raw film contents to be able to perform a conversion into the
+desired output format ourselves.</p>
+<p>See <a class="reference internal" href="../../generated/core_api.html#id11" title="mitsuba.core.Bitmap.convert"><code class="xref py py-meth docutils literal notranslate"><span class="pre">mitsuba.core.Bitmap.convert()</span></code></a> for more information regarding the bitmap convertion routine.</p>
+<p>The data stored in the <code class="docutils literal notranslate"><span class="pre">Bitmap</span></code> object can also be cast into a NumPy array for further processing
+in Python:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get linear pixel values as a NumPy array for further processing</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">Bitmap</span><span class="o">.</span><span class="n">PixelFormat</span><span class="o">.</span><span class="n">RGB</span><span class="p">,</span> <span class="n">Struct</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">Float32</span><span class="p">,</span> <span class="n">srgb_gamma</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">image_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">image_np</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The full Python script of this tutorial can be found in the file:
+<code class="file docutils literal notranslate"><span class="pre">docs/examples/01_render_scene/render_scene.py</span></code></p>
+</div>
+<div class="section" id="custom-rendering-pipeline-in-python">
+<span id="sec-rendering-scene-custom"></span><h2>Custom rendering pipeline in Python<a class="headerlink" href="#custom-rendering-pipeline-in-python" title="Permalink to this headline">¶</a></h2>
+<p>In the following section, we show how to use the Python bindings to write a
+simple depth map renderer, including ray generation and pixel value splatting,
+purely in Python. While this is of course much more work than simply calling
+the integrator’s <code class="docutils literal notranslate"><span class="pre">render()</span></code>, this fine-grained level of control can be useful
+in certain applications. Please also refer to the related section on
+<a class="reference internal" href="../advanced_topics/custom_plugins.html#sec-custom-plugins"><span class="std std-ref">developing custom plugins in Python</span></a>.</p>
+<p>Similar to before, we import a number of modules and load the scene from disk:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">enoki</span> <span class="k">as</span> <span class="nn">ek</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">mitsuba</span>
+
+<span class="c1"># Set the desired mitsuba variant</span>
+<span class="n">mitsuba</span><span class="o">.</span><span class="n">set_variant</span><span class="p">(</span><span class="s1">&#39;packet_rgb&#39;</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">mitsuba.core</span> <span class="kn">import</span> <span class="n">Float</span><span class="p">,</span> <span class="n">UInt32</span><span class="p">,</span> <span class="n">UInt64</span><span class="p">,</span> <span class="n">Vector2f</span><span class="p">,</span> <span class="n">Vector3f</span>
+<span class="kn">from</span> <span class="nn">mitsuba.core</span> <span class="kn">import</span> <span class="n">Bitmap</span><span class="p">,</span> <span class="n">Struct</span><span class="p">,</span> <span class="n">Thread</span>
+<span class="kn">from</span> <span class="nn">mitsuba.core.xml</span> <span class="kn">import</span> <span class="n">load_file</span>
+<span class="kn">from</span> <span class="nn">mitsuba.render</span> <span class="kn">import</span> <span class="n">ImageBlock</span>
+
+<span class="c1"># Absolute or relative path to the XML file</span>
+<span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;path/to/my/scene.xml&#39;</span>
+
+<span class="c1"># Add the scene directory to the FileResolver&#39;s search path</span>
+<span class="n">Thread</span><span class="o">.</span><span class="n">thread</span><span class="p">()</span><span class="o">.</span><span class="n">file_resolver</span><span class="p">()</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+
+<span class="c1"># Load the scene</span>
+<span class="n">scene</span> <span class="o">=</span> <span class="n">load_file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In this example we use the packet variant of Mitsuba. This means all calls to
+Mitsuba functions will be vectorized and we avoid expensive for-loops in
+Python. The same code will work for <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">gpu</span></code> variants of the renderer as well.</p>
+<p>Instead of calling the scene’s existing integrator as before, we will now
+manually trace rays through each pixel of the image:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Instead of calling the scene&#39;s integrator, we build our own small integrator</span>
+<span class="c1"># This integrator simply computes the depth values per pixel</span>
+<span class="n">sensor</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">sensors</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">film</span> <span class="o">=</span> <span class="n">sensor</span><span class="o">.</span><span class="n">film</span><span class="p">()</span>
+<span class="n">sampler</span> <span class="o">=</span> <span class="n">sensor</span><span class="o">.</span><span class="n">sampler</span><span class="p">()</span>
+<span class="n">film_size</span> <span class="o">=</span> <span class="n">film</span><span class="o">.</span><span class="n">crop_size</span><span class="p">()</span>
+<span class="n">spp</span> <span class="o">=</span> <span class="mi">32</span>
+
+<span class="c1"># Seed the sampler</span>
+<span class="n">total_sample_count</span> <span class="o">=</span> <span class="n">ek</span><span class="o">.</span><span class="n">hprod</span><span class="p">(</span><span class="n">film_size</span><span class="p">)</span> <span class="o">*</span> <span class="n">spp</span>
+
+<span class="k">if</span> <span class="n">sampler</span><span class="o">.</span><span class="n">wavefront_size</span><span class="p">()</span> <span class="o">!=</span> <span class="n">total_sample_count</span><span class="p">:</span>
+    <span class="n">sampler</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">total_sample_count</span><span class="p">)</span>
+
+<span class="c1"># Enumerate discrete sample &amp; pixel indices, and uniformly sample</span>
+<span class="c1"># positions within each pixel.</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">ek</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">UInt32</span><span class="p">,</span> <span class="n">total_sample_count</span><span class="p">)</span>
+
+<span class="n">pos</span> <span class="o">//=</span> <span class="n">spp</span>
+<span class="n">scale</span> <span class="o">=</span> <span class="n">Vector2f</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">film_size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">film_size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">Vector2f</span><span class="p">(</span><span class="n">Float</span><span class="p">(</span><span class="n">pos</span>  <span class="o">%</span> <span class="nb">int</span><span class="p">(</span><span class="n">film_size</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span>
+               <span class="n">Float</span><span class="p">(</span><span class="n">pos</span> <span class="o">//</span> <span class="nb">int</span><span class="p">(</span><span class="n">film_size</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+
+<span class="n">pos</span> <span class="o">+=</span> <span class="n">sampler</span><span class="o">.</span><span class="n">next_2d</span><span class="p">()</span>
+
+<span class="c1"># Sample rays starting from the camera sensor</span>
+<span class="n">rays</span><span class="p">,</span> <span class="n">weights</span> <span class="o">=</span> <span class="n">sensor</span><span class="o">.</span><span class="n">sample_ray_differential</span><span class="p">(</span>
+    <span class="n">time</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">sample1</span><span class="o">=</span><span class="n">sampler</span><span class="o">.</span><span class="n">next_1d</span><span class="p">(),</span>
+    <span class="n">sample2</span><span class="o">=</span><span class="n">pos</span> <span class="o">*</span> <span class="n">scale</span><span class="p">,</span>
+    <span class="n">sample3</span><span class="o">=</span><span class="mi">0</span>
+<span class="p">)</span>
+
+<span class="c1"># Intersect rays with the scene geometry</span>
+<span class="n">surface_interaction</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">ray_intersect</span><span class="p">(</span><span class="n">rays</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>After computing the surface intersections for all the rays, we then extract the depth values</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Given intersection, compute the final pixel values as the depth t</span>
+<span class="c1"># of the sampled surface interaction</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">surface_interaction</span><span class="o">.</span><span class="n">t</span>
+
+<span class="c1"># Set to zero if no intersection was found</span>
+<span class="n">result</span><span class="p">[</span><span class="o">~</span><span class="n">surface_interaction</span><span class="o">.</span><span class="n">is_valid</span><span class="p">()]</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p>We then splat these depth values to an <code class="code docutils literal notranslate"><span class="pre">ImageBlock</span></code>, which is an image data structure that
+handles averaging over samples and accounts for the pixel filter. The <code class="code docutils literal notranslate"><span class="pre">ImageBlock</span></code> is then
+converted to a <code class="code docutils literal notranslate"><span class="pre">Bitmap</span></code> object and the resulting image saved to disk.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">block</span> <span class="o">=</span> <span class="n">ImageBlock</span><span class="p">(</span>
+    <span class="n">film</span><span class="o">.</span><span class="n">crop_size</span><span class="p">(),</span>
+    <span class="n">channel_count</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="nb">filter</span><span class="o">=</span><span class="n">film</span><span class="o">.</span><span class="n">reconstruction_filter</span><span class="p">(),</span>
+    <span class="n">border</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+<span class="n">block</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="c1"># ImageBlock expects RGB values (Array of size (n, 3))</span>
+<span class="n">block</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">rays</span><span class="o">.</span><span class="n">wavelengths</span><span class="p">,</span> <span class="n">Vector3f</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">result</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Write out the result from the ImageBlock</span>
+<span class="c1"># Internally, ImageBlock stores values in XYZAW format</span>
+<span class="c1"># (color XYZ, alpha value A and weight W)</span>
+<span class="n">xyzaw_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">block</span><span class="o">.</span><span class="n">data</span><span class="p">())</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="n">film_size</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">film_size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">5</span><span class="p">])</span>
+
+<span class="c1"># We then create a Bitmap from these values and save it out as EXR file</span>
+<span class="n">bmp</span> <span class="o">=</span> <span class="n">Bitmap</span><span class="p">(</span><span class="n">xyzaw_np</span><span class="p">,</span> <span class="n">Bitmap</span><span class="o">.</span><span class="n">PixelFormat</span><span class="o">.</span><span class="n">XYZAW</span><span class="p">)</span>
+<span class="n">bmp</span> <span class="o">=</span> <span class="n">bmp</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">Bitmap</span><span class="o">.</span><span class="n">PixelFormat</span><span class="o">.</span><span class="n">Y</span><span class="p">,</span> <span class="n">Struct</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">Float32</span><span class="p">,</span> <span class="n">srgb_gamma</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">bmp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;depth.exr&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The code for this example can be found in <code class="code docutils literal notranslate"><span class="pre">docs/examples/02_depth_integrator/depth_integrator.py</span></code></p>
+</div>
+</div>
+</div>
+
+
+          </div>
+            
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="parsing_xml.html" title="previous chapter (use the left arrow)">Parsing XML code</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="bsdf_eval.html" title="next chapter (use the right arrow)">Custom applications</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="bsdf_eval.html" title="Custom applications"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="parsing_xml.html" title="Parsing XML code"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Rendering a scene</a></li> 
+      </ul>
+    </div>
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $(".toggle > *").hide();
+        $(".toggle .header").show();
+        $(".toggle .header").click(function() {
+            $(this).parent().children().not(".header").toggle(400);
+            $(this).parent().children(".header").toggleClass("open");
+        })
+    });
+</script>
+
+  </body>
+</html>

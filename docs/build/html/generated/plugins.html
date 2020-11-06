@@ -1,0 +1,679 @@
+<!-- Based on https://stackoverflow.com/a/25543713/1130282 -->
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="../_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="../_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>Shapes &#8212; mitsuba2 0.1.dev0 documentation</title>
+    <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Introduction" href="../src/api_reference/intro.html" />
+    <link rel="prev" title="Plugin reference" href="../src/plugin_reference/intro.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../src/api_reference/intro.html" title="Introduction"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../src/plugin_reference/intro.html" title="Plugin reference"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Shapes</a></li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar"><a href="
+    ../index.html" class="text-logo">Mitsuba 2</a>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Table Of Contents</h2>
+  </div>
+  <div class="sidebar-toc">
+    
+    
+      <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started/intro.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started/cloning.html">Cloning the repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started/variants.html">Choosing variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started/compiling.html">Compiling the system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started/file_format.html">Scene file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started/differences.html">Differences to Mitsuba 0.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started/faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python interface</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../src/python_interface/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/python_interface/parsing_xml.html">Parsing XML code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/python_interface/rendering_scene.html">Rendering a scene</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/python_interface/bsdf_eval.html">Custom applications</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Inverse rendering</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../src/inverse_rendering/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/inverse_rendering/diff_render.html">Differentiable rendering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/inverse_rendering/advanced.html">More advanced examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/inverse_rendering/pytorch.html">Integration with PyTorch</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../src/developer_guide/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/developer_guide/variants_cpp.html">Variants in C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/developer_guide/writing_plugin.html">Plugins &amp; Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/developer_guide/testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/developer_guide/debugging.html">Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/developer_guide/building_documentation.html">Building the documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/developer_guide/polarization.html">Polarization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../src/advanced_topics/custom_plugins.html">Custom plugins in Python</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Plugin reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/plugin_reference/intro.html">Plugin reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#bsdfs">BSDFs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#phase-functions">Phase functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#emitters">Emitters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#sensors">Sensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#textures">Textures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#spectra">Spectra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#integrators">Integrators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#samplers">Samplers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#films">Films</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#reconstruction-filters">Reconstruction filters</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../src/api_reference/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core_api.html">Core API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="render_api.html">Render API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api.html">Python API Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../zz_bibliography.html">Bibliography</a></li>
+</ul>
+
+    
+  </div>
+</div>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="../search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="../index.html">Docs</a></li>
+              
+              <li>Shapes</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <div class="section" id="shapes">
+<span id="sec-shapes"></span><h1>Shapes<a class="headerlink" href="#shapes" title="Permalink to this headline">¶</a></h1>
+<p>This section presents an overview of the shape plugins that are released along with the renderer.</p>
+<p>In Mitsuba 2, shapes define surfaces that mark transitions between different types of materials. For
+instance, a shape could describe a boundary between air and a solid object, such as a piece of rock.
+Alternatively, a shape can mark the beginning of a region of space that isn’t solid at all, but
+rather contains a participating medium, such as smoke or steam. Finally, a shape can be used to
+create an object that emits light on its own.</p>
+<p>Shapes are usually declared along with a surface scattering model named <em>BSDF</em> (see the <span class="xref std std-ref">respective section</span>). This BSDF characterizes what happens at the surface. In the XML scene description language, this might look like the following:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;scene</span> <span class="na">version=</span><span class="s">2.0.0</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;shape</span> <span class="na">type=</span><span class="s">&quot;.. shape type ..&quot;</span><span class="nt">&gt;</span>
+        .. shape parameters ..
+
+        <span class="nt">&lt;bsdf</span> <span class="na">type=</span><span class="s">&quot;.. BSDF type ..&quot;</span><span class="nt">&gt;</span>
+            .. bsdf parameters ..
+        <span class="nt">&lt;/bsdf&gt;</span>
+
+        <span class="c">&lt;!-- Alternatively: reference a named BSDF that</span>
+<span class="c">             has been declared previously</span>
+
+<span class="c">             &lt;ref id=&quot;my_bsdf&quot;/&gt;</span>
+<span class="c">        --&gt;</span>
+    <span class="nt">&lt;/shape&gt;</span>
+<span class="nt">&lt;/scene&gt;</span>
+</pre></div>
+</div>
+<p>The following subsections discuss the available shape types in greater detail… _sec-bsdfs:</p>
+</div>
+<div class="section" id="bsdfs">
+<h1>BSDFs<a class="headerlink" href="#bsdfs" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><a class="reference internal image-reference" href="generated/../../resources/data/docs/images/bsdf/bsdf_overview.jpg"><img alt="generated/../../resources/data/docs/images/bsdf/bsdf_overview.jpg" class="align-center" src="generated/../../resources/data/docs/images/bsdf/bsdf_overview.jpg" style="width: 100%;" /></a>
+<p>Schematic overview of the most important surface scattering models in Mitsuba 2.
+The arrows indicate possible outcomes of an interaction with a surface that has
+the respective model applied to it.</p>
+</div></blockquote>
+<p>Surface scattering models describe the manner in which light interacts
+with surfaces in the scene. They conveniently summarize the mesoscopic
+scattering processes that take place within the material and
+cause it to look the way it does.
+This represents one central component of the material system in Mitsuba 2—another
+part of the renderer concerns itself with what happens
+<em>in between</em> surface interactions. For more information on this aspect,
+please refer to the sections regarding participating media.
+This section presents an overview of all surface scattering models that are
+supported, along with their parameters.</p>
+<p>To achieve realistic results, Mitsuba 2 comes with a library of general-purpose
+surface scattering models such as glass, metal, or plastic.
+Some model plugins can also act as modifiers that are applied on top of one or
+more scattering models.</p>
+<p>Throughout the documentation and within the scene description
+language, the word BSDF is used synonymously with the term <em>surface
+scattering model</em>. This is an abbreviation for <em>Bidirectional
+Scattering Distribution Function</em>, a more precise technical
+term.</p>
+<p>In Mitsuba 2, BSDFs are assigned to <em>shapes</em>, which describe the visible surfaces in
+the scene. In the scene description language, this assignment can
+either be performed by nesting BSDFs within shapes, or they can
+be named and then later referenced by their name.
+The following fragment shows an example of both kinds of usages:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;scene</span> <span class="na">version=</span><span class="s">2.0.0</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- Creating a named BSDF for later use --&gt;</span>
+    <span class="nt">&lt;bsdf</span> <span class="na">type=</span><span class="s">&quot;.. BSDF type ..&quot;</span> <span class="na">id=</span><span class="s">&quot;my_named_material&quot;</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!-- BSDF parameters go here --&gt;</span>
+    <span class="nt">&lt;/bsdf&gt;</span>
+
+    <span class="nt">&lt;shape</span> <span class="na">type=</span><span class="s">&quot;sphere&quot;</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!-- Example of referencing a named material --&gt;</span>
+        <span class="nt">&lt;ref</span> <span class="na">id=</span><span class="s">&quot;my_named_material&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/shape&gt;</span>
+
+    <span class="nt">&lt;shape</span> <span class="na">type=</span><span class="s">&quot;sphere&quot;</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!-- Example of instantiating an unnamed material --&gt;</span>
+        <span class="nt">&lt;bsdf</span> <span class="na">type=</span><span class="s">&quot;.. BSDF type ..&quot;</span><span class="nt">&gt;</span>
+            <span class="c">&lt;!-- BSDF parameters go here --&gt;</span>
+        <span class="nt">&lt;/bsdf&gt;</span>
+    <span class="nt">&lt;/shape&gt;</span>
+<span class="nt">&lt;/scene&gt;</span>
+</pre></div>
+</div>
+<p>It is generally more economical to use named BSDFs when they
+are used in several places, since this reduces the internal memory usage.</p>
+<div class="section" id="correctness-considerations">
+<span id="bsdf-correctness"></span><h2>Correctness considerations<a class="headerlink" href="#correctness-considerations" title="Permalink to this headline">¶</a></h2>
+<p>A vital consideration when modeling a scene in a physically-based rendering
+system is that the used materials do not violate physical properties, and
+that their arrangement is meaningful. For instance, imagine having designed
+an architectural interior scene that looks good except for a white desk that
+seems a bit too dark. A closer inspection reveals that it uses a Lambertian
+material with a diffuse reflectance of 0.9.</p>
+<p>In many rendering systems, it would be feasible to increase the
+reflectance value above 1.0 in such a situation. But in Mitsuba, even a
+small surface that reflects a little more light than it receives will
+likely break the available rendering algorithms, or cause them to produce otherwise
+unpredictable results. In fact, the right solution in this case would be to switch to
+a different the lighting setup that causes more illumination to be received by
+the desk and then <em>reduce</em> the material’s reflectance—after all, it is quite unlikely that
+one could find a real-world desk that reflects 90% of all incident light.</p>
+<p>As another example of the necessity for a meaningful material description, consider
+the glass model illustrated in the figure below. Here, careful thinking
+is needed to decompose the object into boundaries that mark index of
+refraction-changes. If this is done incorrectly and a beam of light can
+potentially pass through a sequence of incompatible index of refraction changes (e.g. 1.00 to 1.33
+followed by 1.50 to 1.33), the output is undefined and will quite likely
+even contain inaccuracies in parts of the scene that are far
+away from the glass.</p>
+<div class="figure align-center" id="fig-glass-explanation">
+<center><div class="figure align-center">
+<a class="reference internal image-reference" href="generated/../../resources/data/docs/images/bsdf/glass_explanation.svg"><img alt="Glass interfaces explanation" src="generated/../../resources/data/docs/images/bsdf/glass_explanation.svg" width="95%" /></a>
+</div>
+<p class="caption"><span class="caption-text">Some of the scattering models in Mitsuba need to know the indices of refraction on the exterior and
+interior-facing side of a surface. It is therefore important to decompose the mesh into meaningful
+separate surfaces corresponding to each index of refraction change. The example here shows such a
+decomposition for a water-filled Glass.</span></p>
+</center></div></div>
+</div>
+<div class="section" id="phase-functions">
+<span id="sec-phase"></span><span id="fig-glass-explanation"></span><h1>Phase functions<a class="headerlink" href="#phase-functions" title="Permalink to this headline">¶</a></h1>
+<p>This section contains a description of all implemented medium scattering models,
+which are also known as phase functions. These are very similar in principle to
+surface scattering models (or BSDFs), and essentially describe where light
+travels after hitting a particle within the medium. Currently, only the most
+commonly used models for smoke, fog, and other homogeneous media are implemented.
+.. _sec-emitters:</p>
+</div>
+<div class="section" id="emitters">
+<h1>Emitters<a class="headerlink" href="#emitters" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><a class="reference internal image-reference" href="generated/../../resources/data/docs/images/emitter/emitter_overview.jpg"><img alt="generated/../../resources/data/docs/images/emitter/emitter_overview.jpg" class="align-center" src="generated/../../resources/data/docs/images/emitter/emitter_overview.jpg" style="width: 70%;" /></a>
+<p>Schematic overview of the emitters in Mitsuba 2. The arrows indicate
+the directional distribution of light.</p>
+</div></blockquote>
+<p>Mitsuba 2 supports a number of different emitters/light sources, which can be
+classified into two main categories: emitters which are located somewhere within the scene, and emitters that surround the scene to simulate a distant environment.</p>
+<p>Generally, light sources are specified as children of the <code class="docutils literal notranslate"><span class="pre">&lt;scene&gt;</span></code> element; for instance,
+the following snippet instantiates a point light emitter that illuminates a sphere:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;scene</span> <span class="na">version=</span><span class="s">&quot;2.0.0&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;emitter</span> <span class="na">type=</span><span class="s">&quot;point&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;spectrum</span> <span class="na">name=</span><span class="s">&quot;intensity&quot;</span> <span class="na">value=</span><span class="s">&quot;1&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;point</span> <span class="na">name=</span><span class="s">&quot;position&quot;</span> <span class="na">x=</span><span class="s">&quot;0&quot;</span> <span class="na">y=</span><span class="s">&quot;0&quot;</span> <span class="na">z=</span><span class="s">&quot;-2&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/emitter&gt;</span>
+
+    <span class="nt">&lt;shape</span> <span class="na">type=</span><span class="s">&quot;sphere&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/scene&gt;</span>
+</pre></div>
+</div>
+<p>An exception to this are area lights, which turn a geometric object into a light source.
+These are specified as children of the corresponding <code class="docutils literal notranslate"><span class="pre">&lt;shape&gt;</span></code> element:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;scene</span> <span class="na">version=</span><span class="s">&quot;2.0.0&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;shape</span> <span class="na">type=</span><span class="s">&quot;sphere&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;emitter</span> <span class="na">type=</span><span class="s">&quot;area&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;spectrum</span> <span class="na">name=</span><span class="s">&quot;radiance&quot;</span> <span class="na">value=</span><span class="s">&quot;1&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/emitter&gt;</span>
+    <span class="nt">&lt;/shape&gt;</span>
+<span class="nt">&lt;/scene&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="sensors">
+<span id="sec-sensors"></span><h1>Sensors<a class="headerlink" href="#sensors" title="Permalink to this headline">¶</a></h1>
+<p>In Mitsuba 2, <em>sensors</em>, along with a <em>film</em>, are responsible for recording
+radiance measurements in some usable format.</p>
+<p>In the XML scene description language, a sensor declaration looks as follows:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;scene</span> <span class="na">version=</span><span class="s">2.0.0</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- .. scene contents .. --&gt;</span>
+
+    <span class="nt">&lt;sensor</span> <span class="na">type=</span><span class="s">&quot;.. sensor type ..&quot;</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!-- .. sensor parameters .. --&gt;</span>
+
+        <span class="nt">&lt;sampler</span> <span class="na">type=</span><span class="s">&quot;.. sampler type ..&quot;</span><span class="nt">&gt;</span>
+            <span class="c">&lt;!-- .. sampler parameters .. --&gt;</span>
+        <span class="nt">&lt;/samplers&gt;</span>
+
+        <span class="nt">&lt;film</span> <span class="na">type=</span><span class="s">&quot;.. film type ..&quot;</span><span class="nt">&gt;</span>
+            <span class="c">&lt;!-- .. film parameters .. --&gt;</span>
+        <span class="nt">&lt;/film&gt;</span>
+    <span class="nt">&lt;/sensor&gt;</span>
+<span class="nt">&lt;/scene&gt;</span>
+</pre></div>
+</div>
+<p>In other words, the <code class="docutils literal notranslate"><span class="pre">sensor</span></code> declaration is a child element of the <code class="docutils literal notranslate"><span class="pre">&lt;scene&gt;</span></code>
+(the particular position in the scene file does not play a role). Nested within
+the sensor declaration is a sampler instance (see <span class="xref std std-ref">Samplers</span>)
+and a film instance (see <span class="xref std std-ref">Films</span>).</p>
+<p>Sensors in Mitsuba 2 are <em>right-handed</em>. Any number of rotations and translations
+can be applied to them without changing this property. By default, they are located
+at the origin and oriented in such a way that in the rendered image, <span class="math notranslate nohighlight">\(+X\)</span>
+points left, <span class="math notranslate nohighlight">\(+Y\)</span> points upwards, and <span class="math notranslate nohighlight">\(+Z\)</span> points along the viewing
+direction.
+Left-handed sensors are also supported. To switch the handedness, flip any one
+of the axes, e.g. by passing a scale transform like <code class="docutils literal notranslate"><span class="pre">&lt;scale</span> <span class="pre">x=&quot;-1&quot;/&gt;</span></code> to the
+sensor’s <span class="monosp">to_world</span> parameter… _sec-textures:</p>
+</div>
+<div class="section" id="textures">
+<h1>Textures<a class="headerlink" href="#textures" title="Permalink to this headline">¶</a></h1>
+<p>The following section describes the available texture data sources. In Mitsuba 2,
+textures are objects that can be attached to certain surface scattering model
+parameters to introduce spatial variation. In the documentation, these are listed
+as supporting the <span class="paramtype">texture</span> type. See the last sections about
+<span class="xref std std-ref">BSDFs</span> for many examples.</p>
+<p>Textures take an (optional) <code class="docutils literal notranslate"><span class="pre">&lt;transform&gt;</span></code> called <span class="paramtype">to_uv</span> which can
+be used to translate, scale, or rotate the lookup into the texture accordingly.</p>
+<p>An example in XML looks the following:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;scene</span> <span class="na">version=</span><span class="s">2.0.0</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- Create a BSDF that supports textured parameters --&gt;</span>
+    <span class="nt">&lt;bsdf</span> <span class="na">type=</span><span class="s">&quot;.. BSDF type ..&quot;</span> <span class="na">id=</span><span class="s">&quot;my_textured_material&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;texture</span> <span class="na">type=</span><span class="s">&quot;.. texture type ..&quot;</span> <span class="na">name=</span><span class="s">&quot;.. parameter name ..&quot;</span><span class="nt">&gt;</span>
+            <span class="c">&lt;!-- .. Texture parameters go here .. --&gt;</span>
+
+            <span class="nt">&lt;transform</span> <span class="na">name=</span><span class="s">&quot;to_uv&quot;</span><span class="nt">&gt;</span>
+                <span class="c">&lt;!-- Scale texture by factor of 2 --&gt;</span>
+                <span class="nt">&lt;scale</span> <span class="na">x=</span><span class="s">&quot;2&quot;</span> <span class="na">y=</span><span class="s">&quot;2&quot;</span><span class="nt">/&gt;</span>
+                <span class="c">&lt;!-- Offset texture by [0.5, 1.0] --&gt;</span>
+                <span class="nt">&lt;translate</span> <span class="na">x=</span><span class="s">&quot;0.5&quot;</span> <span class="na">y=</span><span class="s">&quot;1.0&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;/transform&gt;</span>
+        <span class="nt">&lt;/texture&gt;</span>
+
+        <span class="c">&lt;!-- .. Non-spatially varying BSDF parameters ..--&gt;</span>
+    <span class="nt">&lt;/bsdf&gt;</span>
+<span class="nt">&lt;/scene&gt;</span>
+</pre></div>
+</div>
+<p>Similar to BSDFs, named textures can alternatively defined at the top level of the scene
+and later referenced. This is particularly useful if the same texture would be loaded
+many times otherwise.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;scene</span> <span class="na">version=</span><span class="s">2.0.0</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- Create a named texture at the top level --&gt;</span>
+    <span class="nt">&lt;texture</span> <span class="na">type=</span><span class="s">&quot;.. texture type ..&quot;</span> <span class="na">id=</span><span class="s">&quot;my_named_texture&quot;</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!-- .. Texture parameters go here .. --&gt;</span>
+
+        <span class="nt">&lt;transform</span> <span class="na">name=</span><span class="s">&quot;to_uv&quot;</span><span class="nt">&gt;</span>
+            <span class="c">&lt;!-- .. Transform parameters .. --&gt;</span>
+        <span class="nt">&lt;/transform&gt;</span>
+    <span class="nt">&lt;/texture&gt;</span>
+
+    <span class="c">&lt;!-- Create a BSDF that supports textured parameters --&gt;</span>
+    <span class="nt">&lt;bsdf</span> <span class="na">type=</span><span class="s">&quot;.. BSDF type ..&quot;</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!-- Example of referencing a named texture --&gt;</span>
+        <span class="nt">&lt;ref</span> <span class="na">id=</span><span class="s">&quot;my_named_texture&quot;</span> <span class="na">name=</span><span class="s">&quot;.. parameter name ..&quot;</span><span class="nt">/&gt;</span>
+
+        <span class="c">&lt;!-- .. Non-spatially varying BSDF parameters ..--&gt;</span>
+    <span class="nt">&lt;/bsdf&gt;</span>
+<span class="nt">&lt;/scene&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="spectra">
+<span id="sec-spectra"></span><h1>Spectra<a class="headerlink" href="#spectra" title="Permalink to this headline">¶</a></h1>
+<p>This section describes the plugins behind spectral reflectance or emission used
+in Mitsuba 2. On an implementation level, these behave very similarly to the
+<span class="xref std std-ref">texture plugins</span> described earlier (but lacking their
+spatially varying property) and can thus be used similarly as either BSDF or
+emitter parameters:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;scene</span> <span class="na">version=</span><span class="s">2.0.0</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;bsdf</span> <span class="na">type=</span><span class="s">&quot;.. BSDF type ..&quot;</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!-- Explicitly add a uniform spectrum plugin --&gt;</span>
+        <span class="nt">&lt;spectrum</span> <span class="na">type=</span><span class="s">&quot;.. spectrum type ..&quot;</span> <span class="na">name=</span><span class="s">&quot;.. parameter name ..&quot;</span><span class="nt">&gt;</span>
+            <span class="c">&lt;!-- Spectrum parameters go here --&gt;</span>
+        <span class="nt">&lt;/spectrum&gt;</span>
+    <span class="nt">&lt;/bsdf&gt;</span>
+<span class="nt">&lt;/scene&gt;</span>
+</pre></div>
+</div>
+<p>In practice, it is however discouraged to instantiate plugins in this explicit way
+and the XML scene description parser directly parses a number of common (shorter)
+<code class="docutils literal notranslate"><span class="pre">&lt;spectrum&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;rgb&gt;</span></code> tags See the corresponding section about the
+<a class="reference internal" href="../src/getting_started/file_format.html#sec-file-format"><span class="std std-ref">scene file format</span></a> for details.</p>
+<p>The following two tables summarize which underlying plugins get instantiated
+in each case, accounting for differences between reflectance and emission properties
+and all different color modes. Each plugin is briefly summarized below.</p>
+<div class="figure align-center" id="spectrum-reflectance-table-list">
+<center><table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 23%" />
+<col style="width: 23%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>XML description</p></th>
+<th class="head"><p>Monochrome mode</p></th>
+<th class="head"><p>RGB mode</p></th>
+<th class="head"><p>Spectral mode</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;spectrum</span> <span class="pre">name=&quot;..&quot;</span> <span class="pre">value=&quot;0.5&quot;/&gt;</span></code></p></td>
+<td><p><span class="xref std std-ref">uniform</span></p></td>
+<td><p><span class="xref std std-ref">uniform</span></p></td>
+<td><p><span class="xref std std-ref">uniform</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;spectrum</span> <span class="pre">name=&quot;..&quot;</span> <span class="pre">value=&quot;400:0.1,</span> <span class="pre">700:0.2&quot;/&gt;</span></code></p></td>
+<td><p><span class="xref std std-ref">uniform</span></p></td>
+<td><p><span class="xref std std-ref">srgb</span></p></td>
+<td><p><span class="xref std std-ref">regular</span>/<span class="xref std std-ref">irregular</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;spectrum</span> <span class="pre">name=&quot;..&quot;</span> <span class="pre">filename=&quot;..&quot;/&gt;</span></code></p></td>
+<td><p><span class="xref std std-ref">uniform</span></p></td>
+<td><p><span class="xref std std-ref">srgb</span></p></td>
+<td><p><span class="xref std std-ref">regular</span>/<span class="xref std std-ref">irregular</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;rgb</span> <span class="pre">name=&quot;..&quot;</span> <span class="pre">value=&quot;0.5,</span> <span class="pre">0.2,</span> <span class="pre">0.5&quot;/&gt;</span></code></p></td>
+<td><p><span class="xref std std-ref">srgb</span></p></td>
+<td><p><span class="xref std std-ref">srgb</span></p></td>
+<td><p><span class="xref std std-ref">srgb</span></p></td>
+</tr>
+</tbody>
+</table>
+<p class="caption"><span class="caption-text">Spectra used for reflectance (within BSDFs)</span></p>
+</center></div><div class="figure align-center" id="spectrum-emission-table-list">
+<span id="spectrum-reflectance-table-list"></span><center><table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 23%" />
+<col style="width: 23%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>XML description</p></th>
+<th class="head"><p>Monochrome mode</p></th>
+<th class="head"><p>RGB mode</p></th>
+<th class="head"><p>Spectral mode</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;spectrum</span> <span class="pre">name=&quot;..&quot;</span> <span class="pre">value=&quot;0.5&quot;/&gt;</span></code></p></td>
+<td><p><span class="xref std std-ref">uniform</span></p></td>
+<td><p><span class="xref std std-ref">uniform</span></p></td>
+<td><p><span class="xref std std-ref">d65</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;spectrum</span> <span class="pre">name=&quot;..&quot;</span> <span class="pre">value=&quot;400:0.1,</span> <span class="pre">700:0.2&quot;/&gt;</span></code></p></td>
+<td><p><span class="xref std std-ref">uniform</span></p></td>
+<td><p><span class="xref std std-ref">srgb_d65</span></p></td>
+<td><p><span class="xref std std-ref">regular</span>/<span class="xref std std-ref">irregular</span></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;spectrum</span> <span class="pre">name=&quot;..&quot;</span> <span class="pre">filename=&quot;..&quot;/&gt;</span></code></p></td>
+<td><p><span class="xref std std-ref">uniform</span></p></td>
+<td><p><span class="xref std std-ref">srgb_d65</span></p></td>
+<td><p><span class="xref std std-ref">regular</span>/<span class="xref std std-ref">irregular</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;rgb</span> <span class="pre">name=&quot;..&quot;</span> <span class="pre">value=&quot;0.5,</span> <span class="pre">0.2,</span> <span class="pre">0.5&quot;/&gt;</span></code></p></td>
+<td><p><span class="xref std std-ref">srgb_d65</span></p></td>
+<td><p><span class="xref std std-ref">srgb_d65</span></p></td>
+<td><p><span class="xref std std-ref">srgb_d65</span></p></td>
+</tr>
+</tbody>
+</table>
+<p class="caption"><span class="caption-text">Spectra used for emission (within emitters)</span></p>
+</center></div></div>
+<div class="section" id="integrators">
+<span id="sec-integrators"></span><span id="spectrum-emission-table-list"></span><h1>Integrators<a class="headerlink" href="#integrators" title="Permalink to this headline">¶</a></h1>
+<p>In Mitsuba 2, the different rendering techniques are collectively referred to as
+<em>integrators</em>, since they perform integration over a high-dimensional space.
+Each integrator represents a specific approach for solving the light transport
+equation—usually favored in certain scenarios, but at the same time affected
+by its own set of intrinsic limitations. Therefore, it is important to carefully
+select an integrator based on user-specified accuracy requirements and
+properties of the scene to be rendered.</p>
+<p>In the XML description language, a single integrator is usually instantiated by
+declaring it at the top level within the scene, e.g.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;scene</span> <span class="na">version=</span><span class="s">2.0.0</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- Instantiate a unidirectional path tracer,</span>
+<span class="c">         which renders paths up to a depth of 5 --&gt;</span>
+    <span class="nt">&lt;integrator</span> <span class="na">type=</span><span class="s">&quot;path&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;integer</span> <span class="na">name=</span><span class="s">&quot;max_depth&quot;</span> <span class="na">value=</span><span class="s">&quot;5&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/integrator&gt;</span>
+
+    <span class="c">&lt;!-- Some geometry to be rendered --&gt;</span>
+    <span class="nt">&lt;shape</span> <span class="na">type=</span><span class="s">&quot;sphere&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;bsdf</span> <span class="na">type=</span><span class="s">&quot;diffuse&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/shape&gt;</span>
+<span class="nt">&lt;/scene&gt;</span>
+</pre></div>
+</div>
+<p>This section gives an overview of the available choices along with their parameters.</p>
+<p>Almost all integrators use the concept of <em>path depth</em>. Here, a path refers to
+a chain of scattering events that starts at the light source and ends at the
+camera. It is oten useful to limit the path depth when rendering scenes for
+preview purposes, since this reduces the amount of computation that is necessary
+per pixel. Furthermore, such renderings usually converge faster and therefore
+need fewer samples per pixel. Then reference-quality is desired, one should always
+leave the path depth unlimited.</p>
+<p>The Cornell box renderings below demonstrate the visual effect of a maximum path
+depth. As the paths are allowed to grow longer, the color saturation increases
+due to multiple scattering interactions with the colored surfaces. At the same
+time, the computation time increases.</p>
+<div class="figure compound align-center" id="fig-integrators-depth">
+<div style="width: 23%" class="subfigure align-center" id="id1">
+<a class="reference internal image-reference" href="generated/../../resources/data/docs/images/render/integrator_depth_1.jpg"><img alt="generated/../../resources/data/docs/images/render/integrator_depth_1.jpg" src="generated/../../resources/data/docs/images/render/integrator_depth_1.jpg" style="width: 95%;" /></a>
+<p class="caption"><span class="caption-text">max. depth = 1</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<div style="width: 23%" class="subfigure align-center" id="id2">
+<a class="reference internal image-reference" href="generated/../../resources/data/docs/images/render/integrator_depth_2.jpg"><img alt="generated/../../resources/data/docs/images/render/integrator_depth_2.jpg" src="generated/../../resources/data/docs/images/render/integrator_depth_2.jpg" style="width: 95%;" /></a>
+<p class="caption"><span class="caption-text">max. depth = 2</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<div style="width: 23%" class="subfigure align-center" id="id3">
+<a class="reference internal image-reference" href="generated/../../resources/data/docs/images/render/integrator_depth_3.jpg"><img alt="generated/../../resources/data/docs/images/render/integrator_depth_3.jpg" src="generated/../../resources/data/docs/images/render/integrator_depth_3.jpg" style="width: 95%;" /></a>
+<p class="caption"><span class="caption-text">max. depth = 3</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+<div style="width: 23%" class="subfigure align-center" id="id4">
+<a class="reference internal image-reference" href="generated/../../resources/data/docs/images/render/integrator_depth_inf.jpg"><img alt="generated/../../resources/data/docs/images/render/integrator_depth_inf.jpg" src="generated/../../resources/data/docs/images/render/integrator_depth_inf.jpg" style="width: 95%;" /></a>
+<p class="caption"><span class="caption-text">max. depth = <span class="math notranslate nohighlight">\(\infty\)</span></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+</div><p id="fig-integrators-depth">Mitsuba counts depths starting at 1, which corresponds to visible light sources
+(i.e. a path that starts at the light source and ends at the camera without any
+scattering interaction in between.) A depth-2 path (also known as “direct
+illumination”) includes a single scattering event like shown here:</p>
+</div>
+<div class="section" id="samplers">
+<h1>Samplers<a class="headerlink" href="#samplers" title="Permalink to this headline">¶</a></h1>
+<p>When rendering an image, Mitsuba 2 has to solve a high-dimensional integration problem that involves
+the geometry, materials, lights, and sensors that make up the scene. Because of the mathematical
+complexity of these integrals, it is generally impossible to solve them analytically — instead, they
+are solved numerically by evaluating the function to be integrated at a large number of different
+positions referred to as samples. Sample generators are an essential ingredient to this process:
+they produce points in a (hypothetical) infinite dimensional hypercube <span class="math notranslate nohighlight">\([0, 1]^{\infty}\)</span>
+that constitute the canonical representation of these samples.</p>
+<p>To do its work, a rendering algorithm, or integrator, will send many queries to the sample
+generator. Generally, it will request subsequent 1D or 2D components of this infinite-dimensional
+<em>point</em> and map them into a more convenient space (for instance, positions on surfaces). This allows
+it to construct light paths to eventually evaluate the flow of light through the scene.
+.. _sec-films:</p>
+</div>
+<div class="section" id="films">
+<h1>Films<a class="headerlink" href="#films" title="Permalink to this headline">¶</a></h1>
+<p>A film defines how conducted measurements are stored and converted into the final
+output file that is written to disk at the end of the rendering process.</p>
+<p>In the XML scene description language, a normal film configuration might look
+as follows:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;scene</span> <span class="na">version=</span><span class="s">2.0.0</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- .. scene contents --&gt;</span>
+
+    <span class="nt">&lt;sensor</span> <span class="na">type=</span><span class="s">&quot;.. sensor type ..&quot;</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!-- .. sensor parameters .. --&gt;</span>
+
+        <span class="c">&lt;!-- Write to a high dynamic range EXR image --&gt;</span>
+        <span class="nt">&lt;film</span> <span class="na">type=</span><span class="s">&quot;hdrfilm&quot;</span><span class="nt">&gt;</span>
+            <span class="c">&lt;!-- Specify the desired resolution (e.g. full HD) --&gt;</span>
+            <span class="nt">&lt;integer</span> <span class="na">name=</span><span class="s">&quot;width&quot;</span> <span class="na">value=</span><span class="s">&quot;1920&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;integer</span> <span class="na">name=</span><span class="s">&quot;height&quot;</span> <span class="na">value=</span><span class="s">&quot;1080&quot;</span><span class="nt">/&gt;</span>
+
+            <span class="c">&lt;!-- Use a Gaussian reconstruction filter. For details</span>
+<span class="c">                 on these, refor to the next subsection --&gt;</span>
+            <span class="nt">&lt;rfilter</span> <span class="na">type=</span><span class="s">&quot;gaussian&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/film&gt;</span>
+    <span class="nt">&lt;/sensor&gt;</span>
+<span class="nt">&lt;/scene&gt;</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">&lt;film&gt;</span></code> plugin should be instantiated nested inside a <code class="docutils literal notranslate"><span class="pre">&lt;sensor&gt;</span></code>
+declaration. Note how the output filename is never specified—it is automatically
+inferred from the scene filename and can be manually overridden by passing the
+configuration parameter <code class="docutils literal notranslate"><span class="pre">-o</span></code> to the <code class="docutils literal notranslate"><span class="pre">mitsuba</span></code> executable when rendering
+from the command line.
+.. _sec-rfilters:</p>
+</div>
+<div class="section" id="reconstruction-filters">
+<h1>Reconstruction filters<a class="headerlink" href="#reconstruction-filters" title="Permalink to this headline">¶</a></h1>
+<p>Image reconstruction filters are responsible for converting a series of radiance samples generated
+jointly by the sampler and integrator into the final output image that will be written to disk at
+the end of a rendering process. This section gives a brief overview of the reconstruction filters
+that are available in Mitsuba. There is no universally superior filter, and the final choice depends
+on a trade-off between sharpness, ringing, and aliasing, and computational efficiency.</p>
+<p>Desireable properties of a reconstruction filter are that it sharply captures all of the details
+that are displayable at the requested image resolution, while avoiding aliasing and ringing.
+Aliasing is the incorrect leakage of high-frequency into low-frequency detail, and ringing denotes
+oscillation artifacts near discontinuities, such as a light-shadow transiton.</p>
+</div>
+
+
+          </div>
+            
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="../src/plugin_reference/intro.html" title="previous chapter (use the left arrow)">Plugin reference</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="../src/api_reference/intro.html" title="next chapter (use the right arrow)">Introduction</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../src/api_reference/intro.html" title="Introduction"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../src/plugin_reference/intro.html" title="Plugin reference"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Shapes</a></li> 
+      </ul>
+    </div>
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $(".toggle > *").hide();
+        $(".toggle .header").show();
+        $(".toggle .header").click(function() {
+            $(this).parent().children().not(".header").toggle(400);
+            $(this).parent().children(".header").toggleClass("open");
+        })
+    });
+</script>
+
+  </body>
+</html>
