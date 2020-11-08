@@ -3,31 +3,23 @@
 Compiling the system
 ====================
 
-Before continuing, please make sure that you have read and followed the
-instructions on :ref:`cloning Mitsuba 2 and its dependencies <sec-cloning>` and
-:ref:`choosing desired variants <sec-variants>`.
+在继续之前，请却表你已经完成阅读并遵循了以下两个章节 :ref:`cloning Mitsuba 2 and its dependencies <sec-cloning>` 
+和 :ref:`choosing desired variants <sec-variants>`。
 
-Compiling Mitsuba 2 from scratch requires recent versions of CMake (at least
-**3.9.0**) and Python (at least **3.6**). Further platform-specific
-dependencies and compilation instructions are provided below for each operating
-system. Some additional steps are required for GPU-based backends that are
-described at the end of this section.
+从头开始编译 Mitsuba 2需要最新版的 CMake(至少是 **3.9.0**)和 Python（至少是 **3.6**）。
+下面为每种操作系统提供了平台特定的依赖项和编译说明。本节末尾介绍的是基于 GPU 后端需要的一些额外步骤。
 
 Linux
 -----
 
-The build process under Linux requires several external dependencies that are
-easily installed using the system-provided package manager (e.g.,
-:monosp:`apt-get` under Ubuntu).
+Linux 下的构建过程需要几个外部依赖项，这些依赖项可以使用系统提供的包管理器轻松安装（例如，Ubuntu 下的 :monosp:`apt-get`）。
 
-Note that recent Linux distributions include two different compilers that can
-both be used for C++ software development. `GCC <https://gcc.gnu.org>`_ is
-typically the default, and `Clang <https://clang.llvm.org>`_ can be installed
-optionally. During the development of this project, we encountered many issues
-with GCC (mis-compilations, compiler errors, segmentation faults), and strongly
-recommend that you use Clang instead.
+请注意，最近的 Linux 发行版包括两个不同的编译器，它们都可以用于 C++ 软件开发。
+`GCC <https://gcc.gnu.org>`_ 通常是默认设置，而 `Clang <https://clang.llvm.org>`_ 是可以选择安装的。
+在本项目的开发过程中，我们遇到了很多关于 GCC 的问题(mis-compilations, compiler errors, segmentation faults)，
+强烈建议你使用 Clang 进行编译。
 
-To fetch all dependencies and Clang, enter the following commands on Ubuntu:
+要获取所有依赖项和 Clang，请在 Ubuntu 上输入以下命令：
 
 .. code-block:: bash
 
@@ -40,9 +32,8 @@ To fetch all dependencies and Clang, enter the following commands on Ubuntu:
     # Install required Python packages
     sudo apt install -y python3-dev python3-distutils python3-setuptools
 
-Additional packages are required to run the included test suite or to generate HTML
-documentation (see :ref:`Developer guide <sec-devguide>`). If those are interesting to you, also
-enter the following commands:
+运行包含的测试套件或生成 HTML 文档需要的其他包（请参阅 :ref:`Developer guide <sec-d evguide>`）。
+如果你对这些内容感兴趣，输入以下命令：
 
 .. code-block:: bash
 
@@ -52,19 +43,17 @@ enter the following commands:
     # For generating the documentation
     sudo apt install -y python3-sphinx python3-guzzle-sphinx-theme python3-sphinxcontrib.bibtex
 
-Next, ensure that two environment variables :monosp:`CC` and
-:monosp:`CXX` are exported. You can either run these two commands manually
-before using CMake or---even better---add them to your :monosp:`~/.bashrc`
-file. This ensures that CMake will always use the correct compiler.
+接下来，确保导入了两个环境变量 :monosp:`CC` 和 :monosp:`CXX` 。你可以在使用 CMake 之前手动运行这两个命令---或者
+更进一步，将它们添加到你的 :monosp:`~/.bashrc` 文件中。这可以保证 CMake 总是使用正确的编译器。
+
 
 .. code-block:: bash
 
     export CC=clang-9
     export CXX=clang++-9
 
-If you installed another version of Clang, the version suffix of course has to be adjusted.
-Now, compilation should be as simple as running the following from inside the
-:monosp:`mitsuba2` root directory:
+如果你安装了另一个版本的 Clang，版本后缀需要相应做出调整。随后，在 :monosp:`mitsuba2` 根目录中运行以下命令，编译就可以
+很简单的完成了。
 
 .. code-block:: bash
 
@@ -78,10 +67,8 @@ Now, compilation should be as simple as running the following from inside the
 Tested version
 ^^^^^^^^^^^^^^
 
-The above procedure will likely work on many different flavors of Linux (with
-slight adjustments for the package manager and package names). We have mainly
-worked with software environment listed below, and our instructions should work
-without modifications in that case.
+上述的过程可以适用于许多不同风格的 Linux（只需对包管理器和包名进行轻微的调整）。我们主要使用的是下面列出的软件环境，
+在这种情况下，我们的说明应该可以正常工作并且不需要修改。
 
 * Ubuntu 19.10
 * clang 9.0.0-2 (tags/RELEASE_900/final)
@@ -92,14 +79,13 @@ without modifications in that case.
 Windows
 -------
 
-On Windows, a recent version of `Visual Studio 2019
-<https://visualstudio.microsoft.com/vs/>`_ is required. Some tools such as git,
-CMake, or Python (e.g. via `Miniconda 3
-<https://docs.conda.io/en/latest/miniconda.html>`_) might need to be installed
-manually. Mitsuba's build system *requires* access to Python >= 3.6 even if you
-do not plan to use Mitsuba's python interface.
+Windows 平台上, 需要最新版的 `Visual Studio 2019
+<https://visualstudio.microsoft.com/vs/>`_ 。 还有一些其他工具，例如git、
+CMake、还有 Python (e.g. 通过 `Miniconda 3
+<https://docs.conda.io/en/latest/miniconda.html>`_) 等需要手动安装。 Mitsuba 的构建系统
+ *需要接入*  Python >= 3.6 ，即使你并不打算使用 Mitsuba 的 Python 接口。
 
-From the root `mitsuba2` directory, the build can be configured with:
+在 `mitsuba2` 的根目录下，构建过程可以如此配置：
 
 .. code-block:: bash
 
@@ -107,13 +93,11 @@ From the root `mitsuba2` directory, the build can be configured with:
     cmake -G "Visual Studio 16 2019" -A x64
 
 
-Afterwards, open the generated ``mitsuba.sln`` file and proceed building as
-usual from within Visual Studio. You will probably also want to set the build
-mode to *Release* there.
+在这之后，打开生成的 ``mitsuba.sln`` 文件，接下来在 Visual Studio 像往常一样进行构建即可。
+你可能还需要将构建模式设置为 *Release*。
 
-Additional packages are required to run the included test suite or to generate HTML
-documentation (see :ref:`Developer guide <sec-devguide>`). If those are interesting to you, also
-enter the following commands:
+运行包含的测试套件或生成 HTML 文档需要的其他包（请参阅 :ref:`Developer guide <sec-d evguide>`）。
+如果你对这些内容感兴趣，输入以下命令：
 
 .. code-block:: bash
 
@@ -132,16 +116,16 @@ Tested version
 macOS
 -----
 
-On macOS, you will need to install Xcode, CMake, and `Ninja <https://ninja-build.org/>`_.
-Additionally, running the Xcode command line tools once might be necessary:
+macOS 平台上，你需要安装 Xcode，CMake 和 `Ninja <https://ninja-build.org/>`_。
+除此之外，还需要运行一次 Xcode 命令行工具。
 
 .. code-block:: bash
 
     xcode-select --install
 
-Note that the default Python version installed with macOS is not compatible with Mitsuba 2, and a more recent version (at least 3.6) needs to be installed (e.g. via `Miniconda 3 <https://docs.conda.io/en/latest/miniconda.html>`_ or `Homebrew <https://brew.sh/>`_).
+注意，macOS 中默认 Python 版本与 Mitsuba 2不兼容，因此你需要安装更新的版本 Python（至少3.6，通过 `Miniconda 3 <https://docs.conda.io/en/latest/miniconda.html>`_ 或 `Homebrew <https://brew.sh/>`_)。
 
-Now, compilation should be as simple as running the following from inside the `mitsuba2` root directory:
+随后，在 :monosp:`mitsuba2` 根目录中运行以下命令，编译就可以 很简单的完成了：
 
 .. code-block:: bash
 
@@ -162,9 +146,8 @@ Tested version
 Running Mitsuba
 ---------------
 
-Once Mitsuba is compiled, run the ``setpath.sh/bat`` script to configure
-environment variables (``PATH/LD_LIBRARY_PATH/PYTHONPATH``) that are required
-to run Mitsuba.
+一旦 Mitsuba 的编译完成之后， 运行 ``setpath.sh/bat`` 脚本以配置环境变量(``PATH/LD_LIBRARY_PATH/PYTHONPATH``) that are required
+才能运行 Mitsuba。
 
 .. code-block:: bash
 
@@ -174,47 +157,42 @@ to run Mitsuba.
     # On Windows
     C:/.../mitsuba2> setpath
 
-Mitsuba can then be used to render scenes by typing
+然后就可以顺利通过命令行输入来使用 Mitsuba 来渲染场景了。
 
 .. code-block:: bash
 
     mitsuba scene.xml
 
-where ``scene.xml`` is a Mitsuba scene file. Alternatively,
+``scene.xml`` 是一个 Mitsuba 场景文件。或者有，
 
 .. code-block:: bash
 
     mitsuba -m scalar_spectral_polarized scene.xml
 
-renders with a specific variant that was previously enabled in
-:monosp:`mitsuba.conf`. Call ``mitsuba --help`` to print additional information
-about the various possible command line options.
+这是使用之前在 :monosp:`mitsuba.conf` 启用的指定变体模式进行渲染，调用 ``mitsuba --help`` 以
+打印关于命令行选项的额外信息详细查看。
 
 
 GPU variants
 ------------
 
-Variants of Mitsuba that run on the GPU (e.g. :monosp:`gpu_rgb`,
-:monosp:`gpu_autodiff_spectral`, etc.) additionally depend on the `NVIDIA CUDA
-Toolkit <https://developer.nvidia.com/cuda-downloads>`_ and `NVIDIA OptiX
-<https://developer.nvidia.com/designworks/optix/download>`_. CUDA needs to be installed
-manually while OptiX 7 ships natively with the latest GPU driver. Make sure to have an
-up-to-date GPU driver if the framework fails to compile the GPU variants of Mitsuba.
+运行在 GPU 上的 Mitsuba 变体（例如， :monosp:`gpu_rgb`,
+:monosp:`gpu_autodiff_spectral` 等）都另外依赖于 `NVIDIA CUDA
+Toolkit <https://developer.nvidia.com/cuda-downloads>`_ 和 `NVIDIA OptiX
+<https://developer.nvidia.com/designworks/optix/download>`_。
+需要手动安装 CUDA，而 OptiX 7 自带了最新的 GPU 驱动。如果框架无法编译 Mitsuba 
+的 GPU 变体，请确保拥有最新的 GPU 驱动程序。
 
-Tested versions of CUDA include 10.0, 10.1, and 10.2. Only OptiX 7 is supported at this moment.
+我们测试过的 CUDA 版本包括 10.0，10.1，和 10.2。 当前只有 OptiX 7 是被支持的。
 
 .. warning::
 
-    Neither GPU- nor differentiable rendering currently work on macOS, which is
-    sadly unlikely to change in the future. Apple has expelled NVIDIA graphics
-    (and therefore APIs like CUDA that Mitsuba depends on) from the Mac
-    ecosystem some years ago. Please voice your concerns to Apple if you are
-    unhappy with this state of affairs.
+    目前，基于 GPU 渲染 和 可微渲染都不支持在 macOS 运行，遗憾的是这一点在未来也不太可能改变。
+    几年前，Apple 己经将 NVIDIA 显卡（包含其 API，如 Mitsuba 所依赖的 CUDA）从 Mac 生态中驱逐出去了。
+    如果你对这一情况不满意，请向 Apple 发声。
 
-In case your CUDA installation is not automatically found by CMake (for instance
-because the directory is not in `PATH`), you need to either set the environment variable
-`CUDACXX` or the CMake cache entry `CMAKE_CUDA_COMPILER` to the full path to the
-compiler. E.g.
+如果 CMake 未能自动找到你安装的 CUDA(例如，目录不在 `PATH` 中)，你需要设置环境变量 `CUDACXX` 或者将 CMake 缓存
+条目 `CMAKE_CUDA_COMPILER` 的全路径设置到编译器，例如：
 
 .. code-block:: bash
 
@@ -226,18 +204,17 @@ compiler. E.g.
     # As part of the CMake process
     cmake .. -DCMAKE_CUDA_COMPILER=/usr/local/cuda/bin/nvcc
 
-By default, Mitsuba is able to resolve the OptiX API itself, and therefore does not rely on
-the ``optix.h`` header file. The ``MTS_USE_OPTIX_HEADERS`` CMake flag can be used to turn off
-this feature if a developer wants to experiment with parts of the OptiX API not yet exposed
-to the framework.
+默认情况下， Mitsuba 能够解析 OptiX API 本身，因此不依赖于 ``optix.h`` 头文件。
+如果开发者想要实验 OptiX API 中尚未添加到框架的部分的话，可通过 CMake 
+标志 ``MTS_USE_OPTIX_HEADERS`` 来关闭此功能，。
 
 
 Embree
 ------
 
-Mitsuba's ``scalar`` and ``packet`` backends can optionally use Intel's Embree
-library for ray tracing instead of the builtin kd-tree in Mitsuba 2. To do so,
-invoke CMake with the ``-DMTS_ENABLE_EMBREE=1`` parameter or use a visual CMake
-tool like ``cmake-gui`` or ``ccmake`` to flip the value of this parameter.
-Embree tends to be faster but lacks some features such as support for double
-precision ray intersection.
+Mitsuba 的 ``scalar`` 和 ``packet`` 后端可以选择使用 Intel 的 Embree
+库负责计算光线追踪部分，而不是使用 Mitsuba 2 中内置的 kd-tree。
+调用 CMake 时通过 ``-DMTS_ENABLE_EMBREE=1`` 参数或者在 ``cmake-gui`` 或 ``ccmake``  
+这样的 CMake 可视化工具中，反转这一参数的值，来实现后端计算库的调整。
+Embree 速度往往更快，但会缺乏一些功能，例如支持双精度光线相交等。
+
