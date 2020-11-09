@@ -3,41 +3,32 @@
 Frequently asked questions
 --------------------------
 
-- Compilation fails with the error message: ":monosp:`Error: always_inline
+- 编译失败并显示错误信息： ":monosp:`Error: always_inline
   function <..> requires target feature <..> but would be inlined into function
   <..> that is compiled without support for <..>`".
 
-    You are likely trying to compile Mitsuba within a virtual machine such as
-    VirtualBox, QEmu, etc. This is not recommended: most of these virtual
-    machines expose "funky" virtualized processors that are missing standard
-    instructions extensions, which breaks compilation. You can work around this
-    issue by completely disabling vectorization at some cost in performance. In
-    this case, add the following line to the top-level :monosp:`CMakeLists.txt`
-    file (e.g. in line 4 after the :monosp:`project()` declaration).
+    你可能是在诸如 VirtualBox、QEmu 之类的虚拟机中编译的 Mitsuba。不推荐这样做：因为这些虚拟机
+    中大多数使用的虚拟化处理器缺少标准扩展指令集，而这会破坏编译过程。你可以针对这一问题完
+    全禁用矢量化（vectorization）来进行解决，但会产生一定的性能代价。在此例中将下面这行代码添加到 :monosp:`CMakeLists.txt` 文件顶层
+    （比如，放到 :monosp:`project()` 声明后面的第四行上）
 
     .. code-block:: cmake
 
         add_definitions(-DENOKI_DISABLE_VECTORIZATION=1)
 
 
-- Differentiable rendering fails with the error message ":monosp:`Failed to load
-  Optix library`".
+- 可微渲染时失败并显示错误信息：":monosp:`Failed to load Optix library`"。
 
-    It is likely that the version of OptiX installed on your system is not
-    compatible with the video driver (the two must satisfy version requirements
-    that are detailed on the OptiX website)
+    这可能是因为你系统上安装的 OptiX 版本与视频驱动程序不兼容（这两个的版本必须满足 OptiX 网站上详细说明的版本要求）。
 
-- Differentiable rendering fails with an error message similar to ":monosp:`RuntimeError:
-  cuda_malloc(): out of memory!`".
+- 可微渲染时失败并显示报错信息：":monosp:`RuntimeError:   cuda_malloc(): out of memory!`"。
 
-    The rendering or autodiff graph exhausted your GPU's memory. Try reducing the sample count
-    and / or resolution. If high sample count renders are necessary, it is possible to split computation
-    in several low sample count passes and average together the gradients.
+    渲染或者自动微分图形的耗尽了你的 GPU 内存。尝试减少采样数目或分辨率。如果确实在渲染时需要高采样，可以分成多次低采样数渲染然后
+    平均它们的梯度。
 
-- Citing Mitsuba 2 in scientific literature.
+- 在科学文献中引用 Mitsuba 2。
 
-  Please use the following BibTeX entry to cite Mitsuba 2 in research articles,
-  books, etc.
+  请在研究文章、书籍等中使用下面的 BibTeX 条目来引用 Mitsuba 2。
 
   .. code-block:: bibtex
 
@@ -52,12 +43,12 @@ Frequently asked questions
           doi = {10.1145/3355089.3356498}
       }
 
-  Here is a plain-text version of the above:
+  以下是上述内容的纯文本版本。
 
       Merlin Nimier-David, Delio Vicini, Tizian Zeltner, and Wenzel Jakob.
       2019. Mitsuba 2: A Retargetable Forward and Inverse Renderer. In
       Transactions on Graphics (Proceedings of SIGGRAPH Asia)
       38(6).
 
-  A pre-print of this article is available `here
-  <http://rgl.epfl.ch/publications/NimierDavidVicini2019Mitsuba2>`_.
+  这篇论文的影印版可以从 `这里
+  <http://rgl.epfl.ch/publications/NimierDavidVicini2019Mitsuba2>`_ 获得。
