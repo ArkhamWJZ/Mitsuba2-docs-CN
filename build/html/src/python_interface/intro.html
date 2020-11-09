@@ -68,7 +68,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/intro.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/cloning.html">Cloning the repository</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started/variants.html">Choosing variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/variants.html">选择变体</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/compiling.html">Compiling the system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/file_format.html">Scene file format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/differences.html">Differences to Mitsuba 0.6</a></li>
@@ -170,34 +170,22 @@
             
   <div class="section" id="introduction">
 <span id="sec-python"></span><h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
-<p>Mitsuba 2 provides extremely fine-grained Python bindings to essentially every
-function in the system. This makes it possible to import the renderer into a
-Jupyter notebook and develop new algorithms interactively while visualizing
-their behavior using plots.</p>
-<p>Ray intersections, BSDF evaluations and emitters, and numerous other system
-components can be queried and sampled through an efficient vectorized
-interface, enabling the design of non-traditional applications that do not
-necessarily produce a rendering as output. The bindings blur the boundaries
-between C++ and the Python world: it is for instance possible to to implement a
-new Mitsuba plugin (e.g. a BSDF) using Python and use it to render an image,
-where most rendering code runs in C++. Several Mitsuba variants heavily rely on
-JIT compilation, and such Python extensions are jointly JIT-compiled along with
-other C++ portions of the system.</p>
-<p>Mitsuba’s automated test suite is entirely written in Python, which ensures the
-completeness and correctness of the Python bindings and also serves as an
-excellent source of Python example code.</p>
-<p>This remainder of this section provides a number of examples on using the
-Python API and points out additional sources of information. For now, we focus
-on the use of the bindings for “forward” rendering applications. A separate set
-of tutorials describes applications to differentiable and inverse rendering.</p>
+<p>Mitsuba 2 为系统中的几乎每一个函数都提供了极其细颗粒度的 Python 绑定。这样就可以将渲染器导入到 Jupyter notebook 中，
+从而可以通过交互方式开发新的算法，并用曲线图可视化它们的行为。</p>
+<p>光线求交、BSDF 估算和光源以及许多其他系统组件可以通过高效的矢量化接口进行查询和采样，从而能够设计不一定
+将渲染图作为输出的非传统应用程序。绑定模糊了 C++ 和 Python 世界之间的界限：例如，可以使用 Python 实现
+一个新的 Mitsuba 插件（例如 BSDF），并使用它来渲染图像，其中大多数渲染代码都在 C++ 中运行。 有几个 Mitsuba
+变体重度依赖 JIT 编译，这样的 Python 扩展是与系统的其他 C++ 部分一起进行 JIT 编译的。</p>
+<p>Mitsuba 的自动化测试套件完全是用 Python 编写的，这确保了 Python 绑定的完整性和正确性，
+同时也提供了优秀的 Python 示例代码。</p>
+<p>这一节的其余部分提供了大量有关使用 Python API 的示例，并指明了附加信息来源。现在，我们主要关注绑定在“正向”渲染中
+的应用。另有一组教程介绍了可微渲染和逆渲染的应用。</p>
 <div class="section" id="importing-the-renderer">
 <h2>Importing the renderer<a class="headerlink" href="#importing-the-renderer" title="Permalink to this headline">¶</a></h2>
-<p>Mitsuba 2 ships with many different system variants, each of which provides its
-own set of Python bindings that are necessarily different from others due to
-the replacement of types in function signatures.</p>
-<p>To import Mitsuba into Python, you will first have to import the central
-<code class="docutils literal notranslate"><span class="pre">mitsuba</span></code> module and set the desired variant. Following this, specific
-classes can be imported.</p>
+<p>Mitsuba 2附带了许多种不同的系统变体，每个变体都提供了一组自己的 Python 绑定，由于替换了函数签名类型，
+这些绑定之间互不相同。</p>
+<p>要将 Mitsuba 导入到 Python 中，首先必须导入 <code class="docutils literal notranslate"><span class="pre">mitsuba</span></code>  模块并设置所需的变体。 在此之后，可
+以导入特定的类。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mitsuba</span>
 
 <span class="n">mitsuba</span><span class="o">.</span><span class="n">set_variant</span><span class="p">(</span><span class="s1">&#39;gpu_autodiff_spectral&#39;</span><span class="p">)</span>
@@ -207,13 +195,9 @@ classes can be imported.</p>
 <span class="kn">from</span> <span class="nn">mitsuba.render</span> <span class="kn">import</span> <span class="n">Integrator</span>
 </pre></div>
 </div>
-<p>Behind the scenes, Mitsuba exposes a <em>virtual</em> Python module that dynamically
-resolves import statements to the right destination (as specified via
-<code class="docutils literal notranslate"><span class="pre">set_variant()</span></code>). The variant name can be changed at any time and will then
-apply to future imports. The variant name is a per-thread property, hence
-multiple independent threads can execute code in separate variants.</p>
-<p>Other helper functions are provided in Python in order to interact with the
-available variants:</p>
+<p>Mitsuba 公开了一个 <em>虚拟 Python</em> 模块，该模块能够动态的解析导入语句到正确的位置。(比如通过 <code class="docutils literal notranslate"><span class="pre">set_variant()</span></code> 指定)。
+变体名称可以随时更改，然后将应用于未来的导入。变体的名称是每个线程的属性多个独立的线程可以在不同的变体中执行代码。</p>
+<p>为了与可用变体交互，在 Python 中提供了其他辅助函数。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Returns the list of available system variants</span>
 <span class="n">mitsuba</span><span class="o">.</span><span class="n">variants</span><span class="p">()</span> <span class="c1"># e.g. [&#39;scalar_rgb&#39;, &#39;gpu_autodiff_spectral&#39;]</span>
 
@@ -221,18 +205,15 @@ available variants:</p>
 <span class="n">mitsuba</span><span class="o">.</span><span class="n">variant</span><span class="p">()</span> <span class="c1"># e.g. &#39;gpu_autodiff_spectral&#39;</span>
 </pre></div>
 </div>
-<p>It is also possible to set a <em>default</em> variant that is automatically activated
-when importing the <code class="docutils literal notranslate"><span class="pre">mitsuba</span></code> Python module. This can be done by setting the
-<code class="docutils literal notranslate"><span class="pre">python-default</span></code> field in the <code class="docutils literal notranslate"><span class="pre">mitsuba.conf</span></code> file. Following this, it is no
-longer necessary to call <code class="docutils literal notranslate"><span class="pre">mitsuba.set_variant(..)</span></code> anymore unless another
-variant is desired.</p>
+<dl class="simple">
+<dt>如何在导入 <code class="docutils literal notranslate"><span class="pre">mitsuba</span></code> Python 模块时设置自动激活的变体呢？可以在 <code class="docutils literal notranslate"><span class="pre">mitsuba.conf</span></code> 文件里的</dt><dd><p><code class="docutils literal notranslate"><span class="pre">python-default</span></code> 中进行设置。按照这种方法操作之后，除非需要另一种变体，否则不再需要调用 <code class="docutils literal notranslate"><span class="pre">mitsuba.set_variant(..)</span></code> 了。</p>
+</dd>
+</dl>
 </div>
 <div class="section" id="api-documentation">
 <h2>API documentation<a class="headerlink" href="#api-documentation" title="Permalink to this headline">¶</a></h2>
-<p>Extensive API documentation is available as part of this document. See the
-<a class="reference internal" href="../api_reference/intro.html#sec-api"><span class="std std-ref">Introduction</span></a> section for details.</p>
-<p>The Python bindings furthermore export docstrings, making it is possible to
-obtain information on classes, function via the <code class="docutils literal notranslate"><span class="pre">help()</span></code> function:</p>
+<p>作为本文档的一部分，我们提供了丰富的 API 文档。详情请参阅 <a class="reference internal" href="../api_reference/intro.html#sec-api"><span class="std std-ref">Introduction</span></a> 。</p>
+<p>除此之外，还可以使用 <code class="docutils literal notranslate"><span class="pre">help()</span></code> 函数获取有关类、函数的相关信息，通过这种方式获得 Python 绑定的文档字符串：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mitsuba</span>
 <span class="n">mitsuba</span><span class="o">.</span><span class="n">set_variant</span><span class="p">(</span><span class="s1">&#39;scalar_rgb&#39;</span><span class="p">)</span>
 <span class="n">help</span><span class="p">(</span><span class="n">mitsuba</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">Bitmap</span><span class="p">)</span>
@@ -255,22 +236,18 @@ obtain information on classes, function via the <code class="docutils literal no
 </div>
 <div class="section" id="basic-arithmetic-types">
 <h2>Basic arithmetic types<a class="headerlink" href="#basic-arithmetic-types" title="Permalink to this headline">¶</a></h2>
-<p>Mitsuba heavily relies on the <a class="reference external" href="https://enoki.readthedocs.io/en/master/intro.html">Enoki</a> library for elementary
-arithmetic types, mathematical operations, vectors, matrices, and so on. Enoki
-is used both on the C++ and Python side, and we recommend that you read its
-documentation before developing any Mitsuba code.</p>
-<p>One important point to note is that elementary types like floating point
-numbers, vectors, etc., depend on the current variant. Mitsuba exports aliases
-to these types for convenience. For instance, consider the following snippet</p>
+<p>Mitsuba 在基本算术类型、数学操作、向量、矩阵等方面重度依赖 <a class="reference external" href="https://enoki.readthedocs.io/en/master/intro.html">Enoki</a> 库。
+Enoki 在 C++ 和 Python 端都有使用，推荐在开发任何 Mitsuba 代码之前先阅读一下 Enoki 的文档。</p>
+<p>需要注意的一点是，像浮点数、向量等基本类型依赖于当前变体。方便起见，Mitsuba 提供了这些类型的别名。
+例如，参考下面示例代码片段：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mitsuba</span>
 <span class="n">mitsuba</span><span class="o">.</span><span class="n">set_variant</span><span class="p">(</span><span class="s1">&#39;scalar_rgb&#39;</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">mitsuba.core</span> <span class="kn">import</span> <span class="n">Float</span>
 </pre></div>
 </div>
-<p>The imported <code class="docutils literal notranslate"><span class="pre">Float</span></code> type is simply a builtin Python <code class="docutils literal notranslate"><span class="pre">float</span></code> because the
-renderer is operating in scalar mode. But more complex types would be used in
-the vectorized <code class="docutils literal notranslate"><span class="pre">packet_*</span></code> or <code class="docutils literal notranslate"><span class="pre">gpu_*</span></code> backends, and these also propagate
-into derived array types like vectors or matrices.</p>
+<p>导入的 <code class="docutils literal notranslate"><span class="pre">Float</span></code> 类型只是一个简单的 Python 内置 <code class="docutils literal notranslate"><span class="pre">float</span></code>，因为渲染器是在 scalar 变体模式下运行的。
+更复杂的类型将在矢量化的 <code class="docutils literal notranslate"><span class="pre">packet_*</span></code> 或 <code class="docutils literal notranslate"><span class="pre">gpu_*</span></code> 后端使用，并且这些也会传播到派生的数组类型中，如向
+量或矩阵中。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mitsuba</span><span class="o">.</span><span class="n">set_variant</span><span class="p">(</span><span class="s1">&#39;packet_rgb&#39;</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">mitsuba.core</span> <span class="kn">import</span> <span class="n">Float</span><span class="p">,</span> <span class="n">Vector3f</span>
 <span class="c1"># Float    = enoki.dynamic.Float32  (a.k.a. enoki::DynamicArray&lt;Packet&lt;float&gt;&gt;)</span>
@@ -282,16 +259,14 @@ into derived array types like vectors or matrices.</p>
 <span class="c1"># Vector3f = enoki.cuda.Vector3f (a.k.a. enoki::Array&lt;enoki::CUDAArray&lt;float&gt;, 3&gt;&gt;)</span>
 </pre></div>
 </div>
-<p>In some cases, it may be desirable to work with <em>scalar</em> numbers and vectors even working
-with a vectorized backend. Simply add the <code class="docutils literal notranslate"><span class="pre">Scalar</span></code> prefix before any type name in this
-case.</p>
+<p>在某些情况下，可能希望使用 <em>标量的</em> 数值和向量，甚至用在矢量化后端中。在这种情况下，只需在任何类型名称之前添加 <code class="docutils literal notranslate"><span class="pre">Scalar</span></code> 前缀。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mitsuba</span><span class="o">.</span><span class="n">set_variant</span><span class="p">(</span><span class="s1">&#39;gpu_rgb&#39;</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">mitsuba.core</span> <span class="kn">import</span> <span class="n">ScalarFloat</span><span class="p">,</span> <span class="n">ScalarVector3f</span>
 <span class="c1"># ScalarFloat    = float</span>
 <span class="c1"># ScalarVector3f = enoki.scalar.Vector3f (a.k.a. enoki::Array&lt;float, 3&gt;&gt;)</span>
 </pre></div>
 </div>
-<p>Altogether, the following basic types are provided:</p>
+<p>总而言之，提供了以下基本类型：</p>
 <div class="figure align-center" id="table-basic-types">
 <center><table class="colwidths-given docutils align-default">
 <colgroup>
@@ -357,10 +332,8 @@ case.</p>
 </tr>
 </tbody>
 </table>
-<p class="caption"><span class="caption-text">This table lists Mitsuba’s built-in arithmetic and array types.</span></p>
-</center></div><p id="table-basic-types">In the following Python snippet, we show how one can use those aliases to write
-generic code that can run on the CPU or the GPU, depending on the chosen
-variant.</p>
+<p class="caption"><span class="caption-text">此表列出了 Mitsuba 的内置算术和数组类型。</span></p>
+</center></div><p id="table-basic-types">在下面的 Python 代码片段中，我们展示了如何依赖变体的选择使用这些别名编写可以在 CPU 或 GPU 上运行的通用代码。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">enoki</span> <span class="k">as</span> <span class="nn">ek</span>
 <span class="kn">import</span> <span class="nn">mitsuba</span>
 
@@ -383,20 +356,18 @@ variant.</p>
 </div>
 <div class="section" id="numpy-and-pytorch-integration">
 <h2>NumPy and PyTorch integration<a class="headerlink" href="#numpy-and-pytorch-integration" title="Permalink to this headline">¶</a></h2>
-<p>Enoki arrays interoperate with standard Python array libraries like NumPy
-PyTorch. For instance, in the previous example, we could have replaced the
-assignment to the <code class="docutils literal notranslate"><span class="pre">samples</span></code> variable by</p>
+<p>Enoki 序列与标准 Python 序列库比如 NumPy，PyTorch 之间的交互。例如，在前面的示例中，我们
+可以将 <code class="docutils literal notranslate"><span class="pre">samples</span></code> 变量的赋值替换为：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="n">samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="n">sample_count</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>and the subsequent <code class="docutils literal notranslate"><span class="pre">square_to_uniform_sphere</span></code> call would have performed an
-implicit conversion. Similarly, Enoki arrays can be cast into PyTorch or NumPy
-arrays and plotted using libraries like Matplotlib.</p>
+<p>随后的 <code class="docutils literal notranslate"><span class="pre">square_to_uniform_sphere</span></code> 调用将执行隐式转换。同样，Enoki 序列可以转换为 PyTorch 或 NumPy 序
+列，随后可以使用 Matplotlib 等库进行绘制。</p>
 </div>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
-<p>The Mitsuba Python bindings are split into three submodules:</p>
+<p>Mitsuba Python 绑定分为三个子模块：</p>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 30%" />
@@ -425,7 +396,7 @@ for automatic differentiation, testing (Chi^2 test), etc. (→
 </tr>
 </tbody>
 </table>
-<p>The <a class="reference internal" href="../api_reference/intro.html#sec-api"><span class="std std-ref">API reference</span></a> provides further details on their contents.</p>
+<p>随后 <a class="reference internal" href="../api_reference/intro.html#sec-api"><span class="std std-ref">API reference</span></a> 章节提供了有关其内容的更多详细信息。</p>
 </div>
 </div>
 
