@@ -171,13 +171,10 @@
             
   <div class="section" id="scene-file-format">
 <span id="sec-file-format"></span><h1>Scene file format<a class="headerlink" href="#scene-file-format" title="Permalink to this headline">¶</a></h1>
-<p>Mitsuba uses a simple and general XML-based format to represent scenes. Since
-the framework’s philosophy is to represent discrete blocks of functionality as
-plugins, a scene file can be interpreted as “recipe” specifying which plugins
-should be instantiated and how they should be put together. In the following,
-we will look at a few examples to get a feeling for the scope of the format.</p>
-<p>A simple scene with a single mesh and the default lighting and camera setup
-might look something like this:</p>
+<p>Mitsuba 使用简单且通用的 XML 格式来表示场景。我们框架的设计理念是表示离散的功能模块为插件，
+由此，一个场景文件可以被认为是关于实例化哪些插件以及这些插件之间如何组合的“配方”。接下来，我
+们将通过几个示例来了解场景文件格式的作用。</p>
+<p>具有一个网格物体，默认照明和摄像机设置的简单场景如下所示：</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;scene</span> <span class="na">version=</span><span class="s">&quot;2.0.0&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;shape</span> <span class="na">type=</span><span class="s">&quot;obj&quot;</span><span class="nt">&gt;</span>
         <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">&quot;filename&quot;</span> <span class="na">value=</span><span class="s">&quot;dragon.obj&quot;</span><span class="nt">/&gt;</span>
@@ -185,22 +182,17 @@ might look something like this:</p>
 <span class="nt">&lt;/scene&gt;</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">version</span></code> attribute in the first line denotes the release of Mitsuba that
-was used to create the scene. This information allows Mitsuba to correctly
-process the file regardless of any potential future changes in the scene
-description language.</p>
-<p>This example already contains the most important things to know about format:
-it consists of <em>objects</em> (such as the objects instantiated by the <code class="docutils literal notranslate"><span class="pre">&lt;scene&gt;</span></code> or
-<code class="docutils literal notranslate"><span class="pre">&lt;shape&gt;</span></code> tags), which can furthermore be nested within each other. Each object
-optionally accepts <em>properties</em> (such as the <code class="docutils literal notranslate"><span class="pre">&lt;string&gt;</span></code> tag) that characterize
-its behavior. All objects except for the root object (the <code class="docutils literal notranslate"><span class="pre">&lt;scene&gt;</span></code>) cause the
-renderer to search and load a plugin from disk, hence you must provide the
-plugin name using <code class="docutils literal notranslate"><span class="pre">type=&quot;..&quot;</span></code> parameter.</p>
-<p>The object tags also let the renderer know <em>what kind</em> of object is to be
-instantiated: for instance, any plugin loaded using the <code class="docutils literal notranslate"><span class="pre">&lt;shape&gt;</span></code> tag must
-conform to the <em>Shape</em> interface, which is certainly the case for the plugin
-named <code class="docutils literal notranslate"><span class="pre">obj</span></code> (it contains a <span class="xref std std-ref">Wavefront OBJ loader</span>).
-Similarly, you could write</p>
+<p>第一行的 <code class="docutils literal notranslate"><span class="pre">version</span></code> 属性表示用来创建场景的 Mitsuba 版本。该信息允许 Mitsuba 能够正确处理该
+文件，不用考虑未来场景描述语言的潜在任何变化。</p>
+<dl class="simple">
+<dt>这个例子已经包含了很多关于场景格式方面需要了解的重要信息：包括 <em>渲染对象</em> （比如，那些由 <code class="docutils literal notranslate"><span class="pre">&lt;scene&gt;</span></code> 或</dt><dd><p><code class="docutils literal notranslate"><span class="pre">&lt;shape&gt;</span></code> 标签实例化的对象）对象间可以相互嵌套。每个对象都可以选择表征其特性的 <em>属性值</em> （比如，<code class="docutils literal notranslate"><span class="pre">&lt;string&gt;</span></code> 标签）。</p>
+</dd>
+</dl>
+<p>除了根对象（ <code class="docutils literal notranslate"><span class="pre">&lt;scene&gt;</span></code> ）之外的所有对象都会引发渲染器从磁盘中搜索和加载相应插件，因此你必须通过 <code class="docutils literal notranslate"><span class="pre">type=&quot;..&quot;</span></code> 参数提供
+插件名称。</p>
+<p>对象标签还可以让渲染器知道要实例化的对象是 <em>什么样</em> 的类型：例如，任何那些使用 <code class="docutils literal notranslate"><span class="pre">&lt;shape&gt;</span></code> 标签加载的插件
+都必须符合 <em>Shape</em> 接口，在上述的场景示例中指的就是名为 <code class="docutils literal notranslate"><span class="pre">obj</span></code> 的插件（它包含了一个 <span class="xref std std-ref">Wavefront OBJ 加载器</span> ）。
+类似的，你可以编写：</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;scene</span> <span class="na">version=</span><span class="s">&quot;2.0.0&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;shape</span> <span class="na">type=</span><span class="s">&quot;sphere&quot;</span><span class="nt">&gt;</span>
         <span class="nt">&lt;float</span> <span class="na">name=</span><span class="s">&quot;radius&quot;</span> <span class="na">value=</span><span class="s">&quot;10&quot;</span><span class="nt">/&gt;</span>
@@ -208,13 +200,11 @@ Similarly, you could write</p>
 <span class="nt">&lt;/scene&gt;</span>
 </pre></div>
 </div>
-<p>This loads a different plugin (<code class="docutils literal notranslate"><span class="pre">sphere</span></code>) which is still a <em>Shape</em> but instead
-represents a <span class="xref std std-ref">sphere</span> configured with a radius of 10
-world-space units. Mitsuba ships with a large number of plugins; please refer
-to the next chapter for a detailed overview of them.</p>
-<p>The most common scene setup is to declare an integrator, some geometry, a
-sensor (e.g. a camera), a film, a sampler and one or more emitters. Here is a
-more complex example:</p>
+<p>这个例子加载了一个不同的插件( <code class="docutils literal notranslate"><span class="pre">sphere</span></code> )，但该插件仍然是 <em>Shape</em> ，表示的是10个世界单位的
+<span class="xref std std-ref">sphere</span> 。Mitsuba 随附了大量的插件，有关这些插件的详细概览，请参阅下
+一章节。</p>
+<p>最常见的场景设置说明是声明一个集合体、一些几何物体、一个传感器（例如摄像机）、一个胶片、一个采样器
+和一个或多个光源。这里提供了一个稍微复杂一点的例子：</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;scene</span> <span class="na">version=</span><span class="s">&quot;2.0.0&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;integrator</span> <span class="na">type=</span><span class="s">&quot;path&quot;</span><span class="nt">&gt;</span>
         <span class="c">&lt;!-- Instantiate a path tracer with a max. path length of 8 --&gt;</span>
@@ -268,16 +258,10 @@ more complex example:</p>
 <span class="nt">&lt;/scene&gt;</span>
 </pre></div>
 </div>
-<p>This example introduces several new object types (<code class="docutils literal notranslate"><span class="pre">integrator</span></code>, <code class="docutils literal notranslate"><span class="pre">sensor</span></code>,
-<code class="docutils literal notranslate"><span class="pre">bsdf</span></code>, <code class="docutils literal notranslate"><span class="pre">sampler</span></code>, <code class="docutils literal notranslate"><span class="pre">film</span></code>, and``emitter``) and property types
-(<code class="docutils literal notranslate"><span class="pre">integer</span></code>, <code class="docutils literal notranslate"><span class="pre">transform</span></code>, and <code class="docutils literal notranslate"><span class="pre">rgb</span></code>). As you can see in the example,
-objects are usually declared at the top level except if there is some inherent
-relation that links them to another object. For instance, BSDFs are usually
-specific to a certain geometric object, so they appear as a child object of a
-shape. Similarly, the sampler and film affect the way in which rays are
-generated from the sensor and how it records the resulting radiance samples,
-hence they are nested inside it. The following table provides an overview of
-the available object types:</p>
+<p>这个例子引入了几个新的对象类型 (<code class="docutils literal notranslate"><span class="pre">integrator</span></code>, <code class="docutils literal notranslate"><span class="pre">sensor</span></code>, <code class="docutils literal notranslate"><span class="pre">bsdf</span></code>, <code class="docutils literal notranslate"><span class="pre">sampler</span></code>, <code class="docutils literal notranslate"><span class="pre">film</span></code>, 和``emitter``)
+以及属性类型 (<code class="docutils literal notranslate"><span class="pre">integer</span></code>, <code class="docutils literal notranslate"><span class="pre">transform</span></code>, 和 <code class="docutils literal notranslate"><span class="pre">rgb</span></code>)。正如你在示例中看到的，对象声明通常发生在顶层，除非存在链接到
+另一对象的某种继承关系。例如，BSDFs 通常特定于某个几何物体，它应该表现为 shape 的子类型。同样，sampler 和 film 会影响
+sensor 产生光线的方式，以及其记录样本产生的辐射度的方式。下列表格概述了可用的对象类型：</p>
 <div class="figure align-center" id="table-xml-objects">
 <center><table class="colwidths-given docutils align-default">
 <colgroup>
@@ -330,91 +314,77 @@ the available object types:</p>
 </tr>
 </tbody>
 </table>
-<p class="caption"><span class="caption-text">This table lists the different kind of <em>objects</em> and their respective tags. It also provides an exemplary list of plugins for each category.</span></p>
+<p class="caption"><span class="caption-text">此表列出了不同类型的对象及其各自的标签。它还为每个类别提供了可用的示例插件。</span></p>
 </center></div><div class="section" id="properties">
 <span id="table-xml-objects"></span><h2>Properties<a class="headerlink" href="#properties" title="Permalink to this headline">¶</a></h2>
-<p>This subsection documents all of the ways in which properties can be supplied
-to objects. If you are more interested in knowing which properties a certain
-plugin accepts, you should look at the <a class="reference internal" href="../plugin_reference/intro.html#sec-plugins"><span class="std std-ref">plugin documentation</span></a> instead.</p>
+<p>本小节记录了将属性提供给对象的所有方式。如果你更想了解某个插件能接受的属性有哪些，
+可以参阅 <a class="reference internal" href="../plugin_reference/intro.html#sec-plugins"><span class="std std-ref">plugin documentation</span></a>。</p>
 <div class="section" id="numbers">
 <h3>Numbers<a class="headerlink" href="#numbers" title="Permalink to this headline">¶</a></h3>
-<p>Integer and floating point values can be passed as follows:</p>
+<p>整数值和浮点值可以按如下方式传递：</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;integer</span> <span class="na">name=</span><span class="s">&quot;int_property&quot;</span> <span class="na">value=</span><span class="s">&quot;1234&quot;</span><span class="nt">/&gt;</span>
 <span class="nt">&lt;float</span> <span class="na">name=</span><span class="s">&quot;float_property&quot;</span> <span class="na">value=</span><span class="s">&quot;-1.5e3&quot;</span><span class="nt">/&gt;</span>
 </pre></div>
 </div>
-<p>Note that you must adhere to the format expected by the object, i.e. you can’t
-pass an integer property to an object that expects a floating-point property
-associated with that name.</p>
+<p>请注意，必须按照对象所期望的格式传递，即你不能将整数属性传递给需要与该名称关联的浮点属性的对象。</p>
 </div>
 <div class="section" id="booleans">
 <h3>Booleans<a class="headerlink" href="#booleans" title="Permalink to this headline">¶</a></h3>
-<p>Boolean values can be passed as follows:</p>
+<p>布尔值可以按照如下方式进行传递：</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;boolean</span> <span class="na">name=</span><span class="s">&quot;bool_property&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="strings">
 <h3>Strings<a class="headerlink" href="#strings" title="Permalink to this headline">¶</a></h3>
-<p>Passing strings is similarly straightforward:</p>
+<p>传递字符串同样也很简单：</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">&quot;string_property&quot;</span> <span class="na">value=</span><span class="s">&quot;This is a string&quot;</span><span class="nt">/&gt;</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="vectors-positions">
 <h3>Vectors, Positions<a class="headerlink" href="#vectors-positions" title="Permalink to this headline">¶</a></h3>
-<p>Points and vectors can be specified as follows:</p>
+<p>点和向量可以按照如下方式进行指定：</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;point</span> <span class="na">name=</span><span class="s">&quot;point_property&quot;</span> <span class="na">value=</span><span class="s">&quot;3, 4, 5&quot;</span><span class="nt">/&gt;</span>
 <span class="nt">&lt;vector</span> <span class="na">name=</span><span class="s">&quot;vector_property&quot;</span> <span class="na">value=</span><span class="s">&quot;3, 4, 5&quot;</span><span class="nt">/&gt;</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Mitsuba does not dictate a specific unit for position values (meters,
-centimeters, inches, etc.). The only requirement is that you consistently
-use one convention throughout the scene specification.</p>
+<p>Mitsuba 没有规定具体的距离度量单位（米、厘米、英寸等）。你需要考虑的唯一一个要求就是在
+整个场景中始终遵循一个约定即可。</p>
 </div>
 </div>
 <div class="section" id="rgb-colors">
 <h3>RGB Colors<a class="headerlink" href="#rgb-colors" title="Permalink to this headline">¶</a></h3>
-<p>In Mitsuba, colors are either specified using the <code class="docutils literal notranslate"><span class="pre">&lt;rgb&gt;</span></code> or <code class="docutils literal notranslate"><span class="pre">&lt;spectrum&gt;</span></code> tags.
-The interpretation of a RGB color value like</p>
+<p>在 Mitsuba 中颜色空间表示要么使用 <code class="docutils literal notranslate"><span class="pre">&lt;rgb&gt;</span></code> 标签，要么使用 <code class="docutils literal notranslate"><span class="pre">&lt;spectrum&gt;</span></code> 标签指定。
+RGB 颜色的释出可以如下：</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rgb</span> <span class="na">name=</span><span class="s">&quot;color_property&quot;</span> <span class="na">value=</span><span class="s">&quot;0.2, 0.8, 0.4&quot;</span><span class="nt">/&gt;</span>
 </pre></div>
 </div>
-<p>depends on the variant of the renderer that is currently active. For instance,
-<code class="docutils literal notranslate"><span class="pre">scalar_rgb</span></code> will simply forward the color value to the underlying plugin
-without changes. In contrast, <code class="docutils literal notranslate"><span class="pre">scalar_spectral</span></code> operates in the spectral
-domain where a RGB value is not meaningful—worse, there is an infinite set of
-spectra corresponding to each RGB color. Mitsuba uses the method of Jakob and
-Hanika <a class="bibtex reference internal" href="../../zz_bibliography.html#jakob2019spectral" id="id1">[JH19]</a> to choose a plausible smooth spectrum amongst
-all of these these possibilities. An example is shown below:</p>
+<p>取决于渲染器当前激活的变体模式是哪一个。 例如， <code class="docutils literal notranslate"><span class="pre">scalar_rgb</span></code> 简单的将颜色转发到底层插件中，
+不做任何修改。相比之下，<code class="docutils literal notranslate"><span class="pre">scalar_spectral</span></code> 在 RGB 值没有意义的光谱域中运作—糟糕的是，每种
+RGB 颜色都对应了一个无限大的光谱集合。Mitsuba 使用了 Jakob 和 Hanika 方法 <a class="bibtex reference internal" href="../../zz_bibliography.html#jakob2019spectral" id="id1">[JH19]</a>
+在所有可能选项中选择一个较合理的平滑光谱。下面是一个例子：</p>
 <a class="reference internal image-reference" href="src/getting_started/../../../resources/data/docs/images/variants/upsampling.jpg"><img alt="src/getting_started/../../../resources/data/docs/images/variants/upsampling.jpg" class="align-center" src="src/getting_started/../../../resources/data/docs/images/variants/upsampling.jpg" style="width: 100%;" /></a>
 </div>
 <div class="section" id="color-spectra">
 <h3>Color spectra<a class="headerlink" href="#color-spectra" title="Permalink to this headline">¶</a></h3>
-<p>A more accurate way or specifying color information involves the <code class="docutils literal notranslate"><span class="pre">&lt;spectrum&gt;</span></code>
-tag, which records a reflectance/intensity value for multiple discrete
-wavelengths specified in <em>nanometers</em>.</p>
+<p>一个指定特定颜色值的更准确方式是使用 <code class="docutils literal notranslate"><span class="pre">&lt;spectrum&gt;</span></code> 标签，以 <em>纳米级</em> 为单位记录了多离散波长的反射/强度值。</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;spectrum</span> <span class="na">name=</span><span class="s">&quot;color_property&quot;</span> <span class="na">value=</span><span class="s">&quot;400:0.56, 500:0.18, 600:0.58, 700:0.24&quot;</span><span class="nt">/&gt;</span>
 </pre></div>
 </div>
-<p>The resulting spectrum uses linearly interpolation for in-between wavelengths
-and equals zero outside of the specified wavelength range. The following short-hand
-notation creates a spectrum that is uniform across wavelengths:</p>
+<p>产生的光谱是在波长间进行线性插值得到的，并规定在指定波长范围之外时等于0。下面精简的创建了一个跨波长均匀的光谱：</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;spectrum</span> <span class="na">name=</span><span class="s">&quot;color_property&quot;</span> <span class="na">value=</span><span class="s">&quot;0.5&quot;</span><span class="nt">/&gt;</span>
 </pre></div>
 </div>
-<p>When spectral power or reflectance distributions are obtained from measurements
-(e.g. at 10nm intervals), they are usually quite unwieldy and can clutter the
-scene description. For this reason, there is yet another way to pass a spectrum
-by loading it from an external file:</p>
+<p>当光谱功率或反射率分布是通过测量获得的时（例如，以10纳米为间隔），通常会很难处理，
+并且可能会使场景描述文件变得杂乱。因此我们还提供了一种从外部文件中加载光谱的方式：</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;spectrum</span> <span class="na">name=</span><span class="s">&quot;color_property&quot;</span> <span class="na">filename=</span><span class="s">&quot;measured_spectrum.spd&quot;</span><span class="nt">/&gt;</span>
 </pre></div>
 </div>
-<p>The file should contain a single measurement per line, with the corresponding
-wavelength in nanometers and the measured value separated by a space. Comments
-are allowed. Here is an example:</p>
+<p>该文件每行应包含一次测量，相应的波长以纳米为单位，测量值以空格分隔。在文件中进行注释也是允许的。
+下面提供了一个示例：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span># This file contains a measured spectral power/reflectance distribution
 406.13 0.703313
 413.88 0.744563
@@ -424,15 +394,14 @@ are allowed. Here is an example:</p>
 ...
 </pre></div>
 </div>
-<p>For more details regarding spectral information in Mitsuba 2, please have a look
+<p>有关 Mitsuba 2 光谱信息的详细信息，请参阅文档中插件那一章的 <a class="reference internal" href="../../generated/plugins.html#sec-spectra"><span class="std std-ref">相应小节</span></a> 。
+For more details regarding spectral information in Mitsuba 2, please have a look
 at the <a class="reference internal" href="../../generated/plugins.html#sec-spectra"><span class="std std-ref">corresponding section</span></a> in the plugin documentation.</p>
 </div>
 <div class="section" id="transformations">
 <h3>Transformations<a class="headerlink" href="#transformations" title="Permalink to this headline">¶</a></h3>
-<p>Transformations are the only kind of property that require more than a single
-tag. The idea is that, starting with the identity, one can build up a
-transformation using a sequence of commands. For instance, a transformation
-that does a translation followed by a rotation might be written like this:</p>
+<p>变换是唯一一个需要多个标签的属性。其想法是，从标识开始，可以使用一系列指令完成一个变换过程。
+例如，一个包含平移和旋转的变换可以写成这样：</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;transform</span> <span class="na">name=</span><span class="s">&quot;trafo_property&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;translate</span> <span class="na">value=</span><span class="s">&quot;-1, 3, 4&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;rotate</span> <span class="na">y=</span><span class="s">&quot;1&quot;</span> <span class="na">angle=</span><span class="s">&quot;45&quot;</span><span class="nt">/&gt;</span>
@@ -442,33 +411,33 @@ that does a translation followed by a rotation might be written like this:</p>
 <p>Mathematically, each incremental transformation in the sequence is
 left-multiplied onto the current one. The following choices are available:</p>
 <ul>
-<li><p>Translations:</p>
+<li><p>平移:</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;translate</span> <span class="na">value=</span><span class="s">&quot;-1, 3, 4&quot;</span><span class="nt">/&gt;</span>
 </pre></div>
 </div>
 </li>
-<li><p>Counter-clockwise rotations around a specified axis. The angle is given in degrees:</p>
+<li><p>绕指定轴逆时针旋转，角度以度为单位给出：</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rotate</span> <span class="na">value=</span><span class="s">&quot;0.701, 0.701, 0&quot;</span> <span class="na">angle=</span><span class="s">&quot;180&quot;</span><span class="nt">/&gt;</span>
 </pre></div>
 </div>
 </li>
-<li><p>Scaling operation. The coefficients may also be negative to obtain a flip:</p>
+<li><p>放缩。 可以通过传递负值得到翻转：</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;scale</span> <span class="na">value=</span><span class="s">&quot;5&quot;</span><span class="nt">/&gt;</span>        <span class="c">&lt;!-- uniform scale --&gt;</span>
 <span class="nt">&lt;scale</span> <span class="na">value=</span><span class="s">&quot;2, 1, -1&quot;</span><span class="nt">/&gt;</span> <span class="c">&lt;!-- non-uniform scale --&gt;</span>
 </pre></div>
 </div>
 </li>
-<li><p>Explicit 4x4 matrices in row-major order:</p>
+<li><p>按照行主优先顺序显式声明一个 4x4 矩阵：</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;matrix</span> <span class="na">value=</span><span class="s">&quot;0 -0.53 0 -1.79 0.92 0 0 8.03 0 0 0.53 0 0 0 0 1&quot;</span><span class="nt">/&gt;</span>
 </pre></div>
 </div>
 </li>
-<li><p>Explicit 3x3 matrices in row-major order. Internally, this will be converted to a 4x4 matrix with the same last row and column as the identity matrix.</p>
+<li><p>按照行主优先顺序显式声明一个 3x3 矩阵。在渲染系统内部，它将被转化为 4x4 方阵，其最后一行、最后一列与单位矩阵相同。</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;matrix</span> <span class="na">value=</span><span class="s">&quot;0.57 0.2 0 0.1 -1 0 0 0 1&quot;</span><span class="nt">/&gt;</span>
 </pre></div>
 </div>
 </li>
-<li><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">lookat</span></code> transformations – this is primarily useful for setting up cameras. The <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">origin</span></code> coordinates specify the camera origin, <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">target</span></code> is the point that the camera will look at, and the (optional) <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">up</span></code> parameter determines the <em>upward</em> direction in the final rendered image.</p>
+<li><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">lookat</span></code> 变换 – 主要用于摄像机设置.  <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">origin</span></code> 坐标指定了摄像机原点， <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">target</span></code> 指向摄像机看的方向，  <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">up</span></code> (optional)参数决定了最终渲染图的 <em>向上方向</em>。</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;lookat</span> <span class="na">origin=</span><span class="s">&quot;10, 50, -800&quot;</span> <span class="na">target=</span><span class="s">&quot;0, 0, 0&quot;</span> <span class="na">up=</span><span class="s">&quot;0, 1, 0&quot;</span><span class="nt">/&gt;</span>
 </pre></div>
 </div>
@@ -478,9 +447,8 @@ left-multiplied onto the current one. The following choices are available:</p>
 </div>
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<p>Quite often, you will find yourself using an object (such as a material) in
-many places. To avoid having to declare it over and over again, which wastes
-memory, you can make use of references. Here is an example of how this works:</p>
+<p>通常，你会发现自己在许多地方会重复使用同一个的对象（例如材质等）。为了避免一次又一次的浪费内存的声明，
+你可以通过使用引用来进行改善。下面是一个例子，说明了它是如何工作的：</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;scene</span> <span class="na">version=</span><span class="s">&quot;2.0.0&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;texture</span> <span class="na">type=</span><span class="s">&quot;bitmap&quot;</span> <span class="na">id=</span><span class="s">&quot;my_image&quot;</span><span class="nt">&gt;</span>
         <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">&quot;filename&quot;</span> <span class="na">value=</span><span class="s">&quot;textures/my_image.jpg&quot;</span><span class="nt">/&gt;</span>
@@ -501,71 +469,57 @@ memory, you can make use of references. Here is an example of how this works:</p
 <span class="nt">&lt;/scene&gt;</span>
 </pre></div>
 </div>
-<p>By providing a unique <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">id</span></code> attribute in the object declaration, the object is
-bound to that identifier upon instantiation. Referencing this identifier at a
-later point (using the <code class="docutils literal notranslate"><span class="pre">&lt;ref</span> <span class="pre">id=&quot;..&quot;/&gt;</span></code> tag) will add the instance to the
-parent object.</p>
+<p>通过在对象声明中提供唯一的标识符 <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">id</span></code> 值，对象就可以在实例化时绑定到该标识符了。在随后
+引用此标识符（通过使用 <code class="docutils literal notranslate"><span class="pre">&lt;ref</span> <span class="pre">id=&quot;..&quot;/&gt;</span></code> 标签）就可以添加该实例到父对象中了。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Note that while this feature is meant to efficiently handle materials,
-textures, and particiapating media that are referenced from multiple
-places, it cannot be used to instantiate geometry. (the <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">instance</span></code> plugin
-should be used for that purpose. This is not yet part of Mitsuba 2
-but will be added at a later point.)</p>
+<p>请注意，此功能旨在高效地处理在多个位置引用材质、纹理和分割介质，所以它不是能用于实例化几何体的。
+(实例化几何体可以使用 <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">instance</span></code> 插件， 但这还不是 Mitsuba 2 的一部分，不过在将来会添加上)</p>
 </div>
 </div>
 <div class="section" id="default-parameters">
 <span id="sec-scene-file-format-params"></span><h2>Default parameters<a class="headerlink" href="#default-parameters" title="Permalink to this headline">¶</a></h2>
-<p>Scene may contain named parameters that are supplied via the command line:</p>
+<p>场景中可以包含通过命令行提供的命名参数：</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;bsdf</span> <span class="na">type=</span><span class="s">&quot;diffuse&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;rgb</span> <span class="na">name=</span><span class="s">&quot;reflectance&quot;</span> <span class="na">value=</span><span class="s">&quot;$reflectance&quot;</span><span class="nt">/&gt;</span>
 <span class="nt">&lt;/bsdf&gt;</span>
 </pre></div>
 </div>
-<p>In this case, an error will be raised when the scene is loaded without an
-explicit command line argument of the form <code class="docutils literal notranslate"><span class="pre">-Dreflectance=...</span></code>. For
-convenience, it is possible to specify a default parameter value that take
-precedence when no command line arguments are given. The syntax for this is:</p>
+<p>在该示例中，如果加载场景时没有从命令行按照 <code class="docutils literal notranslate"><span class="pre">-Dreflectance=...</span></code> 格式显式提供参数，则会报错。
+为方便起见，可以在未给出命令行参数时优先使用指定的默认参数值。 其语法为：</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;default</span> <span class="na">name=</span><span class="s">&quot;reflectance&quot;</span> <span class="na">value=</span><span class="s">&quot;something&quot;</span><span class="nt">/&gt;</span>
 </pre></div>
 </div>
-<p>and must precede the occurrences of the parameter in the XML file.</p>
+<p>其必须位于 XML 文件中参数加载之前。</p>
 </div>
 <div class="section" id="including-external-files">
 <h2>Including external files<a class="headerlink" href="#including-external-files" title="Permalink to this headline">¶</a></h2>
-<p>A scene can be split into multiple pieces for better readability. To include an
+<p>一个场景可以被分割成多个片段，以增强可读性。 如需包含外部文件，请使用以下命令：
+A scene can be split into multiple pieces for better readability. To include an
 external file, please use the following command:</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;include</span> <span class="na">filename=</span><span class="s">&quot;nested-scene.xml&quot;</span><span class="nt">/&gt;</span>
 </pre></div>
 </div>
-<p>In this case, the file <code class="docutils literal notranslate"><span class="pre">nested-scene.xml</span></code> must be a proper scene file with a
-<code class="docutils literal notranslate"><span class="pre">&lt;scene&gt;</span></code> tag at the root.</p>
-<p>This feature is often very convenient in conjunction with the <code class="docutils literal notranslate"><span class="pre">-D</span> <span class="pre">key=value</span></code>
-flag of the <code class="docutils literal notranslate"><span class="pre">mitsuba</span></code> command line renderer. This enables including different
-variants of a scene configuration by changing the command line parameters,
-without without having to touch the XML file:</p>
+<p>在该示例中，文件 <code class="docutils literal notranslate"><span class="pre">nested-scene.xml</span></code> 必须是一个根部带有 <code class="docutils literal notranslate"><span class="pre">&lt;scene&gt;</span></code> 标签的正确场景文件。</p>
+<p>此功能与 <code class="docutils literal notranslate"><span class="pre">mitsuba</span></code> 命令行渲染器的 <code class="docutils literal notranslate"><span class="pre">-D</span> <span class="pre">key=value</span></code> 标志配合使用通常会非常方便。这样就可
+以通过更改命令行参数来包含场景配置的不同变体，而无需接触 XML 文件：</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;include</span> <span class="na">filename=</span><span class="s">&quot;nested-scene-$version.xml&quot;</span><span class="nt">/&gt;</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="aliases">
 <h2>Aliases<a class="headerlink" href="#aliases" title="Permalink to this headline">¶</a></h2>
-<p>It is sometimes useful to associate an object with multiple identifiers. This
-can be accomplished using the <code class="docutils literal notranslate"><span class="pre">alias</span> <span class="pre">as=&quot;..&quot;</span></code> tag:</p>
+<p>有时将一个对象与多个标识关联会非常有用。这可以使用 <code class="docutils literal notranslate"><span class="pre">alias</span> <span class="pre">as=&quot;..&quot;</span></code> 标签来完成：</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;bsdf</span> <span class="na">type=</span><span class="s">&quot;diffuse&quot;</span> <span class="na">id=</span><span class="s">&quot;my_material_1&quot;</span><span class="nt">/&gt;</span>
 <span class="nt">&lt;alias</span> <span class="na">id=</span><span class="s">&quot;my_material_1&quot;</span> <span class="na">as=</span><span class="s">&quot;my_material_2&quot;</span><span class="nt">/&gt;</span>
 </pre></div>
 </div>
-<p>After this statement, the diffuse scattering model will be bound to <em>both</em>
-identifiers <code class="docutils literal notranslate"><span class="pre">my_material_1</span></code> and <code class="docutils literal notranslate"><span class="pre">my_material_2</span></code>.</p>
+<p>该语句将漫反射模型绑定到了 <code class="docutils literal notranslate"><span class="pre">my_material_1</span></code> 和 <code class="docutils literal notranslate"><span class="pre">my_material_2</span></code> 两个标识符上。</p>
 </div>
 <div class="section" id="external-resource-folders">
 <h2>External resource folders<a class="headerlink" href="#external-resource-folders" title="Permalink to this headline">¶</a></h2>
-<p>Using the <code class="docutils literal notranslate"><span class="pre">path</span></code> tag, it is possible to add a path to the list of search paths. This can
-be useful for instance when some meshes and textures are stored in a different directory, (e.g. when
-shared with other scenes). If the path is a relative path, Mitsuba 2 will first try to interpret it
-relative to the scene directory, then to other paths that are already on the search path (e.g. added
-using the <code class="docutils literal notranslate"><span class="pre">-a</span> <span class="pre">&lt;path1&gt;;&lt;path2&gt;;..</span></code> command line argument).</p>
+<p>使用 <code class="docutils literal notranslate"><span class="pre">path</span></code> 标签，可以往搜索路径中添加新的路径。这会非常有用，尤其是当某些网格和纹理存储在不同的目录中时（例如，当与其他场景共享这些资源时）。
+如果路径是相对路径，Mitsuba 2首先尝试在场景文件目录中进行搜索，随后查找搜索路径列表上的其他路径（在命令行中使用 <code class="docutils literal notranslate"><span class="pre">-a</span> <span class="pre">&lt;path1&gt;;&lt;path2&gt;;..</span></code> 添加路径）。</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;path</span> <span class="na">value=</span><span class="s">&quot;../../my_resources&quot;</span><span class="nt">/&gt;</span>
 </pre></div>
 </div>

@@ -3,14 +3,11 @@
 Scene file format
 =================
 
-Mitsuba uses a simple and general XML-based format to represent scenes. Since
-the framework's philosophy is to represent discrete blocks of functionality as
-plugins, a scene file can be interpreted as "recipe" specifying which plugins
-should be instantiated and how they should be put together. In the following,
-we will look at a few examples to get a feeling for the scope of the format.
+Mitsuba 使用简单且通用的 XML 格式来表示场景。我们框架的设计理念是表示离散的功能模块为插件，
+由此，一个场景文件可以被认为是关于实例化哪些插件以及这些插件之间如何组合的“配方”。接下来，我
+们将通过几个示例来了解场景文件格式的作用。
 
-A simple scene with a single mesh and the default lighting and camera setup
-might look something like this:
+具有一个网格物体，默认照明和摄像机设置的简单场景如下所示：
 
 .. code-block:: xml
 
@@ -20,24 +17,17 @@ might look something like this:
         </shape>
     </scene>
 
-The ``version`` attribute in the first line denotes the release of Mitsuba that
-was used to create the scene. This information allows Mitsuba to correctly
-process the file regardless of any potential future changes in the scene
-description language.
+第一行的 ``version`` 属性表示用来创建场景的 Mitsuba 版本。该信息允许 Mitsuba 能够正确处理该
+文件，不用考虑未来场景描述语言的潜在任何变化。
 
-This example already contains the most important things to know about format:
-it consists of *objects* (such as the objects instantiated by the ``<scene>`` or
-``<shape>`` tags), which can furthermore be nested within each other. Each object
-optionally accepts *properties* (such as the ``<string>`` tag) that characterize
-its behavior. All objects except for the root object (the ``<scene>``) cause the
-renderer to search and load a plugin from disk, hence you must provide the
-plugin name using ``type=".."`` parameter.
+这个例子已经包含了很多关于场景格式方面需要了解的重要信息：包括 *渲染对象* （比如，那些由 ``<scene>`` 或
+ ``<shape>`` 标签实例化的对象）对象间可以相互嵌套。每个对象都可以选择表征其特性的 *属性值* （比如，``<string>`` 标签）。
+除了根对象（ ``<scene>`` ）之外的所有对象都会引发渲染器从磁盘中搜索和加载相应插件，因此你必须通过 ``type=".."`` 参数提供
+插件名称。
 
-The object tags also let the renderer know *what kind* of object is to be
-instantiated: for instance, any plugin loaded using the ``<shape>`` tag must
-conform to the *Shape* interface, which is certainly the case for the plugin
-named ``obj`` (it contains a :ref:`Wavefront OBJ loader <shape-obj>`).
-Similarly, you could write
+对象标签还可以让渲染器知道要实例化的对象是 *什么样* 的类型：例如，任何那些使用 ``<shape>`` 标签加载的插件
+都必须符合 *Shape* 接口，在上述的场景示例中指的就是名为 ``obj`` 的插件（它包含了一个 :ref:`Wavefront OBJ 加载器 <shape-obj>` ）。
+类似的，你可以编写：
 
 .. code-block:: xml
 
@@ -47,14 +37,12 @@ Similarly, you could write
         </shape>
     </scene>
 
-This loads a different plugin (``sphere``) which is still a *Shape* but instead
-represents a :ref:`sphere <shape-sphere>` configured with a radius of 10
-world-space units. Mitsuba ships with a large number of plugins; please refer
-to the next chapter for a detailed overview of them.
+这个例子加载了一个不同的插件( ``sphere`` )，但该插件仍然是 *Shape* ，表示的是10个世界单位的
+:ref:`sphere <shape-sphere>` 。Mitsuba 随附了大量的插件，有关这些插件的详细概览，请参阅下
+一章节。
 
-The most common scene setup is to declare an integrator, some geometry, a
-sensor (e.g. a camera), a film, a sampler and one or more emitters. Here is a
-more complex example:
+最常见的场景设置说明是声明一个集合体、一些几何物体、一个传感器（例如摄像机）、一个胶片、一个采样器
+和一个或多个光源。这里提供了一个稍微复杂一点的例子：
 
 .. code-block:: xml
 
@@ -110,20 +98,14 @@ more complex example:
         </shape>
     </scene>
 
-This example introduces several new object types (``integrator``, ``sensor``,
-``bsdf``, ``sampler``, ``film``, and``emitter``) and property types
-(``integer``, ``transform``, and ``rgb``). As you can see in the example,
-objects are usually declared at the top level except if there is some inherent
-relation that links them to another object. For instance, BSDFs are usually
-specific to a certain geometric object, so they appear as a child object of a
-shape. Similarly, the sampler and film affect the way in which rays are
-generated from the sensor and how it records the resulting radiance samples,
-hence they are nested inside it. The following table provides an overview of
-the available object types:
+这个例子引入了几个新的对象类型 (``integrator``, ``sensor``, ``bsdf``, ``sampler``, ``film``, 和``emitter``) 
+以及属性类型 (``integer``, ``transform``, 和 ``rgb``)。正如你在示例中看到的，对象声明通常发生在顶层，除非存在链接到
+另一对象的某种继承关系。例如，BSDFs 通常特定于某个几何物体，它应该表现为 shape 的子类型。同样，sampler 和 film 会影响
+sensor 产生光线的方式，以及其记录样本产生的辐射度的方式。下列表格概述了可用的对象类型：
 
 .. figtable::
     :label: table-xml-objects
-    :caption: This table lists the different kind of *objects* and their respective tags. It also provides an exemplary list of plugins for each category.
+    :caption: 此表列出了不同类型的对象及其各自的标签。它还为每个类别提供了可用的示例插件。
 
     .. list-table::
         :widths: 17 53 30
@@ -164,29 +146,25 @@ the available object types:
 Properties
 ----------
 
-This subsection documents all of the ways in which properties can be supplied
-to objects. If you are more interested in knowing which properties a certain
-plugin accepts, you should look at the :ref:`plugin documentation
-<sec-plugins>` instead.
+本小节记录了将属性提供给对象的所有方式。如果你更想了解某个插件能接受的属性有哪些，
+可以参阅 :ref:`plugin documentation <sec-plugins>`。
 
 Numbers
 *******
 
-Integer and floating point values can be passed as follows:
+整数值和浮点值可以按如下方式传递：
 
 .. code-block:: xml
 
     <integer name="int_property" value="1234"/>
     <float name="float_property" value="-1.5e3"/>
 
-Note that you must adhere to the format expected by the object, i.e. you can't
-pass an integer property to an object that expects a floating-point property
-associated with that name.
+请注意，必须按照对象所期望的格式传递，即你不能将整数属性传递给需要与该名称关联的浮点属性的对象。
 
 Booleans
 ********
 
-Boolean values can be passed as follows:
+布尔值可以按照如下方式进行传递：
 
 .. code-block:: xml
 
@@ -195,7 +173,7 @@ Boolean values can be passed as follows:
 Strings
 *******
 
-Passing strings is similarly straightforward:
+传递字符串同样也很简单：
 
 .. code-block:: xml
 
@@ -204,7 +182,7 @@ Passing strings is similarly straightforward:
 Vectors, Positions
 ******************
 
-Points and vectors can be specified as follows:
+点和向量可以按照如下方式进行指定：
 
 .. code-block:: xml
 
@@ -213,27 +191,23 @@ Points and vectors can be specified as follows:
 
 .. note::
 
-    Mitsuba does not dictate a specific unit for position values (meters,
-    centimeters, inches, etc.). The only requirement is that you consistently
-    use one convention throughout the scene specification.
+    Mitsuba 没有规定具体的距离度量单位（米、厘米、英寸等）。你需要考虑的唯一一个要求就是在
+    整个场景中始终遵循一个约定即可。
 
 RGB Colors
 **********
 
-In Mitsuba, colors are either specified using the ``<rgb>`` or ``<spectrum>`` tags.
-The interpretation of a RGB color value like
+在 Mitsuba 中颜色空间表示要么使用 ``<rgb>`` 标签，要么使用 ``<spectrum>`` 标签指定。
+RGB 颜色的释出可以如下：
 
 .. code-block:: xml
 
     <rgb name="color_property" value="0.2, 0.8, 0.4"/>
 
-depends on the variant of the renderer that is currently active. For instance,
-``scalar_rgb`` will simply forward the color value to the underlying plugin
-without changes. In contrast, ``scalar_spectral`` operates in the spectral
-domain where a RGB value is not meaningful---worse, there is an infinite set of
-spectra corresponding to each RGB color. Mitsuba uses the method of Jakob and
-Hanika :cite:`Jakob2019Spectral` to choose a plausible smooth spectrum amongst
-all of these these possibilities. An example is shown below:
+取决于渲染器当前激活的变体模式是哪一个。 例如， ``scalar_rgb`` 简单的将颜色转发到底层插件中，
+不做任何修改。相比之下，``scalar_spectral`` 在 RGB 值没有意义的光谱域中运作---糟糕的是，每种
+RGB 颜色都对应了一个无限大的光谱集合。Mitsuba 使用了 Jakob 和 Hanika 方法 :cite:`Jakob2019Spectral` 
+在所有可能选项中选择一个较合理的平滑光谱。下面是一个例子：
 
 .. image:: ../../../resources/data/docs/images/variants/upsampling.jpg
   :width: 100%
@@ -243,34 +217,27 @@ all of these these possibilities. An example is shown below:
 Color spectra
 *************
 
-A more accurate way or specifying color information involves the ``<spectrum>``
-tag, which records a reflectance/intensity value for multiple discrete
-wavelengths specified in *nanometers*.
+一个指定特定颜色值的更准确方式是使用 ``<spectrum>`` 标签，以 *纳米级* 为单位记录了多离散波长的反射/强度值。
 
 .. code-block:: xml
 
     <spectrum name="color_property" value="400:0.56, 500:0.18, 600:0.58, 700:0.24"/>
 
-The resulting spectrum uses linearly interpolation for in-between wavelengths
-and equals zero outside of the specified wavelength range. The following short-hand
-notation creates a spectrum that is uniform across wavelengths:
+产生的光谱是在波长间进行线性插值得到的，并规定在指定波长范围之外时等于0。下面精简的创建了一个跨波长均匀的光谱：
 
 .. code-block:: xml
 
     <spectrum name="color_property" value="0.5"/>
 
-When spectral power or reflectance distributions are obtained from measurements
-(e.g. at 10nm intervals), they are usually quite unwieldy and can clutter the
-scene description. For this reason, there is yet another way to pass a spectrum
-by loading it from an external file:
+当光谱功率或反射率分布是通过测量获得的时（例如，以10纳米为间隔），通常会很难处理，
+并且可能会使场景描述文件变得杂乱。因此我们还提供了一种从外部文件中加载光谱的方式：
 
 .. code-block:: xml
 
     <spectrum name="color_property" filename="measured_spectrum.spd"/>
 
-The file should contain a single measurement per line, with the corresponding
-wavelength in nanometers and the measured value separated by a space. Comments
-are allowed. Here is an example:
+该文件每行应包含一次测量，相应的波长以纳米为单位，测量值以空格分隔。在文件中进行注释也是允许的。
+下面提供了一个示例：
 
 .. code-block:: text
 
@@ -282,16 +249,15 @@ are allowed. Here is an example:
     435.09 0.834000
     ...
 
+有关 Mitsuba 2 光谱信息的详细信息，请参阅文档中插件那一章的 :ref:`相应小节 <sec-spectra>` 。
 For more details regarding spectral information in Mitsuba 2, please have a look
 at the :ref:`corresponding section <sec-spectra>` in the plugin documentation.
 
 Transformations
 ***************
 
-Transformations are the only kind of property that require more than a single
-tag. The idea is that, starting with the identity, one can build up a
-transformation using a sequence of commands. For instance, a transformation
-that does a translation followed by a rotation might be written like this:
+变换是唯一一个需要多个标签的属性。其想法是，从标识开始，可以使用一系列指令完成一个变换过程。
+例如，一个包含平移和旋转的变换可以写成这样：
 
 .. code-block:: xml
 
@@ -304,39 +270,39 @@ that does a translation followed by a rotation might be written like this:
 Mathematically, each incremental transformation in the sequence is
 left-multiplied onto the current one. The following choices are available:
 
-* Translations:
+* 平移:
 
   .. code-block:: xml
 
       <translate value="-1, 3, 4"/>
 
-* Counter-clockwise rotations around a specified axis. The angle is given in degrees:
+* 绕指定轴逆时针旋转，角度以度为单位给出：
 
   .. code-block:: xml
 
       <rotate value="0.701, 0.701, 0" angle="180"/>
 
-* Scaling operation. The coefficients may also be negative to obtain a flip:
+* 放缩。 可以通过传递负值得到翻转：
 
   .. code-block:: xml
 
       <scale value="5"/>        <!-- uniform scale -->
       <scale value="2, 1, -1"/> <!-- non-uniform scale -->
 
-* Explicit 4x4 matrices in row-major order:
+* 按照行主优先顺序显式声明一个 4x4 矩阵：
 
   .. code-block:: xml
 
       <matrix value="0 -0.53 0 -1.79 0.92 0 0 8.03 0 0 0.53 0 0 0 0 1"/>
 
-* Explicit 3x3 matrices in row-major order. Internally, this will be converted to a 4x4 matrix with the same last row and column as the identity matrix.
+* 按照行主优先顺序显式声明一个 3x3 矩阵。在渲染系统内部，它将被转化为 4x4 方阵，其最后一行、最后一列与单位矩阵相同。
 
   .. code-block:: xml
 
       <matrix value="0.57 0.2 0 0.1 -1 0 0 0 1"/>
 
 
-* `lookat` transformations -- this is primarily useful for setting up cameras. The `origin` coordinates specify the camera origin, `target` is the point that the camera will look at, and the (optional) `up` parameter determines the *upward* direction in the final rendered image.
+* `lookat` 变换 -- 主要用于摄像机设置.  `origin` 坐标指定了摄像机原点， `target` 指向摄像机看的方向，  `up` (optional)参数决定了最终渲染图的 *向上方向*。
 
   .. code-block:: xml
 
@@ -345,9 +311,8 @@ left-multiplied onto the current one. The following choices are available:
 References
 ----------
 
-Quite often, you will find yourself using an object (such as a material) in
-many places. To avoid having to declare it over and over again, which wastes
-memory, you can make use of references. Here is an example of how this works:
+通常，你会发现自己在许多地方会重复使用同一个的对象（例如材质等）。为了避免一次又一次的浪费内存的声明，
+你可以通过使用引用来进行改善。下面是一个例子，说明了它是如何工作的：
 
 .. code-block:: xml
 
@@ -370,25 +335,20 @@ memory, you can make use of references. Here is an example of how this works:
         </shape>
     </scene>
 
-By providing a unique `id` attribute in the object declaration, the object is
-bound to that identifier upon instantiation. Referencing this identifier at a
-later point (using the ``<ref id=".."/>`` tag) will add the instance to the
-parent object.
+通过在对象声明中提供唯一的标识符 `id` 值，对象就可以在实例化时绑定到该标识符了。在随后
+引用此标识符（通过使用 ``<ref id=".."/>`` 标签）就可以添加该实例到父对象中了。
 
 .. note::
 
-    Note that while this feature is meant to efficiently handle materials,
-    textures, and particiapating media that are referenced from multiple
-    places, it cannot be used to instantiate geometry. (the `instance` plugin
-    should be used for that purpose. This is not yet part of Mitsuba 2
-    but will be added at a later point.)
+    请注意，此功能旨在高效地处理在多个位置引用材质、纹理和分割介质，所以它不是能用于实例化几何体的。
+    (实例化几何体可以使用 `instance` 插件， 但这还不是 Mitsuba 2 的一部分，不过在将来会添加上)
 
 .. _sec-scene-file-format-params:
 
 Default parameters
 ------------------
 
-Scene may contain named parameters that are supplied via the command line:
+场景中可以包含通过命令行提供的命名参数：
 
 .. code-block:: xml
 
@@ -396,20 +356,19 @@ Scene may contain named parameters that are supplied via the command line:
         <rgb name="reflectance" value="$reflectance"/>
     </bsdf>
 
-In this case, an error will be raised when the scene is loaded without an
-explicit command line argument of the form ``-Dreflectance=...``. For
-convenience, it is possible to specify a default parameter value that take
-precedence when no command line arguments are given. The syntax for this is:
+在该示例中，如果加载场景时没有从命令行按照 ``-Dreflectance=...`` 格式显式提供参数，则会报错。
+为方便起见，可以在未给出命令行参数时优先使用指定的默认参数值。 其语法为：
 
 .. code-block:: xml
 
     <default name="reflectance" value="something"/>
 
-and must precede the occurrences of the parameter in the XML file.
+其必须位于 XML 文件中参数加载之前。
 
 Including external files
 ------------------------
 
+一个场景可以被分割成多个片段，以增强可读性。 如需包含外部文件，请使用以下命令：
 A scene can be split into multiple pieces for better readability. To include an
 external file, please use the following command:
 
@@ -417,13 +376,10 @@ external file, please use the following command:
 
     <include filename="nested-scene.xml"/>
 
-In this case, the file ``nested-scene.xml`` must be a proper scene file with a
-``<scene>`` tag at the root.
+在该示例中，文件 ``nested-scene.xml`` 必须是一个根部带有 ``<scene>`` 标签的正确场景文件。
 
-This feature is often very convenient in conjunction with the ``-D key=value``
-flag of the ``mitsuba`` command line renderer. This enables including different
-variants of a scene configuration by changing the command line parameters,
-without without having to touch the XML file:
+此功能与 ``mitsuba`` 命令行渲染器的 ``-D key=value`` 标志配合使用通常会非常方便。这样就可
+以通过更改命令行参数来包含场景配置的不同变体，而无需接触 XML 文件：
 
 .. code-block:: xml
 
@@ -432,25 +388,20 @@ without without having to touch the XML file:
 Aliases
 -------
 
-It is sometimes useful to associate an object with multiple identifiers. This
-can be accomplished using the ``alias as=".."`` tag:
+有时将一个对象与多个标识关联会非常有用。这可以使用 ``alias as=".."`` 标签来完成：
 
 .. code-block:: xml
 
     <bsdf type="diffuse" id="my_material_1"/>
     <alias id="my_material_1" as="my_material_2"/>
 
-After this statement, the diffuse scattering model will be bound to *both*
-identifiers ``my_material_1`` and ``my_material_2``.
+该语句将漫反射模型绑定到了 ``my_material_1`` 和 ``my_material_2`` 两个标识符上。
 
 External resource folders
 -------------------------
 
-Using the ``path`` tag, it is possible to add a path to the list of search paths. This can
-be useful for instance when some meshes and textures are stored in a different directory, (e.g. when
-shared with other scenes). If the path is a relative path, Mitsuba 2 will first try to interpret it
-relative to the scene directory, then to other paths that are already on the search path (e.g. added
-using the ``-a <path1>;<path2>;..`` command line argument).
+使用 ``path`` 标签，可以往搜索路径中添加新的路径。这会非常有用，尤其是当某些网格和纹理存储在不同的目录中时（例如，当与其他场景共享这些资源时）。
+如果路径是相对路径，Mitsuba 2首先尝试在场景文件目录中进行搜索，随后查找搜索路径列表上的其他路径（在命令行中使用 ``-a <path1>;<path2>;..`` 添加路径）。
 
 .. code-block:: xml
 
