@@ -3,8 +3,7 @@
 Rendering a scene
 =================
 
-In the previous section, we learned how to load a scene from an XML file. Once a scene has been
-loaded, it can be rendered as follows:
+在上一节中，我们学习了如何从 XML 文件中加载场景。一旦场景加载完毕，我们就可以按照如下方式开始渲染场景了：
 
 .. code-block:: python
 
@@ -19,7 +18,7 @@ loaded, it can be rendered as follows:
     # Call the scene's integrator to render the loaded scene with the desired sensor
     scene.integrator().render(scene, sensor)
 
-After rendering, it is possible to write out the rendered data as an HDR OpenEXR file like this:
+渲染完成后，可以将渲染数据写出为 HDR OpenEXR 文件中，具体如下所示：
 
 .. code-block:: python
 
@@ -30,8 +29,7 @@ After rendering, it is possible to write out the rendered data as an HDR OpenEXR
     film.set_destination_file('/path/to/output.exr')
     film.develop()
 
-One can also write out a gamma tone-mapped JPEG file of the same rendering
-using the :py:class:`mitsuba.core.Bitmap` class:
+还可以使用 :py:class:`mitsuba.core.Bitmap` 类，将相同的渲染数据经过 gamma tone-mapped 调整输出为 JPEG。
 
 .. code-block:: python
 
@@ -40,14 +38,11 @@ using the :py:class:`mitsuba.core.Bitmap` class:
     img = film.bitmap(raw=True).convert(Bitmap.PixelFormat.RGB, Struct.Type.UInt8, srgb_gamma=True)
     img.write('/path/to/output.jpg')
 
-The ``raw=True`` argument in :code:`film.bitmap()` specifies that we are
-interested in the raw film contents to be able to perform a conversion into the
-desired output format ourselves.
+:code:`film.bitmap()` 中的 ``raw=True`` 参数指定了我们是对原始胶片的内容感兴趣，以便能够执行出我们所需转换的格式。
 
-See :py:meth:`mitsuba.core.Bitmap.convert` for more information regarding the bitmap convertion routine.
+更多有关 bitmap 转换的信息，请参阅 :py:meth:`mitsuba.core.Bitmap.convert`。
 
-The data stored in the ``Bitmap`` object can also be cast into a NumPy array for further processing
-in Python:
+可以将储存在 ``Bitmap`` 对象中的数据转换成 NumPy 数组，以便以后在 Python 中进一步处理。
 
 .. code-block:: python
 
@@ -59,8 +54,8 @@ in Python:
 
 .. note::
 
-    The full Python script of this tutorial can be found in the file:
-    :file:`docs/examples/01_render_scene/render_scene.py`
+    本示例的完整 Python 脚本可以在该文件中找到👉：:file:`docs/examples/01_render_scene/render_scene.py`
+    
 
 
 .. _sec-rendering-scene-custom:
@@ -68,42 +63,36 @@ in Python:
 Custom rendering pipeline in Python
 ------------------------------------
 
-In the following section, we show how to use the Python bindings to write a
-simple depth map renderer, including ray generation and pixel value splatting,
-purely in Python. While this is of course much more work than simply calling
-the integrator's ``render()``, this fine-grained level of control can be useful
-in certain applications. Please also refer to the related section on
-:ref:`developing custom plugins in Python <sec-custom-plugins>`.
+在接下来的小节中，我们将展示如何使用 Python 绑定编写一个简单的深度图渲染器，这个渲染器会包括光线生成和
+像素值 splat 技术，整个完全是由 Python 编写的。显然这比直接调用一个 ``render()`` 集成器会麻烦的多，
+但这种细颗粒度的工作在某些应用中可能会很有用。更多信息请参阅相关文档 :ref:`developing custom plugins in Python <sec-custom-plugins>`。
 
-Similar to before, we import a number of modules and load the scene from disk:
+与之前类似，我们导入一些模块并从磁盘中加载场景：
 
 .. literalinclude:: ../../examples/02_depth_integrator/depth_integrator.py
    :language: python
    :lines: 1-21
 
-In this example we use the packet variant of Mitsuba. This means all calls to
-Mitsuba functions will be vectorized and we avoid expensive for-loops in
-Python. The same code will work for `gpu` variants of the renderer as well.
+在本例中我们使用的是 Mitsuba 的 packet 变体。这意味着 Mitsuba 函数的所有调用都是矢量化的，并且
+我们在 Python 中避免昂贵的 for 循环。同样的代码也可以跑在 `gpu` 模式的渲染器上。
 
-Instead of calling the scene's existing integrator as before, we will now
-manually trace rays through each pixel of the image:
+现在，我们将手动跟踪穿过图像上每个像素的光线，而不是像以前那样直接调用场景上的现成集成器。
 
 .. literalinclude:: ../../examples/02_depth_integrator/depth_integrator.py
    :language: python
    :lines: 23-57
 
-After computing the surface intersections for all the rays, we then extract the depth values
+在计算完所有光线与曲面的交点后，我们开始提取深度值：
 
 .. literalinclude:: ../../examples/02_depth_integrator/depth_integrator.py
    :language: python
    :lines: 59-64
 
-We then splat these depth values to an :code:`ImageBlock`, which is an image data structure that
-handles averaging over samples and accounts for the pixel filter. The :code:`ImageBlock` is then
-converted to a :code:`Bitmap` object and the resulting image saved to disk.
+随后我们将这些深度值汇集（splat）成 :code:`ImageBlock` ，这是一个能平均周围采样点和解释像素滤波器的数据结构。
+随后 :code:`ImageBlock` 被转化成 :code:`Bitmap` 对象并将结果图像保存到磁盘上。
 
 .. literalinclude:: ../../examples/02_depth_integrator/depth_integrator.py
    :language: python
    :lines: 66-84
 
-.. note:: The code for this example can be found in :code:`docs/examples/02_depth_integrator/depth_integrator.py`
+.. note:: 可以从 :code:`docs/examples/02_depth_integrator/depth_integrator.py` 找到本例的代码。

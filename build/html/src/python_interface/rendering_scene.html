@@ -68,7 +68,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/intro.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/cloning.html">Cloning the repository</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started/variants.html">Choosing variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/variants.html">选择变体</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/compiling.html">Compiling the system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/file_format.html">Scene file format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/differences.html">Differences to Mitsuba 0.6</a></li>
@@ -166,8 +166,7 @@
             
   <div class="section" id="rendering-a-scene">
 <span id="sec-rendering-scene"></span><h1>Rendering a scene<a class="headerlink" href="#rendering-a-scene" title="Permalink to this headline">¶</a></h1>
-<p>In the previous section, we learned how to load a scene from an XML file. Once a scene has been
-loaded, it can be rendered as follows:</p>
+<p>在上一节中，我们学习了如何从 XML 文件中加载场景。一旦场景加载完毕，我们就可以按照如下方式开始渲染场景了：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
 
 <span class="c1"># Load the scene for an XML file</span>
@@ -180,7 +179,7 @@ loaded, it can be rendered as follows:</p>
 <span class="n">scene</span><span class="o">.</span><span class="n">integrator</span><span class="p">()</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">scene</span><span class="p">,</span> <span class="n">sensor</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>After rendering, it is possible to write out the rendered data as an HDR OpenEXR file like this:</p>
+<p>渲染完成后，可以将渲染数据写出为 HDR OpenEXR 文件中，具体如下所示：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># The rendered data is stored in the film</span>
 <span class="n">film</span> <span class="o">=</span> <span class="n">sensor</span><span class="o">.</span><span class="n">film</span><span class="p">()</span>
 
@@ -189,20 +188,16 @@ loaded, it can be rendered as follows:</p>
 <span class="n">film</span><span class="o">.</span><span class="n">develop</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>One can also write out a gamma tone-mapped JPEG file of the same rendering
-using the <a class="reference internal" href="../../generated/core_api.html#mitsuba.core.Bitmap" title="mitsuba.core.Bitmap"><code class="xref py py-class docutils literal notranslate"><span class="pre">mitsuba.core.Bitmap</span></code></a> class:</p>
+<p>还可以使用 <a class="reference internal" href="../../generated/core_api.html#mitsuba.core.Bitmap" title="mitsuba.core.Bitmap"><code class="xref py py-class docutils literal notranslate"><span class="pre">mitsuba.core.Bitmap</span></code></a> 类，将相同的渲染数据经过 gamma tone-mapped 调整输出为 JPEG。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write out a tone-mapped JPG of the same rendering</span>
 <span class="kn">from</span> <span class="nn">mitsuba.core</span> <span class="kn">import</span> <span class="n">Bitmap</span><span class="p">,</span> <span class="n">Struct</span>
 <span class="n">img</span> <span class="o">=</span> <span class="n">film</span><span class="o">.</span><span class="n">bitmap</span><span class="p">(</span><span class="n">raw</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">Bitmap</span><span class="o">.</span><span class="n">PixelFormat</span><span class="o">.</span><span class="n">RGB</span><span class="p">,</span> <span class="n">Struct</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">UInt8</span><span class="p">,</span> <span class="n">srgb_gamma</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">img</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;/path/to/output.jpg&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">raw=True</span></code> argument in <code class="code docutils literal notranslate"><span class="pre">film.bitmap()</span></code> specifies that we are
-interested in the raw film contents to be able to perform a conversion into the
-desired output format ourselves.</p>
-<p>See <a class="reference internal" href="../../generated/core_api.html#id11" title="mitsuba.core.Bitmap.convert"><code class="xref py py-meth docutils literal notranslate"><span class="pre">mitsuba.core.Bitmap.convert()</span></code></a> for more information regarding the bitmap convertion routine.</p>
-<p>The data stored in the <code class="docutils literal notranslate"><span class="pre">Bitmap</span></code> object can also be cast into a NumPy array for further processing
-in Python:</p>
+<p><code class="code docutils literal notranslate"><span class="pre">film.bitmap()</span></code> 中的 <code class="docutils literal notranslate"><span class="pre">raw=True</span></code> 参数指定了我们是对原始胶片的内容感兴趣，以便能够执行出我们所需转换的格式。</p>
+<p>更多有关 bitmap 转换的信息，请参阅 <a class="reference internal" href="../../generated/core_api.html#id11" title="mitsuba.core.Bitmap.convert"><code class="xref py py-meth docutils literal notranslate"><span class="pre">mitsuba.core.Bitmap.convert()</span></code></a>。</p>
+<p>可以将储存在 <code class="docutils literal notranslate"><span class="pre">Bitmap</span></code> 对象中的数据转换成 NumPy 数组，以便以后在 Python 中进一步处理。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get linear pixel values as a NumPy array for further processing</span>
 <span class="n">img</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">Bitmap</span><span class="o">.</span><span class="n">PixelFormat</span><span class="o">.</span><span class="n">RGB</span><span class="p">,</span> <span class="n">Struct</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">Float32</span><span class="p">,</span> <span class="n">srgb_gamma</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -212,18 +207,14 @@ in Python:</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The full Python script of this tutorial can be found in the file:
-<code class="file docutils literal notranslate"><span class="pre">docs/examples/01_render_scene/render_scene.py</span></code></p>
+<p>本示例的完整 Python 脚本可以在该文件中找到👉：<code class="file docutils literal notranslate"><span class="pre">docs/examples/01_render_scene/render_scene.py</span></code></p>
 </div>
 <div class="section" id="custom-rendering-pipeline-in-python">
 <span id="sec-rendering-scene-custom"></span><h2>Custom rendering pipeline in Python<a class="headerlink" href="#custom-rendering-pipeline-in-python" title="Permalink to this headline">¶</a></h2>
-<p>In the following section, we show how to use the Python bindings to write a
-simple depth map renderer, including ray generation and pixel value splatting,
-purely in Python. While this is of course much more work than simply calling
-the integrator’s <code class="docutils literal notranslate"><span class="pre">render()</span></code>, this fine-grained level of control can be useful
-in certain applications. Please also refer to the related section on
-<a class="reference internal" href="../advanced_topics/custom_plugins.html#sec-custom-plugins"><span class="std std-ref">developing custom plugins in Python</span></a>.</p>
-<p>Similar to before, we import a number of modules and load the scene from disk:</p>
+<p>在接下来的小节中，我们将展示如何使用 Python 绑定编写一个简单的深度图渲染器，这个渲染器会包括光线生成和
+像素值 splat 技术，整个完全是由 Python 编写的。显然这比直接调用一个 <code class="docutils literal notranslate"><span class="pre">render()</span></code> 集成器会麻烦的多，
+但这种细颗粒度的工作在某些应用中可能会很有用。更多信息请参阅相关文档 <a class="reference internal" href="../advanced_topics/custom_plugins.html#sec-custom-plugins"><span class="std std-ref">developing custom plugins in Python</span></a>。</p>
+<p>与之前类似，我们导入一些模块并从磁盘中加载场景：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">enoki</span> <span class="k">as</span> <span class="nn">ek</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -247,11 +238,9 @@ in certain applications. Please also refer to the related section on
 <span class="n">scene</span> <span class="o">=</span> <span class="n">load_file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>In this example we use the packet variant of Mitsuba. This means all calls to
-Mitsuba functions will be vectorized and we avoid expensive for-loops in
-Python. The same code will work for <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">gpu</span></code> variants of the renderer as well.</p>
-<p>Instead of calling the scene’s existing integrator as before, we will now
-manually trace rays through each pixel of the image:</p>
+<p>在本例中我们使用的是 Mitsuba 的 packet 变体。这意味着 Mitsuba 函数的所有调用都是矢量化的，并且
+我们在 Python 中避免昂贵的 for 循环。同样的代码也可以跑在 <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">gpu</span></code> 模式的渲染器上。</p>
+<p>现在，我们将手动跟踪穿过图像上每个像素的光线，而不是像以前那样直接调用场景上的现成集成器。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Instead of calling the scene&#39;s integrator, we build our own small integrator</span>
 <span class="c1"># This integrator simply computes the depth values per pixel</span>
 <span class="n">sensor</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">sensors</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
@@ -289,7 +278,7 @@ manually trace rays through each pixel of the image:</p>
 <span class="n">surface_interaction</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">ray_intersect</span><span class="p">(</span><span class="n">rays</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>After computing the surface intersections for all the rays, we then extract the depth values</p>
+<p>在计算完所有光线与曲面的交点后，我们开始提取深度值：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Given intersection, compute the final pixel values as the depth t</span>
 <span class="c1"># of the sampled surface interaction</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">surface_interaction</span><span class="o">.</span><span class="n">t</span>
@@ -298,9 +287,8 @@ manually trace rays through each pixel of the image:</p>
 <span class="n">result</span><span class="p">[</span><span class="o">~</span><span class="n">surface_interaction</span><span class="o">.</span><span class="n">is_valid</span><span class="p">()]</span> <span class="o">=</span> <span class="mi">0</span>
 </pre></div>
 </div>
-<p>We then splat these depth values to an <code class="code docutils literal notranslate"><span class="pre">ImageBlock</span></code>, which is an image data structure that
-handles averaging over samples and accounts for the pixel filter. The <code class="code docutils literal notranslate"><span class="pre">ImageBlock</span></code> is then
-converted to a <code class="code docutils literal notranslate"><span class="pre">Bitmap</span></code> object and the resulting image saved to disk.</p>
+<p>随后我们将这些深度值汇集（splat）成 <code class="code docutils literal notranslate"><span class="pre">ImageBlock</span></code> ，这是一个能平均周围采样点和解释像素滤波器的数据结构。
+随后 <code class="code docutils literal notranslate"><span class="pre">ImageBlock</span></code> 被转化成 <code class="code docutils literal notranslate"><span class="pre">Bitmap</span></code> 对象并将结果图像保存到磁盘上。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">block</span> <span class="o">=</span> <span class="n">ImageBlock</span><span class="p">(</span>
     <span class="n">film</span><span class="o">.</span><span class="n">crop_size</span><span class="p">(),</span>
     <span class="n">channel_count</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
@@ -324,7 +312,7 @@ converted to a <code class="code docutils literal notranslate"><span class="pre"
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The code for this example can be found in <code class="code docutils literal notranslate"><span class="pre">docs/examples/02_depth_integrator/depth_integrator.py</span></code></p>
+<p>可以从 <code class="code docutils literal notranslate"><span class="pre">docs/examples/02_depth_integrator/depth_integrator.py</span></code> 找到本例的代码。</p>
 </div>
 </div>
 </div>
