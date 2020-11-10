@@ -1,10 +1,8 @@
 Custom applications
 ===================
 
-The Python API can also be used to directly interface with lower-level
-components of the renderer. In this section, we show how to instantiate a
-:ref:`rough conductor <bsdf-roughconductor>` BSDF and plot its output for some
-combinations of incident and outgoing directions.
+Python API 还可以直接与渲染器的低级别组件进行交互。在本节中，我们将介绍如何实例化 :ref:`rough conductor <bsdf-roughconductor>` BSDF，
+并且绘制某些入射方向和出射方向的组合输出。
 
 .. code-block:: python
 
@@ -49,8 +47,7 @@ combinations of incident and outgoing directions.
     # Evaluate the whole array (18000 directions) at once
     values = bsdf.eval(BSDFContext(), si, wo)
 
-The generated array of values can then be further processed in NumPy or plotted
-using :monosp:`matplotlib`:
+生成的数组值稍后可以在 Numpy 中进行进一步处理，或者使用 :monosp:`matplotlib` 绘图：
 
 .. code-block:: python
 
@@ -83,7 +80,7 @@ using :monosp:`matplotlib`:
     plt.show()
 
 
-This creates the following visualization:
+这可以输出以下可视化效果：
 
 .. image:: ../../images/bsdf_eval.jpg
     :width: 90%
@@ -92,7 +89,5 @@ This creates the following visualization:
 
 .. note::
 
-    The full Python script of this tutorial can be found in the file:
-    :file:`docs/examples/05_bsdf_eval/bsdf_eval.py`.
-
+    本节的完整 Python 脚本可以在以下文件中找到：:file:`docs/examples/05_bsdf_eval/bsdf_eval.py`。
 
