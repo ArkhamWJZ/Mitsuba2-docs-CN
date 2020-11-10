@@ -1,20 +1,18 @@
 Parsing XML code
 =================
 
-Mitsuba provides three functions for creating scenes and objects in Python:
+Mitsuba 提供了三个用于在Python中创建场景和对象的函数：
 
 - :py:func:`mitsuba.core.xml.load_file`: load files on disk
 - :py:func:`mitsuba.core.xml.load_string`: load arbitrary strings
 - :py:func:`mitsuba.core.xml.load_dict`: load from Python dictionary (`dict`)
 
-Please refer to this :ref:`chapter <sec-file-format>` for more information regarding the Mitsuba's
-XML scene description language.
+有关 Mitsuba 场景描述语言的更多信息，请参阅 :ref:`chapter <sec-file-format>` 章节。
 
 Loading a scene
 ---------------
 
-Here is a complete Python example on how to load a Mitsuba scene from an XML
-file:
+下面是有关如何从 XML 文件中加载 Mitsuba 场景的详细 Python 示例。
 
 .. code-block:: python
 
@@ -33,18 +31,15 @@ file:
     # Load the scene for an XML file
     scene = load_file(filename)
 
-Because the scene may reference external resources like meshes and textures
-using relative paths specified in the XML file, Mitsuba must be informed where
-to look for such files. The code above does this via the thread-local
-:py:class:`mitsuba.core.FileResolver` class.
+因为XML 文件中场景可能通过相对路径引用了一些外部资源，如网格和纹理，所以必须告诉 Mitsuba 在哪里寻找这些文件。
+上面的代码通过 thread-local :py:class:`mitsuba.core.FileResolver` 类实现了这一点
 
 
 Passing arguments to the scene
 ------------------------------
 
-As explained in the discussion of :ref:`Mitsuba's scene description language
-<sec-scene-file-format-params>`, a scene file can contained named parameters
-prefixed with a ``$`` sign:
+正如在 :ref:`Mitsuba's scene description language
+<sec-scene-file-format-params>` 章节中讨论的，场景文件可以包含前缀为 ``$`` 符号的命名参数：
 
 .. code-block:: xml
     :name: cbox-xml
@@ -56,8 +51,7 @@ prefixed with a ``$`` sign:
         <integer name="sample_count" value="$spp"/>
     </sampler>
 
-These parameters can be defined explicitly using keyword arguments when loading
-the scene.
+这些带前缀的参数在加载场景时，可以使用关键字显式定义。
 
 .. code-block:: python
 
@@ -67,8 +61,7 @@ the scene.
 Loading a Mitsuba object
 ------------------------
 
-It is also possible to create an instance of a single Mitsuba object (e.g. a BSDF) using
-the XML parser, as shown in the following Python snippet:
+可以使用 XML 解释器创建单个 Mitsuba 对象的实例（例如 BSDF），参考下面的 Python 代码片段：
 
 .. code-block:: python
 
@@ -76,25 +69,20 @@ the XML parser, as shown in the following Python snippet:
 
     diffuse_bsdf = load_string("<bsdf version='2.0.0' type='diffuse'></bsdf>")
 
-Mitsuba's test suite frequently makes use of this approach to inspect the
-behavior of individual system components.
+Mitsuba 的测试套件经常通过这种方式检查单个系统组件的行为。
 
 
 Creating objects using Python dictionaries
 ------------------------------------------
 
-A more convinient way of constructing Mitsuba objects in Python is to use
-:py:func:`mitsuba.core.xml.load_dict` which takes as argument a Python dictionary. This dictionary
-should follow a structure similar to the XML structure used for the Mitsuba scene description.
+在 Python 中构建 Mitsuba 对象的一种更方便的方法是使用 :py:func:`mitsuba.core.xml.load_dict` ，
+该函数接受一个 Python 字典类型的参数。该字典应该遵循和 Mitsuba 场景描述用的 XML 文件一样的结构。
 
-The dictionary should always contain an entry ``"type"`` to specify the name of the plugin to
-be instanciated. Keys of the dictionary must be strings and will represent the name of the
-properties. The type of the property will be deduced from the Python type for simple
-types (e.g. ``bool``, ``float``, ``int``, ``string``, ...). It is possible to provide another dictionary as
-the value of an entry. This can be used to create nested objects, as in the XML scene description.
+字典中应该始终包含一个条目 ``"type"`` 来指定实例化的插件名称。字典的键必须是字符串，表示的是属性的名称。
+属性的类型可以从 Pythn 中的简单类型 (例如： ``bool``，``float``，``int``，``string`` 等）推导出来。
+可以提供一个字典作为值来使用，这会被用来创建嵌套对象，如同 XML 场景文件中描述的一样。
 
-The following snippets illustrate the similarity between the XML code and the
-Python dictionary structure:
+下面的代码片段说明了 XML 代码和 Python 字典结构之间的相似性：
 
 *XML:*
 
@@ -121,7 +109,8 @@ Python dictionary structure:
         }
     }
 
-Here is a more concrete example on how to use the function:
+
+下面是一个有关如何使用该函数的更具体示例：
 
 .. code-block:: python
 
@@ -137,8 +126,7 @@ Here is a more concrete example on how to use the function:
         }
     })
 
-It is possible to provide another Mitsuba object within the Python dictionary instead of using
-nested dictionaries:
+可以在 Python 字典中提供另一个 Mitsuba 对象，而不用通过嵌套字典：
 
 .. code-block:: python
 
@@ -154,12 +142,11 @@ nested dictionaries:
         "something" : my_bsdf
     })
 
-For convience, a nested dictionary can be provided with a ``"type"`` entry equal
-to ``"rgb"`` or ``"spectrum"``. Similarly to the XML parser, the ``"value"`` entry in that
-dictionary will be used to instanciate the right `Spectrum` plugin.
-(See the :ref:`corresponding section <sec-spectra>`)
+为方便起见，嵌套字典可以提供一个等于 ``"rgb"`` 或 ``"spectrum"`` 的 ``"type"`` 条目。 
+与 XML 解析器类似，该字典中的 ``“value”`` 条目将用于实例化正确的 `Spectrum` 插件。
+(详情请参阅 :ref:`corresponding section <sec-spectra>`)
 
-Here as some examples of the possible use of the ``"value"`` entry in the nested dictionary:
+下面是嵌套字典中使用 ``"value"`` 条目的一些示例：
 
 .. code-block:: python
 
@@ -187,7 +174,7 @@ Here as some examples of the possible use of the ``"value"`` entry in the nested
         "value": [(400.0, 0.5), (500.0, 0.8), (600.0, 0.2)]
     }
 
-The following example constructs a Mitsuba scene using :py:func:`mitsuba.core.xml.load_dict`:
+下面的示例展示了通过使用 :py:func:`mitsuba.core.xml.load_dict` 函数来构建 Mitsuba 场景：
 
 .. code-block:: python
 
@@ -227,11 +214,9 @@ The following example constructs a Mitsuba scene using :py:func:`mitsuba.core.xm
         }
     })
 
-As in the XML scene description, it is possible to reference other objects in the `dict`, as
-long as those a declared before the reference takes place in the dictionary. For this purpose,
-you can specify a nested dictionary with ``"type":"ref"`` and an ``"id"`` entry. Objects can be
-referenced using their ``key`` in the dictionary. It is also possible to reference an
-object using it's ``id`` if one was defined.
+正如在 XML 场景中描述的一样，可以引用 `dict` 中的其他对象，只要在使用字典引用之前声明那些对象就行了。
+为此，你可以指定一个带有 ``"type":"ref"`` 和 ``"id"`` 条目的嵌套字典。可以通过字典中的 ``key`` 值
+引用对象。如果定义了 ``id`` 标识的话，也可以通过它来引用对象。
 
 .. code-block:: python
 
