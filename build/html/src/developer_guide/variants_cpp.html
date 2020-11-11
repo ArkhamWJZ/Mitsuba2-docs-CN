@@ -68,7 +68,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/intro.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/cloning.html">Cloning the repository</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started/variants.html">Choosing variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/variants.html">选择变体</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/compiling.html">Compiling the system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/file_format.html">Scene file format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/differences.html">Differences to Mitsuba 0.6</a></li>
@@ -163,50 +163,37 @@
             
   <div class="section" id="variants-in-c">
 <span id="sec-variants-cpp"></span><h1>Variants in C++<a class="headerlink" href="#variants-in-c" title="Permalink to this headline">¶</a></h1>
-<p>As described in the section on <a class="reference internal" href="../getting_started/variants.html#sec-variants"><span class="std std-ref">choosing variants</span></a>, Mitsuba
-2 code can be compiled into different variants, which are parameterized by
-their computational backend and representation of color. To enable such
-retargeting from a single implementation, the system relies on C++ templates
-and metaprogramming. Indeed, most C++ classes and functions in Mitsuba 2 are
-templates with the following two type parameters:</p>
+<p>正如 <a class="reference internal" href="../getting_started/variants.html#sec-variants"><span class="std std-ref">choosing variants</span></a> 一节中所介绍的， Mitsuba 2 可以按照不同的变体模式
+进行编译，而这些变体代表了不同的计算后端和颜色表示方式。若要从某一实现中启用这种重定向功能，系统需要依赖于
+C++ 模版和元编程。实际上，Mitsuba 2中大多数的 C++ 类和函数都是带有以下两个参数的模版：</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Float</span></code> and</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Float</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Spectrum</span></code>.</p></li>
 </ul>
-<p>These two parameters exactly correspond to the previously mentioned computational
-backend and color representation. During compilation, Mitsuba’s build system reads
-the <code class="docutils literal notranslate"><span class="pre">mitsuba.conf</span></code> file and substitutes the types of selected variants into these
-template parameters. For example,</p>
+<p>这两个参数完全对应于之前提到的计算后端和颜色表示方式。在编译过程中， Mitsuba 的构建系统读取  <code class="docutils literal notranslate"><span class="pre">mitsuba.conf</span></code> 文件，
+并将所选变体模式替换到模版参数中。例如：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&quot;scalar_rgb&quot;: {
     &quot;float&quot;: &quot;float&quot;,
     &quot;spectrum&quot;: &quot;Color&lt;Float, 3&gt;&quot;
 },
 </pre></div>
 </div>
-<p>causes an
-<a class="reference external" href="https://en.cppreference.com/w/cpp/language/class_template#Explicit_instantiation">explicit template instantiation</a>
-with</p>
+<p>这会显式的引发
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/class_template#Explicit_instantiation">模版实例化</a></p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Float</span>    <span class="o">=</span> <span class="kt">float</span><span class="p">;</span>
 <span class="n">Spectrum</span> <span class="o">=</span> <span class="n">Color</span><span class="o">&lt;</span><span class="n">Float</span><span class="p">,</span> <span class="mi">3</span><span class="o">&gt;</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>The resulting C++ symbols will be added to the shared libraries
-(<code class="docutils literal notranslate"><span class="pre">dist/libmitsuba-core.so</span></code>, <code class="docutils literal notranslate"><span class="pre">dist/libmitsuba-render.so</span></code>,
-<code class="docutils literal notranslate"><span class="pre">dist/plugin/*.so</span></code>, …). At runtime, the user-specified variant will
-determine the set of symbols to be used by the renderer.</p>
+<p>生成的 C++ 符号将添加到共享链接库中（ <code class="docutils literal notranslate"><span class="pre">dist/libmitsuba-core.so</span></code>， <code class="docutils literal notranslate"><span class="pre">dist/libmitsuba-render.so</span></code>， <code class="docutils literal notranslate"><span class="pre">dist/plugin/*.so</span></code> 等）。
+在运行时，由用户指定的变体模式将决定渲染器所使用的符号集。</p>
 <div class="section" id="type-aliases">
 <h2>Type aliases<a class="headerlink" href="#type-aliases" title="Permalink to this headline">¶</a></h2>
-<p>Of course, <code class="docutils literal notranslate"><span class="pre">Float</span></code> and <code class="docutils literal notranslate"><span class="pre">Spectrum</span></code> are not the only types that are used in a
-renderer. It also access to integer arithmetic types, vectors, normals, points,
-rays, matrices, and so on. More complex data structures like intersection and
-sampling records are also commonly used.</p>
-<p>It would be tedious to have to define these types in the context of a given
-variant. To facilitate this process, Mitsuba provides a helper macro to import
-suitable types that are inferred from the definition of <code class="docutils literal notranslate"><span class="pre">Float</span></code> and
-<code class="docutils literal notranslate"><span class="pre">Spectrum</span></code>.</p>
-<p>For example, after evaluating this macro at the beginning of a templated
-function, we are then able to use other templated Mitsuba types (e.g.
-<code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">Vector2f</span></code>, <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">Ray3f</span></code>, <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">SurfaceInteraction</span></code>, …) as if they were not templated.</p>
+<p>当然单单 <code class="docutils literal notranslate"><span class="pre">Float</span></code> 和 <code class="docutils literal notranslate"><span class="pre">Spectrum</span></code> 两个类型不会构成渲染器使用的所有类型。渲染器还可以访问整型算数类型，向量，
+法线，点，光线，矩阵等各种结构。对于一些更复杂的结构（如交点和采样记录）也是可以随意使用的。</p>
+<p>在给定的变体模式的上下文中去定义这些类型会有些繁琐。为了简化这一过程，Mitsuba 提供了一个辅助宏，从 <code class="docutils literal notranslate"><span class="pre">Float</span></code> 和 <code class="docutils literal notranslate"><span class="pre">Spectrum</span></code> 的定义
+中推断并导入合适的类型。</p>
+<p>例如，在辅助宏开始推断模版函数后，我们就可以使用其他 Mitsuba 模版类型（比如，<code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">Vector2f</span></code>、<code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">Ray3f</span></code>、<code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">SurfaceInteraction</span></code> 等）就好像
+它们没有模版化一样。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="nc">Float</span><span class="p">,</span> <span class="k">typename</span> <span class="nc">Spectrum</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">my_function</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">/// Import type aliases (e.g. using Vector3f = Vector&lt;Float, 3&gt;;)</span>
@@ -222,32 +209,23 @@ function, we are then able to use other templated Mitsuba types (e.g.
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">MTS_VARIANT</span></code> macro is often used as a shorthand notation instead of
-the somewhat verbose <code class="docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">Float,</span> <span class="pre">typename</span> <span class="pre">Spectum&gt;</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">MTS_VARIANT</span></code> 宏常用作速记符号，而不是相较冗长的 <code class="docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">Float,</span> <span class="pre">typename</span> <span class="pre">Spectum&gt;</span></code>。</p>
 </div>
-<p>Those macros are described in more detail in the next chapter:</p>
+<p>下一章节讲更详细的介绍这些宏：</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="writing_plugin.html#macro-import-types"><span class="std std-ref">MTS_IMPORT_TYPES(…)</span></a></p></li>
 </ul>
 </div>
 <div class="section" id="branching-and-masking">
 <h2>Branching and masking<a class="headerlink" href="#branching-and-masking" title="Permalink to this headline">¶</a></h2>
-<p>When dealing with vectorized computational backends (e.g. <code class="docutils literal notranslate"><span class="pre">packet_*</span></code>,
-<code class="docutils literal notranslate"><span class="pre">gpu_*</span></code>), additional scrutiny is needed to adapt C++ branching logic (in
-particular, <code class="docutils literal notranslate"><span class="pre">if</span></code> statements).</p>
-<p>Consider the result of a ray intersection in scalar mode. The resulting
-<a class="reference internal" href="../../generated/render_api.html#mitsuba.render.SurfaceInteraction3f" title="mitsuba.render.SurfaceInteraction3f"><code class="xref py py-class docutils literal notranslate"><span class="pre">SurfaceInteraction3f</span></code></a> record holds information
-concerning a single surface intersection. In this case, conditional logic works
-fine using normal <code class="docutils literal notranslate"><span class="pre">if</span></code> statements.</p>
-<p>On the other hand, the same data structure in a vectorized backend (e.g.
-<code class="docutils literal notranslate"><span class="pre">gpu_rgb</span></code>) holds information concerning <em>many</em> surface intersections. Since
-any condition may only be <span class="monosp">true</span> for a subset of the elements, conditionals
-logic can no longer be carried out using ordinary <code class="docutils literal notranslate"><span class="pre">if</span></code> statements.</p>
-<p>The alternative operation <code class="docutils literal notranslate"><span class="pre">enoki::select(mask,</span> <span class="pre">arg1,</span> <span class="pre">arg2)</span></code> takes a <em>mask</em>
-argument (typically the result of a comparison) and evaluates <code class="docutils literal notranslate"><span class="pre">(mask</span> <span class="pre">?</span> <span class="pre">arg1</span> <span class="pre">:</span>
-<span class="pre">arg2)</span></code> in parallel for each lane. We refer to <a class="reference external" href="https://enoki.readthedocs.io/en/master/basics.html#working-with-masks">Enoki’s documentation</a> for
-further information on working with masks. The following shows an example
-contrasting these two cases:</p>
+<p>在处理矢量化计算后台时（例如，<code class="docutils literal notranslate"><span class="pre">packet_*</span></code>，<code class="docutils literal notranslate"><span class="pre">gpu_*</span></code>），需要额外检查 C++ 的分支逻辑（特别是 <code class="docutils literal notranslate"><span class="pre">if</span></code> 结构）。</p>
+<p>回想一下 scalar 模式下的光线求交结果，生成的 <a class="reference internal" href="../../generated/render_api.html#mitsuba.render.SurfaceInteraction3f" title="mitsuba.render.SurfaceInteraction3f"><code class="xref py py-class docutils literal notranslate"><span class="pre">SurfaceInteraction3f</span></code></a> 记录的是与 <em>单个曲面</em> 的相交信息。
+在这种情况下，使用普通 <code class="docutils literal notranslate"><span class="pre">if</span></code> 语句的条件逻辑可以很好工作。</p>
+<p>在另一方面，在矢量化后端（如 <code class="docutils literal notranslate"><span class="pre">gpu_rgb</span></code>）中相同的数据结构保存的是与 <em>多个曲面的</em> 相交信息。由于绝大多数的条件只可能对其中部分元素为真，
+所以不能再使用普通的 <code class="docutils literal notranslate"><span class="pre">if</span></code> 语句来执行条件逻辑。</p>
+<p>替换操作 <code class="docutils literal notranslate"><span class="pre">enoki::select(mask,</span> <span class="pre">arg1,</span> <span class="pre">arg2)</span></code> 接受一个 <em>mask</em> 参数（通常是比较操作的结果）并对每个通道并
+行计算 <code class="docutils literal notranslate"><span class="pre">(mask</span> <span class="pre">?</span> <span class="pre">arg1</span> <span class="pre">:</span> <span class="pre">arg2)</span></code> 。更多关于使用 mask 的信息，请参阅 <a class="reference external" href="https://enoki.readthedocs.io/en/master/basics.html#working-with-masks">Enoki’s documentation</a>。
+下面是一个对比示例：</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// --------------------</span>
 <span class="c1">// Scalar code (discouraged)</span>
 
@@ -270,11 +248,8 @@ contrasting these two cases:</p>
 <span class="k">return</span> <span class="n">enoki</span><span class="o">::</span><span class="n">select</span><span class="p">(</span><span class="n">si</span><span class="p">.</span><span class="n">is_valid</span><span class="p">(),</span> <span class="mf">1.0f</span><span class="p">,</span> <span class="mf">0.f</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Moreover, most of the functions/methods take an <em>optional</em> <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">active</span></code> parameter
-that encodes which <em>lanes</em> remain active. In the example above, we can e.g.
-provide this information to the <code class="docutils literal notranslate"><span class="pre">ray_intersect</span></code> routine to avoid computation
-(particularly, memory reads) associated with invalid entries. The updated code
-then reads:</p>
+<p>此外，大多数的函数/方法都有一个 <em>可选的</em> <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">active</span></code> 参数，用于编码哪些通道是激活的。比如在上面的例子中，
+我们可以将此信息提供给 <code class="docutils literal notranslate"><span class="pre">ray_intersect</span></code> 例程，从而避免无效条目的相关计算。这样写的话，代码则更新为：</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Mask specifying the active lanes</span>
 <span class="n">Mask</span> <span class="n">active</span> <span class="o">=</span> <span class="p">...;</span>
 
@@ -288,42 +263,28 @@ then reads:</p>
 </div>
 <div class="section" id="cuda-backend-synchronization-point">
 <h2>CUDA backend synchronization point<a class="headerlink" href="#cuda-backend-synchronization-point" title="Permalink to this headline">¶</a></h2>
-<p>As described in Enoki’s documentation on <a class="reference external" href="https://enoki.readthedocs.io/en/master/gpu.html#suggestions-regarding-horizontal-operations">GPU arrays</a>,
-the <code class="docutils literal notranslate"><span class="pre">gpu_*</span></code> computational backends rely on a JIT compiler that dynamically
-generates kernels using NVIDIA’s PTX intermediate language. This JIT compiler
-is highly efficient for <em>vertical</em> operations (additions, multiplications,
-gathers, scatters, etc.).  However, applying a <em>horizontal</em> operations (e.g.
-<code class="docutils literal notranslate"><span class="pre">enoki::any()</span></code>, <code class="docutils literal notranslate"><span class="pre">enoki::all()</span></code>, <code class="docutils literal notranslate"><span class="pre">enoki::hsum()</span></code>, etc.) to a
-<code class="docutils literal notranslate"><span class="pre">CUDAArray&lt;T&gt;</span></code> will flush all currently queued computations, which limits the
-amount of parallelism.</p>
-<p>In many cases, horizontal mask-related operations can safely be skipped if this
-yields a performance benefit. For this reason, the Mitsuba 2 codebase makes
-frequent use of alternative reduction operations (<code class="docutils literal notranslate"><span class="pre">any_or&lt;&gt;()</span></code>,
-<code class="docutils literal notranslate"><span class="pre">all_or&lt;&gt;()</span></code>, …) that skip evaluation on GPU targets.</p>
-<p>For example, the code <code class="docutils literal notranslate"><span class="pre">...</span></code> in the example below will
-only be executed if <code class="docutils literal notranslate"><span class="pre">condition</span></code> is <code class="docutils literal notranslate"><span class="pre">true</span></code> in <code class="docutils literal notranslate"><span class="pre">scalar_*</span></code> variants.</p>
+<p>正如 Enoki 文档 <a class="reference external" href="https://enoki.readthedocs.io/en/master/gpu.html#suggestions-regarding-horizontal-operations">GPU arrays</a> 这
+一章节所描述的， <code class="docutils literal notranslate"><span class="pre">gpu_*</span></code> 计算后端依赖于通过 NVIDIA 的中间语言 PTX 来动态生成内核的 JIT 编译器。 该 JIT 编译器对于 <em>纵向操作</em>
+（加法、乘法、聚集、发散等）非常高效。然而 <em>横向操作</em> 的应用（比如 <code class="docutils literal notranslate"><span class="pre">enoki::any()</span></code>，<code class="docutils literal notranslate"><span class="pre">enoki::all()</span></code>，<code class="docutils literal notranslate"><span class="pre">enoki::hsum()</span></code> 等）
+会刷新 <code class="docutils literal notranslate"><span class="pre">CUDAArray&lt;T&gt;</span></code> 的所有当前计算队列，这会限制并行度。</p>
+<p>在很多情况下，如果能带来性能优势的话，可以安全的跳过与横向 mask 有关的操作。出于这一原因，Mitsuba 2代码库频繁的使用
+替换语句（<code class="docutils literal notranslate"><span class="pre">any_or&lt;&gt;()</span></code>，<code class="docutils literal notranslate"><span class="pre">all_or&lt;&gt;()</span></code> 等）以在 GPU 标签下跳过估算来简化操作。</p>
+<p>例如，下面示例中的代码 <code class="docutils literal notranslate"><span class="pre">...</span></code> 只会在 <code class="docutils literal notranslate"><span class="pre">scalar_*</span></code> 变体模式下 <code class="docutils literal notranslate"><span class="pre">condition</span></code> 为 <code class="docutils literal notranslate"><span class="pre">true</span></code> 才会执行。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Mask</span> <span class="n">condition</span> <span class="o">=</span> <span class="p">...;</span>
 <span class="k">if</span> <span class="p">(</span><span class="n">any_or</span><span class="o">&lt;</span><span class="nb">true</span><span class="o">&gt;</span><span class="p">(</span><span class="n">condition</span><span class="p">))</span> <span class="p">{</span>
     <span class="p">...</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>In the case of <code class="docutils literal notranslate"><span class="pre">packet_*</span></code> variants, it will be executed if <em>at least one
-element</em> of <code class="docutils literal notranslate"><span class="pre">condition</span></code> is <code class="docutils literal notranslate"><span class="pre">true</span></code>. In <code class="docutils literal notranslate"><span class="pre">gpu_*</span></code> variants, we are typically
-working with arrays containing millions of elements, and it is quite likely
-that at least of one of the array entries will in any case trigger execution of the
-<code class="docutils literal notranslate"><span class="pre">...</span></code>. The <code class="docutils literal notranslate"><span class="pre">any_or&lt;true&gt;(condition)</span></code> then skips the costly horizontal reduction
-and always assumes the condition to be true.</p>
+<p>而在 <code class="docutils literal notranslate"><span class="pre">packet_*</span></code> 模式下，至少 <em>一个元素</em> 的 <code class="docutils literal notranslate"><span class="pre">condition</span></code> 为 <code class="docutils literal notranslate"><span class="pre">true</span></code> 才会执行。在 <code class="docutils literal notranslate"><span class="pre">gpu_*</span></code> 变体模式下，
+我们通常要处理包含数百万个元素的数组，并且很可能在任何情况下至少都有一个元素都会触发执行 <code class="docutils literal notranslate"><span class="pre">...</span></code> 。那么 <code class="docutils literal notranslate"><span class="pre">any_or&lt;true&gt;(condition)</span></code> 会跳过代价
+昂贵的横向操作，并始终假设条件为真。</p>
 </div>
 <div class="section" id="pointer-types">
 <h2>Pointer types<a class="headerlink" href="#pointer-types" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">MTS_IMPORT_TYPES</span></code> macro also imports variant-specific type aliases for
-pointer types. This is important: for example, consider the <code class="docutils literal notranslate"><span class="pre">BSDF</span></code> associated
-with a surface intersection. In a scalar variant , this is nicely represented
-using a <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">BSDF</span> <span class="pre">*</span></code> pointer. However, on a vectorized variants (<code class="docutils literal notranslate"><span class="pre">gpu_*</span></code>,
-<code class="docutils literal notranslate"><span class="pre">packet_*</span></code>), the intersection is in fact an array of many intersections, and
-the simple pointer is therefore replaced by an <em>array of pointers*</em>. These
-pointer aliases are used as follows:</p>
+<p><code class="docutils literal notranslate"><span class="pre">MTS_IMPORT_TYPES</span></code> 宏还为指针的导入提供了变体模式特定的类型别名。有一点很重要：例如，考虑下与曲面交点
+相关的 <code class="docutils literal notranslate"><span class="pre">BSDF</span></code> 。 在 scalar 变体中，使用  <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">BSDF</span> <span class="pre">*</span></code> 指针就是很好的表示方式。然而在矢量化变体（<code class="docutils literal notranslate"><span class="pre">gpu_*</span></code>， <code class="docutils literal notranslate"><span class="pre">packet_*</span></code>）
+中，会有多个曲面交点构成的交点集，因此单一指针被 <em>指针数组</em> 所替代。这些指针的别名如下所示：</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// Imports BSDFPtr, EmitterPtr, etc..</span>
 <span class="n">MTS_IMPORT_TYPES</span><span class="p">()</span>
 
@@ -339,15 +300,12 @@ pointer aliases are used as follows:</p>
 <span class="n">bsdf</span><span class="o">-&gt;</span><span class="n">eval</span><span class="p">(...,</span> <span class="n">active</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>More information on vectorized method calls is provided in the <a class="reference external" href="https://enoki.readthedocs.io/en/master/calls.html">Enoki
-documentation</a>.</p>
+<p>关于矢量化方法调用的更多信息，请参阅 <a class="reference external" href="https://enoki.readthedocs.io/en/master/calls.html">Enoki documentation</a> 。</p>
 </div>
 <div class="section" id="variant-specific-code">
 <h2>Variant-specific code<a class="headerlink" href="#variant-specific-code" title="Permalink to this headline">¶</a></h2>
-<p>The C++17 <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">constexpr</span></code> statement is often used throughout the codebase to
-restrict code fragments to specific variants. For instance the following C++
-snippet converts a spectrum to an XYZ tristimulus value, which crucially
-depends on the color representation of the variant being compiled.</p>
+<p>在整个代码库中，大量使用 C++17 的 <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">conexpr</span></code> 语句将代码片段约束为特定的变体。例如，下面的 C++ 代码片段将光谱值转换成了 XYZ 三
+色值，这取决于当前编译变体决定的颜色表示方式。</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Ray3f</span> <span class="n">ray</span> <span class="o">=</span> <span class="p">...;</span>
 <span class="n">Mask</span> <span class="n">active</span> <span class="o">=</span> <span class="p">...;</span>
 <span class="n">Spectrum</span> <span class="n">result</span> <span class="o">=</span> <span class="n">compute_stuff</span><span class="p">(</span><span class="n">ray</span><span class="p">,</span> <span class="n">active</span><span class="p">);</span>
@@ -361,15 +319,10 @@ depends on the color representation of the variant being compiled.</p>
     <span class="n">xyz</span> <span class="o">=</span> <span class="n">spectrum_to_xyz</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">ray</span><span class="p">.</span><span class="n">wavelengths</span><span class="p">,</span> <span class="n">active</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Since <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">constexpr</span></code> is resolved at compile-time, this branch does not cause
-any runtime overheads. Another useful feature of <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">constexpr</span></code> is that it
-suppresses compilation errors in disabled branches. This makes it possible to
-generic code that could potentially produce compilation errors when expressed
-using ordinary (non-<code class="docutils literal notranslate"><span class="pre">constexpr</span></code>) <code class="docutils literal notranslate"><span class="pre">if</span></code> statements (for example, by accessing
-a member of a class that may not exist in all variants).</p>
-<p>Mitsuba provides various <em>type-traits</em> such as <code class="docutils literal notranslate"><span class="pre">is_monochromatic_v</span></code> to query
-variant-specific properties. They can be found in
-<code class="file docutils literal notranslate"><span class="pre">include/mitsuba/core/traits.h</span></code>.</p>
+<p>由于 <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">constexpr</span></code> 是在编译时解析的，所以该分支不会导致任何运行时开销。<code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">constexpr</span></code> 的另一个有用特性是，
+它会禁止未启用分支中的编译错误。这是因为一般代码使用的普通（不带 <code class="docutils literal notranslate"><span class="pre">constexpr</span></code>） <code class="docutils literal notranslate"><span class="pre">if</span></code> 语句可能有潜在的编译错误（例如，试图访问一个不存
+在于所有变体的类成员时）。</p>
+<p>Mitsuba 提供了各种版本的 <em>type-traits</em> 例如 <code class="docutils literal notranslate"><span class="pre">is_monochromatic_v</span></code> 用来查询特定变体的属性。你可以在 <code class="file docutils literal notranslate"><span class="pre">include/mitsuba/core/traits.h</span></code> 中找到它们。</p>
 </div>
 </div>
 

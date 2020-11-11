@@ -3,20 +3,15 @@
 Variants in C++
 ===============
 
-As described in the section on :ref:`choosing variants <sec-variants>`, Mitsuba
-2 code can be compiled into different variants, which are parameterized by
-their computational backend and representation of color. To enable such
-retargeting from a single implementation, the system relies on C++ templates
-and metaprogramming. Indeed, most C++ classes and functions in Mitsuba 2 are
-templates with the following two type parameters:
+正如 :ref:`choosing variants <sec-variants>` 一节中所介绍的， Mitsuba 2 可以按照不同的变体模式
+进行编译，而这些变体代表了不同的计算后端和颜色表示方式。若要从某一实现中启用这种重定向功能，系统需要依赖于
+C++ 模版和元编程。实际上，Mitsuba 2中大多数的 C++ 类和函数都是带有以下两个参数的模版：
 
-- ``Float`` and
+- ``Float`` 
 - ``Spectrum``.
 
-These two parameters exactly correspond to the previously mentioned computational
-backend and color representation. During compilation, Mitsuba's build system reads
-the ``mitsuba.conf`` file and substitutes the types of selected variants into these
-template parameters. For example,
+这两个参数完全对应于之前提到的计算后端和颜色表示方式。在编译过程中， Mitsuba 的构建系统读取  ``mitsuba.conf`` 文件，
+并将所选变体模式替换到模版参数中。例如：
 
 .. code-block:: text
 
@@ -25,36 +20,28 @@ template parameters. For example,
         "spectrum": "Color<Float, 3>"
     },
 
-causes an
-`explicit template instantiation <https://en.cppreference.com/w/cpp/language/class_template#Explicit_instantiation>`_
-with
+这会显式的引发
+`模版实例化 <https://en.cppreference.com/w/cpp/language/class_template#Explicit_instantiation>`_
 
 .. code-block::
 
     Float    = float;
     Spectrum = Color<Float, 3>;
 
-The resulting C++ symbols will be added to the shared libraries
-(``dist/libmitsuba-core.so``, ``dist/libmitsuba-render.so``,
-``dist/plugin/*.so``, ...). At runtime, the user-specified variant will
-determine the set of symbols to be used by the renderer.
+生成的 C++ 符号将添加到共享链接库中（ ``dist/libmitsuba-core.so``， ``dist/libmitsuba-render.so``， ``dist/plugin/*.so`` 等）。
+在运行时，由用户指定的变体模式将决定渲染器所使用的符号集。
 
 Type aliases
 ------------
 
-Of course, ``Float`` and ``Spectrum`` are not the only types that are used in a
-renderer. It also access to integer arithmetic types, vectors, normals, points,
-rays, matrices, and so on. More complex data structures like intersection and
-sampling records are also commonly used.
+当然单单 ``Float`` 和 ``Spectrum`` 两个类型不会构成渲染器使用的所有类型。渲染器还可以访问整型算数类型，向量，
+法线，点，光线，矩阵等各种结构。对于一些更复杂的结构（如交点和采样记录）也是可以随意使用的。
 
-It would be tedious to have to define these types in the context of a given
-variant. To facilitate this process, Mitsuba provides a helper macro to import
-suitable types that are inferred from the definition of ``Float`` and
-``Spectrum``.
+在给定的变体模式的上下文中去定义这些类型会有些繁琐。为了简化这一过程，Mitsuba 提供了一个辅助宏，从 ``Float`` 和 ``Spectrum`` 的定义
+中推断并导入合适的类型。
 
-For example, after evaluating this macro at the beginning of a templated
-function, we are then able to use other templated Mitsuba types (e.g.
-`Vector2f`, `Ray3f`, `SurfaceInteraction`, ...) as if they were not templated.
+例如，在辅助宏开始推断模版函数后，我们就可以使用其他 Mitsuba 模版类型（比如，`Vector2f`、`Ray3f`、`SurfaceInteraction` 等）就好像
+它们没有模版化一样。
 
 .. code-block:: c++
 
@@ -72,10 +59,9 @@ function, we are then able to use other templated Mitsuba types (e.g.
 
 .. note:: 
 
-    The ``MTS_VARIANT`` macro is often used as a shorthand notation instead of
-    the somewhat verbose ``template <typename Float, typename Spectum>``.
+    ``MTS_VARIANT`` 宏常用作速记符号，而不是相较冗长的 ``template <typename Float, typename Spectum>``。
 
-Those macros are described in more detail in the next chapter:
+下一章节讲更详细的介绍这些宏：
 
 - :ref:`macro-import-types`
 
@@ -83,26 +69,17 @@ Those macros are described in more detail in the next chapter:
 Branching and masking
 ---------------------
 
-When dealing with vectorized computational backends (e.g. ``packet_*``,
-``gpu_*``), additional scrutiny is needed to adapt C++ branching logic (in
-particular, ``if`` statements). 
+在处理矢量化计算后台时（例如，``packet_*``，``gpu_*``），需要额外检查 C++ 的分支逻辑（特别是 ``if`` 结构）。
 
-Consider the result of a ray intersection in scalar mode. The resulting
-:py:class:`~mitsuba.render.SurfaceInteraction3f` record holds information
-concerning a single surface intersection. In this case, conditional logic works
-fine using normal ``if`` statements.
+回想一下 scalar 模式下的光线求交结果，生成的 :py:class:`~mitsuba.render.SurfaceInteraction3f` 记录的是与 *单个曲面* 的相交信息。
+在这种情况下，使用普通 ``if`` 语句的条件逻辑可以很好工作。
 
-On the other hand, the same data structure in a vectorized backend (e.g.
-``gpu_rgb``) holds information concerning *many* surface intersections. Since
-any condition may only be |true| for a subset of the elements, conditionals
-logic can no longer be carried out using ordinary ``if`` statements. 
+在另一方面，在矢量化后端（如 ``gpu_rgb``）中相同的数据结构保存的是与 *多个曲面的* 相交信息。由于绝大多数的条件只可能对其中部分元素为真，
+所以不能再使用普通的 ``if`` 语句来执行条件逻辑。
 
-The alternative operation ``enoki::select(mask, arg1, arg2)`` takes a *mask*
-argument (typically the result of a comparison) and evaluates ``(mask ? arg1 :
-arg2)`` in parallel for each lane. We refer to `Enoki's documentation
-<https://enoki.readthedocs.io/en/master/basics.html#working-with-masks>`_ for
-further information on working with masks. The following shows an example
-contrasting these two cases:
+替换操作 ``enoki::select(mask, arg1, arg2)`` 接受一个 *mask* 参数（通常是比较操作的结果）并对每个通道并
+行计算 ``(mask ? arg1 : arg2)`` 。更多关于使用 mask 的信息，请参阅 `Enoki's documentation <https://enoki.readthedocs.io/en/master/basics.html#working-with-masks>`_。
+下面是一个对比示例：
 
 .. code-block:: cpp
 
@@ -127,11 +104,8 @@ contrasting these two cases:
 
     return enoki::select(si.is_valid(), 1.0f, 0.f);
 
-Moreover, most of the functions/methods take an *optional* `active` parameter
-that encodes which *lanes* remain active. In the example above, we can e.g.
-provide this information to the ``ray_intersect`` routine to avoid computation
-(particularly, memory reads) associated with invalid entries. The updated code
-then reads:
+此外，大多数的函数/方法都有一个 *可选的* `active` 参数，用于编码哪些通道是激活的。比如在上面的例子中，
+我们可以将此信息提供给 ``ray_intersect`` 例程，从而避免无效条目的相关计算。这样写的话，代码则更新为：
 
 .. code-block:: cpp
 
@@ -147,23 +121,15 @@ then reads:
 CUDA backend synchronization point
 ----------------------------------
 
-As described in Enoki's documentation on `GPU arrays
-<https://enoki.readthedocs.io/en/master/gpu.html#suggestions-regarding-horizontal-operations>`_,
-the ``gpu_*`` computational backends rely on a JIT compiler that dynamically
-generates kernels using NVIDIA's PTX intermediate language. This JIT compiler
-is highly efficient for *vertical* operations (additions, multiplications,
-gathers, scatters, etc.).  However, applying a *horizontal* operations (e.g.
-``enoki::any()``, ``enoki::all()``, ``enoki::hsum()``, etc.) to a
-``CUDAArray<T>`` will flush all currently queued computations, which limits the
-amount of parallelism.
+正如 Enoki 文档 `GPU arrays <https://enoki.readthedocs.io/en/master/gpu.html#suggestions-regarding-horizontal-operations>`_ 这
+一章节所描述的， ``gpu_*`` 计算后端依赖于通过 NVIDIA 的中间语言 PTX 来动态生成内核的 JIT 编译器。 该 JIT 编译器对于 *纵向操作*
+（加法、乘法、聚集、发散等）非常高效。然而 *横向操作* 的应用（比如 ``enoki::any()``，``enoki::all()``，``enoki::hsum()`` 等）
+会刷新 ``CUDAArray<T>`` 的所有当前计算队列，这会限制并行度。
 
-In many cases, horizontal mask-related operations can safely be skipped if this
-yields a performance benefit. For this reason, the Mitsuba 2 codebase makes
-frequent use of alternative reduction operations (``any_or<>()``,
-``all_or<>()``, ...) that skip evaluation on GPU targets. 
+在很多情况下，如果能带来性能优势的话，可以安全的跳过与横向 mask 有关的操作。出于这一原因，Mitsuba 2代码库频繁的使用
+替换语句（``any_or<>()``，``all_or<>()`` 等）以在 GPU 标签下跳过估算来简化操作。
 
-For example, the code ``...`` in the example below will
-only be executed if ``condition`` is ``true`` in ``scalar_*`` variants.
+例如，下面示例中的代码 ``...`` 只会在 ``scalar_*`` 变体模式下 ``condition`` 为 ``true`` 才会执行。
 
 .. code-block:: cpp
 
@@ -172,23 +138,16 @@ only be executed if ``condition`` is ``true`` in ``scalar_*`` variants.
         ...
     }
 
-In the case of ``packet_*`` variants, it will be executed if *at least one
-element* of ``condition`` is ``true``. In ``gpu_*`` variants, we are typically
-working with arrays containing millions of elements, and it is quite likely
-that at least of one of the array entries will in any case trigger execution of the
-``...``. The ``any_or<true>(condition)`` then skips the costly horizontal reduction
-and always assumes the condition to be true. 
+而在 ``packet_*`` 模式下，至少 *一个元素* 的 ``condition`` 为 ``true`` 才会执行。在 ``gpu_*`` 变体模式下，
+我们通常要处理包含数百万个元素的数组，并且很可能在任何情况下至少都有一个元素都会触发执行 ``...`` 。那么 ``any_or<true>(condition)`` 会跳过代价
+昂贵的横向操作，并始终假设条件为真。
 
 Pointer types
 -------------
 
-The ``MTS_IMPORT_TYPES`` macro also imports variant-specific type aliases for
-pointer types. This is important: for example, consider the ``BSDF`` associated
-with a surface intersection. In a scalar variant , this is nicely represented
-using a ``const BSDF *`` pointer. However, on a vectorized variants (``gpu_*``,
-``packet_*``), the intersection is in fact an array of many intersections, and
-the simple pointer is therefore replaced by an *array of pointers**. These
-pointer aliases are used as follows:
+``MTS_IMPORT_TYPES`` 宏还为指针的导入提供了变体模式特定的类型别名。有一点很重要：例如，考虑下与曲面交点
+相关的 ``BSDF`` 。 在 scalar 变体中，使用  ``const BSDF *`` 指针就是很好的表示方式。然而在矢量化变体（``gpu_*``， ``packet_*``）
+中，会有多个曲面交点构成的交点集，因此单一指针被 *指针数组* 所替代。这些指针的别名如下所示：
 
 .. code-block:: c++
 
@@ -206,16 +165,13 @@ pointer aliases are used as follows:
     // Enoki is able to dispatch method calls involving arrays of pointers
     bsdf->eval(..., active);
 
-More information on vectorized method calls is provided in the `Enoki
-documentation <https://enoki.readthedocs.io/en/master/calls.html>`_.
+关于矢量化方法调用的更多信息，请参阅 `Enoki documentation <https://enoki.readthedocs.io/en/master/calls.html>`_ 。
 
 Variant-specific code
 ---------------------
 
-The C++17 ``if constexpr`` statement is often used throughout the codebase to
-restrict code fragments to specific variants. For instance the following C++
-snippet converts a spectrum to an XYZ tristimulus value, which crucially
-depends on the color representation of the variant being compiled.
+在整个代码库中，大量使用 C++17 的 ``if conexpr`` 语句将代码片段约束为特定的变体。例如，下面的 C++ 代码片段将光谱值转换成了 XYZ 三
+色值，这取决于当前编译变体决定的颜色表示方式。
 
 .. code-block:: c++
 
@@ -231,13 +187,8 @@ depends on the color representation of the variant being compiled.
     else
         xyz = spectrum_to_xyz(result, ray.wavelengths, active);
 
-Since ``if constexpr`` is resolved at compile-time, this branch does not cause
-any runtime overheads. Another useful feature of ``if constexpr`` is that it
-suppresses compilation errors in disabled branches. This makes it possible to
-generic code that could potentially produce compilation errors when expressed
-using ordinary (non-``constexpr``) ``if`` statements (for example, by accessing
-a member of a class that may not exist in all variants).
+由于 ``if constexpr`` 是在编译时解析的，所以该分支不会导致任何运行时开销。``if constexpr`` 的另一个有用特性是，
+它会禁止未启用分支中的编译错误。这是因为一般代码使用的普通（不带 ``constexpr``） ``if`` 语句可能有潜在的编译错误（例如，试图访问一个不存
+在于所有变体的类成员时）。
 
-Mitsuba provides various *type-traits* such as ``is_monochromatic_v`` to query
-variant-specific properties. They can be found in
-:file:`include/mitsuba/core/traits.h`.
+Mitsuba 提供了各种版本的 *type-traits* 例如 ``is_monochromatic_v`` 用来查询特定变体的属性。你可以在 :file:`include/mitsuba/core/traits.h` 中找到它们。
