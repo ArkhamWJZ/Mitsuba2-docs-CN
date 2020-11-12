@@ -1,15 +1,13 @@
 Plugins & Macros
 ================
 
-This section briefly reviews the "skeleton" of a basic plugin definition to
-clarify the role of the various ``MTS_*`` macros, which are responsible for
-importing types, instantiating variants, and providing run-time type
-information.
+该章节简明的回顾了基本插件定义时的框架，以阐明各种 ``MTS_* `` 宏的作用，比如有些宏负责导入类型、
+实例化变量和提供运行时类型的信息。
 
 Example code
 ------------
 
-Consider the following hypothetical plugin ``MyPlugin``:
+考虑以下假设的插件 ``MyPlugin``：
 
 .. code-block:: cpp
 
@@ -44,13 +42,12 @@ Consider the following hypothetical plugin ``MyPlugin``:
 Macros
 ------
 
-Note that not all macros listed here actually occur in the above code example.
+需要注意的是，接下来所列出来的宏并非都出现在了上面的示例代码中。
 
 :monosp:`MTS_MASK_ARGUMENT(mask)`
 *********************************
 
-This macro typically occurs at the beginning of a function that takes
-a mask as an argument.
+这个宏通常出现在以掩码为参数的函数开头。
 
 .. code-block:: cpp
 
@@ -58,26 +55,22 @@ a mask as an argument.
         MTS_MASK_ARGUMENT(active);
     }
 
-Masking is not really needed on scalar variants: if a function is called, we
-assume that ``active=true``. Masking can unfortunately decrease performance in
-this case due to the generation of extra branches. Here, ``MTS_MASK_ARGUMENT``
-therefore expands to
+scalar 变体实际上不需要掩码：如果一个函数被调用了，那么我们假设其 ``active=true`` 。不幸的是，
+掩码在此例中可能会因为额外分支的产生而降低性能。因此，``MTS_MASK_ARGUMENT`` 扩展为：
 
 .. code-block:: cpp
 
     if constexpr (is_scalar_v<Float>)
         active = true;
 
-which turns the mask argument into a compile-time constant on scalar targets,
-allowing the compiler to optimize away the undesired branches.
-``MTS_MASK_ARGUMENT`` is also part of the next macro.
+它将掩码参数转换为 scalar 目标上的编译时常量，从而允许编译器优化掉不需要的分支。``MTS_MASK_ARGUMENT`` 掩码
+参数也是下一个宏中的一部分。
 
 
 :monosp:`MTS_MASKED_FUNCTION(phase, mask)`
 ------------------------------------------
 
-This macro builds on the ``MTS_MASK_ARGUMENT`` macro and typically occurs at
-the beginning of a function that takes a mask as an argument.
+这个宏是建立在 ``MTS_MASK_ARGUMENT`` 宏基础上的，通常出现在以掩码为参数的函数开头。
 
 .. code-block:: cpp
 
@@ -85,10 +78,8 @@ the beginning of a function that takes a mask as an argument.
         MTS_MASKED_FUNCTION(ProfilerPhase::MyMethod, active);
     }
 
-Masking is not really needed on scalar variants: if a function is called, we
-assume that ``active=true``. Masking can unfortunately decrease performance in
-this case due to the generation of extra branches. Here,
-``MTS_MASKED_FUNCTION`` macro expands to
+scalar 变体实际上不需要掩码：如果一个函数被调用了，那么我们假设其 ``active=true`` 。不幸的是， 
+掩码在此例中可能会因为额外分支的产生而降低性能。因此，``MTS_MASKED_FUNCTION`` 扩展为：
 
 .. code-block:: cpp
 
@@ -96,28 +87,22 @@ this case due to the generation of extra branches. Here,
         active = true;
     ScopedPhase _(ProfilerPhase::MyMethod);
 
-which turns the mask argument into a compile-time constant on scalar targets,
-allowing the compiler to optimize away the undesired branches.
+它将掩码参数转换为 scalar 目标上的编译时常量，从而允许编译器优化掉不需要的分支。
 
-Mitsuba ships with a powerful sampling profiler that facilitates tracking down
-hot-spots during rendering. The last line of this macro (``ScopedPhase``)
-informs this profiler that we are currently executing a function that belongs
-to the profiler phase ``phase``.
+Mitsuba 带有一个强大的采样侦查器以帮助追踪渲染过程中的热点区域。这个宏的最后一行（``ScopedPhase``）通知了该侦查器，
+我们当前正在执行一个属于侦查器阶段 ``phase`` 的函数。
 
 
 :monosp:`MTS_IMPORT_BASE(Name, ...)`
 ------------------------------------
-Because most Mitsuba classes are templates, attributes and methods of parent
-classes are not visible by default. They can be imported explicitly via ``using
-Base::some_method;`` statements, but writing many such statements is tiresome.
-The variadic macro ``MTS_IMPORT_BASE`` expands into arbitrarily many such
-``using`` statements. For example,
+因为大多数 Mitsuba 的类都是模版，所以父类的属性和方法在默认情况下是不可见的。它们可以通过 ``using Base::some_method;`` 语
+句显式导入，但是重复编写很多这样的语句是很麻烦的。使用可变宏 ``MTS_IMPORT_BASE`` 可以扩展为任意多这种 ``using`` 语句。例如：
 
 .. code-block:: cpp
 
     MTS_IMPORT_BASE(Name, m_some_member, some_method)
 
-expands to
+相当于扩展为：
 
 .. code-block:: cpp
 
@@ -130,15 +115,14 @@ expands to
 :monosp:`MTS_IMPORT_CORE_TYPES()`
 ---------------------------------
 
-This macro will generate a sequence of ``using`` declarations to import the
-Mitsuba core types (e.g. ``Vector{1/2/3}{i/u/f/d}``, ``Point{1/2/3}{i/u/f/d}``,
-...). They are automatically inferred from the definition of ``Float``.
+该宏将生成一系列用于导入 Mitsuba 核心库的 ``using`` 声明（例如，``Vector{1/2/3}{i/u/f/d}``，``Point{1/2/3}{i/u/f/d}`` 等）。
+它们是从 ``Float`` 定义中自动推断出来的。
 
 .. note::
 
-    A type named ``Float`` must exist preceding evaluation of this macro.
+    在计算此宏之前，必须存在一个名叫 ``Float`` 的参数。
 
-For example,
+例如：
 
 .. code-block:: cpp
 
@@ -161,13 +145,11 @@ For example,
 :monosp:`MTS_IMPORT_TYPES(...)`
 -------------------------------
 
-This macro invokes ``MTS_IMPORT_CORE_TYPES()`` and furthermore imports
-rendering-related types, such as ``Ray3f``, ``SurfaceInteraction3f``, ``BSDF``,
-etc. These templated aliases will depend on the preceding declaration of the
-``Float`` and ``Spectrum``.
+该宏调用 ``MTS_IMPORT_CORE_TYPES()`` ，并进一步导入如  ``Ray3f``， ``SurfaceInteraction3f``， ``BSDF`` 等渲染相关类型。
+这些模版的别名依赖于之前声明的 ``Float`` 和 ``Spectrum``。
 
-It is also possible to pass other types as arguments, for which templated
-aliases will be created:
+
+还可以将其他类型作为参数进行传递给那些创建的模版别名。
 
 .. code-block:: cpp
 
@@ -191,31 +173,29 @@ aliases will be created:
 :monosp:`MTS_DECLARE_CLASS()`
 -----------------------------
 
-This macro should be invoked in the :monosp:`class` declaration of the plugin.
-It will declare RTTI (run-time type information) data structures useful for
-doing things like:
+这个宏应该在插件的 :monosp:`class` 声明中进行调用。 它将声明 RTTI（运行时类型信息）的数据结构，这些
+数据结构对于下列操作非常有用：
 
-- Checking if an object derives from a certain :monosp:`class`
-- Determining the parent of a :monosp:`class` at runtime
-- Instantiating a :monosp:`class` by name
-- Unserializing a :monosp:`class` from a binary data stream
+- 检查对象是否派生自某个 :monosp:`class` 
+- 在运行时确定 :monosp:`class` 的父类
+- 通过名称实例化一个 :monosp:`class`
+- 从二进制数据流中取消序列化一个 :monosp:`class`
 
 
 :monosp:`MTS_IMPLEMENT_CLASS_VARIANT(Name, Parent)`
 ---------------------------------------------------
 
-This macro should be invoked at the bottom of ``.cpp`` files that implement new
-plugin classes. Its role is to initialize the RTTI data structures for this
-plugin that were previously declared using ``MTS_DECLARE_CLASS()``.
+应该在自定义插件类的 ``.cpp`` 文件底部调用此宏。它的作用是为该插件初始化 RTTI 数据结构，之前这些数据
+结构是使用 ``MTS_DECLARE_CLASS()`` 声明的。
 
-- The ``Name`` argument should be the name of the plugin :monosp:`class`.
-- The ``Parent`` argument should take the name of the plugin interface :monosp:`class`.
+- ``Name`` 参数应该是插件的 :monosp:`class` 名。
+- ``Parent`` 参数应该取插件接口的 :monosp:`class` 名。
 
 
 :monosp:`MTS_EXPORT_PLUGIN(Name, Descr)`
 ----------------------------------------
 
-This macro will explicitly instantiate all enabled variants of a plugin:
+此宏将显式实例化插件启用的所有变体：
 
 .. code-block:: cpp
 
@@ -227,5 +207,4 @@ This macro will explicitly instantiate all enabled variants of a plugin:
     template class MTS_EXPORT Name<float, Spectrum<float, 4>> // scalar_spectral
     // ...
 
-It also associates a human-readable description ``Descr`` with the plugin that
-Mitsuba's graphical user interface may use in the future.
+它还将可读性的 ``Descr`` 描述和 Mitsuba 图形用户界面将来可能使用的插件关联了起来。

@@ -68,7 +68,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/intro.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/cloning.html">Cloning the repository</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started/variants.html">Choosing variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/variants.html">选择变体</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/compiling.html">Compiling the system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/file_format.html">Scene file format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/differences.html">Differences to Mitsuba 0.6</a></li>
@@ -163,13 +163,11 @@
             
   <div class="section" id="plugins-macros">
 <h1>Plugins &amp; Macros<a class="headerlink" href="#plugins-macros" title="Permalink to this headline">¶</a></h1>
-<p>This section briefly reviews the “skeleton” of a basic plugin definition to
-clarify the role of the various <code class="docutils literal notranslate"><span class="pre">MTS_*</span></code> macros, which are responsible for
-importing types, instantiating variants, and providing run-time type
-information.</p>
+<p>该章节简明的回顾了基本插件定义时的框架，以阐明各种 <a href="#id1"><span class="problematic" id="id2">``</span></a>MTS_* `` 宏的作用，比如有些宏负责导入类型、
+实例化变量和提供运行时类型的信息。</p>
 <div class="section" id="example-code">
 <h2>Example code<a class="headerlink" href="#example-code" title="Permalink to this headline">¶</a></h2>
-<p>Consider the following hypothetical plugin <code class="docutils literal notranslate"><span class="pre">MyPlugin</span></code>:</p>
+<p>考虑以下假设的插件 <code class="docutils literal notranslate"><span class="pre">MyPlugin</span></code>：</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">NAMESPACE_BEGIN</span><span class="p">(</span><span class="n">mitsuba</span><span class="p">)</span>
 
 <span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="nc">Float</span><span class="p">,</span> <span class="k">typename</span> <span class="nc">Spectrum</span><span class="o">&gt;</span>
@@ -202,65 +200,52 @@ information.</p>
 </div>
 <div class="section" id="macros">
 <h2>Macros<a class="headerlink" href="#macros" title="Permalink to this headline">¶</a></h2>
-<p>Note that not all macros listed here actually occur in the above code example.</p>
+<p>需要注意的是，接下来所列出来的宏并非都出现在了上面的示例代码中。</p>
 <div class="section" id="mts-mask-argument-mask">
 <h3><span class="monosp">MTS_MASK_ARGUMENT(mask)</span><a class="headerlink" href="#mts-mask-argument-mask" title="Permalink to this headline">¶</a></h3>
-<p>This macro typically occurs at the beginning of a function that takes
-a mask as an argument.</p>
+<p>这个宏通常出现在以掩码为参数的函数开头。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">my_method</span><span class="p">(...,</span> <span class="n">Mask</span> <span class="n">active</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">MTS_MASK_ARGUMENT</span><span class="p">(</span><span class="n">active</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Masking is not really needed on scalar variants: if a function is called, we
-assume that <code class="docutils literal notranslate"><span class="pre">active=true</span></code>. Masking can unfortunately decrease performance in
-this case due to the generation of extra branches. Here, <code class="docutils literal notranslate"><span class="pre">MTS_MASK_ARGUMENT</span></code>
-therefore expands to</p>
+<p>scalar 变体实际上不需要掩码：如果一个函数被调用了，那么我们假设其 <code class="docutils literal notranslate"><span class="pre">active=true</span></code> 。不幸的是，
+掩码在此例中可能会因为额外分支的产生而降低性能。因此，<code class="docutils literal notranslate"><span class="pre">MTS_MASK_ARGUMENT</span></code> 扩展为：</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(</span><span class="n">is_scalar_v</span><span class="o">&lt;</span><span class="n">Float</span><span class="o">&gt;</span><span class="p">)</span>
     <span class="n">active</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>which turns the mask argument into a compile-time constant on scalar targets,
-allowing the compiler to optimize away the undesired branches.
-<code class="docutils literal notranslate"><span class="pre">MTS_MASK_ARGUMENT</span></code> is also part of the next macro.</p>
+<p>它将掩码参数转换为 scalar 目标上的编译时常量，从而允许编译器优化掉不需要的分支。<code class="docutils literal notranslate"><span class="pre">MTS_MASK_ARGUMENT</span></code> 掩码
+参数也是下一个宏中的一部分。</p>
 </div>
 </div>
 <div class="section" id="mts-masked-function-phase-mask">
 <h2><span class="monosp">MTS_MASKED_FUNCTION(phase, mask)</span><a class="headerlink" href="#mts-masked-function-phase-mask" title="Permalink to this headline">¶</a></h2>
-<p>This macro builds on the <code class="docutils literal notranslate"><span class="pre">MTS_MASK_ARGUMENT</span></code> macro and typically occurs at
-the beginning of a function that takes a mask as an argument.</p>
+<p>这个宏是建立在 <code class="docutils literal notranslate"><span class="pre">MTS_MASK_ARGUMENT</span></code> 宏基础上的，通常出现在以掩码为参数的函数开头。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">my_method</span><span class="p">(...,</span> <span class="n">Mask</span> <span class="n">mask</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">MTS_MASKED_FUNCTION</span><span class="p">(</span><span class="n">ProfilerPhase</span><span class="o">::</span><span class="n">MyMethod</span><span class="p">,</span> <span class="n">active</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Masking is not really needed on scalar variants: if a function is called, we
-assume that <code class="docutils literal notranslate"><span class="pre">active=true</span></code>. Masking can unfortunately decrease performance in
-this case due to the generation of extra branches. Here,
-<code class="docutils literal notranslate"><span class="pre">MTS_MASKED_FUNCTION</span></code> macro expands to</p>
+<p>scalar 变体实际上不需要掩码：如果一个函数被调用了，那么我们假设其 <code class="docutils literal notranslate"><span class="pre">active=true</span></code> 。不幸的是，
+掩码在此例中可能会因为额外分支的产生而降低性能。因此，<code class="docutils literal notranslate"><span class="pre">MTS_MASKED_FUNCTION</span></code> 扩展为：</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(</span><span class="n">is_scalar_v</span><span class="o">&lt;</span><span class="n">Float</span><span class="o">&gt;</span><span class="p">)</span>
     <span class="n">active</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
 <span class="n">ScopedPhase</span> <span class="nf">_</span><span class="p">(</span><span class="n">ProfilerPhase</span><span class="o">::</span><span class="n">MyMethod</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>which turns the mask argument into a compile-time constant on scalar targets,
-allowing the compiler to optimize away the undesired branches.</p>
-<p>Mitsuba ships with a powerful sampling profiler that facilitates tracking down
-hot-spots during rendering. The last line of this macro (<code class="docutils literal notranslate"><span class="pre">ScopedPhase</span></code>)
-informs this profiler that we are currently executing a function that belongs
-to the profiler phase <code class="docutils literal notranslate"><span class="pre">phase</span></code>.</p>
+<p>它将掩码参数转换为 scalar 目标上的编译时常量，从而允许编译器优化掉不需要的分支。</p>
+<p>Mitsuba 带有一个强大的采样侦查器以帮助追踪渲染过程中的热点区域。这个宏的最后一行（<code class="docutils literal notranslate"><span class="pre">ScopedPhase</span></code>）通知了该侦查器，
+我们当前正在执行一个属于侦查器阶段 <code class="docutils literal notranslate"><span class="pre">phase</span></code> 的函数。</p>
 </div>
 <div class="section" id="mts-import-base-name">
 <h2><span class="monosp">MTS_IMPORT_BASE(Name, …)</span><a class="headerlink" href="#mts-import-base-name" title="Permalink to this headline">¶</a></h2>
-<p>Because most Mitsuba classes are templates, attributes and methods of parent
-classes are not visible by default. They can be imported explicitly via <code class="docutils literal notranslate"><span class="pre">using</span>
-<span class="pre">Base::some_method;</span></code> statements, but writing many such statements is tiresome.
-The variadic macro <code class="docutils literal notranslate"><span class="pre">MTS_IMPORT_BASE</span></code> expands into arbitrarily many such
-<code class="docutils literal notranslate"><span class="pre">using</span></code> statements. For example,</p>
+<p>因为大多数 Mitsuba 的类都是模版，所以父类的属性和方法在默认情况下是不可见的。它们可以通过 <code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">Base::some_method;</span></code> 语
+句显式导入，但是重复编写很多这样的语句是很麻烦的。使用可变宏 <code class="docutils literal notranslate"><span class="pre">MTS_IMPORT_BASE</span></code> 可以扩展为任意多这种 <code class="docutils literal notranslate"><span class="pre">using</span></code> 语句。例如：</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">MTS_IMPORT_BASE</span><span class="p">(</span><span class="n">Name</span><span class="p">,</span> <span class="n">m_some_member</span><span class="p">,</span> <span class="n">some_method</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>expands to</p>
+<p>相当于扩展为：</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="n">Base</span> <span class="o">=</span> <span class="n">Name</span><span class="o">&lt;</span><span class="n">Float</span><span class="p">,</span> <span class="n">Spectrum</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="k">using</span> <span class="n">Base</span><span class="o">::</span><span class="n">m_some_member</span><span class="p">;</span>
 <span class="k">using</span> <span class="n">Base</span><span class="o">::</span><span class="n">some_method</span><span class="p">;</span>
@@ -269,14 +254,13 @@ The variadic macro <code class="docutils literal notranslate"><span class="pre">
 </div>
 <div class="section" id="mts-import-core-types">
 <span id="macro-import-core-types"></span><h2><span class="monosp">MTS_IMPORT_CORE_TYPES()</span><a class="headerlink" href="#mts-import-core-types" title="Permalink to this headline">¶</a></h2>
-<p>This macro will generate a sequence of <code class="docutils literal notranslate"><span class="pre">using</span></code> declarations to import the
-Mitsuba core types (e.g. <code class="docutils literal notranslate"><span class="pre">Vector{1/2/3}{i/u/f/d}</span></code>, <code class="docutils literal notranslate"><span class="pre">Point{1/2/3}{i/u/f/d}</span></code>,
-…). They are automatically inferred from the definition of <code class="docutils literal notranslate"><span class="pre">Float</span></code>.</p>
+<p>该宏将生成一系列用于导入 Mitsuba 核心库的 <code class="docutils literal notranslate"><span class="pre">using</span></code> 声明（例如，<code class="docutils literal notranslate"><span class="pre">Vector{1/2/3}{i/u/f/d}</span></code>，<code class="docutils literal notranslate"><span class="pre">Point{1/2/3}{i/u/f/d}</span></code> 等）。
+它们是从 <code class="docutils literal notranslate"><span class="pre">Float</span></code> 定义中自动推断出来的。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>A type named <code class="docutils literal notranslate"><span class="pre">Float</span></code> must exist preceding evaluation of this macro.</p>
+<p>在计算此宏之前，必须存在一个名叫 <code class="docutils literal notranslate"><span class="pre">Float</span></code> 的参数。</p>
 </div>
-<p>For example,</p>
+<p>例如：</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="n">Float</span> <span class="o">=</span> <span class="kt">float</span><span class="p">;</span>
 
 <span class="n">MTS_IMPORT_CORE_TYPES</span><span class="p">()</span>
@@ -294,12 +278,9 @@ Mitsuba core types (e.g. <code class="docutils literal notranslate"><span class=
 </div>
 <div class="section" id="mts-import-types">
 <span id="macro-import-types"></span><h2><span class="monosp">MTS_IMPORT_TYPES(…)</span><a class="headerlink" href="#mts-import-types" title="Permalink to this headline">¶</a></h2>
-<p>This macro invokes <code class="docutils literal notranslate"><span class="pre">MTS_IMPORT_CORE_TYPES()</span></code> and furthermore imports
-rendering-related types, such as <code class="docutils literal notranslate"><span class="pre">Ray3f</span></code>, <code class="docutils literal notranslate"><span class="pre">SurfaceInteraction3f</span></code>, <code class="docutils literal notranslate"><span class="pre">BSDF</span></code>,
-etc. These templated aliases will depend on the preceding declaration of the
-<code class="docutils literal notranslate"><span class="pre">Float</span></code> and <code class="docutils literal notranslate"><span class="pre">Spectrum</span></code>.</p>
-<p>It is also possible to pass other types as arguments, for which templated
-aliases will be created:</p>
+<p>该宏调用 <code class="docutils literal notranslate"><span class="pre">MTS_IMPORT_CORE_TYPES()</span></code> ，并进一步导入如  <code class="docutils literal notranslate"><span class="pre">Ray3f</span></code>， <code class="docutils literal notranslate"><span class="pre">SurfaceInteraction3f</span></code>， <code class="docutils literal notranslate"><span class="pre">BSDF</span></code> 等渲染相关类型。
+这些模版的别名依赖于之前声明的 <code class="docutils literal notranslate"><span class="pre">Float</span></code> 和 <code class="docutils literal notranslate"><span class="pre">Spectrum</span></code>。</p>
+<p>还可以将其他类型作为参数进行传递给那些创建的模版别名。</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="n">Float</span>    <span class="o">=</span> <span class="kt">float</span><span class="p">;</span>
 <span class="k">using</span> <span class="n">Spectrum</span> <span class="o">=</span> <span class="n">Spectrum</span><span class="o">&lt;</span><span class="n">Float</span><span class="p">,</span> <span class="mi">4</span><span class="o">&gt;</span><span class="p">;</span>
 
@@ -320,29 +301,27 @@ aliases will be created:</p>
 </div>
 <div class="section" id="mts-declare-class">
 <h2><span class="monosp">MTS_DECLARE_CLASS()</span><a class="headerlink" href="#mts-declare-class" title="Permalink to this headline">¶</a></h2>
-<p>This macro should be invoked in the <span class="monosp">class</span> declaration of the plugin.
-It will declare RTTI (run-time type information) data structures useful for
-doing things like:</p>
+<p>这个宏应该在插件的 <span class="monosp">class</span> 声明中进行调用。 它将声明 RTTI（运行时类型信息）的数据结构，这些
+数据结构对于下列操作非常有用：</p>
 <ul class="simple">
-<li><p>Checking if an object derives from a certain <span class="monosp">class</span></p></li>
-<li><p>Determining the parent of a <span class="monosp">class</span> at runtime</p></li>
-<li><p>Instantiating a <span class="monosp">class</span> by name</p></li>
-<li><p>Unserializing a <span class="monosp">class</span> from a binary data stream</p></li>
+<li><p>检查对象是否派生自某个 <span class="monosp">class</span></p></li>
+<li><p>在运行时确定 <span class="monosp">class</span> 的父类</p></li>
+<li><p>通过名称实例化一个 <span class="monosp">class</span></p></li>
+<li><p>从二进制数据流中取消序列化一个 <span class="monosp">class</span></p></li>
 </ul>
 </div>
 <div class="section" id="mts-implement-class-variant-name-parent">
 <h2><span class="monosp">MTS_IMPLEMENT_CLASS_VARIANT(Name, Parent)</span><a class="headerlink" href="#mts-implement-class-variant-name-parent" title="Permalink to this headline">¶</a></h2>
-<p>This macro should be invoked at the bottom of <code class="docutils literal notranslate"><span class="pre">.cpp</span></code> files that implement new
-plugin classes. Its role is to initialize the RTTI data structures for this
-plugin that were previously declared using <code class="docutils literal notranslate"><span class="pre">MTS_DECLARE_CLASS()</span></code>.</p>
+<p>应该在自定义插件类的 <code class="docutils literal notranslate"><span class="pre">.cpp</span></code> 文件底部调用此宏。它的作用是为该插件初始化 RTTI 数据结构，之前这些数据
+结构是使用 <code class="docutils literal notranslate"><span class="pre">MTS_DECLARE_CLASS()</span></code> 声明的。</p>
 <ul class="simple">
-<li><p>The <code class="docutils literal notranslate"><span class="pre">Name</span></code> argument should be the name of the plugin <span class="monosp">class</span>.</p></li>
-<li><p>The <code class="docutils literal notranslate"><span class="pre">Parent</span></code> argument should take the name of the plugin interface <span class="monosp">class</span>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Name</span></code> 参数应该是插件的 <span class="monosp">class</span> 名。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Parent</span></code> 参数应该取插件接口的 <span class="monosp">class</span> 名。</p></li>
 </ul>
 </div>
 <div class="section" id="mts-export-plugin-name-descr">
 <h2><span class="monosp">MTS_EXPORT_PLUGIN(Name, Descr)</span><a class="headerlink" href="#mts-export-plugin-name-descr" title="Permalink to this headline">¶</a></h2>
-<p>This macro will explicitly instantiate all enabled variants of a plugin:</p>
+<p>此宏将显式实例化插件启用的所有变体：</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">MTS_EXPORT_PLUGIN</span><span class="p">(</span><span class="n">Name</span><span class="p">,</span> <span class="s">&quot;My fancy plugin&quot;</span><span class="p">)</span>
 
 <span class="c1">// expands to:</span>
@@ -352,8 +331,7 @@ plugin that were previously declared using <code class="docutils literal notrans
 <span class="c1">// ...</span>
 </pre></div>
 </div>
-<p>It also associates a human-readable description <code class="docutils literal notranslate"><span class="pre">Descr</span></code> with the plugin that
-Mitsuba’s graphical user interface may use in the future.</p>
+<p>它还将可读性的 <code class="docutils literal notranslate"><span class="pre">Descr</span></code> 描述和 Mitsuba 图形用户界面将来可能使用的插件关联了起来。</p>
 </div>
 </div>
 
