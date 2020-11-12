@@ -68,7 +68,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/intro.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/cloning.html">Cloning the repository</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started/variants.html">Choosing variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/variants.html">选择变体</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/compiling.html">Compiling the system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/file_format.html">Scene file format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/differences.html">Differences to Mitsuba 0.6</a></li>
@@ -163,35 +163,28 @@
             
   <div class="section" id="testing">
 <h1>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h1>
-<p>To run the test suite, simply invoke <code class="docutils literal notranslate"><span class="pre">pytest</span></code>:</p>
+<p>运行测试套件，只需调用 <code class="docutils literal notranslate"><span class="pre">pytest</span></code> ：</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest
 
 <span class="c1"># or to run a single test file</span>
 pytest src/bsdfs/tests/test_diffuse.py
 </pre></div>
 </div>
-<p>Note that running the full test suite can take a long time, especially on machines
-with less cores. It is possible to skip the execution of the slower tests in the
-following way:</p>
+<p>需要注意的是，运行完整的测试套件可能需要很长的时间，特别是在内核比较少的机器上。可以通过以下方式跳过执行较慢的测试：</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest -m <span class="s1">&#39;not slow&#39;</span>
 </pre></div>
 </div>
-<p>The build system also exposes a <code class="docutils literal notranslate"><span class="pre">pytest</span></code> target that executes <code class="docutils literal notranslate"><span class="pre">setpath</span></code> and
-parallelizes the test execution.</p>
+<p>构建系统还开放了一个 <code class="docutils literal notranslate"><span class="pre">pytest</span></code> ，以执行 <code class="docutils literal notranslate"><span class="pre">setpath</span></code> 和并行执行测试。</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ninja pytest
 </pre></div>
 </div>
 <div class="section" id="chi-2-tests">
 <h2>Chi^2 tests<a class="headerlink" href="#chi-2-tests" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">mitsuba.python.chi2</span></code> module implements the Pearson’s chi-square test for
-testing goodness of fit of a distribution to a known reference distribution.</p>
-<p>The implementation specifically compares a Monte Carlo sampling strategy on a
-2D (or lower dimensional) space against a reference distribution obtained by
-numerically integrating a probability density function over grid in the
-distribution’s parameter domain.</p>
-<p>This is used extensively throughout the test suite to valid the implementation
-of <code class="docutils literal notranslate"><span class="pre">BSDFs</span></code>, <code class="docutils literal notranslate"><span class="pre">Emitters</span></code>, and other sampling code.</p>
-<p>It is possible to test your own sampling code in the following way:</p>
+<p><code class="docutils literal notranslate"><span class="pre">mitsuba.python.chi2</span></code> 模块实现了 Pearson 卡方检验，用于检测一个分布与已知参考分布的拟合程度。</p>
+<p>该模块十分具体的实现了 2D（或更低维度）上的蒙特卡洛采样策略与一个分布做比较，该分布的概率密度函数是从
+分布参数域上的网格通过数值积分获得的。</p>
+<p>它在整个测试套件中被广泛使用，以验证 <code class="docutils literal notranslate"><span class="pre">BSDFs</span></code> 、 <code class="docutils literal notranslate"><span class="pre">Emitters</span></code> 以及其他样例代码的实现有效。</p>
+<p>可以通过以下方式测试你自己编写的样例：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mitsuba</span>
 <span class="n">mitsuba</span><span class="o">.</span><span class="n">set_variant</span><span class="p">(</span><span class="s1">&#39;packet_rgb&#39;</span><span class="p">)</span>
 
@@ -215,14 +208,12 @@ of <code class="docutils literal notranslate"><span class="pre">BSDFs</span></co
 <span class="k">assert</span> <span class="n">chi2</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>In case of failure, the target density and histogram were written to
-<code class="docutils literal notranslate"><span class="pre">chi2_data.py</span></code> which can simply be run to plot the data:</p>
+<p>在失败的情况下，目标密度和直方图被写入到 <code class="docutils literal notranslate"><span class="pre">chi2_data.py</span></code> ，只需运行该文件即可绘制数据：</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python chi2_data.py
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">mitsuba.python.chi2</span></code> module also provides a set of <code class="docutils literal notranslate"><span class="pre">Adapter</span></code> functions
-which can be used to wrap different plugins (e.g. <code class="docutils literal notranslate"><span class="pre">BSDF</span></code>, <code class="docutils literal notranslate"><span class="pre">Emitter</span></code>, …)
-in order to test them:</p>
+<p><code class="docutils literal notranslate"><span class="pre">mitsuba.python.chi2</span></code> 模块还提供了一组 <code class="docutils literal notranslate"><span class="pre">Adapter</span></code> 函数，可用于包装不同的插件（例如，<code class="docutils literal notranslate"><span class="pre">BSDF</span></code>， <code class="docutils literal notranslate"><span class="pre">Emitter</span></code> 等），可以通过以下方式
+测试它们：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mitsuba</span>
 <span class="kn">import</span> <span class="nn">enoki</span> <span class="k">as</span> <span class="nn">ek</span>
 
@@ -250,39 +241,29 @@ in order to test them:</p>
 <span class="n">chi2</span><span class="o">.</span><span class="n">_dump_tables</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Here is the figure generated by the <code class="docutils literal notranslate"><span class="pre">chi2_data.py</span></code> script from the example above:</p>
+<p>下面是由上例中的 <code class="docutils literal notranslate"><span class="pre">chi2_data.py</span></code> 脚本生成的图像：</p>
 <a class="reference internal image-reference" href="../../_images/chi2_example.png"><img alt="../../_images/chi2_example.png" class="align-center" src="../../_images/chi2_example.png" style="width: 100%;" /></a>
-<p>The plot on the left shows the density function generated by numerically
-integrating the analytical <code class="docutils literal notranslate"><span class="pre">pdf()</span></code> method of a <code class="docutils literal notranslate"><span class="pre">roughdielectric</span></code> BSDF with
-an incoming vector coming from inside. Most of the energy leaves the surface
-(upper half of the plot) while some energy gets reflected back inside the
-surface (lower half of the plot).</p>
-<p>The middle plot shows the same density function but this time computed as a
-histogram of sampled directions resulting from the <code class="docutils literal notranslate"><span class="pre">sample()</span></code> method of the
-<code class="docutils literal notranslate"><span class="pre">roughdielectric</span></code> BSDF.</p>
-<p>The right plot shows the difference between the two density functions. The
-sampling routine of the BSDF being stochastic, it is expected to see a mix of
-negative and positive values as the histogram is still noisy. The main role of
-the <code class="docutils literal notranslate"><span class="pre">ChiSquareTest</span></code> is to decide whether the observed deviation is within the
-range of random noise, or whether there are systematic biases that should lead
-to a test failure.</p>
-<p>For more information, see <a class="reference internal" href="../../generated/python_api.html#mitsuba.python.chi2.ChiSquareTest" title="mitsuba.python.chi2.ChiSquareTest"><code class="xref py py-class docutils literal notranslate"><span class="pre">mitsuba.python.chi2.ChiSquareTest</span></code></a>.</p>
+<p>左边的图展示了通过数值积分方式解析的来自 <code class="docutils literal notranslate"><span class="pre">roughdielectric</span></code> BSDF 材质内部的入射光线的 <code class="docutils literal notranslate"><span class="pre">pdf()</span></code>。
+可以看到大部分的能量离开了表面（图的上半部分），而一部分能量被反射回来了（图的下半部分）。</p>
+<p>中间的图展示了相同的密度函数，但这一次计算的是 <code class="docutils literal notranslate"><span class="pre">roughdielectric</span></code> BSDF 中 <code class="docutils literal notranslate"><span class="pre">sample()</span></code> 方
+法的采样方向的直方图。</p>
+<p>右图显示了两个密度函数之间的差异。BSDF 的采样程序是随机的，由于直方图仍有噪声，预计能观察到正负值混合的现象。
+<code class="docutils literal notranslate"><span class="pre">ChiSquareTest</span></code> 的主要作用在于决定观察到的偏差是否可以归于随机噪声的范围中，或者发现是否存在导致测试失败
+的系统偏差。</p>
+<p>更多详细信息，请参阅 <a class="reference internal" href="../../generated/python_api.html#mitsuba.python.chi2.ChiSquareTest" title="mitsuba.python.chi2.ChiSquareTest"><code class="xref py py-class docutils literal notranslate"><span class="pre">mitsuba.python.chi2.ChiSquareTest</span></code></a>。</p>
 </div>
 <div class="section" id="rendering-test-suite-and-z-test">
 <h2>Rendering test suite and Z-test<a class="headerlink" href="#rendering-test-suite-and-z-test" title="Permalink to this headline">¶</a></h2>
-<p>On top of test <em>unit tests</em>, the framework implements a mechanism that automatically renders a set
-of test scenes and applies the <a class="reference external" href="https://en.wikipedia.org/wiki/Z-test">Z-test</a> to compare the
-resulting images and some reference images.</p>
-<p>Those tests are really useful to reveal bugs at the interaction between the individual
-components of the renderer.</p>
-<p>The test scenes are rendered using all the different enabled variants of the renderer, ensuring for
-instance that the <code class="docutils literal notranslate"><span class="pre">scalar_rgb</span></code> renders match the <code class="docutils literal notranslate"><span class="pre">gpu_rgb</span></code> renders.</p>
-<p>To only run the rendering test suite, use the following command:</p>
+<p>在 <em>单元测试</em> 之上，我们的框架实现了一种自动渲染一组测试场景的机制，并通过应用 <a class="reference external" href="https://en.wikipedia.org/wiki/Z-test">Z-test</a> 来
+比较渲染的结果图和其他相关图像。</p>
+<p>这些测试对于揭示渲染器各个独立组件间的交互 BUG 非常有用。</p>
+<p>开启所有变体模式渲染测试场景时，请确保用例对于 <code class="docutils literal notranslate"><span class="pre">scalar_rgb</span></code> 和 <code class="docutils literal notranslate"><span class="pre">gpu_rgb</span></code> 渲染模式的匹配。</p>
+<p>如需仅运行渲染测试套件，可以使用以下命令行指令：</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest src/librender/tests/test_renders.py
 </pre></div>
 </div>
-<p>One can easily add a scene to the <code class="docutils literal notranslate"><span class="pre">resources/data/tests/scenes/</span></code> folder to add it to the rendering
-test suite. Then, the missing reference images can be generated using the following command:</p>
+<p>把场景添加到 <code class="docutils literal notranslate"><span class="pre">resources/data/tests/scenes/</span></code> 文件夹中，就将其添加到渲染测试套件中了，非常简便。
+随后，可以使用以下命令生成想要的相关图：</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python src/librender/tests/test_renders.py
 </pre></div>
 </div>
