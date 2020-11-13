@@ -68,7 +68,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/intro.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/cloning.html">Cloning the repository</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started/variants.html">Choosing variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/variants.html">选择变体</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/compiling.html">Compiling the system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/file_format.html">Scene file format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/differences.html">Differences to Mitsuba 0.6</a></li>
@@ -167,31 +167,22 @@
             
   <div class="section" id="custom-plugins-in-python">
 <span id="sec-custom-plugins"></span><h1>Custom plugins in Python<a class="headerlink" href="#custom-plugins-in-python" title="Permalink to this headline">¶</a></h1>
-<p>Mitsuba 2 provides a mechanism to implement custom plugins <em>directly in
-Python</em>. To do so, simply extend a base class (e.g. <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">BSDF</span></code>, <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">Emitter</span></code>) and
-override its class methods (e.g. <code class="docutils literal notranslate"><span class="pre">sample()</span></code>, <code class="docutils literal notranslate"><span class="pre">eval()</span></code>, …). This leverages
-the <a class="reference external" href="https://pybind11.readthedocs.io/en/stable/advanced/classes.html#overriding-virtual-functions-in-python">trampoline feature</a>
-of <em>pybind11</em>.</p>
-<p>The new plugin can then be registered with the XML parser by calling one of
-several <code class="docutils literal notranslate"><span class="pre">register_&lt;type&gt;(name,</span> <span class="pre">constructor)</span></code> functions, making it accessible
-in the XML scene language like any other C++ plugin.</p>
+<p>Mitsuba 2提供了一种机制可以 <em>直接在 Python 中</em> 实现自定义插件。如需这么做，只需扩展一个基类（例如 <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">BSDF</span></code>， <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">Emitter</span></code>）
+并且覆盖其类方法即可（例如，<code class="docutils literal notranslate"><span class="pre">sample()</span></code>， <code class="docutils literal notranslate"><span class="pre">eval()</span></code> 等）。这充分利用了 <em>pybind11</em> 的  <a class="reference external" href="https://pybind11.readthedocs.io/en/stable/advanced/classes.html#overriding-virtual-functions-in-python">trampoline feature</a> 特性。</p>
+<p>随后可以通过调用 <code class="docutils literal notranslate"><span class="pre">register_&lt;type&gt;(name,</span> <span class="pre">constructor)</span></code> 函数向 XML 解析器中注册新的插件，使其可以像其他 C++ 插件一样
+可以在 XML场景描述中随意访问。</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Only <code class="docutils literal notranslate"><span class="pre">gpu_*</span></code> variants will produce reasonable performance
-when using such Python implementations of core system components (since
-they can be JIT-compiled along with other system components). We plan to
-extend this feature to further variant types in the future.</p>
-<p>Furthermore, only <code class="docutils literal notranslate"><span class="pre">BSDF</span></code>, <code class="docutils literal notranslate"><span class="pre">Emitter</span></code>, and <code class="docutils literal notranslate"><span class="pre">Integrator</span></code> plugins can
-currently be implemented in Python.</p>
+<p>在使用 Python 实现系统的核心组件时，只有在 <code class="docutils literal notranslate"><span class="pre">gpu_*</span></code> 变体下才会有合理的性能表现（因为它们可以和其他系统组件一起
+被 JIT 编译）。我们计划在未来将这一功能扩展到更多变体模式。</p>
+<p>目前，在 Python 中只能实现 <code class="docutils literal notranslate"><span class="pre">BSDF</span></code>，<code class="docutils literal notranslate"><span class="pre">Emitter</span></code> 和 <code class="docutils literal notranslate"><span class="pre">Integrator</span></code> 插件。</p>
 </div>
-<p>The remainder of this section discusses several examples.</p>
+<p>本章节的其余部分将讨论这几个插件的相应示例：</p>
 <div class="section" id="bsdf-example">
 <h2>BSDF example<a class="headerlink" href="#bsdf-example" title="Permalink to this headline">¶</a></h2>
-<p>In this example, we will implement a simple diffuse BSDF in Python by extending
-the <code class="code docutils literal notranslate"><span class="pre">BSDF</span></code> base class. The code is very similar to the diffuse BSDF
-implemented in C++ (in <code class="code docutils literal notranslate"><span class="pre">src/bsdf/diffuse.cpp</span></code>).</p>
-<p>The BSDF class need to implement the following 3 methods: <code class="code docutils literal notranslate"><span class="pre">sample</span></code>,
-<code class="code docutils literal notranslate"><span class="pre">eval</span></code> and <code class="code docutils literal notranslate"><span class="pre">pdf</span></code>:</p>
+<p>在本例中，我们将通过扩展 <code class="code docutils literal notranslate"><span class="pre">BSDF</span></code> 基类，在 Python 中实现一个简单的漫反射 BSDF。代码与 C++ 中实现的
+漫反射 BSDF 非常相似（参见 <code class="code docutils literal notranslate"><span class="pre">src/bsdf/diffuse.cpp</span></code>）。</p>
+<p>BSDF 类需要实现以下三个方法：<code class="code docutils literal notranslate"><span class="pre">sample</span></code>，<code class="code docutils literal notranslate"><span class="pre">eval</span></code> 和 <code class="code docutils literal notranslate"><span class="pre">pdf</span></code>：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyDiffuseBSDF</span><span class="p">(</span><span class="n">BSDF</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">props</span><span class="p">):</span>
         <span class="n">BSDF</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">props</span><span class="p">)</span>
@@ -245,17 +236,16 @@ implemented in C++ (in <code class="code docutils literal notranslate"><span cla
 
 </pre></div>
 </div>
-<p>After defining this new BSDF class, we have to register it as a plugin.
-This allows Mitsuba to instantiate this new BSDF when loading a scene:</p>
+<p>在定义这个新的 BSDF 类之后，我们需要将其注册为插件。这会允许 Mitsuba 在加载场景时实例化这个新的 BSDF：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">register_bsdf</span><span class="p">(</span><span class="s2">&quot;mydiffusebsdf&quot;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">props</span><span class="p">:</span> <span class="n">MyDiffuseBSDF</span><span class="p">(</span><span class="n">props</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>The <code class="code docutils literal notranslate"><span class="pre">register_bsdf</span></code> function takes the name of our new plugin and a function to construct new
-instances. After that, we can use our new BSDF in a XML scene file by specifying</p>
+<p><code class="code docutils literal notranslate"><span class="pre">register_bsdf</span></code> 函数接收新插件的名称和构造新实例的函数。在这之后，我们就可以在 XML 场景文件中使用
+我们自定义的 BSDF 了。</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;bsdf</span> <span class="na">type=</span><span class="s">&quot;mydiffusebsdf&quot;</span><span class="nt">/&gt;</span>
 </pre></div>
 </div>
-<p>The scene can then rendered by calling the standard <code class="code docutils literal notranslate"><span class="pre">render</span></code> function:</p>
+<p>随后可以通过调用标准函数 <code class="code docutils literal notranslate"><span class="pre">render</span></code> 来进行渲染场景：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load an XML file which specifies &quot;mydiffusebsdf&quot; as material</span>
 <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;path/to/my/scene.xml&#39;</span>
 <span class="n">Thread</span><span class="o">.</span><span class="n">thread</span><span class="p">()</span><span class="o">.</span><span class="n">file_resolver</span><span class="p">()</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
@@ -275,9 +265,8 @@ instances. After that, we can use our new BSDF in a XML scene file by specifying
 </div>
 <div class="section" id="integrator-example">
 <h2>Integrator example<a class="headerlink" href="#integrator-example" title="Permalink to this headline">¶</a></h2>
-<p>In this example, we will implement custom direct illumination integrator using the same mechanism.
-The resulting image will have realistic shadows and shading, but no global illumination.</p>
-<p>The main rendering routing can be implemented in around 30 lines of code:</p>
+<p>在本例中，我们将通过相同的机制实现自定义的直接光照集成器。生成的图像将具有逼真的阴影和着色，但是没有全局照明。</p>
+<p>渲染的主要过程可以由大约30行代码实现：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">integrator_sample</span><span class="p">(</span><span class="n">scene</span><span class="p">,</span> <span class="n">sampler</span><span class="p">,</span> <span class="n">rays</span><span class="p">,</span> <span class="n">medium</span><span class="p">,</span> <span class="n">active</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="n">si</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">ray_intersect</span><span class="p">(</span><span class="n">rays</span><span class="p">)</span>
     <span class="n">active</span> <span class="o">=</span> <span class="n">si</span><span class="o">.</span><span class="n">is_valid</span><span class="p">()</span> <span class="o">&amp;</span> <span class="n">active</span>
@@ -314,38 +303,25 @@ The resulting image will have realistic shadows and shading, but no global illum
     <span class="k">return</span> <span class="n">result</span><span class="p">,</span> <span class="n">si</span><span class="o">.</span><span class="n">is_valid</span><span class="p">(),</span> <span class="n">ek</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">si</span><span class="o">.</span><span class="n">is_valid</span><span class="p">(),</span> <span class="n">si</span><span class="o">.</span><span class="n">t</span><span class="p">,</span> <span class="n">Float</span><span class="p">(</span><span class="mf">0.0</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>The code is very similar to the direct illumination integrator implemented in C++
-(in <code class="code docutils literal notranslate"><span class="pre">src/integrators/direct.cpp</span></code>).
-The function takes the current scene, sampler and array of rays as arguments.
-The <code class="code docutils literal notranslate"><span class="pre">active</span></code> argument specifies which lanes are active.</p>
-<p>We first intersect the provided rays against the scene and evaluate the
-radiance of directly visible emitters. Then, we explicitly sample positions on
-emitters and evaluate their contributions. Additionally, we sample a ray
-direction according to the BSDF and evaluate whether these rays also hit some
-emitters. These different contributions are then combined using multiple
-importance sampling to reduce variance.</p>
-<p>This function will be invoked for an array of different rays, hence each ray
-can then potentially hit a surface with a different BSDF. Therefore,
-<code class="code docutils literal notranslate"><span class="pre">bsdf</span> <span class="pre">=</span> <span class="pre">si.bsdf(rays)</span></code> will be an array of different BSDF pointers. To
-then call member functions of these different BSDFs, we invoke special dispatch
-functions for vectorized method calls:</p>
+<p>代码与 C++ 代码实现的直接光照集成器非常相似（参见 <code class="code docutils literal notranslate"><span class="pre">src/integrators/direct.cpp</span></code>）。
+该函数将当前场景、采样器和光线数组当作参数。<code class="code docutils literal notranslate"><span class="pre">active</span></code> 参数指定了哪些通道是被激活的。</p>
+<p>我们首先将提供的光线与场景求交，并估算发光体的直接光强。随后，我们在发光体上显式采样位置，并估算它们的贡献。
+随后我们根据 BSDF 采样光线方向，并计算这些光线是否击中了其他发光体。接着通过多重重要性采样将这些贡献组合在
+一起以减少方差。</p>
+<p>此函数将针对不同的光线序列进行调用，因为每条光线都有可能击中具有不同 BSDF 的曲面。因此 <code class="code docutils literal notranslate"><span class="pre">bsdf</span> <span class="pre">=</span> <span class="pre">si.bsdf(rays)</span></code>
+是一个由不同的 BSDF 指针组成的数组。为了调用这些不同 BSDF 的成员函数，我们通过矢量化方法调用这些特殊的分派函数：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="n">bsdf_val</span> <span class="o">=</span> <span class="n">BSDF</span><span class="o">.</span><span class="n">eval_vec</span><span class="p">(</span><span class="n">bsdf</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">si</span><span class="p">,</span> <span class="n">wo</span><span class="p">,</span> <span class="n">active_e</span><span class="p">)</span>
     <span class="n">bsdf_pdf</span> <span class="o">=</span> <span class="n">BSDF</span><span class="o">.</span><span class="n">pdf_vec</span><span class="p">(</span><span class="n">bsdf</span><span class="p">,</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">si</span><span class="p">,</span> <span class="n">wo</span><span class="p">,</span> <span class="n">active_e</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>This will ensure that the C++ or Python implementation of the right BSDF model
-is invoked for each variant. Other than that, the code and used interfaces are
-nearly identical to the C++ version. Please refer to the documentation of the
-C++ types for details on the different functions and objects.</p>
-<p>When implementing the depth integrator in the section on
-<a class="reference internal" href="../python_interface/rendering_scene.html#sec-rendering-scene-custom"><span class="std std-ref">custom rendering pipelines</span></a>, considerable work was
-necessary to correctly sample rays from the camera and splat samples into the film.
-While this can be very useful for certain applications, it is also a bit tedious.
-In many cases, we simply want to implement a custom integrator and not bother with how camera rays are exactly generated.
-In this example, we will therefore use a more elegant mechanism, which allows to simply extend the <code class="code docutils literal notranslate"><span class="pre">SamplingIntegrator</span></code> base class.
-This class is the base class of all Monte Carlo integrators, e.g. the path tracer.
-By using this class to define our integrator, we can then rely on the existing machinery in Mitsuba to correctly sample camera rays and splat pixel values.</p>
-<p>Since we already defined a function <code class="code docutils literal notranslate"><span class="pre">integrator_sample</span></code> with the right interface, defining a new integrator becomes very simple:</p>
+<p>这确保每个变体都能正确调用由 C++ 或 Python 实现的 BSDF 模型。除此之外，代码和使用的接口与 C++ 版本有关。
+请参阅有关 C++ 类型的文档，以获得更多关于函数和对象的信息。</p>
+<p>当在 <a class="reference internal" href="../python_interface/rendering_scene.html#sec-rendering-scene-custom"><span class="std std-ref">custom rendering pipelines</span></a> 这一章节实现深度集成器时，
+如要正确的从相机中采样光线和实现胶片的 “飞溅” 需要耗费大量的工作。虽然这对某些程序来说非常有用，但是也有些单调乏味。
+许多情况下我们只需要实现一个自定义的集成器，并不需要考虑光线是如何准确生成的。因此，在本例中我们将使用一种更为优雅的
+机制，它允许简单的扩展 <code class="code docutils literal notranslate"><span class="pre">SamplingIntegrator</span></code> 基类。这个类是所有蒙特卡洛积分器的基类（例如，路径追踪器）。
+通过这个类来定义我们的积分器，随后我们可以依赖 Mitsuba 的现有机制来正确的实现相机光线采样和像素值“飞溅”。</p>
+<p>由于我们已经使用正确的接口定义了函数 <code class="code docutils literal notranslate"><span class="pre">integrator_sample</span></code>，因此定义一个新的积分器是非常简单的：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyDirectIntegrator</span><span class="p">(</span><span class="n">SamplingIntegrator</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">props</span><span class="p">):</span>
         <span class="n">SamplingIntegrator</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">props</span><span class="p">)</span>
@@ -361,22 +337,18 @@ By using this class to define our integrator, we can then rely on the existing m
         <span class="k">return</span> <span class="s2">&quot;MyDirectIntegrator[]&quot;</span>
 </pre></div>
 </div>
-<p>This integrator not only returns the color, but also additionally renders out the depth of the scene.
-When using this integrator, Mitsuba will output a multichannel EXR file with a separate depth channel.
-The method <code class="code docutils literal notranslate"><span class="pre">aov_names</span></code> is used to name the different arbitrary output variables (AOVs).
-The same mechanism could be used to output for example surface normals.
-If no AOVs are needed, you can just return an empty list instead.</p>
-<p>After defining this new integrator class, we have to register it as a plugin.
-This allows Mitsuba to instantiate this new integrator when loading a scene:</p>
+<p>该积分器不仅返回颜色值，而且还会额外渲染出场景深度。当使用此积分器时，Mitsuba 将输出额外带有一个深度通道的多通
+道 EXR 文件。 <code class="code docutils literal notranslate"><span class="pre">aov_names</span></code> 方法将用于命名任意输出变量（AOVs）。例如，可以使用相同的机制来输出曲面法线。
+如果不需要 AOV，只需要返回一个空列表。</p>
+<p>在定义一个新的积分器类之后，我们必须将其注册为插件。这允许 Mitsuba 在加载场景时实例化这个新的积分器：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">register_integrator</span><span class="p">(</span><span class="s2">&quot;mydirectintegrator&quot;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">props</span><span class="p">:</span> <span class="n">MyDirectIntegrator</span><span class="p">(</span><span class="n">props</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>The <code class="code docutils literal notranslate"><span class="pre">register_integrator</span></code> function takes the name of our new plugin and a function to construct new instances.
-After that, we can use our new integrator in a scene by specifying</p>
+<p><code class="code docutils literal notranslate"><span class="pre">register_integrator</span></code> 函数接受新的插件名称和新实例的构造函数。随后，我们就可以在场景中使用指定的新积分器：</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;integrator</span> <span class="na">type=</span><span class="s">&quot;mydirectintegrator&quot;</span><span class="nt">/&gt;</span>
 </pre></div>
 </div>
-<p>The scene is then rendered by calling the standard <code class="code docutils literal notranslate"><span class="pre">render</span></code> function:</p>
+<p>然后可以通过标准 <code class="code docutils literal notranslate"><span class="pre">render</span></code> 函数渲染场景了：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load an XML file which specifies &quot;mydirectintegrator&quot; as the scene&#39;s integrator</span>
 <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;path/to/my/scene.xml&#39;</span>
 <span class="n">Thread</span><span class="o">.</span><span class="n">thread</span><span class="p">()</span><span class="o">.</span><span class="n">file_resolver</span><span class="p">()</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
@@ -391,7 +363,7 @@ After that, we can use our new integrator in a scene by specifying</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The code for this example can be found in <code class="code docutils literal notranslate"><span class="pre">docs/examples/03_direct_integrator/direct_integrator.py</span></code></p>
+<p>此示例代码可以在 <code class="code docutils literal notranslate"><span class="pre">docs/examples/03_direct_integrator/direct_integrator.py</span></code> 中找到。</p>
 </div>
 </div>
 </div>

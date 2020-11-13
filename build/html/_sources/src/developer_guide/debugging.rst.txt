@@ -54,7 +54,7 @@ Debugging
 如需在 GDB 中安装此脚本，请将文件 ``ext/enoki/resources/enoki_gdb.py`` 拷贝到 ``~/.gdb`` 目录中（如果不存在，请创建），
 随后将下面两行命令添加到 ``~/.gdbinit`` 文件中（如果不存在，请创建）：
 
-.. code-block:: text
+.. code-block:: text  
 
     set print pretty
     source ~/.gdb/enoki_gdb.py
