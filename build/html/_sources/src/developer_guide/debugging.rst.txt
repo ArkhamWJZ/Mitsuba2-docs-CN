@@ -1,17 +1,12 @@
 Debugging
 =========
 
-We generally recommend Mitsuba's ``scalar_*`` variants for tracking down
-compilation errors and debugging misbehaving code (see the section on
-:ref:`variants <sec-variants>` for details). These variants make minimal use of
-nested C++ templates, which reduces the length of compiler error messages and
-facilitates the use of debuggers like `LLDB <https://lldb.llvm.org/>`_ or `GDB
-<https://www.gnu.org/software/gdb/>`_.
+我们一般推荐使用 Mitsuba 的 ``scalar_*`` 变体模式以追踪编译时的错误和 debug（请参阅 :ref:`variants <sec-variants>` 
+以获得更多详细信息）。这类变体最低限度的使用 C++ 嵌套模版，以减少编译器错误信息的长度并且便于使用 `LLDB <https://lldb.llvm.org/>`_ 
+或 `GDB <https://www.gnu.org/software/gdb/>`_ 之类的调试工具。
 
-When using a debugger, the stringified versions of vectors and spectra are
-needlessly verbose and reveal various private implementation details of the
-Enoki library. For instance, printing a simple statically sized 3D vector like
-``Vector3f(1, 2, 3)`` in LLDB yields
+在使用调试工具时，向量和频谱的串行版本信息会过于冗长，并且会暴露 Enoki 库的各种私有实现细节。例如，在 LLDB 中
+打印一个简单的静态类型三维向量 ``Vector3f(1, 2, 3)`` 会得到以下信息：
 
 .. code-block:: text
 
@@ -23,9 +18,8 @@ Enoki library. For instance, printing a simple statically sized 3D vector like
       }
     }
 
-Dynamic arrays used in vectorized backends (e.g.
-``DynamicArray<Packet<Float>>(1, 2, 3)``) are even worse, as the values are
-obscured behind a pointer:
+对于矢量化后端的动态数组（例如， ``DynamicArray<Packet<Float>>(1, 2, 3)`` ）来说则会更糟糕，因为值
+会被指针所取代，可读性会很差。
 
 .. code-block:: text
 
@@ -43,26 +37,22 @@ obscured behind a pointer:
       }
     }
 
-To improve readability, Enoki includes a script that improves GDB and LLDB's
-understanding of its types. With this script, both of the above turn into
+为了提高可读性， Enoki 包含了一个脚本，该脚本可以帮助增强 GDB 和 LLDB 对类型的理解。通过使用此脚本
+上面两个可读性很差的代码片段变成了以下：
 
 .. code-block:: text
 
     $0 = [1, 2, 3]
 
-To install it in LLDB, copy the file ``ext/enoki/resources/enoki_lldb.py`` to
-``~/.lldb`` (creating the directory, if not present) and then apppend the
-following line to the file ``~/.lldbinit`` (again, creating it if, not already
-present):
+如需在 LLDB 中安装此脚本，请将文件 ``ext/enoki/resources/enoki_lldb.py`` 拷贝到 ``~/.lldb`` 目录下（如果不存在，请创建），
+随后将下面这行命令添加到 ``~/.lldbinit`` 文件中（如果不存在，请创建）：
 
 .. code-block:: text
 
     command script import ~/.lldb/enoki_lldb.py
 
-To install it in GDB, copy the file ``ext/enoki/resources/enoki_gdb.py`` to
-``~/.gdb`` (creating the directory, if not present) and then apppend the
-following two lines to the file ``~/.gdbinit`` (again, creating it if, not
-already present):
+如需在 GDB 中安装此脚本，请将文件 ``ext/enoki/resources/enoki_gdb.py`` 拷贝到 ``~/.gdb`` 目录中（如果不存在，请创建），
+随后将下面两行命令添加到 ``~/.gdbinit`` 文件中（如果不存在，请创建）：
 
 .. code-block:: text
 
