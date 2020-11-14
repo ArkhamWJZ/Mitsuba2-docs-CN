@@ -68,7 +68,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/intro.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/cloning.html">Cloning the repository</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started/variants.html">Choosing variants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/variants.html">选择变体</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/compiling.html">Compiling the system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/file_format.html">Scene file format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/differences.html">Differences to Mitsuba 0.6</a></li>
@@ -163,10 +163,9 @@
             
   <div class="section" id="plugin-reference">
 <span id="sec-plugins"></span><h1>Plugin reference<a class="headerlink" href="#plugin-reference" title="Permalink to this headline">¶</a></h1>
-<p>The following subsections describe the available Mitsuba 2 plugins, usually along with example
-renderings and a description of what each parameter does. They are separated into subsections
-covering textures, surface scattering models, etc.</p>
-<p>The documentation of a plugin always starts with a table similar to the one below:</p>
+<p>接下来这一章节介绍的是 Mitsuba 中的插件，通常还会包含一些渲染示例和每个参数的说明。我们会将插件分类为涵盖纹理、表面
+散射模型等小节分别进行介绍。</p>
+<p>插件的相关文档总是以类似于下面表格的形式作为开头：</p>
 <table class="paramstable docutils align-default">
 <colgroup>
 <col style="width: 20%" />
@@ -194,16 +193,15 @@ covering textures, surface scattering models, etc.</p>
 </tr>
 </tbody>
 </table>
-<p>Suppose this hypothetical plugin is an integrator named <code class="docutils literal notranslate"><span class="pre">amazing</span></code>. Then, based on this
-description, it can be instantiated from an XML scene file using a custom configuration such as:</p>
+<p>假设上面表格介绍的就是一个名为 <code class="docutils literal notranslate"><span class="pre">amazing</span></code> 的积分器。随后，根据上表中的描述，我们就可以使用自定义的配置从 XML 场景文件中实例化它
+了，例如：</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;integrator</span> <span class="na">type=</span><span class="s">&quot;amazing&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;boolean</span> <span class="na">name=</span><span class="s">&quot;softer_rays&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;float</span> <span class="na">name=</span><span class="s">&quot;dark_matter&quot;</span> <span class="na">value=</span><span class="s">&quot;0.44&quot;</span><span class="nt">/&gt;</span>
 <span class="nt">&lt;/integrator&gt;</span>
 </pre></div>
 </div>
-<p>In some cases, plugins also indicate that they accept nested plugins as input arguments. These can
-either be <em>named</em> or <em>unnamed</em>. If the <code class="docutils literal notranslate"><span class="pre">amazing</span></code> integrator also accepted the following two parameters:</p>
+<p>在某些例子中，插件还可以接受嵌套的插件作为输入参数。这些嵌套可以是有名字的也可以是没有名字的。如果 <code class="docutils literal notranslate"><span class="pre">amazing</span></code> 积分器可以接受以下两个参数：</p>
 <table class="paramstable docutils align-default">
 <colgroup>
 <col style="width: 20%" />
@@ -227,7 +225,7 @@ either be <em>named</em> or <em>unnamed</em>. If the <code class="docutils liter
 </tr>
 </tbody>
 </table>
-<p>then it can be instantiated e.g. as follows:</p>
+<p>那么这个 <code class="docutils literal notranslate"><span class="pre">amazing</span></code> 积分器就可以按照以下方式实例化了：</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;integrator</span> <span class="na">type=</span><span class="s">&quot;amazing&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;boolean</span> <span class="na">name=</span><span class="s">&quot;softer_rays&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;float</span> <span class="na">name=</span><span class="s">&quot;dark_matter&quot;</span> <span class="na">value=</span><span class="s">&quot;0.44&quot;</span><span class="nt">/&gt;</span>

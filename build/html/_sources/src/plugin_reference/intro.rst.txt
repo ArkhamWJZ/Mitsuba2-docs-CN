@@ -3,11 +3,10 @@
 Plugin reference
 ================
 
-The following subsections describe the available Mitsuba 2 plugins, usually along with example
-renderings and a description of what each parameter does. They are separated into subsections
-covering textures, surface scattering models, etc.
+接下来这一章节介绍的是 Mitsuba 中的插件，通常还会包含一些渲染示例和每个参数的说明。我们会将插件分类为涵盖纹理、表面
+散射模型等小节分别进行介绍。
 
-The documentation of a plugin always starts with a table similar to the one below:
+插件的相关文档总是以类似于下面表格的形式作为开头：
 
 .. pluginparameters::
 
@@ -21,8 +20,8 @@ The documentation of a plugin always starts with a table similar to the one belo
    - :paramtype:`integrator`
    - A nested integrator which does the actual hard work
 
-Suppose this hypothetical plugin is an integrator named ``amazing``. Then, based on this
-description, it can be instantiated from an XML scene file using a custom configuration such as:
+假设上面表格介绍的就是一个名为 ``amazing`` 的积分器。随后，根据上表中的描述，我们就可以使用自定义的配置从 XML 场景文件中实例化它
+了，例如：
 
 .. code-block:: xml
 
@@ -31,8 +30,7 @@ description, it can be instantiated from an XML scene file using a custom config
         <float name="dark_matter" value="0.44"/>
     </integrator>
 
-In some cases, plugins also indicate that they accept nested plugins as input arguments. These can
-either be *named* or *unnamed*. If the ``amazing`` integrator also accepted the following two parameters:
+在某些例子中，插件还可以接受嵌套的插件作为输入参数。这些嵌套可以是有名字的也可以是没有名字的。如果 ``amazing`` 积分器可以接受以下两个参数：
 
 .. pluginparameters::
 
@@ -44,7 +42,7 @@ either be *named* or *unnamed*. If the ``amazing`` integrator also accepted the 
    - :paramtype:`texture`
    - This must be used to supply a cute picture of puppies
 
-then it can be instantiated e.g. as follows:
+那么这个 ``amazing`` 积分器就可以按照以下方式实例化了：
 
 .. code-block:: xml
 
