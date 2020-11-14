@@ -1,0 +1,281 @@
+<!-- Based on https://stackoverflow.com/a/25543713/1130282 -->
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>Introduction &#8212; mitsuba2 0.1.dev0 documentation</title>
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/theme_overrides.css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Differentiable rendering" href="diff_render.html" />
+    <link rel="prev" title="Custom applications" href="../python_interface/bsdf_eval.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="diff_render.html" title="Differentiable rendering"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../python_interface/bsdf_eval.html" title="Custom applications"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Introduction</a></li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar"><a href="
+    ../../index.html" class="text-logo">Mitsuba 2</a>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Table Of Contents</h2>
+  </div>
+  <div class="sidebar-toc">
+    
+    
+      <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/intro.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/cloning.html">Cloning the repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/variants.html">选择变体</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/compiling.html">Compiling the system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/file_format.html">Scene file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/differences.html">Differences to Mitsuba 0.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python interface</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/parsing_xml.html">Parsing XML code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/rendering_scene.html">Rendering a scene</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/bsdf_eval.html">Custom applications</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Inverse rendering</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#differentiable-calculations-using-enoki">Differentiable calculations using Enoki</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="diff_render.html">Differentiable rendering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">More advanced examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pytorch.html">Integration with PyTorch</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/variants_cpp.html">Variants in C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/writing_plugin.html">Plugins &amp; Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/debugging.html">Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/building_documentation.html">Building the documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/polarization.html">Polarization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/custom_plugins.html">Custom plugins in Python</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Plugin reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../plugin_reference/intro.html">Plugin reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html">Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#bsdfs">BSDFs 大大大</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#phase-functions">Phase functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#emitters">Emitters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#sensors">Sensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#textures">Textures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#spectra">Spectra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#integrators">Integrators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#samplers">Samplers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#films">Films</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#reconstruction-filters">Reconstruction filters</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/core_api.html">Core API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/render_api.html">Render API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/python_api.html">Python API Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../zz_bibliography.html">Bibliography</a></li>
+</ul>
+
+    
+  </div>
+</div>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="../../search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="../../index.html">Docs</a></li>
+              
+              <li>Introduction</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <div class="section" id="introduction">
+<span id="sec-inverse-rendering"></span><h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>Mitsuba 2 can be used to solve inverse problems involving light using a
+technique known as <em>differentiable rendering</em>. It interprets the rendering
+algorithm as a function <span class="math notranslate nohighlight">\(f(\mathbf{x})\)</span> that converts an input
+<span class="math notranslate nohighlight">\(\mathbf{x}\)</span> (the scene description) into an output <span class="math notranslate nohighlight">\(\mathbf{y}\)</span>
+(the rendering). This function <span class="math notranslate nohighlight">\(f\)</span> is then mathematically differentiated
+to obtain <span class="math notranslate nohighlight">\(\frac{\mathrm{d}\mathbf{y}}{\mathrm{d}\mathbf{x}}\)</span>, providing
+a first-order approximation of how a desired change in the output
+<span class="math notranslate nohighlight">\(\mathbf{y}\)</span> (the rendering) can be achieved by changing the inputs
+<span class="math notranslate nohighlight">\(\mathbf{x}\)</span> (the scene description). Together with a differentiable
+<em>objective function</em> <span class="math notranslate nohighlight">\(g(\mathbf{y})\)</span> that quantifies the suitability of
+tentative scene parameters, a gradient-based optimization algorithm such as
+stochastic gradient descent or Adam can then be used to find a sequence of
+scene parameters <span class="math notranslate nohighlight">\(\mathbf{x}_0\)</span>, <span class="math notranslate nohighlight">\(\mathbf{x}_1\)</span>,
+<span class="math notranslate nohighlight">\(\mathbf{x}_2\)</span>, etc., that successively improve the objective function.
+In pictures:</p>
+<a class="reference internal image-reference" href="../../_images/autodiff1.jpg"><img alt="../../_images/autodiff1.jpg" class="align-center" src="../../_images/autodiff1.jpg" style="width: 100%;" /></a>
+<p>Differentiable rendering in Mitsuba is based on variants that use the
+<code class="docutils literal notranslate"><span class="pre">gpu_autodiff</span></code> backend. Note that differentiable rendering on the CPU is
+currently not supported for performance reasons, but we have some ideas on
+making this faster and plan to incorporate them in the future.</p>
+<div class="section" id="differentiable-calculations-using-enoki">
+<h2>Differentiable calculations using Enoki<a class="headerlink" href="#differentiable-calculations-using-enoki" title="Permalink to this headline">¶</a></h2>
+<p>Mitsuba’s ability to automatically differentiate entire rendering algorithms
+builds on differentiable CUDA array types provided by the Enoki library. Both
+are explained in the Enoki documentation: the section on <a class="reference external" href="https://enoki.readthedocs.io/en/master/gpu.html">GPU arrays</a> describes the underlying
+<em>just-in-time</em> (JIT) compiler, which fuses simple operations like additions and
+multiplications into larger computational kernels that can be executed on
+CUDA-capable GPUs. The linked document also discusses key differences compared
+to superficially similar frameworks like PyTorch and TensorFlow. The section on
+<a class="reference external" href="https://enoki.readthedocs.io/en/master/autodiff.html">Automatic differentiation</a> describes how Enoki
+records and simplifies computation graphs and uses them to propagate
+derivatives in forward or reverse mode. We recommend that you familiarize
+yourself with both of these documents.</p>
+<p>Enoki’s differentiable types are automatically imported when variant starting
+with <code class="docutils literal notranslate"><span class="pre">gpu_autodiff_*</span></code> is specified. They are used in both C++ and Python,
+hence it is possible to differentiate larger computations that are partly
+implemented in each language. The following program shows a simple example
+calculation conducted in Python, which differentiates the function
+<span class="math notranslate nohighlight">\(f(\mathbf{x})=x_0^2 + x_1^2 + x_2^2\)</span></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mitsuba</span>
+<span class="n">mitsuba</span><span class="o">.</span><span class="n">set_variant</span><span class="p">(</span><span class="s1">&#39;gpu_autodiff_rgb&#39;</span><span class="p">)</span>
+
+<span class="c1"># The C++ type associated with &#39;Float&#39; is enoki::DiffArray&lt;enoki::CUDAArray&lt;float&gt;&gt;</span>
+<span class="kn">from</span> <span class="nn">mitsuba.core</span> <span class="kn">import</span> <span class="n">Float</span>
+<span class="kn">import</span> <span class="nn">enoki</span> <span class="k">as</span> <span class="nn">ek</span>
+
+<span class="c1"># Initialize a dynamic CUDA floating point array with some values</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">Float</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+
+<span class="c1"># Tell Enoki that we&#39;ll later be interested in gradients of</span>
+<span class="c1"># an as-of-yet unspecified objective function with respect to &#39;x&#39;</span>
+<span class="n">ek</span><span class="o">.</span><span class="n">set_requires_gradient</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Example objective function: sum of squares</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">ek</span><span class="o">.</span><span class="n">hsum</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Now back-propagate gradient wrt. &#39;y&#39; to input variables (i.e. &#39;x&#39;)</span>
+<span class="n">ek</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># Prints: [2, 4, 6]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ek</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+            
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="../python_interface/bsdf_eval.html" title="previous chapter (use the left arrow)">Custom applications</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="diff_render.html" title="next chapter (use the right arrow)">Differentiable rendering</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="diff_render.html" title="Differentiable rendering"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../python_interface/bsdf_eval.html" title="Custom applications"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Introduction</a></li> 
+      </ul>
+    </div>
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $(".toggle > *").hide();
+        $(".toggle .header").show();
+        $(".toggle .header").click(function() {
+            $(this).parent().children().not(".header").toggle(400);
+            $(this).parent().children(".header").toggleClass("open");
+        })
+    });
+</script>
+
+  </body>
+</html>

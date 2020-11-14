@@ -1,0 +1,261 @@
+<!-- Based on https://stackoverflow.com/a/25543713/1130282 -->
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>调试 Debug &#8212; mitsuba2 0.1.dev0 documentation</title>
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/theme_overrides.css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Building the documentation" href="building_documentation.html" />
+    <link rel="prev" title="Testing" href="testing.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="building_documentation.html" title="Building the documentation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="testing.html" title="Testing"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">调试 Debug</a></li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar"><a href="
+    ../../index.html" class="text-logo">Mitsuba 2</a>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Table Of Contents</h2>
+  </div>
+  <div class="sidebar-toc">
+    
+    
+      <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/intro.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/cloning.html">Cloning the repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/variants.html">选择变体</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/compiling.html">Compiling the system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/file_format.html">Scene file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/differences.html">Differences to Mitsuba 0.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python interface</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/parsing_xml.html">Parsing XML code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/rendering_scene.html">渲染场景</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/bsdf_eval.html">Custom applications</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Inverse rendering</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/diff_render.html">Differentiable rendering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/advanced.html">More advanced examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/pytorch.html">Integration with PyTorch</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="variants_cpp.html">Variants in C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="writing_plugin.html">Plugins &amp; Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">调试 Debug</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_documentation.html">Building the documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polarization.html">Polarization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/custom_plugins.html">在 Python 中自定义插件</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Plugin reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../plugin_reference/intro.html">Plugin reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html">Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#bsdfs">BSDFs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#phase-functions">Phase functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#emitters">Emitters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#sensors">Sensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#textures">Textures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#spectra">Spectra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#integrators">Integrators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#samplers">Samplers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#films">Films</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#reconstruction-filters">Reconstruction filters</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/core_api.html">Core API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/render_api.html">Render API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/python_api.html">Python API Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../zz_bibliography.html">Bibliography</a></li>
+</ul>
+
+    
+  </div>
+</div>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="../../search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="../../index.html">Docs</a></li>
+              
+              <li>调试 Debug</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <div class="section" id="debug">
+<h1>调试 Debug<a class="headerlink" href="#debug" title="Permalink to this headline">¶</a></h1>
+<p>我们一般推荐使用 Mitsuba 的 <code class="docutils literal notranslate"><span class="pre">scalar_*</span></code> 变体模式以追踪编译时的错误和 debug（请参阅 <a class="reference internal" href="../getting_started/variants.html#sec-variants"><span class="std std-ref">variants</span></a>
+以获得更多详细信息）。这类变体最低限度的使用 C++ 嵌套模版，以减少编译器错误信息的长度并且便于使用 <a class="reference external" href="https://lldb.llvm.org/">LLDB</a>
+或 <a class="reference external" href="https://www.gnu.org/software/gdb/">GDB</a> 之类的调试工具。</p>
+<p>在使用调试工具时，向量和频谱的串行版本信息会过于冗长，并且会暴露 Enoki 库的各种私有实现细节。例如，在 LLDB 中
+打印一个简单的静态类型三维向量 <code class="docutils literal notranslate"><span class="pre">Vector3f(1,</span> <span class="pre">2,</span> <span class="pre">3)</span></code> 会得到以下信息：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$0 = {
+  enoki::StaticArrayImpl&lt;float, 3, false, mitsuba::Vector&lt;float, 3&gt;, int&gt; = {
+    enoki::StaticArrayImpl&lt;float, 4, false, mitsuba::Vector&lt;float, 3&gt;, int&gt; = {
+      m = (1, 2, 3, 0)
+    }
+  }
+}
+</pre></div>
+</div>
+<p>对于矢量化后端的动态数组（例如， <code class="docutils literal notranslate"><span class="pre">DynamicArray&lt;Packet&lt;Float&gt;&gt;(1,</span> <span class="pre">2,</span> <span class="pre">3)</span></code> ）来说则会更糟糕，因为值
+会被指针所取代，可读性会很差。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$0 = {
+  enoki::DynamicArrayImpl&lt;enoki::Packet&lt;float, 8&gt;, enoki::DynamicArray&lt;enoki::Packet&lt;float, 8&gt; &gt; &gt; = summary {
+    m_packets = {
+      __ptr_ = {
+        std::__1::__compressed_pair_elem&lt;enoki::Packet&lt;float, 8&gt; *, 0, false&gt; = {
+          __value_ = 0x0000000100300200
+        }
+      }
+    }
+    m_size = 1
+    m_packets_allocated = 1
+  }
+}
+</pre></div>
+</div>
+<p>为了提高可读性， Enoki 包含了一个脚本，该脚本可以帮助增强 GDB 和 LLDB 对类型的理解。通过使用此脚本
+上面两个可读性很差的代码片段变成了以下：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$0 = [1, 2, 3]
+</pre></div>
+</div>
+<p>如需在 LLDB 中安装此脚本，请将文件 <code class="docutils literal notranslate"><span class="pre">ext/enoki/resources/enoki_lldb.py</span></code> 拷贝到 <code class="docutils literal notranslate"><span class="pre">~/.lldb</span></code> 目录下（如果不存在，请创建），
+随后将下面这行命令添加到 <code class="docutils literal notranslate"><span class="pre">~/.lldbinit</span></code> 文件中（如果不存在，请创建）：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>command script import ~/.lldb/enoki_lldb.py
+</pre></div>
+</div>
+<p>如需在 GDB 中安装此脚本，请将文件 <code class="docutils literal notranslate"><span class="pre">ext/enoki/resources/enoki_gdb.py</span></code> 拷贝到 <code class="docutils literal notranslate"><span class="pre">~/.gdb</span></code> 目录中（如果不存在，请创建），
+随后将下面两行命令添加到 <code class="docutils literal notranslate"><span class="pre">~/.gdbinit</span></code> 文件中（如果不存在，请创建）：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>set print pretty
+source ~/.gdb/enoki_gdb.py
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+            
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="testing.html" title="previous chapter (use the left arrow)">Testing</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="building_documentation.html" title="next chapter (use the right arrow)">Building the documentation</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="building_documentation.html" title="Building the documentation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="testing.html" title="Testing"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">调试 Debug</a></li> 
+      </ul>
+    </div>
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $(".toggle > *").hide();
+        $(".toggle .header").show();
+        $(".toggle .header").click(function() {
+            $(this).parent().children().not(".header").toggle(400);
+            $(this).parent().children(".header").toggleClass("open");
+        })
+    });
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,375 @@
+<!-- Based on https://stackoverflow.com/a/25543713/1130282 -->
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>C++ 中的变体 &#8212; mitsuba2 0.1.dev0 documentation</title>
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/theme_overrides.css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="插件 &amp; 宏" href="writing_plugin.html" />
+    <link rel="prev" title="介绍" href="intro.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="writing_plugin.html" title="插件 &amp; 宏"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="介绍"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">C++ 中的变体</a></li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar"><a href="
+    ../../index.html" class="text-logo">Mitsuba 2</a>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Table Of Contents</h2>
+  </div>
+  <div class="sidebar-toc">
+    
+    
+      <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/intro.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/cloning.html">Cloning the repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/variants.html">选择变体</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/compiling.html">编译系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/file_format.html">场景文件格式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/differences.html">Differences to Mitsuba 0.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/faq.html">常见问题概览</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python interface</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/intro.html">介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/parsing_xml.html">XML 代码解析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/rendering_scene.html">渲染场景</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/bsdf_eval.html">自定义应用</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Inverse rendering</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/diff_render.html">Differentiable rendering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/advanced.html">More advanced examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/pytorch.html">Integration with PyTorch</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">介绍</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">C++ 中的变体</a></li>
+<li class="toctree-l1"><a class="reference internal" href="writing_plugin.html">插件 &amp; 宏</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">测试</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debugging.html">调试 Debug</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_documentation.html">Building the documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polarization.html">偏振</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/custom_plugins.html">在 Python 中自定义插件</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Plugin reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../plugin_reference/intro.html">Plugin 参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html">形状插件 Shape</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#bsdfs">BSDFs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#phase-functions">Phase functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#emitters">Emitters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#sensors">Sensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#textures">Textures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#spectra">Spectra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#integrators">Integrators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#samplers">Samplers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#films">Films</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#reconstruction-filters">Reconstruction filters</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/core_api.html">Core API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/render_api.html">Render API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/python_api.html">Python API Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../zz_bibliography.html">Bibliography</a></li>
+</ul>
+
+    
+  </div>
+</div>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="../../search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="../../index.html">Docs</a></li>
+              
+              <li>C++ 中的变体</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <div class="section" id="c">
+<span id="sec-variants-cpp"></span><h1>C++ 中的变体<a class="headerlink" href="#c" title="Permalink to this headline">¶</a></h1>
+<p>正如 <a class="reference internal" href="../getting_started/variants.html#sec-variants"><span class="std std-ref">choosing variants</span></a> 一节中所介绍的， Mitsuba 2 可以按照不同的变体模式
+进行编译，而这些变体代表了不同的计算后端和颜色表示方式。若要从某一实现中启用这种重定向功能，系统需要依赖于
+C++ 模版和元编程。实际上，Mitsuba 2中大多数的 C++ 类和函数都是带有以下两个参数的模版：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Float</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Spectrum</span></code>.</p></li>
+</ul>
+<p>这两个参数完全对应于之前提到的计算后端和颜色表示方式。在编译过程中， Mitsuba 的构建系统读取  <code class="docutils literal notranslate"><span class="pre">mitsuba.conf</span></code> 文件，
+并将所选变体模式替换到模版参数中。例如：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&quot;scalar_rgb&quot;: {
+    &quot;float&quot;: &quot;float&quot;,
+    &quot;spectrum&quot;: &quot;Color&lt;Float, 3&gt;&quot;
+},
+</pre></div>
+</div>
+<p>这会显式的引发
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/class_template#Explicit_instantiation">模版实例化</a></p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Float</span>    <span class="o">=</span> <span class="kt">float</span><span class="p">;</span>
+<span class="n">Spectrum</span> <span class="o">=</span> <span class="n">Color</span><span class="o">&lt;</span><span class="n">Float</span><span class="p">,</span> <span class="mi">3</span><span class="o">&gt;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>生成的 C++ 符号将添加到共享链接库中（ <code class="docutils literal notranslate"><span class="pre">dist/libmitsuba-core.so</span></code>， <code class="docutils literal notranslate"><span class="pre">dist/libmitsuba-render.so</span></code>， <code class="docutils literal notranslate"><span class="pre">dist/plugin/*.so</span></code> 等）。
+在运行时，由用户指定的变体模式将决定渲染器所使用的符号集。</p>
+<div class="section" id="type-aliases">
+<h2>Type aliases<a class="headerlink" href="#type-aliases" title="Permalink to this headline">¶</a></h2>
+<p>当然单单 <code class="docutils literal notranslate"><span class="pre">Float</span></code> 和 <code class="docutils literal notranslate"><span class="pre">Spectrum</span></code> 两个类型不会构成渲染器使用的所有类型。渲染器还可以访问整型算数类型，向量，
+法线，点，光线，矩阵等各种结构。对于一些更复杂的结构（如交点和采样记录）也是可以随意使用的。</p>
+<p>在给定的变体模式的上下文中去定义这些类型会有些繁琐。为了简化这一过程，Mitsuba 提供了一个辅助宏，从 <code class="docutils literal notranslate"><span class="pre">Float</span></code> 和 <code class="docutils literal notranslate"><span class="pre">Spectrum</span></code> 的定义
+中推断并导入合适的类型。</p>
+<p>例如，在辅助宏开始推断模版函数后，我们就可以使用其他 Mitsuba 模版类型（比如，<code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">Vector2f</span></code>、<code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">Ray3f</span></code>、<code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">SurfaceInteraction</span></code> 等）就好像
+它们没有模版化一样。</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="nc">Float</span><span class="p">,</span> <span class="k">typename</span> <span class="nc">Spectrum</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">my_function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">/// Import type aliases (e.g. using Vector3f = Vector&lt;Float, 3&gt;;)</span>
+    <span class="n">MTS_IMPORT_TYPES</span><span class="p">()</span>
+
+    <span class="c1">// Can now use those types as if they were not templated</span>
+    <span class="n">Point3f</span> <span class="n">p</span><span class="p">(</span><span class="mf">4.f</span><span class="p">,</span> <span class="mf">3.f</span><span class="p">,</span> <span class="mf">0.f</span><span class="p">);</span>
+    <span class="n">Vector3f</span> <span class="nf">v</span><span class="p">(</span><span class="mf">1.f</span><span class="p">,</span> <span class="mf">0.f</span><span class="p">,</span> <span class="mf">0.f</span><span class="p">);</span>
+    <span class="n">Ray3f</span> <span class="nf">ray</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">v</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">ray</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">MTS_VARIANT</span></code> 宏常用作速记符号，而不是相较冗长的 <code class="docutils literal notranslate"><span class="pre">template</span> <span class="pre">&lt;typename</span> <span class="pre">Float,</span> <span class="pre">typename</span> <span class="pre">Spectum&gt;</span></code>。</p>
+</div>
+<p>下一章节讲更详细的介绍这些宏：</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="writing_plugin.html#macro-import-types"><span class="std std-ref">MTS_IMPORT_TYPES(…)</span></a></p></li>
+</ul>
+</div>
+<div class="section" id="branching-and-masking">
+<h2>Branching and masking<a class="headerlink" href="#branching-and-masking" title="Permalink to this headline">¶</a></h2>
+<p>在处理矢量化计算后台时（例如，<code class="docutils literal notranslate"><span class="pre">packet_*</span></code>，<code class="docutils literal notranslate"><span class="pre">gpu_*</span></code>），需要额外检查 C++ 的分支逻辑（特别是 <code class="docutils literal notranslate"><span class="pre">if</span></code> 结构）。</p>
+<p>回想一下 scalar 模式下的光线求交结果，生成的 <a class="reference internal" href="../../generated/render_api.html#mitsuba.render.SurfaceInteraction3f" title="mitsuba.render.SurfaceInteraction3f"><code class="xref py py-class docutils literal notranslate"><span class="pre">SurfaceInteraction3f</span></code></a> 记录的是与 <em>单个曲面</em> 的相交信息。
+在这种情况下，使用普通 <code class="docutils literal notranslate"><span class="pre">if</span></code> 语句的条件逻辑可以很好工作。</p>
+<p>在另一方面，在矢量化后端（如 <code class="docutils literal notranslate"><span class="pre">gpu_rgb</span></code>）中相同的数据结构保存的是与 <em>多个曲面的</em> 相交信息。由于绝大多数的条件只可能对其中部分元素为真，
+所以不能再使用普通的 <code class="docutils literal notranslate"><span class="pre">if</span></code> 语句来执行条件逻辑。</p>
+<p>替换操作 <code class="docutils literal notranslate"><span class="pre">enoki::select(mask,</span> <span class="pre">arg1,</span> <span class="pre">arg2)</span></code> 接受一个 <em>mask</em> 参数（通常是比较操作的结果）并对每个通道并
+行计算 <code class="docutils literal notranslate"><span class="pre">(mask</span> <span class="pre">?</span> <span class="pre">arg1</span> <span class="pre">:</span> <span class="pre">arg2)</span></code> 。更多关于使用 mask 的信息，请参阅 <a class="reference external" href="https://enoki.readthedocs.io/en/master/basics.html#working-with-masks">Enoki’s documentation</a>。
+下面是一个对比示例：</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// --------------------</span>
+<span class="c1">// Scalar code (discouraged)</span>
+
+<span class="n">Scene</span> <span class="n">scene</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">Ray3f</span> <span class="n">ray</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">SurfaceInteraction3f</span> <span class="n">si</span> <span class="o">=</span> <span class="n">scene</span><span class="o">-&gt;</span><span class="n">ray_intersect</span><span class="p">(</span><span class="n">ray</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">si</span><span class="p">.</span><span class="n">is_valid</span><span class="p">())</span>
+    <span class="k">return</span> <span class="mf">1.f</span><span class="p">;</span>
+<span class="k">else</span>
+    <span class="k">return</span> <span class="mf">0.f</span><span class="p">;</span>
+
+<span class="c1">// --------------------</span>
+<span class="c1">// Generic code</span>
+
+<span class="n">Scene</span> <span class="n">scene</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">Ray3f</span> <span class="n">ray</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">SurfaceInteraction3f</span> <span class="n">si</span> <span class="o">=</span> <span class="n">scene</span><span class="o">-&gt;</span><span class="n">ray_intersect</span><span class="p">(</span><span class="n">ray</span><span class="p">);</span>
+
+<span class="k">return</span> <span class="n">enoki</span><span class="o">::</span><span class="n">select</span><span class="p">(</span><span class="n">si</span><span class="p">.</span><span class="n">is_valid</span><span class="p">(),</span> <span class="mf">1.0f</span><span class="p">,</span> <span class="mf">0.f</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>此外，大多数的函数/方法都有一个 <em>可选的</em> <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">active</span></code> 参数，用于编码哪些通道是激活的。比如在上面的例子中，
+我们可以将此信息提供给 <code class="docutils literal notranslate"><span class="pre">ray_intersect</span></code> 例程，从而避免无效条目的相关计算。这样写的话，代码则更新为：</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Mask specifying the active lanes</span>
+<span class="n">Mask</span> <span class="n">active</span> <span class="o">=</span> <span class="p">...;</span>
+
+<span class="n">Scene</span> <span class="n">scene</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">Ray3f</span> <span class="n">ray</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">SurfaceInteraction3f</span> <span class="n">si</span> <span class="o">=</span> <span class="n">scene</span><span class="o">-&gt;</span><span class="n">ray_intersect</span><span class="p">(</span><span class="n">ray</span><span class="p">,</span> <span class="n">active</span><span class="p">);</span>
+
+<span class="k">return</span> <span class="n">enoki</span><span class="o">::</span><span class="n">select</span><span class="p">(</span><span class="n">active</span> <span class="o">&amp;</span> <span class="n">si</span><span class="p">.</span><span class="n">is_valid</span><span class="p">(),</span> <span class="mf">1.0f</span><span class="p">,</span> <span class="mf">0.f</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="cuda-backend-synchronization-point">
+<h2>CUDA backend synchronization point<a class="headerlink" href="#cuda-backend-synchronization-point" title="Permalink to this headline">¶</a></h2>
+<p>正如 Enoki 文档 <a class="reference external" href="https://enoki.readthedocs.io/en/master/gpu.html#suggestions-regarding-horizontal-operations">GPU arrays</a> 这
+一章节所描述的， <code class="docutils literal notranslate"><span class="pre">gpu_*</span></code> 计算后端依赖于通过 NVIDIA 的中间语言 PTX 来动态生成内核的 JIT 编译器。 该 JIT 编译器对于 <em>纵向操作</em>
+（加法、乘法、聚集、发散等）非常高效。然而 <em>横向操作</em> 的应用（比如 <code class="docutils literal notranslate"><span class="pre">enoki::any()</span></code>，<code class="docutils literal notranslate"><span class="pre">enoki::all()</span></code>，<code class="docutils literal notranslate"><span class="pre">enoki::hsum()</span></code> 等）
+会刷新 <code class="docutils literal notranslate"><span class="pre">CUDAArray&lt;T&gt;</span></code> 的所有当前计算队列，这会限制并行度。</p>
+<p>在很多情况下，如果能带来性能优势的话，可以安全的跳过与横向 mask 有关的操作。出于这一原因，Mitsuba 2代码库频繁的使用
+替换语句（<code class="docutils literal notranslate"><span class="pre">any_or&lt;&gt;()</span></code>，<code class="docutils literal notranslate"><span class="pre">all_or&lt;&gt;()</span></code> 等）以在 GPU 标签下跳过估算来简化操作。</p>
+<p>例如，下面示例中的代码 <code class="docutils literal notranslate"><span class="pre">...</span></code> 只会在 <code class="docutils literal notranslate"><span class="pre">scalar_*</span></code> 变体模式下 <code class="docutils literal notranslate"><span class="pre">condition</span></code> 为 <code class="docutils literal notranslate"><span class="pre">true</span></code> 才会执行。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Mask</span> <span class="n">condition</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">any_or</span><span class="o">&lt;</span><span class="nb">true</span><span class="o">&gt;</span><span class="p">(</span><span class="n">condition</span><span class="p">))</span> <span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>而在 <code class="docutils literal notranslate"><span class="pre">packet_*</span></code> 模式下，至少 <em>一个元素</em> 的 <code class="docutils literal notranslate"><span class="pre">condition</span></code> 为 <code class="docutils literal notranslate"><span class="pre">true</span></code> 才会执行。在 <code class="docutils literal notranslate"><span class="pre">gpu_*</span></code> 变体模式下，
+我们通常要处理包含数百万个元素的数组，并且很可能在任何情况下至少都有一个元素都会触发执行 <code class="docutils literal notranslate"><span class="pre">...</span></code> 。那么 <code class="docutils literal notranslate"><span class="pre">any_or&lt;true&gt;(condition)</span></code> 会跳过代价
+昂贵的横向操作，并始终假设条件为真。</p>
+</div>
+<div class="section" id="pointer-types">
+<h2>Pointer types<a class="headerlink" href="#pointer-types" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">MTS_IMPORT_TYPES</span></code> 宏还为指针的导入提供了变体模式特定的类型别名。有一点很重要：例如，考虑下与曲面交点
+相关的 <code class="docutils literal notranslate"><span class="pre">BSDF</span></code> 。 在 scalar 变体中，使用  <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">BSDF</span> <span class="pre">*</span></code> 指针就是很好的表示方式。然而在矢量化变体（<code class="docutils literal notranslate"><span class="pre">gpu_*</span></code>， <code class="docutils literal notranslate"><span class="pre">packet_*</span></code>）
+中，会有多个曲面交点构成的交点集，因此单一指针被 <em>指针数组</em> 所替代。这些指针的别名如下所示：</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// Imports BSDFPtr, EmitterPtr, etc..</span>
+<span class="n">MTS_IMPORT_TYPES</span><span class="p">()</span>
+
+<span class="n">Scene</span> <span class="n">scene</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">Mask</span> <span class="n">active</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">Ray3f</span> <span class="n">ray</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">SurfaceInteraction3f</span> <span class="n">si</span> <span class="o">=</span> <span class="n">scene</span><span class="o">-&gt;</span><span class="n">ray_intersect</span><span class="p">(</span><span class="n">ray</span><span class="p">,</span> <span class="n">active</span><span class="p">);</span>
+
+<span class="c1">// Array of pointers if Float is an array</span>
+<span class="n">BSDFPtr</span> <span class="n">bsdf</span> <span class="o">=</span> <span class="n">si</span><span class="p">.</span><span class="n">bsdf</span><span class="p">();</span>
+
+<span class="c1">// Enoki is able to dispatch method calls involving arrays of pointers</span>
+<span class="n">bsdf</span><span class="o">-&gt;</span><span class="n">eval</span><span class="p">(...,</span> <span class="n">active</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>关于矢量化方法调用的更多信息，请参阅 <a class="reference external" href="https://enoki.readthedocs.io/en/master/calls.html">Enoki documentation</a> 。</p>
+</div>
+<div class="section" id="variant-specific-code">
+<h2>Variant-specific code<a class="headerlink" href="#variant-specific-code" title="Permalink to this headline">¶</a></h2>
+<p>在整个代码库中，大量使用 C++17 的 <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">conexpr</span></code> 语句将代码片段约束为特定的变体。例如，下面的 C++ 代码片段将光谱值转换成了 XYZ 三
+色值，这取决于当前编译变体决定的颜色表示方式。</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Ray3f</span> <span class="n">ray</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">Mask</span> <span class="n">active</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">Spectrum</span> <span class="n">result</span> <span class="o">=</span> <span class="n">compute_stuff</span><span class="p">(</span><span class="n">ray</span><span class="p">,</span> <span class="n">active</span><span class="p">);</span>
+
+<span class="n">Color3f</span> <span class="n">xyz</span><span class="p">;</span>
+<span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(</span><span class="n">is_monochromatic_v</span><span class="o">&lt;</span><span class="n">Spectrum</span><span class="o">&gt;</span><span class="p">)</span>
+    <span class="n">xyz</span> <span class="o">=</span> <span class="n">result</span><span class="p">.</span><span class="n">x</span><span class="p">();</span>
+<span class="k">else</span> <span class="k">if</span> <span class="k">constexpr</span> <span class="p">(</span><span class="n">is_rgb_v</span><span class="o">&lt;</span><span class="n">Spectrum</span><span class="o">&gt;</span><span class="p">)</span>
+    <span class="n">xyz</span> <span class="o">=</span> <span class="n">srgb_to_xyz</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">active</span><span class="p">);</span>
+<span class="k">else</span>
+    <span class="n">xyz</span> <span class="o">=</span> <span class="n">spectrum_to_xyz</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">ray</span><span class="p">.</span><span class="n">wavelengths</span><span class="p">,</span> <span class="n">active</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>由于 <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">constexpr</span></code> 是在编译时解析的，所以该分支不会导致任何运行时开销。<code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">constexpr</span></code> 的另一个有用特性是，
+它会禁止未启用分支中的编译错误。这是因为一般代码使用的普通（不带 <code class="docutils literal notranslate"><span class="pre">constexpr</span></code>） <code class="docutils literal notranslate"><span class="pre">if</span></code> 语句可能有潜在的编译错误（例如，试图访问一个不存
+在于所有变体的类成员时）。</p>
+<p>Mitsuba 提供了各种版本的 <em>type-traits</em> 例如 <code class="docutils literal notranslate"><span class="pre">is_monochromatic_v</span></code> 用来查询特定变体的属性。你可以在 <code class="file docutils literal notranslate"><span class="pre">include/mitsuba/core/traits.h</span></code> 中找到它们。</p>
+</div>
+</div>
+
+
+          </div>
+            
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="intro.html" title="previous chapter (use the left arrow)">介绍</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="writing_plugin.html" title="next chapter (use the right arrow)">插件 &amp; 宏</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="writing_plugin.html" title="插件 &amp; 宏"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="介绍"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">C++ 中的变体</a></li> 
+      </ul>
+    </div>
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $(".toggle > *").hide();
+        $(".toggle .header").show();
+        $(".toggle .header").click(function() {
+            $(this).parent().children().not(".header").toggle(400);
+            $(this).parent().children(".header").toggleClass("open");
+        })
+    });
+</script>
+
+  </body>
+</html>

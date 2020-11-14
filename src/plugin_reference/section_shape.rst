@@ -1,17 +1,16 @@
 .. _sec-shapes:
 
-Shapes
+形状插件 Shape
 ======
 
-This section presents an overview of the shape plugins that are released along with the renderer.
+本小节呈现的是 Shape 类插件的概览，这些插件随着渲染器发布。
 
-In Mitsuba 2, shapes define surfaces that mark transitions between different types of materials. For
-instance, a shape could describe a boundary between air and a solid object, such as a piece of rock.
-Alternatively, a shape can mark the beginning of a region of space that isn’t solid at all, but
-rather contains a participating medium, such as smoke or steam. Finally, a shape can be used to
-create an object that emits light on its own.
+在 Mitsuba 2中，shape 定义了不同类型材质间转换的曲面。例如，shape 可以描述空气和固体介质（如一块岩石）之间的边界。
+或者，一个 shape 可以标记一块非固态空间区域的开始，这个空间区域中是粒子介质，如烟雾或蒸汽等。最后，一个 shape 可以
+用于创建自发光的对象。
 
-Shapes are usually declared along with a surface scattering model named *BSDF* (see the :ref:`respective section <sec-bsdfs>`). This BSDF characterizes what happens at the surface. In the XML scene description language, this might look like the following:
+Shape 通常情况下和名为 *BSDF* 的表面散射模型一起进行声明（详情请参阅 :ref:`respective section <sec-bsdfs>` 章节）。
+BSDF 描述了曲面与光的交互。在 XML 场景描述语言中可以如下编写：
 
 .. code-block:: xml
 
@@ -31,4 +30,4 @@ Shapes are usually declared along with a surface scattering model named *BSDF* (
         </shape>
     </scene>
 
-The following subsections discuss the available shape types in greater detail.
+接下来的小节更加详细的讨论了可用的 shape 类型。

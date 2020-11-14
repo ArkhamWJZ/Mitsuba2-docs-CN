@@ -1,0 +1,319 @@
+<!-- Based on https://stackoverflow.com/a/25543713/1130282 -->
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>测试 &#8212; mitsuba2 0.1.dev0 documentation</title>
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/theme_overrides.css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="调试 Debug" href="debugging.html" />
+    <link rel="prev" title="插件 &amp; 宏" href="writing_plugin.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="debugging.html" title="调试 Debug"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="writing_plugin.html" title="插件 &amp; 宏"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">测试</a></li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar"><a href="
+    ../../index.html" class="text-logo">Mitsuba 2</a>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Table Of Contents</h2>
+  </div>
+  <div class="sidebar-toc">
+    
+    
+      <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/intro.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/cloning.html">Cloning the repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/variants.html">选择变体</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/compiling.html">编译系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/file_format.html">场景文件格式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/differences.html">Differences to Mitsuba 0.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/faq.html">常见问题概览</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python interface</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/intro.html">介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/parsing_xml.html">XML 代码解析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/rendering_scene.html">渲染场景</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/bsdf_eval.html">自定义应用</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Inverse rendering</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/diff_render.html">Differentiable rendering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/advanced.html">More advanced examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/pytorch.html">Integration with PyTorch</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="variants_cpp.html">C++ 中的变体</a></li>
+<li class="toctree-l1"><a class="reference internal" href="writing_plugin.html">插件 &amp; 宏</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">测试</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debugging.html">调试 Debug</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_documentation.html">Building the documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polarization.html">偏振</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/custom_plugins.html">在 Python 中自定义插件</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Plugin reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../plugin_reference/intro.html">Plugin 参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html">形状插件 Shape</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#bsdfs">BSDFs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#phase-functions">Phase functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#emitters">Emitters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#sensors">Sensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#textures">Textures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#spectra">Spectra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#integrators">Integrators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#samplers">Samplers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#films">Films</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#reconstruction-filters">Reconstruction filters</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/core_api.html">Core API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/render_api.html">Render API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/python_api.html">Python API Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../zz_bibliography.html">Bibliography</a></li>
+</ul>
+
+    
+  </div>
+</div>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="../../search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="../../index.html">Docs</a></li>
+              
+              <li>测试</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <div class="section" id="id1">
+<h1>测试<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>运行测试套件，只需调用 <code class="docutils literal notranslate"><span class="pre">pytest</span></code> ：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest
+
+<span class="c1"># or to run a single test file</span>
+pytest src/bsdfs/tests/test_diffuse.py
+</pre></div>
+</div>
+<p>需要注意的是，运行完整的测试套件可能需要很长的时间，特别是在内核比较少的机器上。可以通过以下方式跳过执行较慢的测试：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest -m <span class="s1">&#39;not slow&#39;</span>
+</pre></div>
+</div>
+<p>构建系统还开放了一个 <code class="docutils literal notranslate"><span class="pre">pytest</span></code> ，以执行 <code class="docutils literal notranslate"><span class="pre">setpath</span></code> 和并行执行测试。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ninja pytest
+</pre></div>
+</div>
+<div class="section" id="chi-2-tests">
+<h2>Chi^2 tests<a class="headerlink" href="#chi-2-tests" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">mitsuba.python.chi2</span></code> 模块实现了 Pearson 卡方检验，用于检测一个分布与已知参考分布的拟合程度。</p>
+<p>该模块十分具体的实现了 2D（或更低维度）上的蒙特卡洛采样策略与一个分布做比较，该分布的概率密度函数是从
+分布参数域上的网格通过数值积分获得的。</p>
+<p>它在整个测试套件中被广泛使用，以验证 <code class="docutils literal notranslate"><span class="pre">BSDFs</span></code> 、 <code class="docutils literal notranslate"><span class="pre">Emitters</span></code> 以及其他样例代码的实现有效。</p>
+<p>可以通过以下方式测试你自己编写的样例：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mitsuba</span>
+<span class="n">mitsuba</span><span class="o">.</span><span class="n">set_variant</span><span class="p">(</span><span class="s1">&#39;packet_rgb&#39;</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">mitsuba.python.chi2</span> <span class="kn">import</span> <span class="n">ChiSquareTest</span><span class="p">,</span> <span class="n">SphericalDomain</span>
+
+<span class="c1"># some sampling code</span>
+<span class="k">def</span> <span class="nf">my_sample</span><span class="p">(</span><span class="n">sample</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">mitsuba</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">warp</span><span class="o">.</span><span class="n">square_to_cosine_hemisphere</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+
+<span class="c1"># the corresponding probability density function</span>
+<span class="k">def</span> <span class="nf">my_pdf</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">mitsuba</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">warp</span><span class="o">.</span><span class="n">square_to_cosine_hemisphere_pdf</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+
+<span class="n">chi2</span> <span class="o">=</span> <span class="n">ChiSquareTest</span><span class="p">(</span>
+    <span class="n">domain</span><span class="o">=</span><span class="n">SphericalDomain</span><span class="p">(),</span>
+    <span class="n">sample_func</span><span class="o">=</span><span class="n">my_sample</span><span class="p">,</span>
+    <span class="n">pdf_func</span><span class="o">=</span><span class="n">my_pdf</span><span class="p">,</span>
+    <span class="n">sample_dim</span><span class="o">=</span><span class="mi">2</span>
+<span class="p">)</span>
+
+<span class="k">assert</span> <span class="n">chi2</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>在失败的情况下，目标密度和直方图被写入到 <code class="docutils literal notranslate"><span class="pre">chi2_data.py</span></code> ，只需运行该文件即可绘制数据：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python chi2_data.py
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">mitsuba.python.chi2</span></code> 模块还提供了一组 <code class="docutils literal notranslate"><span class="pre">Adapter</span></code> 函数，可用于包装不同的插件（例如，<code class="docutils literal notranslate"><span class="pre">BSDF</span></code>， <code class="docutils literal notranslate"><span class="pre">Emitter</span></code> 等），可以通过以下方式
+测试它们：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mitsuba</span>
+<span class="kn">import</span> <span class="nn">enoki</span> <span class="k">as</span> <span class="nn">ek</span>
+
+<span class="n">mitsuba</span><span class="o">.</span><span class="n">set_variant</span><span class="p">(</span><span class="s1">&#39;packet_rgb&#39;</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">mitsuba.python.chi2</span> <span class="kn">import</span> <span class="n">BSDFAdapter</span><span class="p">,</span> <span class="n">ChiSquareTest</span><span class="p">,</span> <span class="n">SphericalDomain</span>
+
+<span class="n">xml</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;&lt;float name=&quot;alpha&quot; value=&quot;0.5&quot;/&gt;</span>
+<span class="s2">         &lt;boolean name=&quot;sample_visible&quot; value=&quot;false&quot;/&gt;</span>
+<span class="s2">         &lt;string name=&quot;distribution&quot; value=&quot;ggx&quot;/&gt;</span>
+<span class="s2">      &quot;&quot;&quot;</span>
+<span class="n">wi</span> <span class="o">=</span> <span class="n">ek</span><span class="o">.</span><span class="n">normalize</span><span class="p">([</span><span class="mf">0.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.6</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">])</span>
+<span class="n">sample_func</span><span class="p">,</span> <span class="n">pdf_func</span> <span class="o">=</span> <span class="n">BSDFAdapter</span><span class="p">(</span><span class="s2">&quot;roughdielectric&quot;</span><span class="p">,</span> <span class="n">xml</span><span class="p">,</span> <span class="n">wi</span><span class="o">=</span><span class="n">wi</span><span class="p">)</span>
+
+<span class="n">chi2</span> <span class="o">=</span> <span class="n">ChiSquareTest</span><span class="p">(</span>
+    <span class="n">domain</span><span class="o">=</span><span class="n">SphericalDomain</span><span class="p">(),</span>
+    <span class="n">sample_func</span><span class="o">=</span><span class="n">sample_func</span><span class="p">,</span>
+    <span class="n">pdf_func</span><span class="o">=</span><span class="n">pdf_func</span><span class="p">,</span>
+    <span class="n">sample_dim</span><span class="o">=</span><span class="mi">3</span>
+<span class="p">)</span>
+
+<span class="k">assert</span> <span class="n">chi2</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+<span class="c1"># Forces the chi2 test to dump the plotting script (optional)</span>
+<span class="n">chi2</span><span class="o">.</span><span class="n">_dump_tables</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>下面是由上例中的 <code class="docutils literal notranslate"><span class="pre">chi2_data.py</span></code> 脚本生成的图像：</p>
+<a class="reference internal image-reference" href="../../_images/chi2_example.png"><img alt="../../_images/chi2_example.png" class="align-center" src="../../_images/chi2_example.png" style="width: 100%;" /></a>
+<p>左边的图展示了通过数值积分方式解析的来自 <code class="docutils literal notranslate"><span class="pre">roughdielectric</span></code> BSDF 材质内部的入射光线的 <code class="docutils literal notranslate"><span class="pre">pdf()</span></code>。
+可以看到大部分的能量离开了表面（图的上半部分），而一部分能量被反射回来了（图的下半部分）。</p>
+<p>中间的图展示了相同的密度函数，但这一次计算的是 <code class="docutils literal notranslate"><span class="pre">roughdielectric</span></code> BSDF 中 <code class="docutils literal notranslate"><span class="pre">sample()</span></code> 方
+法的采样方向的直方图。</p>
+<p>右图显示了两个密度函数之间的差异。BSDF 的采样程序是随机的，由于直方图仍有噪声，预计能观察到正负值混合的现象。
+<code class="docutils literal notranslate"><span class="pre">ChiSquareTest</span></code> 的主要作用在于决定观察到的偏差是否可以归于随机噪声的范围中，或者发现是否存在导致测试失败
+的系统偏差。</p>
+<p>更多详细信息，请参阅 <a class="reference internal" href="../../generated/python_api.html#mitsuba.python.chi2.ChiSquareTest" title="mitsuba.python.chi2.ChiSquareTest"><code class="xref py py-class docutils literal notranslate"><span class="pre">mitsuba.python.chi2.ChiSquareTest</span></code></a>。</p>
+</div>
+<div class="section" id="rendering-test-suite-and-z-test">
+<h2>Rendering test suite and Z-test<a class="headerlink" href="#rendering-test-suite-and-z-test" title="Permalink to this headline">¶</a></h2>
+<p>在 <em>单元测试</em> 之上，我们的框架实现了一种自动渲染一组测试场景的机制，并通过应用 <a class="reference external" href="https://en.wikipedia.org/wiki/Z-test">Z-test</a> 来
+比较渲染的结果图和其他相关图像。</p>
+<p>这些测试对于揭示渲染器各个独立组件间的交互 BUG 非常有用。</p>
+<p>开启所有变体模式渲染测试场景时，请确保用例对于 <code class="docutils literal notranslate"><span class="pre">scalar_rgb</span></code> 和 <code class="docutils literal notranslate"><span class="pre">gpu_rgb</span></code> 渲染模式的匹配。</p>
+<p>如需仅运行渲染测试套件，可以使用以下命令行指令：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest src/librender/tests/test_renders.py
+</pre></div>
+</div>
+<p>把场景添加到 <code class="docutils literal notranslate"><span class="pre">resources/data/tests/scenes/</span></code> 文件夹中，就将其添加到渲染测试套件中了，非常简便。
+随后，可以使用以下命令生成想要的相关图：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python src/librender/tests/test_renders.py
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+            
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="writing_plugin.html" title="previous chapter (use the left arrow)">插件 &amp; 宏</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="debugging.html" title="next chapter (use the right arrow)">调试 Debug</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="debugging.html" title="调试 Debug"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="writing_plugin.html" title="插件 &amp; 宏"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">测试</a></li> 
+      </ul>
+    </div>
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $(".toggle > *").hide();
+        $(".toggle .header").show();
+        $(".toggle .header").click(function() {
+            $(this).parent().children().not(".header").toggle(400);
+            $(this).parent().children(".header").toggleClass("open");
+        })
+    });
+</script>
+
+  </body>
+</html>

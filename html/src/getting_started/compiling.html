@@ -1,0 +1,395 @@
+<!-- Based on https://stackoverflow.com/a/25543713/1130282 -->
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>编译系统 &#8212; mitsuba2 0.1.dev0 documentation</title>
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/theme_overrides.css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="场景文件格式" href="file_format.html" />
+    <link rel="prev" title="选择变体" href="variants.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="file_format.html" title="场景文件格式"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="variants.html" title="选择变体"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">编译系统</a></li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar"><a href="
+    ../../index.html" class="text-logo">Mitsuba 2</a>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Table Of Contents</h2>
+  </div>
+  <div class="sidebar-toc">
+    
+    
+      <p class="caption"><span class="caption-text">Overview</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloning.html">Cloning the repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="variants.html">选择变体</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">编译系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#linux">Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#windows">Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#macos">macOS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-mitsuba">Running Mitsuba</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gpu-variants">GPU variants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#embree">Embree</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="file_format.html">场景文件格式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="differences.html">Differences to Mitsuba 0.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常见问题概览</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python interface</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/intro.html">介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/parsing_xml.html">XML 代码解析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/rendering_scene.html">渲染场景</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/bsdf_eval.html">自定义应用</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Inverse rendering</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/diff_render.html">Differentiable rendering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/advanced.html">More advanced examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/pytorch.html">Integration with PyTorch</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/intro.html">介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/variants_cpp.html">C++ 中的变体</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/writing_plugin.html">插件 &amp; 宏</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/testing.html">测试</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/debugging.html">调试 Debug</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/building_documentation.html">Building the documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/polarization.html">偏振</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/custom_plugins.html">在 Python 中自定义插件</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Plugin reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../plugin_reference/intro.html">Plugin 参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html">形状插件 Shape</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#bsdfs">BSDFs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#phase-functions">Phase functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#emitters">Emitters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#sensors">Sensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#textures">Textures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#spectra">Spectra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#integrators">Integrators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#samplers">Samplers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#films">Films</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#reconstruction-filters">Reconstruction filters</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/core_api.html">Core API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/render_api.html">Render API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/python_api.html">Python API Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../zz_bibliography.html">Bibliography</a></li>
+</ul>
+
+    
+  </div>
+</div>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="../../search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="../../index.html">Docs</a></li>
+              
+              <li>编译系统</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <div class="section" id="sec-compiling">
+<span id="id1"></span><h1>编译系统<a class="headerlink" href="#sec-compiling" title="Permalink to this headline">¶</a></h1>
+<p>在继续之前，请却表你已经完成阅读并遵循了以下两个章节 <a class="reference internal" href="cloning.html#sec-cloning"><span class="std std-ref">cloning Mitsuba 2 and its dependencies</span></a>
+和 <a class="reference internal" href="variants.html#sec-variants"><span class="std std-ref">choosing desired variants</span></a>。</p>
+<p>从头开始编译 Mitsuba 2需要最新版的 CMake(至少是 <strong>3.9.0</strong>)和 Python（至少是 <strong>3.6</strong>）。
+下面为每种操作系统提供了平台特定的依赖项和编译说明。本节末尾介绍的是基于 GPU 后端需要的一些额外步骤。</p>
+<div class="section" id="linux">
+<h2>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h2>
+<p>Linux 下的构建过程需要几个外部依赖项，这些依赖项可以使用系统提供的包管理器轻松安装（例如，Ubuntu 下的 <span class="monosp">apt-get</span>）。</p>
+<p>请注意，最近的 Linux 发行版包括两个不同的编译器，它们都可以用于 C++ 软件开发。
+<a class="reference external" href="https://gcc.gnu.org">GCC</a> 通常是默认设置，而 <a class="reference external" href="https://clang.llvm.org">Clang</a> 是可以选择安装的。
+在本项目的开发过程中，我们遇到了很多关于 GCC 的问题(mis-compilations, compiler errors, segmentation faults)，
+强烈建议你使用 Clang 进行编译。</p>
+<p>要获取所有依赖项和 Clang，请在 Ubuntu 上输入以下命令：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install recent versions build tools, including Clang and libc++ (Clang&#39;s C++ library)</span>
+sudo apt install -y clang-9 libc++-9-dev libc++abi-9-dev cmake ninja-build
+
+<span class="c1"># Install libraries for image I/O and the graphical user interface</span>
+sudo apt install -y libz-dev libpng-dev libjpeg-dev libxrandr-dev libxinerama-dev libxcursor-dev
+
+<span class="c1"># Install required Python packages</span>
+sudo apt install -y python3-dev python3-distutils python3-setuptools
+</pre></div>
+</div>
+<p>运行包含的测试套件或生成 HTML 文档需要的其他包（请参阅 <span class="xref std std-ref">Developer guide</span>）。
+如果你对这些内容感兴趣，输入以下命令：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># For running tests</span>
+sudo apt install -y python3-pytest python3-pytest-xdist python3-numpy
+
+<span class="c1"># For generating the documentation</span>
+sudo apt install -y python3-sphinx python3-guzzle-sphinx-theme python3-sphinxcontrib.bibtex
+</pre></div>
+</div>
+<p>接下来，确保导入了两个环境变量 <span class="monosp">CC</span> 和 <span class="monosp">CXX</span> 。你可以在使用 CMake 之前手动运行这两个命令—或者
+更进一步，将它们添加到你的 <span class="monosp">~/.bashrc</span> 文件中。这可以保证 CMake 总是使用正确的编译器。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">CC</span><span class="o">=</span>clang-9
+<span class="nb">export</span> <span class="nv">CXX</span><span class="o">=</span>clang++-9
+</pre></div>
+</div>
+<p>如果你安装了另一个版本的 Clang，版本后缀需要相应做出调整。随后，在 <span class="monosp">mitsuba2</span> 根目录中运行以下命令，编译就可以
+很简单的完成了。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a directory where build products are stored</span>
+mkdir build
+<span class="nb">cd</span> build
+cmake -GNinja ..
+ninja
+</pre></div>
+</div>
+<div class="section" id="tested-version">
+<h3>Tested version<a class="headerlink" href="#tested-version" title="Permalink to this headline">¶</a></h3>
+<p>上述的过程可以适用于许多不同风格的 Linux（只需对包管理器和包名进行轻微的调整）。我们主要使用的是下面列出的软件环境，
+在这种情况下，我们的说明应该可以正常工作并且不需要修改。</p>
+<ul class="simple">
+<li><p>Ubuntu 19.10</p></li>
+<li><p>clang 9.0.0-2 (tags/RELEASE_900/final)</p></li>
+<li><p>cmake 3.13.4</p></li>
+<li><p>ninja 1.9.0</p></li>
+<li><p>python 3.7.5</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="windows">
+<h2>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h2>
+<p>Windows 平台上, 需要最新版的 <a class="reference external" href="https://visualstudio.microsoft.com/vs/">Visual Studio 2019</a> 。 还有一些其他工具，例如git、
+CMake、还有 Python (e.g. 通过 <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda 3</a>) 等需要手动安装。 Mitsuba 的构建系统</p>
+<blockquote>
+<div><p><em>需要接入</em>  Python &gt;= 3.6 ，即使你并不打算使用 Mitsuba 的 Python 接口。</p>
+</div></blockquote>
+<p>在 <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">mitsuba2</span></code> 的根目录下，构建过程可以如此配置：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># To be safe, explicitly ask for the 64 bit version of Visual Studio</span>
+cmake -G <span class="s2">&quot;Visual Studio 16 2019&quot;</span> -A x64
+</pre></div>
+</div>
+<p>在这之后，打开生成的 <code class="docutils literal notranslate"><span class="pre">mitsuba.sln</span></code> 文件，接下来在 Visual Studio 像往常一样进行构建即可。
+你可能还需要将构建模式设置为 <em>Release</em>。</p>
+<p>运行包含的测试套件或生成 HTML 文档需要的其他包（请参阅 <span class="xref std std-ref">Developer guide</span>）。
+如果你对这些内容感兴趣，输入以下命令：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install pytest numpy sphinx
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h3>Tested version<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Windows 10</p></li>
+<li><p>Visual Studio 2019 (Community Edition) Version 16.4.5</p></li>
+<li><p>cmake 3.16.4 (64bit)</p></li>
+<li><p>git 2.25.1 (64bit)</p></li>
+<li><p>Miniconda3 4.7.12.1 (64bit)</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="macos">
+<h2>macOS<a class="headerlink" href="#macos" title="Permalink to this headline">¶</a></h2>
+<p>macOS 平台上，你需要安装 Xcode，CMake 和 <a class="reference external" href="https://ninja-build.org/">Ninja</a>。
+除此之外，还需要运行一次 Xcode 命令行工具。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>xcode-select --install
+</pre></div>
+</div>
+<p>注意，macOS 中默认 Python 版本与 Mitsuba 2不兼容，因此你需要安装更新的版本 Python（至少3.6，通过 <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda 3</a> 或 <a class="reference external" href="https://brew.sh/">Homebrew</a>)。</p>
+<p>随后，在 <span class="monosp">mitsuba2</span> 根目录中运行以下命令，编译就可以 很简单的完成了：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir build
+<span class="nb">cd</span> build
+cmake -GNinja ..
+ninja
+</pre></div>
+</div>
+<div class="section" id="id4">
+<h3>Tested version<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>macOS Catalina 10.15.2</p></li>
+<li><p>Xcode 11.3.1</p></li>
+<li><p>cmake 3.16.4</p></li>
+<li><p>Python 3.7.3</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="running-mitsuba">
+<h2>Running Mitsuba<a class="headerlink" href="#running-mitsuba" title="Permalink to this headline">¶</a></h2>
+<p>一旦 Mitsuba 的编译完成之后， 运行 <code class="docutils literal notranslate"><span class="pre">setpath.sh/bat</span></code> 脚本以配置环境变量(<code class="docutils literal notranslate"><span class="pre">PATH/LD_LIBRARY_PATH/PYTHONPATH</span></code>) that are required
+才能运行 Mitsuba。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># On Linux / Mac OS</span>
+<span class="nb">source</span> setpath.sh
+
+<span class="c1"># On Windows</span>
+C:/.../mitsuba2&gt; setpath
+</pre></div>
+</div>
+<p>然后就可以顺利通过命令行输入来使用 Mitsuba 来渲染场景了。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mitsuba scene.xml
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">scene.xml</span></code> 是一个 Mitsuba 场景文件。或者有，</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mitsuba -m scalar_spectral_polarized scene.xml
+</pre></div>
+</div>
+<p>这是使用之前在 <span class="monosp">mitsuba.conf</span> 启用的指定变体模式进行渲染，调用 <code class="docutils literal notranslate"><span class="pre">mitsuba</span> <span class="pre">--help</span></code> 以
+打印关于命令行选项的额外信息详细查看。</p>
+</div>
+<div class="section" id="gpu-variants">
+<h2>GPU variants<a class="headerlink" href="#gpu-variants" title="Permalink to this headline">¶</a></h2>
+<p>运行在 GPU 上的 Mitsuba 变体（例如， <span class="monosp">gpu_rgb</span>,
+<span class="monosp">gpu_autodiff_spectral</span> 等）都另外依赖于 <a class="reference external" href="https://developer.nvidia.com/cuda-downloads">NVIDIA CUDA
+Toolkit</a> 和 <a class="reference external" href="https://developer.nvidia.com/designworks/optix/download">NVIDIA OptiX</a>。
+需要手动安装 CUDA，而 OptiX 7 自带了最新的 GPU 驱动。如果框架无法编译 Mitsuba
+的 GPU 变体，请确保拥有最新的 GPU 驱动程序。</p>
+<p>我们测试过的 CUDA 版本包括 10.0，10.1，和 10.2。 当前只有 OptiX 7 是被支持的。</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>目前，基于 GPU 渲染 和 可微渲染都不支持在 macOS 运行，遗憾的是这一点在未来也不太可能改变。
+几年前，Apple 己经将 NVIDIA 显卡（包含其 API，如 Mitsuba 所依赖的 CUDA）从 Mac 生态中驱逐出去了。
+如果你对这一情况不满意，请向 Apple 发声。</p>
+</div>
+<p>如果 CMake 未能自动找到你安装的 CUDA(例如，目录不在 <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">PATH</span></code> 中)，你需要设置环境变量 <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">CUDACXX</span></code> 或者将 CMake 缓存
+条目 <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">CMAKE_CUDA_COMPILER</span></code> 的全路径设置到编译器，例如：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Environment variable</span>
+<span class="nb">export</span> <span class="nv">CUDACXX</span><span class="o">=</span>/usr/local/cuda/bin/nvcc
+
+<span class="c1"># or</span>
+
+<span class="c1"># As part of the CMake process</span>
+cmake .. -DCMAKE_CUDA_COMPILER<span class="o">=</span>/usr/local/cuda/bin/nvcc
+</pre></div>
+</div>
+<p>默认情况下， Mitsuba 能够解析 OptiX API 本身，因此不依赖于 <code class="docutils literal notranslate"><span class="pre">optix.h</span></code> 头文件。
+如果开发者想要实验 OptiX API 中尚未添加到框架的部分的话，可通过 CMake
+标志 <code class="docutils literal notranslate"><span class="pre">MTS_USE_OPTIX_HEADERS</span></code> 来关闭此功能，。</p>
+</div>
+<div class="section" id="embree">
+<h2>Embree<a class="headerlink" href="#embree" title="Permalink to this headline">¶</a></h2>
+<p>Mitsuba 的 <code class="docutils literal notranslate"><span class="pre">scalar</span></code> 和 <code class="docutils literal notranslate"><span class="pre">packet</span></code> 后端可以选择使用 Intel 的 Embree
+库负责计算光线追踪部分，而不是使用 Mitsuba 2 中内置的 kd-tree。
+调用 CMake 时通过 <code class="docutils literal notranslate"><span class="pre">-DMTS_ENABLE_EMBREE=1</span></code> 参数或者在 <code class="docutils literal notranslate"><span class="pre">cmake-gui</span></code> 或 <code class="docutils literal notranslate"><span class="pre">ccmake</span></code>
+这样的 CMake 可视化工具中，反转这一参数的值，来实现后端计算库的调整。
+Embree 速度往往更快，但会缺乏一些功能，例如支持双精度光线相交等。</p>
+</div>
+</div>
+
+
+          </div>
+            
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="variants.html" title="previous chapter (use the left arrow)">选择变体</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="file_format.html" title="next chapter (use the right arrow)">场景文件格式</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="file_format.html" title="场景文件格式"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="variants.html" title="选择变体"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">编译系统</a></li> 
+      </ul>
+    </div>
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $(".toggle > *").hide();
+        $(".toggle .header").show();
+        $(".toggle .header").click(function() {
+            $(this).parent().children().not(".header").toggle(400);
+            $(this).parent().children(".header").toggleClass("open");
+        })
+    });
+</script>
+
+  </body>
+</html>

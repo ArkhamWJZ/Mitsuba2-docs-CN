@@ -1,0 +1,575 @@
+<!-- Based on https://stackoverflow.com/a/25543713/1130282 -->
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>场景文件格式 &#8212; mitsuba2 0.1.dev0 documentation</title>
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/theme_overrides.css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Differences to Mitsuba 0.6" href="differences.html" />
+    <link rel="prev" title="编译系统" href="compiling.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="differences.html" title="Differences to Mitsuba 0.6"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="compiling.html" title="编译系统"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">场景文件格式</a></li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar"><a href="
+    ../../index.html" class="text-logo">Mitsuba 2</a>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Table Of Contents</h2>
+  </div>
+  <div class="sidebar-toc">
+    
+    
+      <p class="caption"><span class="caption-text">Overview</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloning.html">Cloning the repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="variants.html">选择变体</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compiling.html">编译系统</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">场景文件格式</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#properties">Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#default-parameters">Default parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#including-external-files">Including external files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#aliases">Aliases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#external-resource-folders">External resource folders</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="differences.html">Differences to Mitsuba 0.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">常见问题概览</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python interface</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/intro.html">介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/parsing_xml.html">XML 代码解析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/rendering_scene.html">渲染场景</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/bsdf_eval.html">自定义应用</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Inverse rendering</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/diff_render.html">Differentiable rendering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/advanced.html">More advanced examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inverse_rendering/pytorch.html">Integration with PyTorch</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/intro.html">介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/variants_cpp.html">C++ 中的变体</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/writing_plugin.html">插件 &amp; 宏</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/testing.html">测试</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/debugging.html">调试 Debug</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/building_documentation.html">Building the documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/polarization.html">偏振</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/custom_plugins.html">在 Python 中自定义插件</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Plugin reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../plugin_reference/intro.html">Plugin 参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html">形状插件 Shape</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#bsdfs">BSDFs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#phase-functions">Phase functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#emitters">Emitters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#sensors">Sensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#textures">Textures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#spectra">Spectra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#integrators">Integrators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#samplers">Samplers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#films">Films</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#reconstruction-filters">Reconstruction filters</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/core_api.html">Core API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/render_api.html">Render API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/python_api.html">Python API Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../zz_bibliography.html">Bibliography</a></li>
+</ul>
+
+    
+  </div>
+</div>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="../../search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="../../index.html">Docs</a></li>
+              
+              <li>场景文件格式</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <div class="section" id="sec-file-format">
+<span id="id1"></span><h1>场景文件格式<a class="headerlink" href="#sec-file-format" title="Permalink to this headline">¶</a></h1>
+<p>Mitsuba 使用简单且通用的 XML 格式来表示场景。我们框架的设计理念是表示离散的功能模块为插件，
+由此，一个场景文件可以被认为是关于实例化哪些插件以及这些插件之间如何组合的“配方”。接下来，我
+们将通过几个示例来了解场景文件格式的作用。</p>
+<p>具有一个网格物体，默认照明和摄像机设置的简单场景如下所示：</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;scene</span> <span class="na">version=</span><span class="s">&quot;2.0.0&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;shape</span> <span class="na">type=</span><span class="s">&quot;obj&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">&quot;filename&quot;</span> <span class="na">value=</span><span class="s">&quot;dragon.obj&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/shape&gt;</span>
+<span class="nt">&lt;/scene&gt;</span>
+</pre></div>
+</div>
+<p>第一行的 <code class="docutils literal notranslate"><span class="pre">version</span></code> 属性表示用来创建场景的 Mitsuba 版本。该信息允许 Mitsuba 能够正确处理该
+文件，不用考虑未来场景描述语言的潜在任何变化。</p>
+<dl class="simple">
+<dt>这个例子已经包含了很多关于场景格式方面需要了解的重要信息：包括 <em>渲染对象</em> （比如，那些由 <code class="docutils literal notranslate"><span class="pre">&lt;scene&gt;</span></code> 或</dt><dd><p><code class="docutils literal notranslate"><span class="pre">&lt;shape&gt;</span></code> 标签实例化的对象）对象间可以相互嵌套。每个对象都可以选择表征其特性的 <em>属性值</em> （比如，<code class="docutils literal notranslate"><span class="pre">&lt;string&gt;</span></code> 标签）。</p>
+</dd>
+</dl>
+<p>除了根对象（ <code class="docutils literal notranslate"><span class="pre">&lt;scene&gt;</span></code> ）之外的所有对象都会引发渲染器从磁盘中搜索和加载相应插件，因此你必须通过 <code class="docutils literal notranslate"><span class="pre">type=&quot;..&quot;</span></code> 参数提供
+插件名称。</p>
+<p>对象标签还可以让渲染器知道要实例化的对象是 <em>什么样</em> 的类型：例如，任何那些使用 <code class="docutils literal notranslate"><span class="pre">&lt;shape&gt;</span></code> 标签加载的插件
+都必须符合 <em>Shape</em> 接口，在上述的场景示例中指的就是名为 <code class="docutils literal notranslate"><span class="pre">obj</span></code> 的插件（它包含了一个 <a class="reference internal" href="../../generated/plugins.html#shape-obj"><span class="std std-ref">Wavefront OBJ 加载器</span></a> ）。
+类似的，你可以编写：</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;scene</span> <span class="na">version=</span><span class="s">&quot;2.0.0&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;shape</span> <span class="na">type=</span><span class="s">&quot;sphere&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;float</span> <span class="na">name=</span><span class="s">&quot;radius&quot;</span> <span class="na">value=</span><span class="s">&quot;10&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/shape&gt;</span>
+<span class="nt">&lt;/scene&gt;</span>
+</pre></div>
+</div>
+<p>这个例子加载了一个不同的插件( <code class="docutils literal notranslate"><span class="pre">sphere</span></code> )，但该插件仍然是 <em>Shape</em> ，表示的是10个世界单位的
+<a class="reference internal" href="../../generated/plugins.html#shape-sphere"><span class="std std-ref">sphere</span></a> 。Mitsuba 随附了大量的插件，有关这些插件的详细概览，请参阅下
+一章节。</p>
+<p>最常见的场景设置说明是声明一个集合体、一些几何物体、一个传感器（例如摄像机）、一个胶片、一个采样器
+和一个或多个光源。这里提供了一个稍微复杂一点的例子：</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;scene</span> <span class="na">version=</span><span class="s">&quot;2.0.0&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;integrator</span> <span class="na">type=</span><span class="s">&quot;path&quot;</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!-- Instantiate a path tracer with a max. path length of 8 --&gt;</span>
+        <span class="nt">&lt;integer</span> <span class="na">name=</span><span class="s">&quot;max_depth&quot;</span> <span class="na">value=</span><span class="s">&quot;8&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/integrator&gt;</span>
+
+    <span class="c">&lt;!-- Instantiate a perspective camera with 45 degrees field of view --&gt;</span>
+    <span class="nt">&lt;sensor</span> <span class="na">type=</span><span class="s">&quot;perspective&quot;</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!-- Rotate the camera around the Y axis by 180 degrees --&gt;</span>
+        <span class="nt">&lt;transform</span> <span class="na">name=</span><span class="s">&quot;to_world&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;rotate</span> <span class="na">y=</span><span class="s">&quot;1&quot;</span> <span class="na">angle=</span><span class="s">&quot;180&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/transform&gt;</span>
+        <span class="nt">&lt;float</span> <span class="na">name=</span><span class="s">&quot;fov&quot;</span> <span class="na">value=</span><span class="s">&quot;45&quot;</span><span class="nt">/&gt;</span>
+
+        <span class="c">&lt;!-- Render with 32 samples per pixel using a basic</span>
+<span class="c">             independent sampling strategy --&gt;</span>
+        <span class="nt">&lt;sampler</span> <span class="na">type=</span><span class="s">&quot;independent&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;integer</span> <span class="na">name=</span><span class="s">&quot;sample_count&quot;</span> <span class="na">value=</span><span class="s">&quot;32&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/sampler&gt;</span>
+
+        <span class="c">&lt;!-- Generate an EXR image at HD resolution --&gt;</span>
+        <span class="nt">&lt;film</span> <span class="na">type=</span><span class="s">&quot;hdrfilm&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;integer</span> <span class="na">name=</span><span class="s">&quot;width&quot;</span> <span class="na">value=</span><span class="s">&quot;1920&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;integer</span> <span class="na">name=</span><span class="s">&quot;height&quot;</span> <span class="na">value=</span><span class="s">&quot;1080&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/film&gt;</span>
+    <span class="nt">&lt;/sensor&gt;</span>
+
+    <span class="c">&lt;!-- Add a dragon mesh made of rough glass (stored as OBJ file) --&gt;</span>
+    <span class="nt">&lt;shape</span> <span class="na">type=</span><span class="s">&quot;obj&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">&quot;filename&quot;</span> <span class="na">value=</span><span class="s">&quot;dragon.obj&quot;</span><span class="nt">/&gt;</span>
+
+        <span class="nt">&lt;bsdf</span> <span class="na">type=</span><span class="s">&quot;roughdielectric&quot;</span><span class="nt">&gt;</span>
+            <span class="c">&lt;!-- Tweak the roughness parameter of the material --&gt;</span>
+            <span class="nt">&lt;float</span> <span class="na">name=</span><span class="s">&quot;alpha&quot;</span> <span class="na">value=</span><span class="s">&quot;0.01&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/bsdf&gt;</span>
+    <span class="nt">&lt;/shape&gt;</span>
+
+    <span class="c">&lt;!-- Add another mesh, this time, stored using Mitsuba&#39;s own</span>
+<span class="c">         (compact) binary representation --&gt;</span>
+    <span class="nt">&lt;shape</span> <span class="na">type=</span><span class="s">&quot;serialized&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">&quot;filename&quot;</span> <span class="na">value=</span><span class="s">&quot;lightsource.serialized&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;transform</span> <span class="na">name=</span><span class="s">&quot;toWorld&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;translate</span> <span class="na">x=</span><span class="s">&quot;5&quot;</span> <span class="na">y=</span><span class="s">&quot;-3&quot;</span> <span class="na">z=</span><span class="s">&quot;1&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/transform&gt;</span>
+
+        <span class="c">&lt;!-- This mesh is an area emitter --&gt;</span>
+        <span class="nt">&lt;emitter</span> <span class="na">type=</span><span class="s">&quot;area&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;rgb</span> <span class="na">name=</span><span class="s">&quot;radiance&quot;</span> <span class="na">value=</span><span class="s">&quot;100,400,100&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/emitter&gt;</span>
+    <span class="nt">&lt;/shape&gt;</span>
+<span class="nt">&lt;/scene&gt;</span>
+</pre></div>
+</div>
+<p>这个例子引入了几个新的对象类型 (<code class="docutils literal notranslate"><span class="pre">integrator</span></code>, <code class="docutils literal notranslate"><span class="pre">sensor</span></code>, <code class="docutils literal notranslate"><span class="pre">bsdf</span></code>, <code class="docutils literal notranslate"><span class="pre">sampler</span></code>, <code class="docutils literal notranslate"><span class="pre">film</span></code>, 和``emitter``)
+以及属性类型 (<code class="docutils literal notranslate"><span class="pre">integer</span></code>, <code class="docutils literal notranslate"><span class="pre">transform</span></code>, 和 <code class="docutils literal notranslate"><span class="pre">rgb</span></code>)。正如你在示例中看到的，对象声明通常发生在顶层，除非存在链接到
+另一对象的某种继承关系。例如，BSDFs 通常特定于某个几何物体，它应该表现为 shape 的子类型。同样，sampler 和 film 会影响
+sensor 产生光线的方式，以及其记录样本产生的辐射度的方式。下列表格概述了可用的对象类型：</p>
+<div class="figure align-center" id="table-xml-objects">
+<center><table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 53%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>XML tag</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">type</span></code> examples</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">bsdf</span></code></p></td>
+<td><p>BSDF describe the manner in which light interacts with surfaces in the scene (i.e., the <em>material</em>)</p></td>
+<td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">diffuse</span></code>, <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">conductor</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">emitter</span></code></p></td>
+<td><p>Emitter plugins specify light sources and their characteristic emission profiles.</p></td>
+<td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">constant</span></code>, <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">envmap</span></code>, <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">point</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">film</span></code></p></td>
+<td><p>Film plugins convert measurements into the final output file that is written to disk</p></td>
+<td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">hdrfilm</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">integrator</span></code></p></td>
+<td><p>Integrators implement rendering techniques for solving the light transport equation</p></td>
+<td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">path</span></code>, <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">direct</span></code>, <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">depth</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">rfilter</span></code></p></td>
+<td><p>Reconstruction filters control how the <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">film</span></code> converts a set of samples into the output image</p></td>
+<td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">box</span></code>, <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">gaussian</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">sampler</span></code></p></td>
+<td><p>Sample generator plugins used by the <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">integrator</span></code></p></td>
+<td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">independent</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">sensor</span></code></p></td>
+<td><p>Sensor plugins like cameras are responsible for measuring radiance</p></td>
+<td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">perspective</span></code>, <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">orthogonal</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">shape</span></code></p></td>
+<td><p>Shape puglins define surfaces that mark transitions between different types of materials</p></td>
+<td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">obj</span></code>, <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">ply</span></code>, <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">serialized</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">texture</span></code></p></td>
+<td><p>Texture plugins represent spatially varying signals on surfaces</p></td>
+<td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">bitmap</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p class="caption"><span class="caption-text">此表列出了不同类型的对象及其各自的标签。它还为每个类别提供了可用的示例插件。</span></p>
+</center></div><div class="section" id="properties">
+<span id="table-xml-objects"></span><h2>Properties<a class="headerlink" href="#properties" title="Permalink to this headline">¶</a></h2>
+<p>本小节记录了将属性提供给对象的所有方式。如果你更想了解某个插件能接受的属性有哪些，
+可以参阅 <a class="reference internal" href="../plugin_reference/intro.html#sec-plugins"><span class="std std-ref">plugin documentation</span></a>。</p>
+<div class="section" id="numbers">
+<h3>Numbers<a class="headerlink" href="#numbers" title="Permalink to this headline">¶</a></h3>
+<p>整数值和浮点值可以按如下方式传递：</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;integer</span> <span class="na">name=</span><span class="s">&quot;int_property&quot;</span> <span class="na">value=</span><span class="s">&quot;1234&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;float</span> <span class="na">name=</span><span class="s">&quot;float_property&quot;</span> <span class="na">value=</span><span class="s">&quot;-1.5e3&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p>请注意，必须按照对象所期望的格式传递，即你不能将整数属性传递给需要与该名称关联的浮点属性的对象。</p>
+</div>
+<div class="section" id="booleans">
+<h3>Booleans<a class="headerlink" href="#booleans" title="Permalink to this headline">¶</a></h3>
+<p>布尔值可以按照如下方式进行传递：</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;boolean</span> <span class="na">name=</span><span class="s">&quot;bool_property&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="strings">
+<h3>Strings<a class="headerlink" href="#strings" title="Permalink to this headline">¶</a></h3>
+<p>传递字符串同样也很简单：</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">&quot;string_property&quot;</span> <span class="na">value=</span><span class="s">&quot;This is a string&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="vectors-positions">
+<h3>Vectors, Positions<a class="headerlink" href="#vectors-positions" title="Permalink to this headline">¶</a></h3>
+<p>点和向量可以按照如下方式进行指定：</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;point</span> <span class="na">name=</span><span class="s">&quot;point_property&quot;</span> <span class="na">value=</span><span class="s">&quot;3, 4, 5&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;vector</span> <span class="na">name=</span><span class="s">&quot;vector_property&quot;</span> <span class="na">value=</span><span class="s">&quot;3, 4, 5&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Mitsuba 没有规定具体的距离度量单位（米、厘米、英寸等）。你需要考虑的唯一一个要求就是在
+整个场景中始终遵循一个约定即可。</p>
+</div>
+</div>
+<div class="section" id="rgb-colors">
+<h3>RGB Colors<a class="headerlink" href="#rgb-colors" title="Permalink to this headline">¶</a></h3>
+<p>在 Mitsuba 中颜色空间表示要么使用 <code class="docutils literal notranslate"><span class="pre">&lt;rgb&gt;</span></code> 标签，要么使用 <code class="docutils literal notranslate"><span class="pre">&lt;spectrum&gt;</span></code> 标签指定。
+RGB 颜色的释出可以如下：</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rgb</span> <span class="na">name=</span><span class="s">&quot;color_property&quot;</span> <span class="na">value=</span><span class="s">&quot;0.2, 0.8, 0.4&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p>取决于渲染器当前激活的变体模式是哪一个。 例如， <code class="docutils literal notranslate"><span class="pre">scalar_rgb</span></code> 简单的将颜色转发到底层插件中，
+不做任何修改。相比之下，<code class="docutils literal notranslate"><span class="pre">scalar_spectral</span></code> 在 RGB 值没有意义的光谱域中运作—糟糕的是，每种
+RGB 颜色都对应了一个无限大的光谱集合。Mitsuba 使用了 Jakob 和 Hanika 方法 <a class="bibtex reference internal" href="../../zz_bibliography.html#jakob2019spectral" id="id2">[JH19]</a>
+在所有可能选项中选择一个较合理的平滑光谱。下面是一个例子：</p>
+<a class="reference internal image-reference" href="../../_images/upsampling.jpg"><img alt="../../_images/upsampling.jpg" class="align-center" src="../../_images/upsampling.jpg" style="width: 100%;" /></a>
+</div>
+<div class="section" id="color-spectra">
+<h3>Color spectra<a class="headerlink" href="#color-spectra" title="Permalink to this headline">¶</a></h3>
+<p>一个指定特定颜色值的更准确方式是使用 <code class="docutils literal notranslate"><span class="pre">&lt;spectrum&gt;</span></code> 标签，以 <em>纳米级</em> 为单位记录了多离散波长的反射/强度值。</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;spectrum</span> <span class="na">name=</span><span class="s">&quot;color_property&quot;</span> <span class="na">value=</span><span class="s">&quot;400:0.56, 500:0.18, 600:0.58, 700:0.24&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p>产生的光谱是在波长间进行线性插值得到的，并规定在指定波长范围之外时等于0。下面精简的创建了一个跨波长均匀的光谱：</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;spectrum</span> <span class="na">name=</span><span class="s">&quot;color_property&quot;</span> <span class="na">value=</span><span class="s">&quot;0.5&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p>当光谱功率或反射率分布是通过测量获得的时（例如，以10纳米为间隔），通常会很难处理，
+并且可能会使场景描述文件变得杂乱。因此我们还提供了一种从外部文件中加载光谱的方式：</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;spectrum</span> <span class="na">name=</span><span class="s">&quot;color_property&quot;</span> <span class="na">filename=</span><span class="s">&quot;measured_spectrum.spd&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p>该文件每行应包含一次测量，相应的波长以纳米为单位，测量值以空格分隔。在文件中进行注释也是允许的。
+下面提供了一个示例：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># This file contains a measured spectral power/reflectance distribution
+406.13 0.703313
+413.88 0.744563
+422.03 0.791625
+430.62 0.822125
+435.09 0.834000
+...
+</pre></div>
+</div>
+<p>有关 Mitsuba 2 光谱信息的详细信息，请参阅文档中插件那一章的 <a class="reference internal" href="../../generated/plugins.html#sec-spectra"><span class="std std-ref">相应小节</span></a> 。
+For more details regarding spectral information in Mitsuba 2, please have a look
+at the <a class="reference internal" href="../../generated/plugins.html#sec-spectra"><span class="std std-ref">corresponding section</span></a> in the plugin documentation.</p>
+</div>
+<div class="section" id="transformations">
+<h3>Transformations<a class="headerlink" href="#transformations" title="Permalink to this headline">¶</a></h3>
+<p>变换是唯一一个需要多个标签的属性。其想法是，从标识开始，可以使用一系列指令完成一个变换过程。
+例如，一个包含平移和旋转的变换可以写成这样：</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;transform</span> <span class="na">name=</span><span class="s">&quot;trafo_property&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;translate</span> <span class="na">value=</span><span class="s">&quot;-1, 3, 4&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;rotate</span> <span class="na">y=</span><span class="s">&quot;1&quot;</span> <span class="na">angle=</span><span class="s">&quot;45&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/transform&gt;</span>
+</pre></div>
+</div>
+<p>Mathematically, each incremental transformation in the sequence is
+left-multiplied onto the current one. The following choices are available:</p>
+<ul>
+<li><p>平移:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;translate</span> <span class="na">value=</span><span class="s">&quot;-1, 3, 4&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p>绕指定轴逆时针旋转，角度以度为单位给出：</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rotate</span> <span class="na">value=</span><span class="s">&quot;0.701, 0.701, 0&quot;</span> <span class="na">angle=</span><span class="s">&quot;180&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p>放缩。 可以通过传递负值得到翻转：</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;scale</span> <span class="na">value=</span><span class="s">&quot;5&quot;</span><span class="nt">/&gt;</span>        <span class="c">&lt;!-- uniform scale --&gt;</span>
+<span class="nt">&lt;scale</span> <span class="na">value=</span><span class="s">&quot;2, 1, -1&quot;</span><span class="nt">/&gt;</span> <span class="c">&lt;!-- non-uniform scale --&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p>按照行主优先顺序显式声明一个 4x4 矩阵：</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;matrix</span> <span class="na">value=</span><span class="s">&quot;0 -0.53 0 -1.79 0.92 0 0 8.03 0 0 0.53 0 0 0 0 1&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p>按照行主优先顺序显式声明一个 3x3 矩阵。在渲染系统内部，它将被转化为 4x4 方阵，其最后一行、最后一列与单位矩阵相同。</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;matrix</span> <span class="na">value=</span><span class="s">&quot;0.57 0.2 0 0.1 -1 0 0 0 1&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">lookat</span></code> 变换 – 主要用于摄像机设置.  <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">origin</span></code> 坐标指定了摄像机原点， <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">target</span></code> 指向摄像机看的方向，  <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">up</span></code> (optional)参数决定了最终渲染图的 <em>向上方向</em>。</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;lookat</span> <span class="na">origin=</span><span class="s">&quot;10, 50, -800&quot;</span> <span class="na">target=</span><span class="s">&quot;0, 0, 0&quot;</span> <span class="na">up=</span><span class="s">&quot;0, 1, 0&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<p>通常，你会发现自己在许多地方会重复使用同一个的对象（例如材质等）。为了避免一次又一次的浪费内存的声明，
+你可以通过使用引用来进行改善。下面是一个例子，说明了它是如何工作的：</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;scene</span> <span class="na">version=</span><span class="s">&quot;2.0.0&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;texture</span> <span class="na">type=</span><span class="s">&quot;bitmap&quot;</span> <span class="na">id=</span><span class="s">&quot;my_image&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">&quot;filename&quot;</span> <span class="na">value=</span><span class="s">&quot;textures/my_image.jpg&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/texture&gt;</span>
+
+    <span class="nt">&lt;bsdf</span> <span class="na">type=</span><span class="s">&quot;diffuse&quot;</span> <span class="na">id=</span><span class="s">&quot;my_material&quot;</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!-- Reference the texture named my_image and pass it</span>
+<span class="c">             to the BRDF as the reflectance parameter --&gt;</span>
+        <span class="nt">&lt;ref</span> <span class="na">name=</span><span class="s">&quot;reflectance&quot;</span> <span class="na">id=</span><span class="s">&quot;my_image&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/bsdf&gt;</span>
+
+    <span class="nt">&lt;shape</span> <span class="na">type=</span><span class="s">&quot;obj&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">&quot;filename&quot;</span> <span class="na">value=</span><span class="s">&quot;meshes/my_shape.obj&quot;</span><span class="nt">/&gt;</span>
+
+        <span class="c">&lt;!-- Reference the material named my_material --&gt;</span>
+        <span class="nt">&lt;ref</span> <span class="na">id=</span><span class="s">&quot;my_material&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/shape&gt;</span>
+<span class="nt">&lt;/scene&gt;</span>
+</pre></div>
+</div>
+<p>通过在对象声明中提供唯一的标识符 <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">id</span></code> 值，对象就可以在实例化时绑定到该标识符了。在随后
+引用此标识符（通过使用 <code class="docutils literal notranslate"><span class="pre">&lt;ref</span> <span class="pre">id=&quot;..&quot;/&gt;</span></code> 标签）就可以添加该实例到父对象中了。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>请注意，此功能旨在高效地处理在多个位置引用材质、纹理和分割介质，所以它不是能用于实例化几何体的。
+(实例化几何体可以使用 <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">instance</span></code> 插件， 但这还不是 Mitsuba 2 的一部分，不过在将来会添加上)</p>
+</div>
+</div>
+<div class="section" id="default-parameters">
+<span id="sec-scene-file-format-params"></span><h2>Default parameters<a class="headerlink" href="#default-parameters" title="Permalink to this headline">¶</a></h2>
+<p>场景中可以包含通过命令行提供的命名参数：</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;bsdf</span> <span class="na">type=</span><span class="s">&quot;diffuse&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;rgb</span> <span class="na">name=</span><span class="s">&quot;reflectance&quot;</span> <span class="na">value=</span><span class="s">&quot;$reflectance&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/bsdf&gt;</span>
+</pre></div>
+</div>
+<p>在该示例中，如果加载场景时没有从命令行按照 <code class="docutils literal notranslate"><span class="pre">-Dreflectance=...</span></code> 格式显式提供参数，则会报错。
+为方便起见，可以在未给出命令行参数时优先使用指定的默认参数值。 其语法为：</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;default</span> <span class="na">name=</span><span class="s">&quot;reflectance&quot;</span> <span class="na">value=</span><span class="s">&quot;something&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p>其必须位于 XML 文件中参数加载之前。</p>
+</div>
+<div class="section" id="including-external-files">
+<h2>Including external files<a class="headerlink" href="#including-external-files" title="Permalink to this headline">¶</a></h2>
+<p>一个场景可以被分割成多个片段，以增强可读性。 如需包含外部文件，请使用以下命令：
+A scene can be split into multiple pieces for better readability. To include an
+external file, please use the following command:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;include</span> <span class="na">filename=</span><span class="s">&quot;nested-scene.xml&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p>在该示例中，文件 <code class="docutils literal notranslate"><span class="pre">nested-scene.xml</span></code> 必须是一个根部带有 <code class="docutils literal notranslate"><span class="pre">&lt;scene&gt;</span></code> 标签的正确场景文件。</p>
+<p>此功能与 <code class="docutils literal notranslate"><span class="pre">mitsuba</span></code> 命令行渲染器的 <code class="docutils literal notranslate"><span class="pre">-D</span> <span class="pre">key=value</span></code> 标志配合使用通常会非常方便。这样就可
+以通过更改命令行参数来包含场景配置的不同变体，而无需接触 XML 文件：</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;include</span> <span class="na">filename=</span><span class="s">&quot;nested-scene-$version.xml&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="aliases">
+<h2>Aliases<a class="headerlink" href="#aliases" title="Permalink to this headline">¶</a></h2>
+<p>有时将一个对象与多个标识关联会非常有用。这可以使用 <code class="docutils literal notranslate"><span class="pre">alias</span> <span class="pre">as=&quot;..&quot;</span></code> 标签来完成：</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;bsdf</span> <span class="na">type=</span><span class="s">&quot;diffuse&quot;</span> <span class="na">id=</span><span class="s">&quot;my_material_1&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;alias</span> <span class="na">id=</span><span class="s">&quot;my_material_1&quot;</span> <span class="na">as=</span><span class="s">&quot;my_material_2&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p>该语句将漫反射模型绑定到了 <code class="docutils literal notranslate"><span class="pre">my_material_1</span></code> 和 <code class="docutils literal notranslate"><span class="pre">my_material_2</span></code> 两个标识符上。</p>
+</div>
+<div class="section" id="external-resource-folders">
+<h2>External resource folders<a class="headerlink" href="#external-resource-folders" title="Permalink to this headline">¶</a></h2>
+<p>使用 <code class="docutils literal notranslate"><span class="pre">path</span></code> 标签，可以往搜索路径中添加新的路径。这会非常有用，尤其是当某些网格和纹理存储在不同的目录中时（例如，当与其他场景共享这些资源时）。
+如果路径是相对路径，Mitsuba 2首先尝试在场景文件目录中进行搜索，随后查找搜索路径列表上的其他路径（在命令行中使用 <code class="docutils literal notranslate"><span class="pre">-a</span> <span class="pre">&lt;path1&gt;;&lt;path2&gt;;..</span></code> 添加路径）。</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;path</span> <span class="na">value=</span><span class="s">&quot;../../my_resources&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+            
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="compiling.html" title="previous chapter (use the left arrow)">编译系统</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="differences.html" title="next chapter (use the right arrow)">Differences to Mitsuba 0.6</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="differences.html" title="Differences to Mitsuba 0.6"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="compiling.html" title="编译系统"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">场景文件格式</a></li> 
+      </ul>
+    </div>
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $(".toggle > *").hide();
+        $(".toggle .header").show();
+        $(".toggle .header").click(function() {
+            $(this).parent().children().not(".header").toggle(400);
+            $(this).parent().children(".header").toggleClass("open");
+        })
+    });
+</script>
+
+  </body>
+</html>

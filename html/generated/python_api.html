@@ -1,0 +1,902 @@
+<!-- Based on https://stackoverflow.com/a/25543713/1130282 -->
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="../_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="../_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>Python API Reference &#8212; mitsuba2 0.1.dev0 documentation</title>
+    <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Bibliography" href="../zz_bibliography.html" />
+    <link rel="prev" title="Render API Reference" href="render_api.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../zz_bibliography.html" title="Bibliography"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="render_api.html" title="Render API Reference"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Python API Reference</a></li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar"><a href="
+    ../index.html" class="text-logo">Mitsuba 2</a>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Table Of Contents</h2>
+  </div>
+  <div class="sidebar-toc">
+    
+    
+      <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started/intro.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started/cloning.html">Cloning the repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started/variants.html">选择变体</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started/compiling.html">Compiling the system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started/file_format.html">Scene file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started/differences.html">Differences to Mitsuba 0.6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started/faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes.html">Release notes</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python interface</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../src/python_interface/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/python_interface/parsing_xml.html">Parsing XML code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/python_interface/rendering_scene.html">Rendering a scene</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/python_interface/bsdf_eval.html">Custom applications</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Inverse rendering</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../src/inverse_rendering/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/inverse_rendering/diff_render.html">Differentiable rendering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/inverse_rendering/advanced.html">More advanced examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/inverse_rendering/pytorch.html">Integration with PyTorch</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../src/developer_guide/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/developer_guide/variants_cpp.html">Variants in C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/developer_guide/writing_plugin.html">Plugins &amp; Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/developer_guide/testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/developer_guide/debugging.html">Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/developer_guide/building_documentation.html">Building the documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/developer_guide/polarization.html">Polarization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../src/advanced_topics/custom_plugins.html">Custom plugins in Python</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Plugin reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../src/plugin_reference/intro.html">Plugin reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins.html">Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins.html#bsdfs">BSDFs 大大大</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins.html#phase-functions">Phase functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins.html#emitters">Emitters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins.html#sensors">Sensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins.html#textures">Textures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins.html#spectra">Spectra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins.html#integrators">Integrators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins.html#samplers">Samplers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins.html#films">Films</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins.html#reconstruction-filters">Reconstruction filters</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../src/api_reference/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core_api.html">Core API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="render_api.html">Render API Reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Python API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#chi2">Chi2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#autodiff">Autodiff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#other">Other</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../zz_bibliography.html">Bibliography</a></li>
+</ul>
+
+    
+  </div>
+</div>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="../search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="../index.html">Docs</a></li>
+              
+              <li>Python API Reference</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <div class="section" id="python-api-reference">
+<span id="sec-api-python"></span><h1>Python API Reference<a class="headerlink" href="#python-api-reference" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="chi2">
+<h2>Chi2<a class="headerlink" href="#chi2" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="mitsuba.python.chi2.BSDFAdapter">
+<code class="sig-prename descclassname">mitsuba.python.chi2.</code><code class="sig-name descname">BSDFAdapter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bsdf_type</span></em>, <em class="sig-param"><span class="n">extra</span></em>, <em class="sig-param"><span class="n">wi</span><span class="o">=</span><span class="default_value">[0, 0, 1]</span></em>, <em class="sig-param"><span class="n">ctx</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.chi2.BSDFAdapter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adapter to test BSDF sampling using the Chi^2 test.</p>
+<dl class="simple">
+<dt>Parameter <code class="docutils literal notranslate"><span class="pre">bsdf_type</span></code> (string):</dt><dd><p>Name of the BSDF plugin to instantiate.</p>
+</dd>
+<dt>Parameter <code class="docutils literal notranslate"><span class="pre">extra</span></code> (string):</dt><dd><p>Additional XML used to specify the BSDF’s parameters.</p>
+</dd>
+<dt>Parameter <code class="docutils literal notranslate"><span class="pre">wi</span></code> (array(3,)):</dt><dd><p>Incoming direction, in local coordinates.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py class">
+<dt id="mitsuba.python.chi2.ChiSquareTest">
+<em class="property">class </em><code class="sig-prename descclassname">mitsuba.python.chi2.</code><code class="sig-name descname">ChiSquareTest</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">domain</span></em>, <em class="sig-param"><span class="n">sample_func</span></em>, <em class="sig-param"><span class="n">pdf_func</span></em>, <em class="sig-param"><span class="n">sample_dim</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">sample_count</span><span class="o">=</span><span class="default_value">1000000</span></em>, <em class="sig-param"><span class="n">res</span><span class="o">=</span><span class="default_value">101</span></em>, <em class="sig-param"><span class="n">ires</span><span class="o">=</span><span class="default_value">4</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.chi2.ChiSquareTest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements Pearson’s chi-square test for goodness of fit of a distribution
+to a known reference distribution.</p>
+<p>The implementation here specifically compares a Monte Carlo sampling
+strategy on a 2D (or lower dimensional) space against a reference
+distribution obtained by numerically integrating a probability density
+function over grid in the distribution’s parameter domain.</p>
+<dl class="simple">
+<dt>Parameter <code class="docutils literal notranslate"><span class="pre">domain</span></code> (object):</dt><dd><p>An implementation of the domain interface (<code class="docutils literal notranslate"><span class="pre">SphericalDomain</span></code>, etc.),
+which transforms between the parameter and target domain of the
+distribution</p>
+</dd>
+<dt>Parameter <code class="docutils literal notranslate"><span class="pre">sample_func</span></code> (function):</dt><dd><p>An importance sampling function which maps an array of uniform variates
+of size <code class="docutils literal notranslate"><span class="pre">[sample_dim,</span> <span class="pre">sample_count]</span></code> to an array of <code class="docutils literal notranslate"><span class="pre">sample_count</span></code>
+samples on the target domain.</p>
+</dd>
+<dt>Parameter <code class="docutils literal notranslate"><span class="pre">pdf_func</span></code> (function):</dt><dd><p>Function that is expected to specify the probability density of the
+samples produced by <code class="docutils literal notranslate"><span class="pre">sample_func</span></code>. The test will try to collect
+sufficient statistical evidence to reject this hypothesis.</p>
+</dd>
+<dt>Parameter <code class="docutils literal notranslate"><span class="pre">sample_dim</span></code> (int):</dt><dd><p>Number of random dimensions consumed by <code class="docutils literal notranslate"><span class="pre">sample_func</span></code> per sample. The
+default value is <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p>
+</dd>
+<dt>Parameter <code class="docutils literal notranslate"><span class="pre">sample_count</span></code> (int):</dt><dd><p>Total number of samples to be generated. The test will have more
+evidence as this number tends to infinity. The default value is
+<code class="docutils literal notranslate"><span class="pre">1000000</span></code>.</p>
+</dd>
+<dt>Parameter <code class="docutils literal notranslate"><span class="pre">res</span></code> (int):</dt><dd><p>Vertical resolution of the generated histograms. The horizontal
+resolution will be calculated as <code class="docutils literal notranslate"><span class="pre">res</span> <span class="pre">*</span> <span class="pre">domain.aspect()</span></code>. The
+default value of <code class="docutils literal notranslate"><span class="pre">101</span></code> is intentionally an odd number to prevent
+issues with floating point precision at sharp boundaries that may
+separate the domain into two parts (e.g. top hemisphere of a sphere
+parameterization).</p>
+</dd>
+<dt>Parameter <code class="docutils literal notranslate"><span class="pre">ires</span></code> (int):</dt><dd><p>Number of horizontal/vertical subintervals used to numerically integrate
+the probability density over each histogram cell (using the trapezoid
+rule). The default value is <code class="docutils literal notranslate"><span class="pre">4</span></code>.</p>
+</dd>
+</dl>
+<p>Notes:</p>
+<p>The following attributes are part of the public API:</p>
+<dl class="simple">
+<dt>messages: string</dt><dd><p>The implementation may generate a number of messages while running the
+test, which can be retrieved via this attribute.</p>
+</dd>
+<dt>histogram: array</dt><dd><p>The histogram array is populated by the <code class="docutils literal notranslate"><span class="pre">tabulate_histogram()</span></code> method
+and stored in this attribute.</p>
+</dd>
+<dt>pdf: array</dt><dd><p>The probability density function array is populated by the
+<code class="docutils literal notranslate"><span class="pre">tabulate_pdf()</span></code> method and stored in this attribute.</p>
+</dd>
+<dt>p_value: float</dt><dd><p>The p-value of the test is computed in the <code class="docutils literal notranslate"><span class="pre">run()</span></code> method and stored
+in this attribute.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="mitsuba.python.chi2.ChiSquareTest.tabulate_histogram">
+<code class="sig-name descname">tabulate_histogram</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.chi2.ChiSquareTest.tabulate_histogram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Invoke the provided sampling strategy many times and generate a
+histogram in the parameter domain. If <code class="docutils literal notranslate"><span class="pre">sample_func</span></code> returns a tuple
+<code class="docutils literal notranslate"><span class="pre">(positions,</span> <span class="pre">weights)</span></code> instead of just positions, the samples are
+considered to be weighted.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mitsuba.python.chi2.ChiSquareTest.tabulate_pdf">
+<code class="sig-name descname">tabulate_pdf</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.chi2.ChiSquareTest.tabulate_pdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Numerically integrate the provided probability density function over
+each cell to generate an array resembling the histogram computed by
+<code class="docutils literal notranslate"><span class="pre">tabulate_histogram()</span></code>. The function uses the trapezoid rule over
+intervals discretized into <code class="docutils literal notranslate"><span class="pre">self.ires</span></code> separate function evaluations.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mitsuba.python.chi2.ChiSquareTest.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">significance_level</span><span class="o">=</span><span class="default_value">0.01</span></em>, <em class="sig-param"><span class="n">test_count</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.chi2.ChiSquareTest.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the Chi^2 test</p>
+<dl class="simple">
+<dt>Parameter <code class="docutils literal notranslate"><span class="pre">significance_level</span></code> (float):</dt><dd><p>Denotes the desired significance level (e.g. 0.01 for a test at the
+1% significance level)</p>
+</dd>
+<dt>Parameter <code class="docutils literal notranslate"><span class="pre">test_count</span></code> (int):</dt><dd><p>Specifies the total number of statistical tests run by the user.
+This value will be used to adjust the provided significance level
+so that the combination of the entire set of tests has the provided
+significance level.</p>
+</dd>
+<dt>Returns → bool:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">True</span></code> upon success, <code class="docutils literal notranslate"><span class="pre">False</span></code> if the null hypothesis was
+rejected.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py class">
+<dt id="mitsuba.python.chi2.LineDomain">
+<em class="property">class </em><code class="sig-prename descclassname">mitsuba.python.chi2.</code><code class="sig-name descname">LineDomain</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bounds</span><span class="o">=</span><span class="default_value">[- 1.0, 1.0]</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.chi2.LineDomain" title="Permalink to this definition">¶</a></dt>
+<dd><p>The identity map on the line.</p>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py function">
+<dt id="mitsuba.python.chi2.MicrofacetAdapter">
+<code class="sig-prename descclassname">mitsuba.python.chi2.</code><code class="sig-name descname">MicrofacetAdapter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">md_type</span></em>, <em class="sig-param"><span class="n">alpha</span></em>, <em class="sig-param"><span class="n">sample_visible</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.chi2.MicrofacetAdapter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adapter for testing microfacet distribution sampling techniques
+(separately from BSDF models, which are also tested)</p>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py function">
+<dt id="mitsuba.python.chi2.PhaseFunctionAdapter">
+<code class="sig-prename descclassname">mitsuba.python.chi2.</code><code class="sig-name descname">PhaseFunctionAdapter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">phase_type</span></em>, <em class="sig-param"><span class="n">extra</span></em>, <em class="sig-param"><span class="n">wi</span><span class="o">=</span><span class="default_value">[0, 0, 1]</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.chi2.PhaseFunctionAdapter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adapter to test phase function sampling using the Chi^2 test.</p>
+<dl class="simple">
+<dt>Parameter <code class="docutils literal notranslate"><span class="pre">phase_type</span></code> (string):</dt><dd><p>Name of the phase function plugin to instantiate.</p>
+</dd>
+<dt>Parameter <code class="docutils literal notranslate"><span class="pre">extra</span></code> (string):</dt><dd><p>Additional XML used to specify the phase function’s parameters.</p>
+</dd>
+<dt>Parameter <code class="docutils literal notranslate"><span class="pre">wi</span></code> (array(3,)):</dt><dd><p>Incoming direction, in local coordinates.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py class">
+<dt id="mitsuba.python.chi2.PlanarDomain">
+<em class="property">class </em><code class="sig-prename descclassname">mitsuba.python.chi2.</code><code class="sig-name descname">PlanarDomain</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bounds</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.chi2.PlanarDomain" title="Permalink to this definition">¶</a></dt>
+<dd><p>The identity map on the plane</p>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py function">
+<dt id="mitsuba.python.chi2.SpectrumAdapter">
+<code class="sig-prename descclassname">mitsuba.python.chi2.</code><code class="sig-name descname">SpectrumAdapter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.chi2.SpectrumAdapter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adapter which permits testing 1D spectral power distributions using the
+Chi^2 test.</p>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py class">
+<dt id="mitsuba.python.chi2.SphericalDomain">
+<em class="property">class </em><code class="sig-prename descclassname">mitsuba.python.chi2.</code><code class="sig-name descname">SphericalDomain</code><a class="headerlink" href="#mitsuba.python.chi2.SphericalDomain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maps between the unit sphere and a [cos(theta), phi] parameterization.</p>
+</dd></dl>
+
+</div>
+<hr class="docutils" />
+<div class="section" id="autodiff">
+<h2>Autodiff<a class="headerlink" href="#autodiff" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="mitsuba.python.autodiff.Adam">
+<em class="property">class </em><code class="sig-prename descclassname">mitsuba.python.autodiff.</code><code class="sig-name descname">Adam</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">params</span></em>, <em class="sig-param"><span class="n">lr</span></em>, <em class="sig-param"><span class="n">beta_1</span><span class="o">=</span><span class="default_value">0.9</span></em>, <em class="sig-param"><span class="n">beta_2</span><span class="o">=</span><span class="default_value">0.999</span></em>, <em class="sig-param"><span class="n">epsilon</span><span class="o">=</span><span class="default_value">1e-08</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.autodiff.Adam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class: <a class="reference internal" href="#mitsuba.python.autodiff.Optimizer" title="mitsuba.python.autodiff.Optimizer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mitsuba.python.autodiff.Optimizer</span></code></a></p>
+<p>Implements the Adam optimizer presented in the paper <em>Adam: A Method for
+Stochastic Optimization</em> by Kingman and Ba, ICLR 2015.</p>
+<dl class="py method">
+<dt id="mitsuba.python.autodiff.Adam.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">params</span></em>, <em class="sig-param"><span class="n">lr</span></em>, <em class="sig-param"><span class="n">beta_1</span><span class="o">=</span><span class="default_value">0.9</span></em>, <em class="sig-param"><span class="n">beta_2</span><span class="o">=</span><span class="default_value">0.999</span></em>, <em class="sig-param"><span class="n">epsilon</span><span class="o">=</span><span class="default_value">1e-08</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.autodiff.Adam.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Parameter <code class="docutils literal notranslate"><span class="pre">lr</span></code>:</dt><dd><p>learning rate</p>
+</dd>
+<dt>Parameter <code class="docutils literal notranslate"><span class="pre">beta_1</span></code>:</dt><dd><p>controls the exponential averaging of first
+order gradient moments</p>
+</dd>
+<dt>Parameter <code class="docutils literal notranslate"><span class="pre">beta_2</span></code>:</dt><dd><p>controls the exponential averaging of second
+order gradient moments</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mitsuba.python.autodiff.Adam.step">
+<code class="sig-name descname">step</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.autodiff.Adam.step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Take a gradient step</p>
+</dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py class">
+<dt id="mitsuba.python.autodiff.Optimizer">
+<em class="property">class </em><code class="sig-prename descclassname">mitsuba.python.autodiff.</code><code class="sig-name descname">Optimizer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">params</span></em>, <em class="sig-param"><span class="n">lr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.autodiff.Optimizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class of all gradient-based optimizers (currently SGD and Adam)</p>
+<dl class="py method">
+<dt id="mitsuba.python.autodiff.Optimizer.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">params</span></em>, <em class="sig-param"><span class="n">lr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.autodiff.Optimizer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Parameter <code class="docutils literal notranslate"><span class="pre">params</span></code>:</dt><dd><p>dictionary <code class="docutils literal notranslate"><span class="pre">(name:</span> <span class="pre">variable)</span></code> of differentiable parameters to be
+optimized.</p>
+</dd>
+<dt>Parameter <code class="docutils literal notranslate"><span class="pre">lr</span></code>:</dt><dd><p>learning rate</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mitsuba.python.autodiff.Optimizer.set_learning_rate">
+<code class="sig-name descname">set_learning_rate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.autodiff.Optimizer.set_learning_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the learning rate.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mitsuba.python.autodiff.Optimizer.disable_gradients">
+<code class="sig-name descname">disable_gradients</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.autodiff.Optimizer.disable_gradients" title="Permalink to this definition">¶</a></dt>
+<dd><p>Temporarily disable the generation of gradients.</p>
+</dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py class">
+<dt id="mitsuba.python.autodiff.SGD">
+<em class="property">class </em><code class="sig-prename descclassname">mitsuba.python.autodiff.</code><code class="sig-name descname">SGD</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">params</span></em>, <em class="sig-param"><span class="n">lr</span></em>, <em class="sig-param"><span class="n">momentum</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.autodiff.SGD" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class: <a class="reference internal" href="#mitsuba.python.autodiff.Optimizer" title="mitsuba.python.autodiff.Optimizer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mitsuba.python.autodiff.Optimizer</span></code></a></p>
+<p>Implements basic stochastic gradient descent with a fixed learning rate
+and, optionally, momentum <a class="bibtex reference internal" href="../zz_bibliography.html#sutskever2013importance" id="id1">[SMDH13]</a> (0.9 is a typical
+parameter value for the <code class="docutils literal notranslate"><span class="pre">momentum</span></code> parameter).</p>
+<p>The momentum-based SGD uses the update equation</p>
+<div class="math notranslate nohighlight">
+\[v_{i+1} = \mu \cdot v_i +  g_{i+1}\]</div>
+<div class="math notranslate nohighlight">
+\[p_{i+1} = p_i + \varepsilon \cdot v_{i+1},\]</div>
+<p>where <span class="math notranslate nohighlight">\(v\)</span> is the velocity, <span class="math notranslate nohighlight">\(p\)</span> are the positions,
+<span class="math notranslate nohighlight">\(\varepsilon\)</span> is the learning rate, and <span class="math notranslate nohighlight">\(\mu\)</span> is
+the momentum parameter.</p>
+<dl class="py method">
+<dt id="mitsuba.python.autodiff.SGD.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">params</span></em>, <em class="sig-param"><span class="n">lr</span></em>, <em class="sig-param"><span class="n">momentum</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.autodiff.SGD.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Parameter <code class="docutils literal notranslate"><span class="pre">lr</span></code>:</dt><dd><p>learning rate</p>
+</dd>
+<dt>Parameter <code class="docutils literal notranslate"><span class="pre">momentum</span></code>:</dt><dd><p>momentum factor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mitsuba.python.autodiff.SGD.step">
+<code class="sig-name descname">step</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.autodiff.SGD.step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Take a gradient step</p>
+</dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py function">
+<dt id="mitsuba.python.autodiff._render_helper">
+<code class="sig-prename descclassname">mitsuba.python.autodiff.</code><code class="sig-name descname">_render_helper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scene</span></em>, <em class="sig-param"><span class="n">spp</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sensor_index</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.autodiff._render_helper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Internally used function: render the specified Mitsuba scene and return a
+floating point array containing RGB values and AOVs, if applicable</p>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py function">
+<dt id="mitsuba.python.autodiff.render">
+<code class="sig-prename descclassname">mitsuba.python.autodiff.</code><code class="sig-name descname">render</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scene</span></em>, <em class="sig-param"><span class="n">spp</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>None<span class="p">, </span>int<span class="p">, </span>Tuple<span class="p">[</span>int<span class="p">, </span>int<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">unbiased</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">optimizer</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#mitsuba.python.autodiff.Optimizer" title="mitsuba.python.autodiff.Optimizer">mitsuba.python.autodiff.Optimizer</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sensor_index</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.autodiff.render" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform a differentiable of the scene <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">scene</span></code>, returning a floating point
+array containing RGB values and AOVs, if applicable.</p>
+<dl>
+<dt>Parameter <code class="docutils literal notranslate"><span class="pre">spp</span></code> (<code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">int</span></code>, or a 2-tuple <code class="docutils literal notranslate"><span class="pre">(int,</span> <span class="pre">int)</span></code>):</dt><dd><p>Specifies the number of samples per pixel to be used for rendering,
+overriding the value that is specified in the scene. If <code class="docutils literal notranslate"><span class="pre">spp=None</span></code>,
+the original value takes precedence. If <code class="docutils literal notranslate"><span class="pre">spp</span></code> is a 2-tuple
+<code class="docutils literal notranslate"><span class="pre">(spp_primal:</span> <span class="pre">int,</span> <span class="pre">spp_deriv:</span> <span class="pre">int)</span></code>, the first element specifies the
+number of samples for the <em>primal</em> pass, and the second specifies the
+number of samples for the <em>derivative</em> pass. See the explanation of the
+<code class="docutils literal notranslate"><span class="pre">unbiased</span></code> parameter for further detail on what these mean.</p>
+<p>Memory usage is roughly proportional to the <code class="docutils literal notranslate"><span class="pre">spp</span></code>, value, hence this
+parameter should be reduced if you encounter out-of-memory errors.</p>
+</dd>
+<dt>Parameter <code class="docutils literal notranslate"><span class="pre">unbiased</span></code> (<code class="docutils literal notranslate"><span class="pre">bool</span></code>):</dt><dd><p>One potential issue when naively differentiating a rendering algorithm
+is that the same set of Monte Carlo sample is used to generate both the
+primal output (i.e. the image) along with derivative output. When the
+rendering algorithm and objective are jointly differentiated, we end up
+with expectations of products that do <em>not</em> satisfy the equality
+<span class="math notranslate nohighlight">\(\mathbb{E}[X Y]=\mathbb{E}[X]\, \mathbb{E}[Y]\)</span> due to
+correlations between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> that result from this
+sample re-use.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">unbiased=True</span></code>, the <code class="docutils literal notranslate"><span class="pre">render()</span></code> function will generate an
+<em>unbiased</em> estimate that de-correlates primal and derivative
+components, which boils down to rendering the image twice and naturally
+comes at some cost in performance <span class="math notranslate nohighlight">\((\sim 1.6      imes\!)\)</span>. Often,
+biased gradients are good enough, in which case <code class="docutils literal notranslate"><span class="pre">unbiased=False</span></code>
+should be specified instead.</p>
+<p>The number of samples per pixel per pass can be specified separately
+for both passes by passing a tuple to the <code class="docutils literal notranslate"><span class="pre">spp</span></code> parameter.</p>
+<p>Note that unbiased mode is only relevant for reverse-mode
+differentiation. It is not needed when visualizing parameter gradients
+in image space using forward-mode differentiation.</p>
+</dd>
+<dt>Parameter <code class="docutils literal notranslate"><span class="pre">optimizer</span></code> (<a class="reference internal" href="#mitsuba.python.autodiff.Optimizer" title="mitsuba.python.autodiff.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">mitsuba.python.autodiff.Optimizer</span></code></a>):</dt><dd><p>The optimizer referencing relevant scene parameters must be specified
+when <code class="docutils literal notranslate"><span class="pre">unbiased=True</span></code>. Otherwise, there is no need to provide this
+parameter.</p>
+</dd>
+<dt>Parameter <code class="docutils literal notranslate"><span class="pre">sensor_index</span></code> (<code class="docutils literal notranslate"><span class="pre">int</span></code>):</dt><dd><p>When the scene contains more than one sensor/camera, this parameter
+can be specified to select the desired sensor.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py function">
+<dt id="mitsuba.python.autodiff.render_torch">
+<code class="sig-prename descclassname">mitsuba.python.autodiff.</code><code class="sig-name descname">render_torch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scene</span></em>, <em class="sig-param"><span class="n">params</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.autodiff.render_torch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr class="docutils" />
+<dl class="py function">
+<dt id="mitsuba.python.autodiff.write_bitmap">
+<code class="sig-prename descclassname">mitsuba.python.autodiff.</code><code class="sig-name descname">write_bitmap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">resolution</span></em>, <em class="sig-param"><span class="n">write_async</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.autodiff.write_bitmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the linearized RGB image in <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">data</span></code> to a PNG/EXR/.. file with
+resolution <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">resolution</span></code>.</p>
+</dd></dl>
+
+</div>
+<hr class="docutils" />
+<div class="section" id="other">
+<h2>Other<a class="headerlink" href="#other" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="mitsuba.python.util.ParameterMap">
+<em class="property">class </em><code class="sig-prename descclassname">mitsuba.python.util.</code><code class="sig-name descname">ParameterMap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">properties</span></em>, <em class="sig-param"><span class="n">hierarchy</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.util.ParameterMap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary-like object that references various parameters used in a Mitsuba
+scene graph. Parameters can be read and written using standard syntax
+(<code class="docutils literal notranslate"><span class="pre">parameter_map[key]</span></code>). The class exposes several non-standard functions,
+specifically <code class="xref py py-meth docutils literal notranslate"><span class="pre">torch`()</span></code>,
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">update`()</span></code>, and
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">keep`()</span></code>.</p>
+<dl class="py method">
+<dt id="mitsuba.python.util.ParameterMap.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">properties</span></em>, <em class="sig-param"><span class="n">hierarchy</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.util.ParameterMap.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Private constructor (use
+<a class="reference internal" href="#mitsuba.python.util.traverse" title="mitsuba.python.util.traverse"><code class="xref py py-func docutils literal notranslate"><span class="pre">mitsuba.python.util.traverse()</span></code></a> instead)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mitsuba.python.util.ParameterMap.torch">
+<code class="sig-name descname">torch</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; dict<a class="headerlink" href="#mitsuba.python.util.ParameterMap.torch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts all Enoki arrays into PyTorch arrays and return them as a
+dictionary. This is mainly useful when using PyTorch to optimize a
+Mitsuba scene.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mitsuba.python.util.ParameterMap.set_dirty">
+<code class="sig-name descname">set_dirty</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.util.ParameterMap.set_dirty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Marks a specific parameter and its parent objects as dirty. A subsequent call
+to <code class="xref py py-meth docutils literal notranslate"><span class="pre">update`()</span></code> will refresh their internal
+state. This function is automatically called when overwriting a parameter using
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">__setitem__`()</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mitsuba.python.util.ParameterMap.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#mitsuba.python.util.ParameterMap.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function should be called at the end of a sequence of writes
+to the dictionary. It automatically notifies all modified Mitsuba
+objects and their parent objects that they should refresh their
+internal state. For instance, the scene may rebuild the kd-tree
+when a shape was modified, etc.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mitsuba.python.util.ParameterMap.keep">
+<code class="sig-name descname">keep</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">keys</span><span class="p">:</span> <span class="n">list</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#mitsuba.python.util.ParameterMap.keep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reduce the size of the dictionary by only keeping elements,
+whose keys are part of the provided list ‘keys’.</p>
+</dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py function">
+<dt id="mitsuba.python.util.is_differentiable">
+<code class="sig-prename descclassname">mitsuba.python.util.</code><code class="sig-name descname">is_differentiable</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">p</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.util.is_differentiable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr class="docutils" />
+<dl class="py function">
+<dt id="mitsuba.python.util.traverse">
+<code class="sig-prename descclassname">mitsuba.python.util.</code><code class="sig-name descname">traverse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">node</span><span class="p">:</span> <span class="n"><a class="reference internal" href="core_api.html#mitsuba.core.Object" title="mitsuba.core.Object">mitsuba.core.Object</a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#mitsuba.python.util.ParameterMap" title="mitsuba.python.util.ParameterMap">mitsuba.python.util.ParameterMap</a><a class="headerlink" href="#mitsuba.python.util.traverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Traverse a node of Mitsuba’s scene graph and return a dictionary-like
+object that can be used to read and write associated scene parameters.</p>
+<p>See also <a class="reference internal" href="#mitsuba.python.util.ParameterMap" title="mitsuba.python.util.ParameterMap"><code class="xref py py-class docutils literal notranslate"><span class="pre">mitsuba.python.util.ParameterMap</span></code></a>.</p>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py function">
+<dt id="mitsuba.python.math.rlgamma">
+<code class="sig-prename descclassname">mitsuba.python.math.</code><code class="sig-name descname">rlgamma</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.math.rlgamma" title="Permalink to this definition">¶</a></dt>
+<dd><p>Regularized lower incomplete gamma function based on CEPHES</p>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py class">
+<dt id="mitsuba.python.xml.Files">
+<em class="property">class </em><code class="sig-prename descclassname">mitsuba.python.xml.</code><code class="sig-name descname">Files</code><a class="headerlink" href="#mitsuba.python.xml.Files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enum for different files or dicts containing specific info</p>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py class">
+<dt id="mitsuba.python.xml.WriteXML">
+<em class="property">class </em><code class="sig-prename descclassname">mitsuba.python.xml.</code><code class="sig-name descname">WriteXML</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">split_files</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.xml.WriteXML" title="Permalink to this definition">¶</a></dt>
+<dd><p>File Writing API
+Populates a dictionary with scene data, then writes it to XML.</p>
+<dl class="py method">
+<dt id="mitsuba.python.xml.WriteXML.data_add">
+<code class="sig-name descname">data_add</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="n">file</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.xml.WriteXML.data_add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an entry to a given subdict.</p>
+<p>key: dict key
+value: entry
+file: the subdict to which to add the data</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mitsuba.python.xml.WriteXML.add_comment">
+<code class="sig-name descname">add_comment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">comment</span></em>, <em class="sig-param"><span class="n">file</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.xml.WriteXML.add_comment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a comment to the scene dict</p>
+<p>comment: text of the comment
+file: the subdict to which to add the comment</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mitsuba.python.xml.WriteXML.add_include">
+<code class="sig-name descname">add_include</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.xml.WriteXML.add_include" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an include tag to the main file.
+This is used when splitting the XML scene file in multiple fragments.</p>
+<p>file: the file to include</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mitsuba.python.xml.WriteXML.wf">
+<code class="sig-name descname">wf</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ind</span></em>, <em class="sig-param"><span class="n">st</span></em>, <em class="sig-param"><span class="n">tabs</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.xml.WriteXML.wf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write a string to file index ind.
+Optionally indent the string by a number of tabs</p>
+<p>ind: index of the file to write to
+st: text to write
+tabs: optional number of tabs to add</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mitsuba.python.xml.WriteXML.set_filename">
+<code class="sig-name descname">set_filename</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.xml.WriteXML.set_filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open the files for output,
+using filenames based on the given base name.
+Create the necessary folders to create the file at the specified path.</p>
+<p>name: path to the scene.xml file to write.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mitsuba.python.xml.WriteXML.set_output_file">
+<code class="sig-name descname">set_output_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.xml.WriteXML.set_output_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Switch next output to the given file index</p>
+<p>file: index of the file to start writing to</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mitsuba.python.xml.WriteXML.write_comment">
+<code class="sig-name descname">write_comment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">comment</span></em>, <em class="sig-param"><span class="n">file</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.xml.WriteXML.write_comment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write an XML comment to file.</p>
+<p>comment: The text of the comment to write
+file: Index of the file to write to</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mitsuba.python.xml.WriteXML.write_header">
+<code class="sig-name descname">write_header</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em>, <em class="sig-param"><span class="n">comment</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.xml.WriteXML.write_header" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write an XML header to a specified file.
+Optionally add a comment to describe the file.</p>
+<p>file: The file to write to
+comment: Optional comment to add (e.g. “# Geometry file”)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mitsuba.python.xml.WriteXML.open_element">
+<code class="sig-name descname">open_element</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">attributes</span><span class="o">=</span><span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">file</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.xml.WriteXML.open_element" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open an XML tag (e.g. emitter, bsdf…)</p>
+<p>name: Name of the tag (emitter, bsdf, shape…)
+attributes: Additional fileds to add to the opening tag (e.g. name, type…)
+file: File to write to</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mitsuba.python.xml.WriteXML.close_element">
+<code class="sig-name descname">close_element</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.xml.WriteXML.close_element" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close the last tag we opened in a given file.</p>
+<p>file: The file to write to</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mitsuba.python.xml.WriteXML.element">
+<code class="sig-name descname">element</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">attributes</span><span class="o">=</span><span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">file</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.xml.WriteXML.element" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write a single-line XML element.</p>
+<p>name: Name of the element (e.g. integer, string, rotate…)
+attributes: Additional fields to add to the element (e.g. name, value…)
+file: The file to write to</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mitsuba.python.xml.WriteXML.get_plugin_tag">
+<code class="sig-name descname">get_plugin_tag</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">plugin_type</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.xml.WriteXML.get_plugin_tag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the corresponding tag of a given plugin (e.g. ‘bsdf’ for ‘diffuse’)
+If the given type (e.g. ‘transform’) is not a plugin, returns None.</p>
+<p>plugin_type: Name of the type (e.g. ‘diffuse’, ‘ply’…)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mitsuba.python.xml.WriteXML.current_tag">
+<code class="sig-name descname">current_tag</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.xml.WriteXML.current_tag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the tag in which we are currently writing</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mitsuba.python.xml.WriteXML.configure_defaults">
+<code class="sig-name descname">configure_defaults</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scene_dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.xml.WriteXML.configure_defaults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Traverse the scene graph and look for properties in the defaults dict.
+For such properties, store their value in a default tag and replace the value by $name in the prop.</p>
+<p>scene_dict: The dictionary containing the scene info</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mitsuba.python.xml.WriteXML.preprocess_scene">
+<code class="sig-name descname">preprocess_scene</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scene_dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.xml.WriteXML.preprocess_scene" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Preprocess the scene dictionary before writing it to file:</dt><dd><ul class="simple">
+<li><p>Add default properties.</p></li>
+<li><p>Reorder the scene dict before writing it to file.</p></li>
+<li><p>Separate the dict into different category-specific subdicts.</p></li>
+<li><p>If not splitting files, merge them in the end.</p></li>
+</ul>
+</dd>
+</dl>
+<p>scene_dict: The dictionary containing the scene data</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mitsuba.python.xml.WriteXML.format_spectrum">
+<code class="sig-name descname">format_spectrum</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">entry</span></em>, <em class="sig-param"><span class="n">entry_type</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.xml.WriteXML.format_spectrum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Format rgb or spectrum tags to the proper XML output.
+The entry should contain the name and value of the spectrum entry.
+The type is passed separately, since it is popped from the dict in write_dict</p>
+<p>entry: the dict containing the spectrum
+entry_type: either ‘spectrum’ or ‘rgb’</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mitsuba.python.xml.WriteXML.format_path">
+<code class="sig-name descname">format_path</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filepath</span></em>, <em class="sig-param"><span class="n">tag</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.xml.WriteXML.format_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a filepath, either copy it in the scene folder (in the corresponding directory)
+or convert it to a relative path.</p>
+<p>filepath: the path to the given file
+tag: the tag this path property belongs to in (shape, texture, spectrum)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mitsuba.python.xml.WriteXML.write_dict">
+<code class="sig-name descname">write_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.xml.WriteXML.write_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main XML writing routine.
+Given a dictionary, iterate over its entries and write them to file.
+Calls itself for nested dictionaries.</p>
+<p>data: The dictionary to write to file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mitsuba.python.xml.WriteXML.process">
+<code class="sig-name descname">process</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scene_dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.xml.WriteXML.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Preprocess then write the input dict to XML file format</p>
+<p>scene_dict: The dictionary containing all the scene info.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mitsuba.python.xml.WriteXML.transform_matrix">
+<code class="sig-name descname">transform_matrix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">transform</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.xml.WriteXML.transform_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a mitsuba Transform4f into a dict entry.
+This dict entry won’t have a ‘type’ because it’s handled in a specific case.</p>
+<p>transform: the given transform matrix</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mitsuba.python.xml.WriteXML.decompose_transform">
+<code class="sig-name descname">decompose_transform</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">transform</span></em>, <em class="sig-param"><span class="n">export_scale</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.xml.WriteXML.decompose_transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export a transform as a combination of rotation, scale and translation.
+This helps manually modifying the transform after export (for cameras for instance)</p>
+<p>transform: The Transform4f transform matrix to decompose
+export_scale: Whether to add a scale property or not. (e.g. don’t do it for cameras to avoid clutter)</p>
+</dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py function">
+<dt id="mitsuba.python.xml.copy2">
+<code class="sig-prename descclassname">mitsuba.python.xml.</code><code class="sig-name descname">copy2</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">src</span></em>, <em class="sig-param"><span class="n">dst</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">follow_symlinks</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.xml.copy2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy data and metadata. Return the file’s destination.</p>
+<p>Metadata is copied with copystat(). Please see the copystat function
+for more information.</p>
+<p>The destination may be a directory.</p>
+<p>If follow_symlinks is false, symlinks won’t be followed. This
+resembles GNU’s “cp -P src dst”.</p>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py function">
+<dt id="mitsuba.python.xml.dict_to_xml">
+<code class="sig-prename descclassname">mitsuba.python.xml.</code><code class="sig-name descname">dict_to_xml</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scene_dict</span></em>, <em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">split_files</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.xml.dict_to_xml" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr class="docutils" />
+<dl class="py function">
+<dt id="mitsuba.python.test.util.fresolver_append_path">
+<code class="sig-prename descclassname">mitsuba.python.test.util.</code><code class="sig-name descname">fresolver_append_path</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.test.util.fresolver_append_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function decorator that adds the mitsuba project root
+to the FileResolver’s search path. This is useful in particular
+for tests that e.g. load scenes, and need to specify paths to resources.</p>
+<p>The file resolver is restored to its previous state once the test’s
+execution has finished.</p>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py function">
+<dt id="mitsuba.python.test.util.getframeinfo">
+<code class="sig-prename descclassname">mitsuba.python.test.util.</code><code class="sig-name descname">getframeinfo</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">frame</span></em>, <em class="sig-param"><span class="n">context</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.test.util.getframeinfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get information about a frame or traceback object.</p>
+<p>A tuple of five things is returned: the filename, the line number of
+the current line, the function name, a list of lines of context from
+the source code, and the index of the current line within that list.
+The optional second argument specifies the number of lines of context
+to return, which are centered around the current line.</p>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py function">
+<dt id="mitsuba.python.test.util.make_tmpfile">
+<code class="sig-prename descclassname">mitsuba.python.test.util.</code><code class="sig-name descname">make_tmpfile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">tmpdir_factory</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.test.util.make_tmpfile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr class="docutils" />
+<dl class="py function">
+<dt id="mitsuba.python.test.util.stack">
+<code class="sig-prename descclassname">mitsuba.python.test.util.</code><code class="sig-name descname">stack</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">context</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.test.util.stack" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of records for the stack above the caller’s frame.</p>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py function">
+<dt id="mitsuba.python.test.util.tmpfile">
+<code class="sig-prename descclassname">mitsuba.python.test.util.</code><code class="sig-name descname">tmpfile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">tmpdir_factory</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.test.util.tmpfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fixture to create a temporary file</p>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py function">
+<dt id="mitsuba.python.test.util.wraps">
+<code class="sig-prename descclassname">mitsuba.python.test.util.</code><code class="sig-name descname">wraps</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">wrapped</span></em>, <em class="sig-param"><span class="n">assigned</span><span class="o">=</span><span class="default_value">'__module__', '__name__', '__qualname__', '__doc__', '__annotations__'</span></em>, <em class="sig-param"><span class="n">updated</span><span class="o">=</span><span class="default_value">'__dict__'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mitsuba.python.test.util.wraps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator factory to apply update_wrapper() to a wrapper function</p>
+<p>Returns a decorator that invokes update_wrapper() with the decorated
+function as the wrapper argument and the arguments to wraps() as the
+remaining arguments. Default arguments are as for update_wrapper().
+This is a convenience function to simplify applying partial() to
+update_wrapper().</p>
+</dd></dl>
+
+<hr class="docutils" />
+</div>
+</div>
+
+
+          </div>
+            
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="render_api.html" title="previous chapter (use the left arrow)">Render API Reference</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="../zz_bibliography.html" title="next chapter (use the right arrow)">Bibliography</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../zz_bibliography.html" title="Bibliography"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="render_api.html" title="Render API Reference"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Python API Reference</a></li> 
+      </ul>
+    </div>
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $(".toggle > *").hide();
+        $(".toggle .header").show();
+        $(".toggle .header").click(function() {
+            $(this).parent().children().not(".header").toggle(400);
+            $(this).parent().children(".header").toggleClass("open");
+        })
+    });
+</script>
+
+  </body>
+</html>
