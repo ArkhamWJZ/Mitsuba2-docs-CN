@@ -68,7 +68,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../src/getting_started/intro.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../src/getting_started/cloning.html">Cloning the repository</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../src/getting_started/variants.html">选择变体</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../src/getting_started/variants.html">Choosing variants</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../src/getting_started/compiling.html">编译系统</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../src/getting_started/file_format.html">场景文件格式</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../src/getting_started/differences.html">Differences to Mitsuba 0.6</a></li>
@@ -108,15 +108,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../src/plugin_reference/intro.html">Plugin 参考</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">形状插件 Shape</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#bsdfs">BSDFs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#phase-functions">Phase functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#emitters">Emitters</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#sensors">Sensors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#textures">Textures</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#spectra">Spectra</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#integrators">Integrators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#samplers">Samplers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#films">Films</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#reconstruction-filters">Reconstruction filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#sec-phase">相位函数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#sec-emitters">光源</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#sec-sensors">传感器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#sec-textures">纹理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#sec-spectra">光谱</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#sec-integrators">积分器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#sec-samplers">采样器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#sec-films">胶片</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#sec-rfilters">重构滤波器</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API reference</span></p>
 <ul>
@@ -276,13 +276,13 @@ This gives the rendered object a faceted appearance. (Default: <span class="mono
 </tbody>
 </table>
 <div class="figure compound align-center" id="fig-ply">
-<div style="width: 49%" class="subfigure align-center" id="id22">
+<div style="width: 49%" class="subfigure align-center" id="id31">
 <a class="reference internal image-reference" href="../_images/shape_ply_bunny.jpg"><img alt="../_images/shape_ply_bunny.jpg" src="../_images/shape_ply_bunny.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">The Stanford bunny loaded with <span class="monosp">face_normals=false</span>.</span><a class="headerlink" href="#id22" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">The Stanford bunny loaded with <span class="monosp">face_normals=false</span>.</span><a class="headerlink" href="#id31" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id23">
+<div style="width: 49%" class="subfigure align-center" id="id32">
 <a class="reference internal image-reference" href="../_images/shape_ply_bunny_facet.jpg"><img alt="../_images/shape_ply_bunny_facet.jpg" src="../_images/shape_ply_bunny_facet.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">The Stanford bunny loaded with <span class="monosp">face_normals=true</span>. Note the faceted appearance.</span><a class="headerlink" href="#id23" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">The Stanford bunny loaded with <span class="monosp">face_normals=true</span>. Note the faceted appearance.</span><a class="headerlink" href="#id32" title="Permalink to this image">¶</a></p>
 </div>
 </div><p id="fig-ply">This plugin implements a fast loader for the Stanford PLY format (both the
 ASCII and binary format, which is preferred for performance reasons). The
@@ -499,13 +499,13 @@ Note that non-uniform scales and shears are not permitted!
 </tbody>
 </table>
 <div class="figure compound align-center" id="fig-sphere">
-<div style="width: 49%" class="subfigure align-center" id="id24">
+<div style="width: 49%" class="subfigure align-center" id="id33">
 <a class="reference internal image-reference" href="../_images/shape_sphere_basic.jpg"><img alt="../_images/shape_sphere_basic.jpg" src="../_images/shape_sphere_basic.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Basic example</span><a class="headerlink" href="#id24" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Basic example</span><a class="headerlink" href="#id33" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id25">
+<div style="width: 49%" class="subfigure align-center" id="id34">
 <a class="reference internal image-reference" href="../_images/shape_sphere_parameterization.jpg"><img alt="../_images/shape_sphere_parameterization.jpg" src="../_images/shape_sphere_parameterization.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">A textured sphere with the default parameterization</span><a class="headerlink" href="#id25" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">A textured sphere with the default parameterization</span><a class="headerlink" href="#id34" title="Permalink to this image">¶</a></p>
 </div>
 </div><p id="fig-sphere">This shape plugin describes a simple sphere intersection primitive. It should
 always be preferred over sphere approximations modeled using triangles.</p>
@@ -532,13 +532,13 @@ light source, Mitsuba 2 switches to an efficient
 has particularly low variance.
 This makes it a good default choice for lighting new scenes.</p>
 <div class="figure compound align-center" id="fig-sphere-light">
-<div style="width: 49%" class="subfigure align-center" id="id26">
+<div style="width: 49%" class="subfigure align-center" id="id35">
 <a class="reference internal image-reference" href="../_images/shape_sphere_light_mesh.jpg"><img alt="../_images/shape_sphere_light_mesh.jpg" src="../_images/shape_sphere_light_mesh.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Spherical area light modeled using triangles</span><a class="headerlink" href="#id26" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Spherical area light modeled using triangles</span><a class="headerlink" href="#id35" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id27">
+<div style="width: 49%" class="subfigure align-center" id="id36">
 <a class="reference internal image-reference" href="../_images/shape_sphere_light_analytic.jpg"><img alt="../_images/shape_sphere_light_analytic.jpg" src="../_images/shape_sphere_light_analytic.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Spherical area light modeled using the <a class="reference internal" href="#shape-sphere"><span class="std std-ref">sphere</span></a> plugin</span><a class="headerlink" href="#id27" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Spherical area light modeled using the <a class="reference internal" href="#shape-sphere"><span class="std std-ref">sphere</span></a> plugin</span><a class="headerlink" href="#id36" title="Permalink to this image">¶</a></p>
 </div>
 </div></div>
 <div class="section" id="cylinder-cylinder">
@@ -582,13 +582,13 @@ not permitted! (Default: none, i.e. object space = world space)</p></td>
 </tbody>
 </table>
 <div class="figure compound align-center" id="fig-cylinder">
-<div style="width: 49%" class="subfigure align-center" id="id28">
+<div style="width: 49%" class="subfigure align-center" id="id37">
 <a class="reference internal image-reference" href="../_images/shape_cylinder_onesided.jpg"><img alt="../_images/shape_cylinder_onesided.jpg" src="../_images/shape_cylinder_onesided.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Cylinder with the default one-sided shading</span><a class="headerlink" href="#id28" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Cylinder with the default one-sided shading</span><a class="headerlink" href="#id37" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id29">
+<div style="width: 49%" class="subfigure align-center" id="id38">
 <a class="reference internal image-reference" href="../_images/shape_cylinder_twosided.jpg"><img alt="../_images/shape_cylinder_twosided.jpg" src="../_images/shape_cylinder_twosided.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Cylinder with two-sided shading</span><a class="headerlink" href="#id29" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Cylinder with two-sided shading</span><a class="headerlink" href="#id38" title="Permalink to this image">¶</a></p>
 </div>
 </div><p id="fig-cylinder">This shape plugin describes a simple cylinder intersection primitive.
 It should always be preferred over approximations modeled using
@@ -633,13 +633,13 @@ permitted! (Default: none, i.e. object space = world space)</p></td>
 </tbody>
 </table>
 <div class="figure compound align-center" id="fig-disk">
-<div style="width: 49%" class="subfigure align-center" id="id30">
+<div style="width: 49%" class="subfigure align-center" id="id39">
 <a class="reference internal image-reference" href="../_images/shape_disk.jpg"><img alt="../_images/shape_disk.jpg" src="../_images/shape_disk.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Basic example</span><a class="headerlink" href="#id30" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Basic example</span><a class="headerlink" href="#id39" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id31">
+<div style="width: 49%" class="subfigure align-center" id="id40">
 <a class="reference internal image-reference" href="../_images/shape_disk_parameterization.jpg"><img alt="../_images/shape_disk_parameterization.jpg" src="../_images/shape_disk_parameterization.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">A textured disk with the default parameterization</span><a class="headerlink" href="#id31" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">A textured disk with the default parameterization</span><a class="headerlink" href="#id40" title="Permalink to this image">¶</a></p>
 </div>
 </div><p id="fig-disk">This shape plugin describes a simple disk intersection primitive. It is
 usually preferable over discrete approximations made from triangles.</p>
@@ -686,13 +686,13 @@ To change the disk scale, rotation, or translation, use the
 </tbody>
 </table>
 <div class="figure compound align-center" id="fig-rectangle">
-<div style="width: 49%" class="subfigure align-center" id="id32">
+<div style="width: 49%" class="subfigure align-center" id="id41">
 <a class="reference internal image-reference" href="../_images/shape_rectangle.jpg"><img alt="../_images/shape_rectangle.jpg" src="../_images/shape_rectangle.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Basic example</span><a class="headerlink" href="#id32" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Basic example</span><a class="headerlink" href="#id41" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id33">
+<div style="width: 49%" class="subfigure align-center" id="id42">
 <a class="reference internal image-reference" href="../_images/shape_rectangle_parameterization.jpg"><img alt="../_images/shape_rectangle_parameterization.jpg" src="../_images/shape_rectangle_parameterization.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">A textured rectangle with the default parameterization</span><a class="headerlink" href="#id33" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">A textured rectangle with the default parameterization</span><a class="headerlink" href="#id42" title="Permalink to this image">¶</a></p>
 </div>
 </div><p id="fig-rectangle">This shape plugin describes a simple rectangular shape primitive.
 It is mainly provided as a convenience for those cases when creating and
@@ -820,34 +820,18 @@ subsurface scattering models.</p></li>
 <span id="sec-bsdfs"></span><h1>BSDFs<a class="headerlink" href="#bsdfs" title="Permalink to this headline">¶</a></h1>
 <blockquote>
 <div><a class="reference internal image-reference" href="../_images/bsdf_overview.jpg"><img alt="../_images/bsdf_overview.jpg" class="align-center" src="../_images/bsdf_overview.jpg" style="width: 100%;" /></a>
-<p>Schematic overview of the most important surface scattering models in Mitsuba 2.
-The arrows indicate possible outcomes of an interaction with a surface that has
-the respective model applied to it.</p>
+<p>上面的图解概括了 Mitsuba2 中最重要的表面散射模型。箭头表示了光线与各自模型表面交互的可能出射结果。</p>
 </div></blockquote>
-<p>Surface scattering models describe the manner in which light interacts
-with surfaces in the scene. They conveniently summarize the mesoscopic
-scattering processes that take place within the material and
-cause it to look the way it does.
-This represents one central component of the material system in Mitsuba 2—another
-part of the renderer concerns itself with what happens
-<em>in between</em> surface interactions. For more information on this aspect,
-please refer to the sections regarding participating media.
-This section presents an overview of all surface scattering models that are
-supported, along with their parameters.</p>
-<p>To achieve realistic results, Mitsuba 2 comes with a library of general-purpose
-surface scattering models such as glass, metal, or plastic.
-Some model plugins can also act as modifiers that are applied on top of one or
-more scattering models.</p>
-<p>Throughout the documentation and within the scene description
-language, the word BSDF is used synonymously with the term <em>surface
-scattering model</em>. This is an abbreviation for <em>Bidirectional
-Scattering Distribution Function</em>, a more precise technical
-term.</p>
-<p>In Mitsuba 2, BSDFs are assigned to <em>shapes</em>, which describe the visible surfaces in
-the scene. In the scene description language, this assignment can
-either be performed by nesting BSDFs within shapes, or they can
-be named and then later referenced by their name.
-The following fragment shows an example of both kinds of usages:</p>
+<p>表面散射模型描述了光线与场景中的各种介质表面交互的行为。该模型很方便地总结了材料内部发生的微观散射过程，并使它
+看起来非常自然。这种表示方式是 Mitsuba 2 材质系统的核心组件之一，渲染器关注的另一部分是光线在表面介质间的交互
+时发生了什么。关于这方面更多的信息，请参阅 participating media 这一章节。该章节介绍的是所有支持的表面散射模型
+以及它们对应的参数。</p>
+<p>为了达到真是感渲染的效果，Mitsuba 2 提供了一个通用介质的表面散射模型库，包括 玻璃材质、金属材质以及塑料材质。
+一些模型插件也可以作为编辑器应用在一个或多个散射模型的文件的顶部。</p>
+<p>尽管在文档中和场景描述语言中，BSDF 这个单词和 <em>表面散射模型</em> 是等价的，但这实际上是 <em>双向散射分布</em> 的缩写，在
+技术上更精准一点的话。</p>
+<p>在 Mitsuba 2 中，BSDF 与描述场景中可见表面的 <em>shapes</em> 相关联。在场景描述语言中，关联的过程可以通过将 BSDF 嵌
+套到 shape 中来进行，也可以对它们进行命名，随后再根据它们的名称进行引用。下面的代码片段展示了这两种用法的示例：</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;scene</span> <span class="na">version=</span><span class="s">2.0.0</span><span class="nt">&gt;</span>
     <span class="c">&lt;!-- Creating a named BSDF for later use --&gt;</span>
     <span class="nt">&lt;bsdf</span> <span class="na">type=</span><span class="s">&quot;.. BSDF type ..&quot;</span> <span class="na">id=</span><span class="s">&quot;my_named_material&quot;</span><span class="nt">&gt;</span>
@@ -868,40 +852,25 @@ The following fragment shows an example of both kinds of usages:</p>
 <span class="nt">&lt;/scene&gt;</span>
 </pre></div>
 </div>
-<p>It is generally more economical to use named BSDFs when they
-are used in several places, since this reduces the internal memory usage.</p>
+<p>当在多个地方使用已命名的 BSDF 时，通常使用引用的方法会更经济，因为这样可以减少内存的使用。</p>
 <div class="section" id="correctness-considerations">
 <span id="bsdf-correctness"></span><h2>Correctness considerations<a class="headerlink" href="#correctness-considerations" title="Permalink to this headline">¶</a></h2>
-<p>A vital consideration when modeling a scene in a physically-based rendering
-system is that the used materials do not violate physical properties, and
-that their arrangement is meaningful. For instance, imagine having designed
-an architectural interior scene that looks good except for a white desk that
-seems a bit too dark. A closer inspection reveals that it uses a Lambertian
-material with a diffuse reflectance of 0.9.</p>
-<p>In many rendering systems, it would be feasible to increase the
-reflectance value above 1.0 in such a situation. But in Mitsuba, even a
-small surface that reflects a little more light than it receives will
-likely break the available rendering algorithms, or cause them to produce otherwise
-unpredictable results. In fact, the right solution in this case would be to switch to
-a different the lighting setup that causes more illumination to be received by
-the desk and then <em>reduce</em> the material’s reflectance—after all, it is quite unlikely that
-one could find a real-world desk that reflects 90% of all incident light.</p>
-<p>As another example of the necessity for a meaningful material description, consider
-the glass model illustrated in the figure below. Here, careful thinking
-is needed to decompose the object into boundaries that mark index of
-refraction-changes. If this is done incorrectly and a beam of light can
-potentially pass through a sequence of incompatible index of refraction changes (e.g. 1.00 to 1.33
-followed by 1.50 to 1.33), the output is undefined and will quite likely
-even contain inaccuracies in parts of the scene that are far
-away from the glass.</p>
+<p>在基于物理渲染场景的一个至关重要的考量是，不能违反物理规则，并且每个安排都要是有意义的。
+例如，想象一个建筑场景的内部，这个场景视觉效果很棒，除了有一张白桌子看上去有点暗。仔细一点观察发现，
+它使用的 Lambertian 材质的漫发射系数是 0.9。</p>
+<p>在许多渲染系统中，针对这种情况将反射率调整到 1.0 以上是可行的。但是在 Mitsuba 中，即使是一个很小的
+表面反射出比自身接收到的还要多的光强都是不允许的，这可能会破坏渲染算法的可用性导致预计之外的结果。
+事实上，这种情况的正确解决方案是调整光源的设置，使桌子能够接受到更多的光照明，除此之外还要 <em>减少材质的反射率</em>
+毕竟在真实世界中找到一张能反射 90% 入射光的桌子还是挺困难的一件事。</p>
+<p>关于材料描述要有意义这一观点必要性的另一个例子是下图所示的玻璃模型。在这里，需要仔细思考不同渲染介质之间折射率变化的边界。
+如果做的不正确，一束光可能潜在通过一系列的不可能的折射率变化（例如 1.00 到 1.33 其次是 1.50 到 1.33），这种情况下的输出是未定义的，
+从而相当程度上在场景中可能存在一些错误，导致渲染结果远远不像是玻璃。</p>
 <div class="figure align-center" id="fig-glass-explanation">
 <center><div class="figure align-center">
 <a class="reference internal image-reference" href="../_images/glass_explanation.svg"><img alt="Glass interfaces explanation" src="../_images/glass_explanation.svg" width="95%" /></a>
 </div>
-<p class="caption"><span class="caption-text">Some of the scattering models in Mitsuba need to know the indices of refraction on the exterior and
-interior-facing side of a surface. It is therefore important to decompose the mesh into meaningful
-separate surfaces corresponding to each index of refraction change. The example here shows such a
-decomposition for a water-filled Glass.</span></p>
+<p class="caption"><span class="caption-text">Mitsuba 中的一些散射模型需要知道介质表面向外部和面向内部的折射率参数。因此，根据折射率的变化，将网格分解为有意义的独立表面
+是很重要的。这里的例子展示了一个装满水的玻璃杯的分解过程。</span></p>
 </center></div></div>
 <div class="section" id="smooth-diffuse-material-diffuse">
 <span id="bsdf-diffuse"></span><span id="fig-glass-explanation"></span><h2>Smooth diffuse material (<span class="monosp">diffuse</span>)<a class="headerlink" href="#smooth-diffuse-material-diffuse" title="Permalink to this headline">¶</a></h2>
@@ -929,13 +898,13 @@ represents an ideally diffuse material with a user-specified amount of
 reflectance. Any received illumination is scattered so that the surface
 looks the same independently of the direction of observation.</p>
 <div class="figure compound align-center" id="fig-diffuse">
-<div style="width: 49%" class="subfigure align-center" id="id34">
+<div style="width: 49%" class="subfigure align-center" id="id43">
 <a class="reference internal image-reference" href="../_images/bsdf_diffuse_plain.jpg"><img alt="../_images/bsdf_diffuse_plain.jpg" src="../_images/bsdf_diffuse_plain.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Homogeneous reflectance</span><a class="headerlink" href="#id34" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Homogeneous reflectance</span><a class="headerlink" href="#id43" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id35">
+<div style="width: 49%" class="subfigure align-center" id="id44">
 <a class="reference internal image-reference" href="../_images/bsdf_diffuse_textured.jpg"><img alt="../_images/bsdf_diffuse_textured.jpg" src="../_images/bsdf_diffuse_textured.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Textured reflectance</span><a class="headerlink" href="#id35" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Textured reflectance</span><a class="headerlink" href="#id44" title="Permalink to this image">¶</a></p>
 </div>
 </div><p id="fig-diffuse">Apart from a homogeneous reflectance value, the plugin can also accept
 a nested or referenced texture map to be used as the source of reflectance
@@ -995,13 +964,13 @@ whose reflectance is specified as an sRGB color:</p>
 </tbody>
 </table>
 <div class="figure compound align-center" id="fig-bsdf-dielectric">
-<div style="width: 49%" class="subfigure align-center" id="id36">
+<div style="width: 49%" class="subfigure align-center" id="id45">
 <a class="reference internal image-reference" href="../_images/bsdf_dielectric_glass.jpg"><img alt="../_images/bsdf_dielectric_glass.jpg" src="../_images/bsdf_dielectric_glass.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Air ↔ Water (IOR: 1.33) interface.</span><a class="headerlink" href="#id36" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Air ↔ Water (IOR: 1.33) interface.</span><a class="headerlink" href="#id45" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id37">
+<div style="width: 49%" class="subfigure align-center" id="id46">
 <a class="reference internal image-reference" href="../_images/bsdf_dielectric_diamond.jpg"><img alt="../_images/bsdf_dielectric_diamond.jpg" src="../_images/bsdf_dielectric_diamond.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Air ↔ Diamond (IOR: 2.419)</span><a class="headerlink" href="#id37" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Air ↔ Diamond (IOR: 2.419)</span><a class="headerlink" href="#id46" title="Permalink to this image">¶</a></p>
 </div>
 </div><p id="fig-bsdf-dielectric">This plugin models an interface between two dielectric materials having mismatched
 indices of refraction (for instance, water ↔ air). Exterior and interior IOR values
@@ -1173,13 +1142,13 @@ These material names can be used with the plugins <a class="reference internal" 
 </tbody>
 </table>
 <div class="figure compound align-center" id="fig-bsdf-comparison-thindielectric">
-<div style="width: 49%" class="subfigure align-center" id="id38">
+<div style="width: 49%" class="subfigure align-center" id="id47">
 <a class="reference internal image-reference" href="../_images/bsdf_dielectric_glass.jpg"><img alt="../_images/bsdf_dielectric_glass.jpg" src="../_images/bsdf_dielectric_glass.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Dielectric</span><a class="headerlink" href="#id38" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Dielectric</span><a class="headerlink" href="#id47" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id39">
+<div style="width: 49%" class="subfigure align-center" id="id48">
 <a class="reference internal image-reference" href="../_images/bsdf_thindielectric_glass.jpg"><img alt="../_images/bsdf_thindielectric_glass.jpg" src="../_images/bsdf_thindielectric_glass.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Thindielectric</span><a class="headerlink" href="#id39" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Thindielectric</span><a class="headerlink" href="#id48" title="Permalink to this image">¶</a></p>
 </div>
 </div><p id="fig-bsdf-comparison-thindielectric">This plugin models a <strong>thin</strong> dielectric material that is embedded inside another
 dielectric—for instance, glass surrounded by air. The interior of the material
@@ -1191,13 +1160,13 @@ single sheet of triangles or quads. On the other hand, when the window consists 
 proper closed geometry, <a class="reference internal" href="#bsdf-dielectric"><span class="std std-ref">dielectric</span></a> is the right choice.
 This is illustrated below:</p>
 <div class="figure compound align-center" id="fig-bsdf-thindielectric">
-<div style="width: 49%" class="subfigure align-center" id="id40">
+<div style="width: 49%" class="subfigure align-center" id="id49">
 <a class="reference internal image-reference" href="../_images/dielectric_figure.svg"><img alt="../_images/dielectric_figure.svg" src="../_images/dielectric_figure.svg" width="95%" /></a>
-<p class="caption"><span class="caption-text">The <a class="reference internal" href="#bsdf-dielectric"><span class="std std-ref">dielectric</span></a> plugin models a single transition from one index of refraction to another</span><a class="headerlink" href="#id40" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">The <a class="reference internal" href="#bsdf-dielectric"><span class="std std-ref">dielectric</span></a> plugin models a single transition from one index of refraction to another</span><a class="headerlink" href="#id49" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id41">
+<div style="width: 49%" class="subfigure align-center" id="id50">
 <a class="reference internal image-reference" href="../_images/thindielectric_figure.svg"><img alt="../_images/thindielectric_figure.svg" src="../_images/thindielectric_figure.svg" width="95%" /></a>
-<p class="caption"><span class="caption-text">The <a class="reference internal" href="#bsdf-thindielectric"><span class="std std-ref">thindielectric</span></a> plugin models a pair of interfaces causing a transient index of refraction change</span><a class="headerlink" href="#id41" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">The <a class="reference internal" href="#bsdf-thindielectric"><span class="std std-ref">thindielectric</span></a> plugin models a pair of interfaces causing a transient index of refraction change</span><a class="headerlink" href="#id50" title="Permalink to this image">¶</a></p>
 </div>
 </div><p id="fig-bsdf-thindielectric">The implementation correctly accounts for multiple internal reflections
 inside the thin dielectric at <strong>no significant extra cost</strong>, i.e. paths
@@ -1275,17 +1244,17 @@ and masking effects between these facets, it is possible to reproduce the import
 off-specular reflections peaks observed in real-world measurements of such
 materials.</p>
 <div class="figure compound align-center" id="fig-bsdf-roughdielectric">
-<div style="width: 49%" class="subfigure align-center" id="id42">
+<div style="width: 49%" class="subfigure align-center" id="id51">
 <a class="reference internal image-reference" href="../_images/bsdf_roughdielectric_glass.jpg"><img alt="../_images/bsdf_roughdielectric_glass.jpg" src="../_images/bsdf_roughdielectric_glass.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Anti-glare glass (Beckmann, <span class="math notranslate nohighlight">\(\alpha=0.02\)</span>)</span><a class="headerlink" href="#id42" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Anti-glare glass (Beckmann, <span class="math notranslate nohighlight">\(\alpha=0.02\)</span>)</span><a class="headerlink" href="#id51" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id43">
+<div style="width: 49%" class="subfigure align-center" id="id52">
 <a class="reference internal image-reference" href="../_images/bsdf_roughdielectric_rough.jpg"><img alt="../_images/bsdf_roughdielectric_rough.jpg" src="../_images/bsdf_roughdielectric_rough.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Rough glass (Beckmann, <span class="math notranslate nohighlight">\(\alpha=0.1\)</span>)</span><a class="headerlink" href="#id43" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Rough glass (Beckmann, <span class="math notranslate nohighlight">\(\alpha=0.1\)</span>)</span><a class="headerlink" href="#id52" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id44">
+<div style="width: 49%" class="subfigure align-center" id="id53">
 <a class="reference internal image-reference" href="../_images/bsdf_roughdielectric_textured.jpg"><img alt="../_images/bsdf_roughdielectric_textured.jpg" src="../_images/bsdf_roughdielectric_textured.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Rough glass with textured alpha</span><a class="headerlink" href="#id44" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Rough glass with textured alpha</span><a class="headerlink" href="#id53" title="Permalink to this image">¶</a></p>
 </div>
 </div><p id="fig-bsdf-roughdielectric">This plugin is essentially the <em>roughened</em> equivalent of the (smooth) plugin
 <a class="reference internal" href="#bsdf-dielectric"><span class="std std-ref">dielectric</span></a>. For very low values of <span class="math notranslate nohighlight">\(\alpha\)</span>, the two will
@@ -1368,13 +1337,13 @@ Note that for physical realism, this parameter should never be touched. (Default
 </tbody>
 </table>
 <div class="figure compound align-center" id="fig-bsdf-conductor">
-<div style="width: 49%" class="subfigure align-center" id="id45">
+<div style="width: 49%" class="subfigure align-center" id="id54">
 <a class="reference internal image-reference" href="../_images/bsdf_conductor_gold.jpg"><img alt="../_images/bsdf_conductor_gold.jpg" src="../_images/bsdf_conductor_gold.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Gold</span><a class="headerlink" href="#id45" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Gold</span><a class="headerlink" href="#id54" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id46">
+<div style="width: 49%" class="subfigure align-center" id="id55">
 <a class="reference internal image-reference" href="../_images/bsdf_conductor_aluminium.jpg"><img alt="../_images/bsdf_conductor_aluminium.jpg" src="../_images/bsdf_conductor_aluminium.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Aluminium</span><a class="headerlink" href="#id46" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Aluminium</span><a class="headerlink" href="#id55" title="Permalink to this image">¶</a></p>
 </div>
 </div><p id="fig-bsdf-conductor">This plugin implements a perfectly smooth interface to a conducting material,
 such as a metal that is described using a Dirac delta distribution. For a
@@ -1603,17 +1572,17 @@ reducing variance in some cases. (Default: <span class="monosp">true</span>, i.e
 <p>This plugin implements a realistic microfacet scattering model for rendering
 rough conducting materials, such as metals.</p>
 <div class="figure compound align-center" id="fig-bsdf-roughconductor">
-<div style="width: 49%" class="subfigure align-center" id="id47">
+<div style="width: 49%" class="subfigure align-center" id="id56">
 <a class="reference internal image-reference" href="../_images/bsdf_roughconductor_copper.jpg"><img alt="../_images/bsdf_roughconductor_copper.jpg" src="../_images/bsdf_roughconductor_copper.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Rough copper (Beckmann, <span class="math notranslate nohighlight">\(\alpha=0.1\)</span>)</span><a class="headerlink" href="#id47" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Rough copper (Beckmann, <span class="math notranslate nohighlight">\(\alpha=0.1\)</span>)</span><a class="headerlink" href="#id56" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id48">
+<div style="width: 49%" class="subfigure align-center" id="id57">
 <a class="reference internal image-reference" href="../_images/bsdf_roughconductor_anisotropic_aluminium.jpg"><img alt="../_images/bsdf_roughconductor_anisotropic_aluminium.jpg" src="../_images/bsdf_roughconductor_anisotropic_aluminium.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Vertically brushed aluminium (Anisotropic Beckmann, <span class="math notranslate nohighlight">\(\alpha_u=0.05,\ \alpha_v=0.3\)</span>)</span><a class="headerlink" href="#id48" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Vertically brushed aluminium (Anisotropic Beckmann, <span class="math notranslate nohighlight">\(\alpha_u=0.05,\ \alpha_v=0.3\)</span>)</span><a class="headerlink" href="#id57" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id49">
+<div style="width: 49%" class="subfigure align-center" id="id58">
 <a class="reference internal image-reference" href="../_images/bsdf_roughconductor_textured_carbon.jpg"><img alt="../_images/bsdf_roughconductor_textured_carbon.jpg" src="../_images/bsdf_roughconductor_textured_carbon.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Carbon fiber using two inverted checkerboard textures for <code class="docutils literal notranslate"><span class="pre">alpha_u</span></code> and <code class="docutils literal notranslate"><span class="pre">alpha_v</span></code></span><a class="headerlink" href="#id49" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Carbon fiber using two inverted checkerboard textures for <code class="docutils literal notranslate"><span class="pre">alpha_u</span></code> and <code class="docutils literal notranslate"><span class="pre">alpha_v</span></code></span><a class="headerlink" href="#id58" title="Permalink to this image">¶</a></p>
 </div>
 </div><p id="fig-bsdf-roughconductor">Microfacet theory describes rough surfaces as an arrangement of unresolved
 and ideally specular facets, whose normal directions are given by a
@@ -1717,13 +1686,13 @@ physical realism, this parameter should never be touched. (Default: 1.0)</p></td
 </tbody>
 </table>
 <div class="figure compound align-center" id="fig-bsdf-plastic">
-<div style="width: 49%" class="subfigure align-center" id="id50">
+<div style="width: 49%" class="subfigure align-center" id="id59">
 <a class="reference internal image-reference" href="../_images/bsdf_plastic_default.jpg"><img alt="../_images/bsdf_plastic_default.jpg" src="../_images/bsdf_plastic_default.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">A rendering with the default parameters</span><a class="headerlink" href="#id50" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">A rendering with the default parameters</span><a class="headerlink" href="#id59" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id51">
+<div style="width: 49%" class="subfigure align-center" id="id60">
 <a class="reference internal image-reference" href="../_images/bsdf_plastic_shiny.jpg"><img alt="../_images/bsdf_plastic_shiny.jpg" src="../_images/bsdf_plastic_shiny.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">A rendering with custom parameters</span><a class="headerlink" href="#id51" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">A rendering with custom parameters</span><a class="headerlink" href="#id60" title="Permalink to this image">¶</a></p>
 </div>
 </div><p id="fig-bsdf-plastic">This plugin describes a smooth plastic-like material with internal scattering. It uses the Fresnel
 reflection and transmission coefficients to provide direction-dependent specular and diffuse
@@ -1782,17 +1751,17 @@ using bitmap textures, these color shifts are disabled by default. Specify
 the parameter <code class="code docutils literal notranslate"><span class="pre">nonlinear=true</span></code> to enable them. The following renderings
 illustrate the resulting change:</p>
 <div class="figure compound align-center" id="fig-bsdf-plastic-nonlinear">
-<div style="width: 49%" class="subfigure align-center" id="id52">
+<div style="width: 49%" class="subfigure align-center" id="id61">
 <a class="reference internal image-reference" href="../_images/bsdf_plastic_diffuse.jpg"><img alt="../_images/bsdf_plastic_diffuse.jpg" src="../_images/bsdf_plastic_diffuse.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Diffuse textured rendering</span><a class="headerlink" href="#id52" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Diffuse textured rendering</span><a class="headerlink" href="#id61" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id53">
+<div style="width: 49%" class="subfigure align-center" id="id62">
 <a class="reference internal image-reference" href="../_images/bsdf_plastic_preserve.jpg"><img alt="../_images/bsdf_plastic_preserve.jpg" src="../_images/bsdf_plastic_preserve.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Plastic model, <code class="code docutils literal notranslate"><span class="pre">nonlinear=false</span></code></span><a class="headerlink" href="#id53" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Plastic model, <code class="code docutils literal notranslate"><span class="pre">nonlinear=false</span></code></span><a class="headerlink" href="#id62" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id54">
+<div style="width: 49%" class="subfigure align-center" id="id63">
 <a class="reference internal image-reference" href="../_images/bsdf_plastic_nopreserve.jpg"><img alt="../_images/bsdf_plastic_nopreserve.jpg" src="../_images/bsdf_plastic_nopreserve.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Plastic model, <code class="code docutils literal notranslate"><span class="pre">nonlinear=true</span></code></span><a class="headerlink" href="#id54" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Plastic model, <code class="code docutils literal notranslate"><span class="pre">nonlinear=true</span></code></span><a class="headerlink" href="#id63" title="Permalink to this image">¶</a></p>
 </div>
 </div><p id="fig-bsdf-plastic-nonlinear">This effect is also seen in real life,
 for instance a piece of wood will look slightly darker after coating it
@@ -1871,13 +1840,13 @@ facets, whose normal directions are given by a specially chosen <em>microfacet d
 By accounting for shadowing and masking effects between these facets, it is possible to reproduce
 the important off-specular reflections peaks observed in real-world measurements of such materials.</p>
 <div class="figure compound align-center" id="fig-bsdf-roughplastic">
-<div style="width: 49%" class="subfigure align-center" id="id55">
+<div style="width: 49%" class="subfigure align-center" id="id64">
 <a class="reference internal image-reference" href="../_images/bsdf_roughplastic_beckmann.jpg"><img alt="../_images/bsdf_roughplastic_beckmann.jpg" src="../_images/bsdf_roughplastic_beckmann.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Beckmann, <span class="math notranslate nohighlight">\(\alpha=0.1\)</span></span><a class="headerlink" href="#id55" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Beckmann, <span class="math notranslate nohighlight">\(\alpha=0.1\)</span></span><a class="headerlink" href="#id64" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id56">
+<div style="width: 49%" class="subfigure align-center" id="id65">
 <a class="reference internal image-reference" href="../_images/bsdf_roughplastic_ggx.jpg"><img alt="../_images/bsdf_roughplastic_ggx.jpg" src="../_images/bsdf_roughplastic_ggx.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">GGX, <span class="math notranslate nohighlight">\(\alpha=0.3\)</span></span><a class="headerlink" href="#id56" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">GGX, <span class="math notranslate nohighlight">\(\alpha=0.3\)</span></span><a class="headerlink" href="#id65" title="Permalink to this image">¶</a></p>
 </div>
 </div><p id="fig-bsdf-roughplastic">This plugin is essentially the <em>roughened</em> equivalent of the (smooth) plugin
 <a class="reference internal" href="#bsdf-plastic"><span class="std std-ref">plastic</span></a>. For very low values of <span class="math notranslate nohighlight">\(\alpha\)</span>, the two will
@@ -1966,13 +1935,13 @@ it is invariant to constant offsets in the height field texture: only variations
 cause changes to the shading frame.</p>
 <p>Note that the magnitude of the height field variations influences the scale of the displacement.</p>
 <div class="figure compound align-center" id="fig-bumpmap">
-<div style="width: 49%" class="subfigure align-center" id="id57">
+<div style="width: 49%" class="subfigure align-center" id="id66">
 <a class="reference internal image-reference" href="../_images/bsdf_bumpmap_without.jpg"><img alt="../_images/bsdf_bumpmap_without.jpg" src="../_images/bsdf_bumpmap_without.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Roughplastic BSDF</span><a class="headerlink" href="#id57" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Roughplastic BSDF</span><a class="headerlink" href="#id66" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id58">
+<div style="width: 49%" class="subfigure align-center" id="id67">
 <a class="reference internal image-reference" href="../_images/bsdf_bumpmap_with.jpg"><img alt="../_images/bsdf_bumpmap_with.jpg" src="../_images/bsdf_bumpmap_with.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Roughplastic BSDF with bump mapping</span><a class="headerlink" href="#id58" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Roughplastic BSDF with bump mapping</span><a class="headerlink" href="#id67" title="Permalink to this image">¶</a></p>
 </div>
 </div><p id="fig-bumpmap">The following XML snippet describes a rough plastic material affected by a bump
 map. Note the we set the <code class="docutils literal notranslate"><span class="pre">raw</span></code> properties of the bump map <code class="docutils literal notranslate"><span class="pre">bitmap</span></code> object to
@@ -2017,13 +1986,13 @@ by perturbing the shading coordinate frame based on a normal map provided as a t
 can lend objects a highly realistic and detailed appearance (e.g. wrinkled or covered by scratches
 and other imperfections) without requiring any changes to the input geometry.</p>
 <div class="figure compound align-center" id="fig-normalmap">
-<div style="width: 49%" class="subfigure align-center" id="id59">
+<div style="width: 49%" class="subfigure align-center" id="id68">
 <a class="reference internal image-reference" href="../_images/bsdf_normalmap_without.jpg"><img alt="../_images/bsdf_normalmap_without.jpg" src="../_images/bsdf_normalmap_without.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Roughplastic BSDF</span><a class="headerlink" href="#id59" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Roughplastic BSDF</span><a class="headerlink" href="#id68" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id60">
+<div style="width: 49%" class="subfigure align-center" id="id69">
 <a class="reference internal image-reference" href="../_images/bsdf_normalmap_with.jpg"><img alt="../_images/bsdf_normalmap_with.jpg" src="../_images/bsdf_normalmap_with.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Roughplastic BSDF with normal mapping</span><a class="headerlink" href="#id60" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Roughplastic BSDF with normal mapping</span><a class="headerlink" href="#id69" title="Permalink to this image">¶</a></p>
 </div>
 </div><p id="fig-normalmap">A normal map is a RGB texture, whose color channels encode the XYZ coordinates of the desired
 surface normals. These are specified <strong>relative</strong> to the local shading frame, which means that a
@@ -2071,9 +2040,9 @@ accordingly. (Default: 0.5)</p></td>
 </tbody>
 </table>
 <div class="figure compound align-center" id="fig-bsdf-blendbsdf">
-<div style="width: 49%" class="subfigure align-center" id="id61">
+<div style="width: 49%" class="subfigure align-center" id="id70">
 <a class="reference internal image-reference" href="../_images/bsdf_blendbsdf.jpg"><img alt="../_images/bsdf_blendbsdf.jpg" src="../_images/bsdf_blendbsdf.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">A material created by blending between rough plastic and smooth metal based on a binary bitmap texture</span><a class="headerlink" href="#id61" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">A material created by blending between rough plastic and smooth metal based on a binary bitmap texture</span><a class="headerlink" href="#id70" title="Permalink to this image">¶</a></p>
 </div>
 </div><p id="fig-bsdf-blendbsdf">This plugin implements a <em>blend</em> material, which represents
 linear combinations of two BSDF instances. Any surface scattering model in Mitsuba 2 (be it smooth,
@@ -2118,13 +2087,13 @@ rough, reflecting, or transmitting) can be mixed with others in this manner to s
 </tbody>
 </table>
 <div class="figure compound align-center" id="fig-bsdf-mask">
-<div style="width: 49%" class="subfigure align-center" id="id62">
+<div style="width: 49%" class="subfigure align-center" id="id71">
 <a class="reference internal image-reference" href="../_images/bsdf_mask_before.jpg"><img alt="../_images/bsdf_mask_before.jpg" src="../_images/bsdf_mask_before.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Rendering without an opacity mask</span><a class="headerlink" href="#id62" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Rendering without an opacity mask</span><a class="headerlink" href="#id71" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id63">
+<div style="width: 49%" class="subfigure align-center" id="id72">
 <a class="reference internal image-reference" href="../_images/bsdf_mask_after.jpg"><img alt="../_images/bsdf_mask_after.jpg" src="../_images/bsdf_mask_after.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Rendering <strong>with</strong> an opacity mask</span><a class="headerlink" href="#id63" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Rendering <strong>with</strong> an opacity mask</span><a class="headerlink" href="#id72" title="Permalink to this image">¶</a></p>
 </div>
 </div><p id="fig-bsdf-mask">This plugin applies an opacity mask to add nested BSDF instance. It interpolates
 between perfectly transparent and completely opaque based on the <span class="monosp">opacity</span> parameter.</p>
@@ -2173,13 +2142,13 @@ scenes that contain the <a class="reference internal" href="#bsdf-mask"><span cl
 </tbody>
 </table>
 <div class="figure compound align-center" id="fig-bsdf-twosided">
-<div style="width: 49%" class="subfigure align-center" id="id64">
+<div style="width: 49%" class="subfigure align-center" id="id73">
 <a class="reference internal image-reference" href="../_images/bsdf_twosided_cbox_onesided.jpg"><img alt="../_images/bsdf_twosided_cbox_onesided.jpg" src="../_images/bsdf_twosided_cbox_onesided.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">From this angle, the Cornell box scene shows visible back-facing geometry</span><a class="headerlink" href="#id64" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">From this angle, the Cornell box scene shows visible back-facing geometry</span><a class="headerlink" href="#id73" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id65">
+<div style="width: 49%" class="subfigure align-center" id="id74">
 <a class="reference internal image-reference" href="../_images/bsdf_twosided_cbox.jpg"><img alt="../_images/bsdf_twosided_cbox.jpg" src="../_images/bsdf_twosided_cbox.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Applying the <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">twosided</span></code> plugin fixes the rendering</span><a class="headerlink" href="#id65" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Applying the <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">twosided</span></code> plugin fixes the rendering</span><a class="headerlink" href="#id74" title="Permalink to this image">¶</a></p>
 </div>
 </div><p id="fig-bsdf-twosided">By default, all non-transmissive scattering models in Mitsuba 2
 are <em>one-sided</em> — in other words, they absorb all light
@@ -2244,17 +2213,17 @@ polarizer is aligned with the <em>V</em>-direction of the underlying surface par
 To rotate the polarizer, either the parameter <code class="docutils literal notranslate"><span class="pre">theta</span></code> can be used, or alternative
 a rotation can be applied directly to the associated shape.</p>
 <div class="figure compound align-center" id="fig-polarizer">
-<div style="width: 49%" class="subfigure align-center" id="id66">
+<div style="width: 49%" class="subfigure align-center" id="id75">
 <a class="reference internal image-reference" href="../_images/bsdf_polarizer_aligned.jpg"><img alt="../_images/bsdf_polarizer_aligned.jpg" src="../_images/bsdf_polarizer_aligned.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Two aligned polarizers. The average intensity is reduced by a factor of 2.</span><a class="headerlink" href="#id66" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Two aligned polarizers. The average intensity is reduced by a factor of 2.</span><a class="headerlink" href="#id75" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id67">
+<div style="width: 49%" class="subfigure align-center" id="id76">
 <a class="reference internal image-reference" href="../_images/bsdf_polarizer_absorbing.jpg"><img alt="../_images/bsdf_polarizer_absorbing.jpg" src="../_images/bsdf_polarizer_absorbing.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Two polarizers offset by 90 degrees. All trasmitted light is aborbed.</span><a class="headerlink" href="#id67" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Two polarizers offset by 90 degrees. All trasmitted light is aborbed.</span><a class="headerlink" href="#id76" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id68">
+<div style="width: 49%" class="subfigure align-center" id="id77">
 <a class="reference internal image-reference" href="../_images/bsdf_polarizer_middle.jpg"><img alt="../_images/bsdf_polarizer_middle.jpg" src="../_images/bsdf_polarizer_middle.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Two polarizers offset by 90 degrees, with a third polarizer in between at 45 degrees. Some light is transmitted again.</span><a class="headerlink" href="#id68" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Two polarizers offset by 90 degrees, with a third polarizer in between at 45 degrees. Some light is transmitted again.</span><a class="headerlink" href="#id77" title="Permalink to this image">¶</a></p>
 </div>
 </div><p id="fig-polarizer">The following XML snippet describes a linear polarizer material with a rotation
 of 90 degrees.</p>
@@ -2317,13 +2286,11 @@ but the (<a class="reference internal" href="#integrator-volpath"><span class="s
 transparent material similar to the <a class="reference internal" href="#bsdf-null"><span class="std std-ref">null</span></a> BSDF plugin.</p>
 </div>
 </div>
-<div class="section" id="phase-functions">
-<span id="sec-phase"></span><h1>Phase functions<a class="headerlink" href="#phase-functions" title="Permalink to this headline">¶</a></h1>
-<p>This section contains a description of all implemented medium scattering models,
-which are also known as phase functions. These are very similar in principle to
-surface scattering models (or BSDFs), and essentially describe where light
-travels after hitting a particle within the medium. Currently, only the most
-commonly used models for smoke, fog, and other homogeneous media are implemented.</p>
+<div class="section" id="sec-phase">
+<span id="id14"></span><h1>相位函数<a class="headerlink" href="#sec-phase" title="Permalink to this headline">¶</a></h1>
+<p>本节包含了有关所有介质散射模型实现的描述，这也被称作相位函数（phase function）。
+在原则上这些模型与表面散射模型（或 BSDF）非常相似，本质上描述了光在击中介质中一个粒子后的传播路径。
+目前为止，只有大部分常见烟、雾和其他均匀介质是被实现了的。</p>
 <div class="section" id="isotropic-phase-function-isotropic">
 <span id="phase-isotropic"></span><h2>Isotropic phase function (<span class="monosp">isotropic</span>)<a class="headerlink" href="#isotropic-phase-function-isotropic" title="Permalink to this headline">¶</a></h2>
 <p>This phase function simulates completely uniform scattering,
@@ -2357,22 +2324,20 @@ the medium to be scatter more light in the opposite direction.</p></td>
 </tbody>
 </table>
 <p>This plugin implements the phase function model proposed by
-Henyey and Greenstein <a class="bibtex reference internal" href="../zz_bibliography.html#henyey1941diffuse" id="id14">[HG41]</a>. It is
+Henyey and Greenstein <a class="bibtex reference internal" href="../zz_bibliography.html#henyey1941diffuse" id="id15">[HG41]</a>. It is
 parameterizable from backward- (g&lt;0) through
 isotropic- (g=0) to forward (g&gt;0) scattering.</p>
 </div>
 </div>
-<div class="section" id="emitters">
-<span id="sec-emitters"></span><h1>Emitters<a class="headerlink" href="#emitters" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="sec-emitters">
+<span id="id16"></span><h1>光源<a class="headerlink" href="#sec-emitters" title="Permalink to this headline">¶</a></h1>
 <blockquote>
 <div><a class="reference internal image-reference" href="../_images/emitter_overview.jpg"><img alt="../_images/emitter_overview.jpg" class="align-center" src="../_images/emitter_overview.jpg" style="width: 70%;" /></a>
 <p>Schematic overview of the emitters in Mitsuba 2. The arrows indicate
 the directional distribution of light.</p>
 </div></blockquote>
-<p>Mitsuba 2 supports a number of different emitters/light sources, which can be
-classified into two main categories: emitters which are located somewhere within the scene, and emitters that surround the scene to simulate a distant environment.</p>
-<p>Generally, light sources are specified as children of the <code class="docutils literal notranslate"><span class="pre">&lt;scene&gt;</span></code> element; for instance,
-the following snippet instantiates a point light emitter that illuminates a sphere:</p>
+<p>Mitsuba 2 支持大量不同类型的光源，这些光源大致上可以分成两类：坐落在场景内的光源，围绕在场景外模拟在远处的光源。</p>
+<p>一般来说，光源是 <code class="docutils literal notranslate"><span class="pre">&lt;scene&gt;</span></code> 这一元素的子类；例如，下面的代码片段实例化了一个点光源发射器：</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;scene</span> <span class="na">version=</span><span class="s">&quot;2.0.0&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;emitter</span> <span class="na">type=</span><span class="s">&quot;point&quot;</span><span class="nt">&gt;</span>
         <span class="nt">&lt;spectrum</span> <span class="na">name=</span><span class="s">&quot;intensity&quot;</span> <span class="na">value=</span><span class="s">&quot;1&quot;</span><span class="nt">/&gt;</span>
@@ -2383,8 +2348,7 @@ the following snippet instantiates a point light emitter that illuminates a sphe
 <span class="nt">&lt;/scene&gt;</span>
 </pre></div>
 </div>
-<p>An exception to this are area lights, which turn a geometric object into a light source.
-These are specified as children of the corresponding <code class="docutils literal notranslate"><span class="pre">&lt;shape&gt;</span></code> element:</p>
+<p>有一个例外是面光源，面光源是将一个几何物体变为了光源。所以它们被指定为 <code class="docutils literal notranslate"><span class="pre">&lt;shape&gt;</span></code> 这一元素的子类：</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;scene</span> <span class="na">version=</span><span class="s">&quot;2.0.0&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;shape</span> <span class="na">type=</span><span class="s">&quot;sphere&quot;</span><span class="nt">&gt;</span>
         <span class="nt">&lt;emitter</span> <span class="na">type=</span><span class="s">&quot;area&quot;</span><span class="nt">&gt;</span>
@@ -2528,14 +2492,14 @@ illumination.</p>
 latitude-longitude format and turns it into an infinitely distant emitter. The
 conventions of this mapping are shown in this image:</p>
 <div class="figure compound align-center" id="fig-envmap-mapping">
-<div style="width: 49%" class="subfigure align-center" id="id69">
+<div style="width: 49%" class="subfigure align-center" id="id78">
 <a class="reference internal image-reference" href="../_images/emitter_envmap_example.jpg"><img alt="../_images/emitter_envmap_example.jpg" src="../_images/emitter_envmap_example.jpg" style="width: 95%;" /></a>
 <p class="caption"><span class="caption-text">The museum environment map by Bernhard Vogl that is used in
-many example renderings in this documentation.</span><a class="headerlink" href="#id69" title="Permalink to this image">¶</a></p>
+many example renderings in this documentation.</span><a class="headerlink" href="#id78" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id70">
+<div style="width: 49%" class="subfigure align-center" id="id79">
 <a class="reference internal image-reference" href="../_images/emitter_envmap_axes.jpg"><img alt="../_images/emitter_envmap_axes.jpg" src="../_images/emitter_envmap_axes.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Coordinate conventions used when mapping the input image onto the sphere.</span><a class="headerlink" href="#id70" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Coordinate conventions used when mapping the input image onto the sphere.</span><a class="headerlink" href="#id79" title="Permalink to this image">¶</a></p>
 </div>
 </div><p id="fig-envmap-mapping">The plugin can work with all types of images that are natively supported by Mitsuba
 (i.e. JPEG, PNG, OpenEXR, RGBE, TGA, and BMP). In practice, a good environment
@@ -2597,13 +2561,13 @@ using the lookat tag, e.g.:</p>
 <p>The intensity linearly ramps up from cutoff_angle to beam_width (both specified in degrees),
 after which it remains at the maximum value. A projection texture may optionally be supplied.</p>
 <div class="figure compound align-center" id="fig-spot-light">
-<div style="width: 49%" class="subfigure align-center" id="id71">
+<div style="width: 49%" class="subfigure align-center" id="id80">
 <a class="reference internal image-reference" href="../_images/emitter_spot_no_texture.jpg"><img alt="../_images/emitter_spot_no_texture.jpg" src="../_images/emitter_spot_no_texture.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Two spot lights with different colors and no texture specified.</span><a class="headerlink" href="#id71" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Two spot lights with different colors and no texture specified.</span><a class="headerlink" href="#id80" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id72">
+<div style="width: 49%" class="subfigure align-center" id="id81">
 <a class="reference internal image-reference" href="../_images/emitter_spot_texture.jpg"><img alt="../_images/emitter_spot_texture.jpg" src="../_images/emitter_spot_texture.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">A spot light with a texture specified.</span><a class="headerlink" href="#id72" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">A spot light with a texture specified.</span><a class="headerlink" href="#id81" title="Permalink to this image">¶</a></p>
 </div>
 </div></div>
 <div class="section" id="projection-light-source-projector">
@@ -2681,13 +2645,13 @@ projects into the scene, with an optional scaling factor.</p>
 <p>Pixels are importance sampled according to their density, hence this
 operation remains efficient even if only a single pixel is turned on.</p>
 <div class="figure compound align-center" id="fig-projector-light">
-<div style="width: 49%" class="subfigure align-center" id="id73">
+<div style="width: 49%" class="subfigure align-center" id="id82">
 <a class="reference internal image-reference" href="../_images/emitter_projector_constant.jpg"><img alt="../_images/emitter_projector_constant.jpg" src="../_images/emitter_projector_constant.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">A projector lights with constant irradiance (no texture specified).</span><a class="headerlink" href="#id73" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">A projector lights with constant irradiance (no texture specified).</span><a class="headerlink" href="#id82" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id74">
+<div style="width: 49%" class="subfigure align-center" id="id83">
 <a class="reference internal image-reference" href="../_images/emitter_projector_textured.jpg"><img alt="../_images/emitter_projector_textured.jpg" src="../_images/emitter_projector_textured.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">A projector light with a texture specified.</span><a class="headerlink" href="#id74" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">A projector light with a texture specified.</span><a class="headerlink" href="#id83" title="Permalink to this image">¶</a></p>
 </div>
 </div></div>
 <div class="section" id="distant-directional-emitter-directional">
@@ -2727,11 +2691,10 @@ specified power per unit area along a fixed direction. By default, the emitter
 radiates in the direction of the positive Z axis, i.e. <span class="math notranslate nohighlight">\((0, 0, 1)\)</span>.</p>
 </div>
 </div>
-<div class="section" id="sensors">
-<span id="sec-sensors"></span><h1>Sensors<a class="headerlink" href="#sensors" title="Permalink to this headline">¶</a></h1>
-<p>In Mitsuba 2, <em>sensors</em>, along with a <em>film</em>, are responsible for recording
-radiance measurements in some usable format.</p>
-<p>In the XML scene description language, a sensor declaration looks as follows:</p>
+<div class="section" id="sec-sensors">
+<span id="id17"></span><h1>传感器<a class="headerlink" href="#sec-sensors" title="Permalink to this headline">¶</a></h1>
+<p>在 Mitsuba 2 中  <em>sensors</em> 以及 <em>film</em> 都是以一些可用格式来纪录辐射度的表达方式。</p>
+<p>在 XML 场景描述语言中，一个 sensor 可以如下进行定义：</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;scene</span> <span class="na">version=</span><span class="s">2.0.0</span><span class="nt">&gt;</span>
     <span class="c">&lt;!-- .. scene contents .. --&gt;</span>
 
@@ -2749,18 +2712,11 @@ radiance measurements in some usable format.</p>
 <span class="nt">&lt;/scene&gt;</span>
 </pre></div>
 </div>
-<p>In other words, the <code class="docutils literal notranslate"><span class="pre">sensor</span></code> declaration is a child element of the <code class="docutils literal notranslate"><span class="pre">&lt;scene&gt;</span></code>
-(the particular position in the scene file does not play a role). Nested within
-the sensor declaration is a sampler instance (see <a class="reference internal" href="#sec-samplers"><span class="std std-ref">Samplers</span></a>)
-and a film instance (see <a class="reference internal" href="#sec-films"><span class="std std-ref">Films</span></a>).</p>
-<p>Sensors in Mitsuba 2 are <em>right-handed</em>. Any number of rotations and translations
-can be applied to them without changing this property. By default, they are located
-at the origin and oriented in such a way that in the rendered image, <span class="math notranslate nohighlight">\(+X\)</span>
-points left, <span class="math notranslate nohighlight">\(+Y\)</span> points upwards, and <span class="math notranslate nohighlight">\(+Z\)</span> points along the viewing
-direction.
-Left-handed sensors are also supported. To switch the handedness, flip any one
-of the axes, e.g. by passing a scale transform like <code class="docutils literal notranslate"><span class="pre">&lt;scale</span> <span class="pre">x=&quot;-1&quot;/&gt;</span></code> to the
-sensor’s <span class="monosp">to_world</span> parameter.</p>
+<p>换句话说，<code class="docutils literal notranslate"><span class="pre">sensor</span></code> 是  <code class="docutils literal notranslate"><span class="pre">&lt;scene&gt;</span></code> 的子类（对于场景文件中的特定位置不起作用）。嵌套在 sensor 声明中的
+是一个 sampler 实例（详见 <a class="reference internal" href="#sec-samplers"><span class="std std-ref">Samplers</span></a>）和一个 film 实例（详见 <a class="reference internal" href="#sec-films"><span class="std std-ref">Films</span></a>）。</p>
+<p>在 Mitsuba 2 中 sensor 遵循的是 <em>右手系</em> 。对他们进行任意旋转或平移操作都无法动摇这一属性。默认情况下，
+它们位于坐标系原点并朝着渲染图规定的方向，其中 <span class="math notranslate nohighlight">\(+X\)</span> 指向左方，<span class="math notranslate nohighlight">\(+Y\)</span> 指向上方，<span class="math notranslate nohighlight">\(+Z\)</span> 则沿着观察方向。
+当然左手系也是支持的。改变坐标系性质，只需要反转任意轴即可，例如，通过对 sensor 的 <span class="monosp">to_world</span> 参数执行一个缩放变换 <code class="docutils literal notranslate"><span class="pre">&lt;scale</span> <span class="pre">x=&quot;-1&quot;/&gt;</span></code> 。</p>
 <div class="section" id="perspective-pinhole-camera-perspective">
 <span id="sensor-perspective"></span><h2>Perspective pinhole camera (<span class="monosp">perspective</span>)<a class="headerlink" href="#perspective-pinhole-camera-perspective" title="Permalink to this headline">¶</a></h2>
 <table class="paramstable docutils align-default">
@@ -2818,13 +2774,13 @@ and <span class="monosp">far_clip=1e4</span> (i.e. <span class="monosp">10000</s
 </tbody>
 </table>
 <div class="figure compound align-center" id="fig-perspective">
-<div style="width: 49%" class="subfigure align-center" id="id75">
+<div style="width: 49%" class="subfigure align-center" id="id84">
 <a class="reference internal image-reference" href="../_images/sensor_perspective.jpg"><img alt="../_images/sensor_perspective.jpg" src="../_images/sensor_perspective.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">The material test ball viewed through a perspective pinhole camera. (<span class="monosp">fov=28</span>)</span><a class="headerlink" href="#id75" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">The material test ball viewed through a perspective pinhole camera. (<span class="monosp">fov=28</span>)</span><a class="headerlink" href="#id84" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id76">
+<div style="width: 49%" class="subfigure align-center" id="id85">
 <a class="reference internal image-reference" href="../_images/sensor_perspective_large_fov.jpg"><img alt="../_images/sensor_perspective_large_fov.jpg" src="../_images/sensor_perspective_large_fov.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">The material test ball viewed through a perspective pinhole camera. (<span class="monosp">fov=40</span>)</span><a class="headerlink" href="#id76" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">The material test ball viewed through a perspective pinhole camera. (<span class="monosp">fov=40</span>)</span><a class="headerlink" href="#id85" title="Permalink to this image">¶</a></p>
 </div>
 </div><p id="fig-perspective">This plugin implements a simple idealizied perspective camera model, which
 has an infinitely small aperture. This creates an infinite depth of field,
@@ -2911,13 +2867,13 @@ and <span class="monosp">far_clip=1e4</span> (i.e. <span class="monosp">10000</s
 </tbody>
 </table>
 <div class="figure compound align-center" id="fig-thinlens">
-<div style="width: 49%" class="subfigure align-center" id="id77">
+<div style="width: 49%" class="subfigure align-center" id="id86">
 <a class="reference internal image-reference" href="../_images/sensor_thinlens_small_aperture.jpg"><img alt="../_images/sensor_thinlens_small_aperture.jpg" src="../_images/sensor_thinlens_small_aperture.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">The material test ball viewed through a perspective thin lens camera. (<span class="monosp">aperture_radius=0.1</span>)</span><a class="headerlink" href="#id77" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">The material test ball viewed through a perspective thin lens camera. (<span class="monosp">aperture_radius=0.1</span>)</span><a class="headerlink" href="#id86" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id78">
+<div style="width: 49%" class="subfigure align-center" id="id87">
 <a class="reference internal image-reference" href="../_images/sensor_thinlens.jpg"><img alt="../_images/sensor_thinlens.jpg" src="../_images/sensor_thinlens.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">The material test ball viewed through a perspective thin lens camera. (<span class="monosp">aperture_radius=0.2</span>)</span><a class="headerlink" href="#id78" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">The material test ball viewed through a perspective thin lens camera. (<span class="monosp">aperture_radius=0.2</span>)</span><a class="headerlink" href="#id87" title="Permalink to this image">¶</a></p>
 </div>
 </div><p id="fig-thinlens">This plugin implements a simple perspective camera model with a thin lens
 at its circular aperture. It is very similar to the
@@ -3031,16 +2987,12 @@ simply instantiate the desired sensor shape and specify an
 </div>
 </div>
 </div>
-<div class="section" id="textures">
-<span id="sec-textures"></span><h1>Textures<a class="headerlink" href="#textures" title="Permalink to this headline">¶</a></h1>
-<p>The following section describes the available texture data sources. In Mitsuba 2,
-textures are objects that can be attached to certain surface scattering model
-parameters to introduce spatial variation. In the documentation, these are listed
-as supporting the <span class="paramtype">texture</span> type. See the last sections about
-<a class="reference internal" href="#sec-bsdfs"><span class="std std-ref">BSDFs</span></a> for many examples.</p>
-<p>Textures take an (optional) <code class="docutils literal notranslate"><span class="pre">&lt;transform&gt;</span></code> called <span class="paramtype">to_uv</span> which can
-be used to translate, scale, or rotate the lookup into the texture accordingly.</p>
-<p>An example in XML looks the following:</p>
+<div class="section" id="sec-textures">
+<span id="id18"></span><h1>纹理<a class="headerlink" href="#sec-textures" title="Permalink to this headline">¶</a></h1>
+<p>接下来的小节描述的是纹理数据资源。在 Mitsuba 2 中纹理作为对象存在，纹理对象可以作为附加到某些表面散射模型的参数，以
+引入空间变化。在本文档中，以下列出了支持的 <span class="paramtype">texture</span> 类型。有关 BSDF 的更多示例，请参阅最后几节。</p>
+<p>Texture 有一个可选参数 <code class="docutils literal notranslate"><span class="pre">&lt;transform&gt;</span></code> 叫做 <span class="paramtype">to_uv</span> ，该参数可以用作平移、缩放、旋转以查找纹理。</p>
+<p>一个 XML 的例子如下所示：</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;scene</span> <span class="na">version=</span><span class="s">2.0.0</span><span class="nt">&gt;</span>
     <span class="c">&lt;!-- Create a BSDF that supports textured parameters --&gt;</span>
     <span class="nt">&lt;bsdf</span> <span class="na">type=</span><span class="s">&quot;.. BSDF type ..&quot;</span> <span class="na">id=</span><span class="s">&quot;my_textured_material&quot;</span><span class="nt">&gt;</span>
@@ -3060,9 +3012,7 @@ be used to translate, scale, or rotate the lookup into the texture accordingly.<
 <span class="nt">&lt;/scene&gt;</span>
 </pre></div>
 </div>
-<p>Similar to BSDFs, named textures can alternatively defined at the top level of the scene
-and later referenced. This is particularly useful if the same texture would be loaded
-many times otherwise.</p>
+<p>与 BSDF 类似，命名了的纹理可以在场景的顶层定义并在之后进行引用。如果相同的纹理需要多次加载，这将会特别有用。</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;scene</span> <span class="na">version=</span><span class="s">2.0.0</span><span class="nt">&gt;</span>
     <span class="c">&lt;!-- Create a named texture at the top level --&gt;</span>
     <span class="nt">&lt;texture</span> <span class="na">type=</span><span class="s">&quot;.. texture type ..&quot;</span> <span class="na">id=</span><span class="s">&quot;my_named_texture&quot;</span><span class="nt">&gt;</span>
@@ -3145,7 +3095,7 @@ for the renderer:</p>
 <ul class="simple">
 <li><p>In <span class="monosp">rgb</span> modes, sRGB textures are converted into a linear color space.</p></li>
 <li><p>In <span class="monosp">spectral</span> modes, sRGB textures are <em>spectrally upsampled</em> to plausible
-smooth spectra <a class="bibtex reference internal" href="../zz_bibliography.html#jakob2019spectral" id="id15">[JH19]</a> and stored an intermediate representation
+smooth spectra <a class="bibtex reference internal" href="../zz_bibliography.html#jakob2019spectral" id="id19">[JH19]</a> and stored an intermediate representation
 that enables efficient queries at render time.</p></li>
 <li><p>In <span class="monosp">monochrome</span> modes, sRGB textures are converted to grayscale.</p></li>
 </ul>
@@ -3181,9 +3131,9 @@ In that case, the last row and columns will be ignored.  (Default: none)</p></td
 </table>
 <p>This plugin provides a simple procedural checkerboard texture with customizable colors.</p>
 <div class="figure compound align-center" id="fig-texture-checkerboard">
-<div style="width: 49%" class="subfigure align-center" id="id79">
+<div style="width: 49%" class="subfigure align-center" id="id88">
 <a class="reference internal image-reference" href="../_images/texture_checkerboard.jpg"><img alt="../_images/texture_checkerboard.jpg" src="../_images/texture_checkerboard.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Checkerboard applied to the material test object as well as the ground plane.</span><a class="headerlink" href="#id79" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Checkerboard applied to the material test object as well as the ground plane.</span><a class="headerlink" href="#id88" title="Permalink to this image">¶</a></p>
 </div>
 </div></div>
 <div class="section" id="mesh-attribute-texture-mesh-attribute">
@@ -3215,13 +3165,13 @@ In that case, the last row and columns will be ignored.  (Default: none)</p></td
 <p>This plugin provides a simple mechanism to expose Mesh attributes (e.g. vertex color)
 as a texture.</p>
 <div class="figure compound align-center" id="fig-texture-mesh-attribute">
-<div style="width: 49%" class="subfigure align-center" id="id80">
+<div style="width: 49%" class="subfigure align-center" id="id89">
 <a class="reference internal image-reference" href="../_images/texture_mesh_attribute_vertex.jpg"><img alt="../_images/texture_mesh_attribute_vertex.jpg" src="../_images/texture_mesh_attribute_vertex.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Bunny with random vertex color (using barycentric interpolation).</span><a class="headerlink" href="#id80" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Bunny with random vertex color (using barycentric interpolation).</span><a class="headerlink" href="#id89" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id81">
+<div style="width: 49%" class="subfigure align-center" id="id90">
 <a class="reference internal image-reference" href="../_images/texture_mesh_attribute_face.jpg"><img alt="../_images/texture_mesh_attribute_face.jpg" src="../_images/texture_mesh_attribute_face.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Bunny with random face color.</span><a class="headerlink" href="#id81" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Bunny with random face color.</span><a class="headerlink" href="#id90" title="Permalink to this image">¶</a></p>
 </div>
 </div><p id="fig-texture-mesh-attribute">The following XML snippet describes a mesh with diffuse material,
 whose reflectance is specified using the <code class="docutils literal notranslate"><span class="pre">vertex_color</span></code> attribute of that mesh:</p>
@@ -3244,13 +3194,10 @@ model coefficients automatically.</p>
 </div>
 </div>
 </div>
-<div class="section" id="spectra">
-<span id="sec-spectra"></span><h1>Spectra<a class="headerlink" href="#spectra" title="Permalink to this headline">¶</a></h1>
-<p>This section describes the plugins behind spectral reflectance or emission used
-in Mitsuba 2. On an implementation level, these behave very similarly to the
-<a class="reference internal" href="#sec-textures"><span class="std std-ref">texture plugins</span></a> described earlier (but lacking their
-spatially varying property) and can thus be used similarly as either BSDF or
-emitter parameters:</p>
+<div class="section" id="sec-spectra">
+<span id="id20"></span><h1>光谱<a class="headerlink" href="#sec-spectra" title="Permalink to this headline">¶</a></h1>
+<p>本节介绍的是 Mitsuba 2 在光谱反射或发光背后的插件。在实现的层面上，它们的行为与之前 <a class="reference internal" href="#sec-textures"><span class="std std-ref">texture plugins</span></a>
+中的描述非常相似（但是要缺少空间变化属性），因此，可以类似地作为 BSDF 或 emitter 的参数使用：</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;scene</span> <span class="na">version=</span><span class="s">2.0.0</span><span class="nt">&gt;</span>
     <span class="nt">&lt;bsdf</span> <span class="na">type=</span><span class="s">&quot;.. BSDF type ..&quot;</span><span class="nt">&gt;</span>
         <span class="c">&lt;!-- Explicitly add a uniform spectrum plugin --&gt;</span>
@@ -3261,13 +3208,11 @@ emitter parameters:</p>
 <span class="nt">&lt;/scene&gt;</span>
 </pre></div>
 </div>
-<p>In practice, it is however discouraged to instantiate plugins in this explicit way
-and the XML scene description parser directly parses a number of common (shorter)
-<code class="docutils literal notranslate"><span class="pre">&lt;spectrum&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;rgb&gt;</span></code> tags See the corresponding section about the
-<a class="reference internal" href="../src/getting_started/file_format.html#sec-file-format"><span class="std std-ref">scene file format</span></a> for details.</p>
-<p>The following two tables summarize which underlying plugins get instantiated
-in each case, accounting for differences between reflectance and emission properties
-and all different color modes. Each plugin is briefly summarized below.</p>
+<p>但是在实际工作中，不鼓励以这种显式方式实例化插件，XML 场景描述解析器会直接解析许多常用的插件（较短的）
+如 <code class="docutils literal notranslate"><span class="pre">&lt;spectrum&gt;</span></code> 和 <code class="docutils literal notranslate"><span class="pre">&lt;rgb&gt;</span></code> 标签。请参阅 <a class="reference internal" href="../src/getting_started/file_format.html#sec-file-format"><span class="std std-ref">scene file format</span></a> 相关章节
+以获得更多信息。</p>
+<p>接下来的两个表格总结了底层插件在每种情况下的实例化，考虑到了反射和发射属性以及不同颜色模式之间的差异。
+下面对于了每个插件都有简要的介绍。</p>
 <div class="figure align-center" id="spectrum-reflectance-table-list">
 <center><table class="colwidths-given docutils align-default">
 <colgroup>
@@ -3363,7 +3308,7 @@ placed samples.</p>
 <div class="section" id="srgb-spectrum-srgb">
 <span id="spectrum-srgb"></span><h2>sRGB spectrum (<span class="monosp">srgb</span>)<a class="headerlink" href="#srgb-spectrum-srgb" title="Permalink to this headline">¶</a></h2>
 <p>In spectral render modes, this smooth spectrum is the result of the
-<em>spectral upsampling</em> process <a class="bibtex reference internal" href="../zz_bibliography.html#jakob2019spectral" id="id16">[JH19]</a> used by the system.
+<em>spectral upsampling</em> process <a class="bibtex reference internal" href="../zz_bibliography.html#jakob2019spectral" id="id21">[JH19]</a> used by the system.
 In RGB render modes, this spectrum represents a constant RGB value.
 In monochrome modes, this spectrum represents a constant luminance value.</p>
 </div>
@@ -3403,17 +3348,12 @@ per steradian (<span class="math notranslate nohighlight">\(sr^{-1}\)</span>) pe
 your scene should be modeled in meters for this plugin to work properly.</p>
 </div>
 </div>
-<div class="section" id="integrators">
-<span id="sec-integrators"></span><h1>Integrators<a class="headerlink" href="#integrators" title="Permalink to this headline">¶</a></h1>
-<p>In Mitsuba 2, the different rendering techniques are collectively referred to as
-<em>integrators</em>, since they perform integration over a high-dimensional space.
-Each integrator represents a specific approach for solving the light transport
-equation—usually favored in certain scenarios, but at the same time affected
-by its own set of intrinsic limitations. Therefore, it is important to carefully
-select an integrator based on user-specified accuracy requirements and
-properties of the scene to be rendered.</p>
-<p>In the XML description language, a single integrator is usually instantiated by
-declaring it at the top level within the scene, e.g.</p>
+<div class="section" id="sec-integrators">
+<span id="id22"></span><h1>积分器<a class="headerlink" href="#sec-integrators" title="Permalink to this headline">¶</a></h1>
+<p>在 Mitsuba 2中，与众不同的渲染技术都和 <em>integrator</em> 的使用相关，积分器是在高维度计算积分的。
+每个积分器表示的都是解决光线传播方程的一种特定方法，通常在某些情况下有利，但同时又受其自身固有的局限性的影响。
+因此，根据指定精度的要求以及待渲染场景的特性认真选择合适的积分器求解非常重要。</p>
+<p>在 XML 场景描述语言中，一个简单的积分器通常应在场景顶部声明来实例化，例如：</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;scene</span> <span class="na">version=</span><span class="s">2.0.0</span><span class="nt">&gt;</span>
     <span class="c">&lt;!-- Instantiate a unidirectional path tracer,</span>
 <span class="c">         which renders paths up to a depth of 5 --&gt;</span>
@@ -3428,39 +3368,31 @@ declaring it at the top level within the scene, e.g.</p>
 <span class="nt">&lt;/scene&gt;</span>
 </pre></div>
 </div>
-<p>This section gives an overview of the available choices along with their parameters.</p>
-<p>Almost all integrators use the concept of <em>path depth</em>. Here, a path refers to
-a chain of scattering events that starts at the light source and ends at the
-camera. It is oten useful to limit the path depth when rendering scenes for
-preview purposes, since this reduces the amount of computation that is necessary
-per pixel. Furthermore, such renderings usually converge faster and therefore
-need fewer samples per pixel. Then reference-quality is desired, one should always
-leave the path depth unlimited.</p>
-<p>The Cornell box renderings below demonstrate the visual effect of a maximum path
-depth. As the paths are allowed to grow longer, the color saturation increases
-due to multiple scattering interactions with the colored surfaces. At the same
-time, the computation time increases.</p>
+<p>这一小节给出的是积分器参数可用选项的概览。</p>
+<p>几乎所有的积分器都使用了 <em>path depth</em> 的概念。在这里，一条路径是指从光源开始到相机结束的一系列散射行为。
+在预览渲染场景时限制路径深度是非常有用的，因为这减少了每个像素需要的计算量。除此之外，这类渲染通常收敛速度更快，
+因此每个像素需要的样本会更少。如果随后想要参考渲染质量，此时应该允许路径深度无限制即可。</p>
+<p>下面 Cornell box 的渲染图展示了最大路径深度的视觉效果。随着允许光路长度的增加，更多的散射和着色表面进行交互从而
+颜色的饱和度也在增加，同时渲染用时也会相应增加。</p>
 <div class="figure compound align-center" id="fig-integrators-depth">
-<div style="width: 23%" class="subfigure align-center" id="id82">
+<div style="width: 23%" class="subfigure align-center" id="id91">
 <a class="reference internal image-reference" href="../_images/integrator_depth_1.jpg"><img alt="../_images/integrator_depth_1.jpg" src="../_images/integrator_depth_1.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">max. depth = 1</span><a class="headerlink" href="#id82" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">max. depth = 1</span><a class="headerlink" href="#id91" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 23%" class="subfigure align-center" id="id83">
+<div style="width: 23%" class="subfigure align-center" id="id92">
 <a class="reference internal image-reference" href="../_images/integrator_depth_2.jpg"><img alt="../_images/integrator_depth_2.jpg" src="../_images/integrator_depth_2.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">max. depth = 2</span><a class="headerlink" href="#id83" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">max. depth = 2</span><a class="headerlink" href="#id92" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 23%" class="subfigure align-center" id="id84">
+<div style="width: 23%" class="subfigure align-center" id="id93">
 <a class="reference internal image-reference" href="../_images/integrator_depth_3.jpg"><img alt="../_images/integrator_depth_3.jpg" src="../_images/integrator_depth_3.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">max. depth = 3</span><a class="headerlink" href="#id84" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">max. depth = 3</span><a class="headerlink" href="#id93" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 23%" class="subfigure align-center" id="id85">
+<div style="width: 23%" class="subfigure align-center" id="id94">
 <a class="reference internal image-reference" href="../_images/integrator_depth_inf.jpg"><img alt="../_images/integrator_depth_inf.jpg" src="../_images/integrator_depth_inf.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">max. depth = <span class="math notranslate nohighlight">\(\infty\)</span></span><a class="headerlink" href="#id85" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">max. depth = <span class="math notranslate nohighlight">\(\infty\)</span></span><a class="headerlink" href="#id94" title="Permalink to this image">¶</a></p>
 </div>
-</div><p id="fig-integrators-depth">Mitsuba counts depths starting at 1, which corresponds to visible light sources
-(i.e. a path that starts at the light source and ends at the camera without any
-scattering interaction in between.) A depth-2 path (also known as “direct
-illumination”) includes a single scattering event like shown here:</p>
+</div><p id="fig-integrators-depth">Mitsuba 从 1 开始计算路径深度，这与可见光源相对应（即，光线从光源开始到相机结束，其间没有与任何物体交互）。
+深度为 2 的路径（即我们所熟知的 “直接照明”）包含了如下图一样一个简单的散射事件：</p>
 <a class="reference internal image-reference" href="../_images/path_explanation.jpg"><img alt="../_images/path_explanation.jpg" class="align-center" src="../_images/path_explanation.jpg" style="width: 80%;" /></a>
 <div class="section" id="direct-illumination-integrator-direct">
 <span id="integrator-direct"></span><h2>Direct illumination integrator (<span class="monosp">direct</span>)<a class="headerlink" href="#direct-illumination-integrator-direct" title="Permalink to this headline">¶</a></h2>
@@ -3620,21 +3552,21 @@ respective output will be put into distinct images.</p></td>
 <p>This integrator returns one or more AOVs (Arbitraty Output Variables) describing the visible
 surfaces.</p>
 <div class="figure compound align-center" id="fig-diffuse">
-<div style="width: 49%" class="subfigure align-center" id="id86">
+<div style="width: 49%" class="subfigure align-center" id="id95">
 <a class="reference internal image-reference" href="../_images/bsdf_diffuse_plain.jpg"><img alt="../_images/bsdf_diffuse_plain.jpg" src="../_images/bsdf_diffuse_plain.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Scene rendered with a path tracer</span><a class="headerlink" href="#id86" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Scene rendered with a path tracer</span><a class="headerlink" href="#id95" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id87">
+<div style="width: 49%" class="subfigure align-center" id="id96">
 <a class="reference internal image-reference" href="../_images/integrator_aov_depth.y.jpg"><img alt="../_images/integrator_aov_depth.y.jpg" src="../_images/integrator_aov_depth.y.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Depth AOV</span><a class="headerlink" href="#id87" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Depth AOV</span><a class="headerlink" href="#id96" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id88">
+<div style="width: 49%" class="subfigure align-center" id="id97">
 <a class="reference internal image-reference" href="../_images/integrator_aov_nn.jpg"><img alt="../_images/integrator_aov_nn.jpg" src="../_images/integrator_aov_nn.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Normal AOV</span><a class="headerlink" href="#id88" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Normal AOV</span><a class="headerlink" href="#id97" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id89">
+<div style="width: 49%" class="subfigure align-center" id="id98">
 <a class="reference internal image-reference" href="../_images/integrator_aov_position.jpg"><img alt="../_images/integrator_aov_position.jpg" src="../_images/integrator_aov_position.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Position AOV</span><a class="headerlink" href="#id89" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Position AOV</span><a class="headerlink" href="#id98" title="Permalink to this image">¶</a></p>
 </div>
 </div><p id="fig-diffuse">Here is an example on how to enable the <em>depth</em> and <em>shading normal</em> AOVs while still rendering the
 image with a path tracer. The <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">RGBA</span></code> image produces by the path tracer will be stored in the
@@ -3661,7 +3593,7 @@ output file.</p>
 </div>
 <div class="section" id="volumetric-path-tracer-with-null-scattering-volpath">
 <span id="integrator-volpath"></span><h2>Volumetric path tracer with null scattering (<span class="monosp">volpath</span>)<a class="headerlink" href="#volumetric-path-tracer-with-null-scattering-volpath" title="Permalink to this headline">¶</a></h2>
-<div class="admonition-todo admonition" id="id17">
+<div class="admonition-todo admonition" id="id23">
 <p class="admonition-title">Todo</p>
 <p>Not documented yet.</p>
 </div>
@@ -3722,21 +3654,21 @@ conductive sphere that all affect the polarization state of the
 <p>The first entry corresponds to usual radiance, whereas the remaining three entries
 describe the polarization of light shown as false color images (green: positive, red: negative).</p>
 <div class="figure compound align-center" id="fig-stokes">
-<div style="width: 49%" class="subfigure align-center" id="id90">
+<div style="width: 49%" class="subfigure align-center" id="id99">
 <a class="reference internal image-reference" href="../_images/integrator_stokes_cbox.jpg"><img alt="../_images/integrator_stokes_cbox.jpg" src="../_images/integrator_stokes_cbox.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">“<span class="math notranslate nohighlight">\(\mathbf{s}_0\)</span>”: radiance</span><a class="headerlink" href="#id90" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">“<span class="math notranslate nohighlight">\(\mathbf{s}_0\)</span>”: radiance</span><a class="headerlink" href="#id99" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id91">
+<div style="width: 49%" class="subfigure align-center" id="id100">
 <a class="reference internal image-reference" href="../_images/integrator_stokes_cbox_s1.jpg"><img alt="../_images/integrator_stokes_cbox_s1.jpg" src="../_images/integrator_stokes_cbox_s1.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">“<span class="math notranslate nohighlight">\(\mathbf{s}_1\)</span>”: horizontal vs. vertical polarization</span><a class="headerlink" href="#id91" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">“<span class="math notranslate nohighlight">\(\mathbf{s}_1\)</span>”: horizontal vs. vertical polarization</span><a class="headerlink" href="#id100" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id92">
+<div style="width: 49%" class="subfigure align-center" id="id101">
 <a class="reference internal image-reference" href="../_images/integrator_stokes_cbox_s2.jpg"><img alt="../_images/integrator_stokes_cbox_s2.jpg" src="../_images/integrator_stokes_cbox_s2.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">“<span class="math notranslate nohighlight">\(\mathbf{s}_2\)</span>”: positive vs. negative diagonal polarization</span><a class="headerlink" href="#id92" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">“<span class="math notranslate nohighlight">\(\mathbf{s}_2\)</span>”: positive vs. negative diagonal polarization</span><a class="headerlink" href="#id101" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id93">
+<div style="width: 49%" class="subfigure align-center" id="id102">
 <a class="reference internal image-reference" href="../_images/integrator_stokes_cbox_s3.jpg"><img alt="../_images/integrator_stokes_cbox_s3.jpg" src="../_images/integrator_stokes_cbox_s3.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">“<span class="math notranslate nohighlight">\(\mathbf{s}_3\)</span>”: right vs. left circular polarization</span><a class="headerlink" href="#id93" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">“<span class="math notranslate nohighlight">\(\mathbf{s}_3\)</span>”: right vs. left circular polarization</span><a class="headerlink" href="#id102" title="Permalink to this image">¶</a></p>
 </div>
 </div><p id="fig-stokes">In the following example, a normal path tracer is nested inside the Stokes vector
 integrator:</p>
@@ -3749,19 +3681,14 @@ integrator:</p>
 </div>
 </div>
 </div>
-<div class="section" id="samplers">
-<span id="sec-samplers"></span><h1>Samplers<a class="headerlink" href="#samplers" title="Permalink to this headline">¶</a></h1>
-<p>When rendering an image, Mitsuba 2 has to solve a high-dimensional integration problem that involves
-the geometry, materials, lights, and sensors that make up the scene. Because of the mathematical
-complexity of these integrals, it is generally impossible to solve them analytically — instead, they
-are solved numerically by evaluating the function to be integrated at a large number of different
-positions referred to as samples. Sample generators are an essential ingredient to this process:
-they produce points in a (hypothetical) infinite dimensional hypercube <span class="math notranslate nohighlight">\([0, 1]^{\infty}\)</span>
-that constitute the canonical representation of these samples.</p>
-<p>To do its work, a rendering algorithm, or integrator, will send many queries to the sample
-generator. Generally, it will request subsequent 1D or 2D components of this infinite-dimensional
-<em>point</em> and map them into a more convenient space (for instance, positions on surfaces). This allows
-it to construct light paths to eventually evaluate the flow of light through the scene.</p>
+<div class="section" id="sec-samplers">
+<span id="id24"></span><h1>采样器<a class="headerlink" href="#sec-samplers" title="Permalink to this headline">¶</a></h1>
+<p>在渲染图像时，Mitsuba 2 必须解决涉及构成场景的几何、材质、灯光和传感器的高维积分问题。由于这些积分的数学复杂性，
+通常不可能用解析法来解决它们，而是通过在大量不同位置采样来对要积分的函数求值并整合起来估算要求的积分。
+样本生成器是这个过程的基本组成部分：它们在无限维超立方体（假设的） <span class="math notranslate nohighlight">\([0, 1]^{\infty}\)</span> 中生成点，
+这些生层点构成了样本的标准表示。</p>
+<p>为了完成这一工作，渲染算法和积分器都会向样本生成器发出大量查询。通常，它们会请求这个 <em>无限维点</em> 的后面 1D 或 2D 分量，
+并将它们映射到一个更便利的空间（例如，曲面上某个位置）。这允许它构建光路，最终估算通过场景的光强。</p>
 <div class="section" id="independent-sampler-independent">
 <span id="sampler-independent"></span><h2>Independent sampler (<span class="monosp">independent</span>)<a class="headerlink" href="#independent-sampler-independent" title="Permalink to this headline">¶</a></h2>
 <table class="paramstable docutils align-default">
@@ -3803,14 +3730,14 @@ and/or machines, this is not true anymore, since the ordering of samples is infl
 operating system scheduler. Although these should be absolutely negligible, with relative errors
 on the order of the machine epsilon (<span class="math notranslate nohighlight">\(6\cdot 10^{-8}\)</span>) in single precision.</p>
 <div class="figure compound align-center" id="fig-independent-pattern">
-<div style="width: 49%" class="subfigure align-center" id="id94">
+<div style="width: 49%" class="subfigure align-center" id="id103">
 <a class="reference internal image-reference" href="../_images/independent_1024_samples.svg"><img alt="../_images/independent_1024_samples.svg" src="../_images/independent_1024_samples.svg" width="95%" /></a>
-<p class="caption"><span class="caption-text">1024 samples projected onto the first two dimensions.</span><a class="headerlink" href="#id94" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">1024 samples projected onto the first two dimensions.</span><a class="headerlink" href="#id103" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id95">
+<div style="width: 49%" class="subfigure align-center" id="id104">
 <a class="reference internal image-reference" href="../_images/independent_64_samples_and_proj.svg"><img alt="../_images/independent_64_samples_and_proj.svg" src="../_images/independent_64_samples_and_proj.svg" width="95%" /></a>
 <p class="caption"><span class="caption-text">64 samples projected onto the first two dimensions and their
-projection on both 1D axis (top and right plot).</span><a class="headerlink" href="#id95" title="Permalink to this image">¶</a></p>
+projection on both 1D axis (top and right plot).</span><a class="headerlink" href="#id104" title="Permalink to this image">¶</a></p>
 </div>
 </div></div>
 <div class="section" id="stratified-sampler-stratified">
@@ -3846,26 +3773,26 @@ projection on both 1D axis (top and right plot).</span><a class="headerlink" hre
 a sample within each one of them. This generally leads to less sample clumping when compared to
 the independent sampler, as well as better convergence.</p>
 <div class="figure compound align-center" id="fig-stratified-renders">
-<div style="width: 49%" class="subfigure align-center" id="id96">
+<div style="width: 49%" class="subfigure align-center" id="id105">
 <a class="reference internal image-reference" href="../_images/sampler_independent_16spp.jpg"><img alt="../_images/sampler_independent_16spp.jpg" src="../_images/sampler_independent_16spp.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Independent sampler - 16 samples per pixel</span><a class="headerlink" href="#id96" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Independent sampler - 16 samples per pixel</span><a class="headerlink" href="#id105" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id97">
+<div style="width: 49%" class="subfigure align-center" id="id106">
 <a class="reference internal image-reference" href="../_images/sampler_stratified_16spp.jpg"><img alt="../_images/sampler_stratified_16spp.jpg" src="../_images/sampler_stratified_16spp.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Stratified sampler - 16 samples per pixel</span><a class="headerlink" href="#id97" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Stratified sampler - 16 samples per pixel</span><a class="headerlink" href="#id106" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="figure compound align-center" id="fig-stratified-pattern">
-<div style="width: 49%" class="subfigure align-center" id="id98">
+<div style="width: 49%" class="subfigure align-center" id="id107">
 <a class="reference internal image-reference" href="../_images/stratified_1024_samples.svg"><img alt="../_images/stratified_1024_samples.svg" src="../_images/stratified_1024_samples.svg" width="95%" /></a>
 <p class="caption"><span class="caption-text">1024 samples projected onto the first two dimensions which are well distributed
-if we compare to the <span class="monosp">independent</span> sampler.</span><a class="headerlink" href="#id98" title="Permalink to this image">¶</a></p>
+if we compare to the <span class="monosp">independent</span> sampler.</span><a class="headerlink" href="#id107" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id99">
+<div style="width: 49%" class="subfigure align-center" id="id108">
 <a class="reference internal image-reference" href="../_images/stratified_64_samples_and_proj.svg"><img alt="../_images/stratified_64_samples_and_proj.svg" src="../_images/stratified_64_samples_and_proj.svg" width="95%" /></a>
 <p class="caption"><span class="caption-text">64 samples projected in 2D and on both 1D axis (top and right plot). Every strata
 contains a single sample creating a good distribution when projected in 2D. Projections
 on both 1D axis still exhibit sample clumping which will result in higher variance, for
-instance when sampling a thin streched rectangular area light.</span><a class="headerlink" href="#id99" title="Permalink to this image">¶</a></p>
+instance when sampling a thin streched rectangular area light.</span><a class="headerlink" href="#id108" title="Permalink to this image">¶</a></p>
 </div>
 </div></div>
 <div class="section" id="correlated-multi-jittered-sampler-multijitter">
@@ -3898,7 +3825,7 @@ value to create a subdivision into strata that has an aspect ratio close to one.
 </tr>
 </tbody>
 </table>
-<p>This plugin implements the methods introduced in Pixar’s tech memo <a class="bibtex reference internal" href="../zz_bibliography.html#kensler1967correlated" id="id18">[Ken67]</a>.</p>
+<p>This plugin implements the methods introduced in Pixar’s tech memo <a class="bibtex reference internal" href="../zz_bibliography.html#kensler1967correlated" id="id25">[Ken67]</a>.</p>
 <p>Unlike the previously described stratified sampler, multi-jittered sample patterns produce samples
 that are well stratified in 2D but also well stratified when projected onto one dimension. This can
 greatly reduce the variance of a Monte-Carlo estimator when the function to evaluate exhibits more
@@ -3909,23 +3836,23 @@ y-coordinate in every rows. Fortunately, this process doesn’t break the 2D and
 Kensler’s method futher reduces sample clumpiness by correlating the shuffling applied to the
 columns and the rows.</p>
 <div class="figure compound align-center" id="fig-multijitter-renders">
-<div style="width: 49%" class="subfigure align-center" id="id100">
+<div style="width: 49%" class="subfigure align-center" id="id109">
 <a class="reference internal image-reference" href="../_images/sampler_independent_16spp.jpg"><img alt="../_images/sampler_independent_16spp.jpg" src="../_images/sampler_independent_16spp.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Independent sampler - 16 samples per pixel</span><a class="headerlink" href="#id100" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Independent sampler - 16 samples per pixel</span><a class="headerlink" href="#id109" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id101">
+<div style="width: 49%" class="subfigure align-center" id="id110">
 <a class="reference internal image-reference" href="../_images/sampler_multijitter_16spp.jpg"><img alt="../_images/sampler_multijitter_16spp.jpg" src="../_images/sampler_multijitter_16spp.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Correlated Multi-Jittered sampler - 16 samples per pixel</span><a class="headerlink" href="#id101" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Correlated Multi-Jittered sampler - 16 samples per pixel</span><a class="headerlink" href="#id110" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="figure compound align-center" id="fig-multijitter-pattern">
-<div style="width: 49%" class="subfigure align-center" id="id102">
+<div style="width: 49%" class="subfigure align-center" id="id111">
 <a class="reference internal image-reference" href="../_images/multijitter_1024_samples.svg"><img alt="../_images/multijitter_1024_samples.svg" src="../_images/multijitter_1024_samples.svg" width="95%" /></a>
-<p class="caption"><span class="caption-text">1024 samples projected onto the first two dimensions.</span><a class="headerlink" href="#id102" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">1024 samples projected onto the first two dimensions.</span><a class="headerlink" href="#id111" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id103">
+<div style="width: 49%" class="subfigure align-center" id="id112">
 <a class="reference internal image-reference" href="../_images/multijitter_64_samples_and_proj.svg"><img alt="../_images/multijitter_64_samples_and_proj.svg" src="../_images/multijitter_64_samples_and_proj.svg" width="95%" /></a>
 <p class="caption"><span class="caption-text">64 samples projected onto the first two dimensions and their projection on both 1D axis
-(top and right plot). As expected, the samples are well stratified both in 2D and 1D.</span><a class="headerlink" href="#id103" title="Permalink to this image">¶</a></p>
+(top and right plot). As expected, the samples are well stratified both in 2D and 1D.</span><a class="headerlink" href="#id112" title="Permalink to this image">¶</a></p>
 </div>
 </div></div>
 <div class="section" id="orthogonal-array-sampler-orthogonal">
@@ -3962,7 +3889,7 @@ columns and the rows.</p>
 </tbody>
 </table>
 <p>This plugin implements the Orthogonal Array sampler generator introduced by Jarosz et al.
-<a class="bibtex reference internal" href="../zz_bibliography.html#jarosz19orthogonal" id="id19">[JEK+19]</a>. It generalizes correlated multi-jittered sampling to higher dimensions
+<a class="bibtex reference internal" href="../zz_bibliography.html#jarosz19orthogonal" id="id26">[JEK+19]</a>. It generalizes correlated multi-jittered sampling to higher dimensions
 by using <em>orthogonal arrays (OAs)</em>. An OA of strength <span class="math notranslate nohighlight">\(s\)</span> has the property that projecting
 the generated samples to any combination of <span class="math notranslate nohighlight">\(s\)</span> dimensions will always result in a well
 stratified pattern. In other words, when <span class="math notranslate nohighlight">\(s=2\)</span> (default value), the high-dimentional samples
@@ -3972,32 +3899,32 @@ stratified when projected on both 1D axis.</p>
 <p>This sampler supports OA of strength other than 2, although this isn’t recommended as the
 stratification of 2D projections of those samples wouldn’t be ensured anymore.</p>
 <div class="figure compound align-center" id="fig-orthogonal-renders">
-<div style="width: 49%" class="subfigure align-center" id="id104">
+<div style="width: 49%" class="subfigure align-center" id="id113">
 <a class="reference internal image-reference" href="../_images/sampler_independent_25spp.jpg"><img alt="../_images/sampler_independent_25spp.jpg" src="../_images/sampler_independent_25spp.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Independent sampler - 25 samples per pixel</span><a class="headerlink" href="#id104" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Independent sampler - 25 samples per pixel</span><a class="headerlink" href="#id113" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id105">
+<div style="width: 49%" class="subfigure align-center" id="id114">
 <a class="reference internal image-reference" href="../_images/sampler_orthogonal_25spp.jpg"><img alt="../_images/sampler_orthogonal_25spp.jpg" src="../_images/sampler_orthogonal_25spp.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Orthogonal Array sampler - 25 samples per pixel</span><a class="headerlink" href="#id105" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Orthogonal Array sampler - 25 samples per pixel</span><a class="headerlink" href="#id114" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="figure compound align-center" id="fig-orthogonal-pattern">
-<div style="width: 49%" class="subfigure align-center" id="id106">
+<div style="width: 49%" class="subfigure align-center" id="id115">
 <a class="reference internal image-reference" href="../_images/orthogonal_1369_samples.svg"><img alt="../_images/orthogonal_1369_samples.svg" src="../_images/orthogonal_1369_samples.svg" width="95%" /></a>
-<p class="caption"><span class="caption-text">1369 samples projected onto the first two dimensions.</span><a class="headerlink" href="#id106" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">1369 samples projected onto the first two dimensions.</span><a class="headerlink" href="#id115" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id107">
+<div style="width: 49%" class="subfigure align-center" id="id116">
 <a class="reference internal image-reference" href="../_images/orthogonal_49_samples_and_proj.svg"><img alt="../_images/orthogonal_49_samples_and_proj.svg" src="../_images/orthogonal_49_samples_and_proj.svg" width="95%" /></a>
 <p class="caption"><span class="caption-text">49 samples projected onto the first two dimensions and their
 projection on both 1D axis (top and right plot). The pattern is well stratified
 in both 2D and 1D projections. This is true for every pair of dimensions of the
-high-dimentional samples.</span><a class="headerlink" href="#id107" title="Permalink to this image">¶</a></p>
+high-dimentional samples.</span><a class="headerlink" href="#id116" title="Permalink to this image">¶</a></p>
 </div>
 </div></div>
 <div class="section" id="low-discrepancy-sampler-ldsampler">
 <span id="sampler-ldsampler"></span><span id="fig-orthogonal-pattern"></span><h2>Low discrepancy sampler (<span class="monosp">ldsampler</span>)<a class="headerlink" href="#low-discrepancy-sampler-ldsampler" title="Permalink to this headline">¶</a></h2>
 <p>This plugin implements a simple hybrid sampler that combines aspects of a Quasi-Monte Carlo sequence
 with a pseudorandom number generator based on a technique proposed by Kollig and Keller
-<a class="bibtex reference internal" href="../zz_bibliography.html#kollig2002efficient" id="id20">[KK02]</a>. It is a good and fast general-purpose sample generator. Other QMC
+<a class="bibtex reference internal" href="../zz_bibliography.html#kollig2002efficient" id="id27">[KK02]</a>. It is a good and fast general-purpose sample generator. Other QMC
 samplers exist that can generate even better distributed samples, but this comes at a higher
 cost in terms of performance. This plugin is based on Mitsuba 1’s default sampler (also called
 <span class="monosp">ldsampler</span>).</p>
@@ -4008,44 +3935,42 @@ shuffle network. The name of this plugin stems from the fact that, by constructi
 <a class="reference external" href="https://en.wikipedia.org/wiki/Low-discrepancy_sequence">star discrepancy</a>,
 which is a quality criterion on their spatial distribution.</p>
 <div class="figure compound align-center" id="fig-ldsampler-renders">
-<div style="width: 49%" class="subfigure align-center" id="id108">
+<div style="width: 49%" class="subfigure align-center" id="id117">
 <a class="reference internal image-reference" href="../_images/sampler_independent_16spp.jpg"><img alt="../_images/sampler_independent_16spp.jpg" src="../_images/sampler_independent_16spp.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Independent sampler - 16 samples per pixel</span><a class="headerlink" href="#id108" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Independent sampler - 16 samples per pixel</span><a class="headerlink" href="#id117" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id109">
+<div style="width: 49%" class="subfigure align-center" id="id118">
 <a class="reference internal image-reference" href="../_images/sampler_ldsampler_16spp.jpg"><img alt="../_images/sampler_ldsampler_16spp.jpg" src="../_images/sampler_ldsampler_16spp.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Low-discrepancy sampler - 16 samples per pixel</span><a class="headerlink" href="#id109" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Low-discrepancy sampler - 16 samples per pixel</span><a class="headerlink" href="#id118" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="figure compound align-center" id="fig-ldsampler-pattern">
-<div style="width: 49%" class="subfigure align-center" id="id110">
+<div style="width: 49%" class="subfigure align-center" id="id119">
 <a class="reference internal image-reference" href="../_images/ldsampler_1024_samples.svg"><img alt="../_images/ldsampler_1024_samples.svg" src="../_images/ldsampler_1024_samples.svg" width="95%" /></a>
-<p class="caption"><span class="caption-text">1024 samples projected onto the first two dimensions.</span><a class="headerlink" href="#id110" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">1024 samples projected onto the first two dimensions.</span><a class="headerlink" href="#id119" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id111">
+<div style="width: 49%" class="subfigure align-center" id="id120">
 <a class="reference internal image-reference" href="../_images/ldsampler_64_samples_and_proj.svg"><img alt="../_images/ldsampler_64_samples_and_proj.svg" src="../_images/ldsampler_64_samples_and_proj.svg" width="95%" /></a>
 <p class="caption"><span class="caption-text">A projection of the first 64 samples onto the first two dimensions and their
 projection on both 1D axis (top and right plot). The 1D stratification is perfect as
-this sampler doesn’t add additional random perturbation to the sample positions.</span><a class="headerlink" href="#id111" title="Permalink to this image">¶</a></p>
+this sampler doesn’t add additional random perturbation to the sample positions.</span><a class="headerlink" href="#id120" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="figure compound align-center" id="fig-ldsampler-pattern_dim32">
-<div style="width: 49%" class="subfigure align-center" id="id112">
+<div style="width: 49%" class="subfigure align-center" id="id121">
 <a class="reference internal image-reference" href="../_images/ldsampler_1024_samples_dim_32.svg"><img alt="../_images/ldsampler_1024_samples_dim_32.svg" src="../_images/ldsampler_1024_samples_dim_32.svg" width="95%" /></a>
 <p class="caption"><span class="caption-text">1024 samples projected onto the 32th and 33th dimensions, which look almost identical.
 However, note that the points have been scrambled to reduce correlations between
-dimensions.</span><a class="headerlink" href="#id112" title="Permalink to this image">¶</a></p>
+dimensions.</span><a class="headerlink" href="#id121" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id113">
+<div style="width: 49%" class="subfigure align-center" id="id122">
 <a class="reference internal image-reference" href="../_images/ldsampler_64_samples_and_proj_dim_32.svg"><img alt="../_images/ldsampler_64_samples_and_proj_dim_32.svg" src="../_images/ldsampler_64_samples_and_proj_dim_32.svg" width="95%" /></a>
-<p class="caption"><span class="caption-text">A projection of the first 64 samples onto the 32th and 33th dimensions.</span><a class="headerlink" href="#id113" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">A projection of the first 64 samples onto the 32th and 33th dimensions.</span><a class="headerlink" href="#id122" title="Permalink to this image">¶</a></p>
 </div>
 </div></div>
 </div>
-<div class="section" id="films">
-<span id="sec-films"></span><span id="fig-ldsampler-pattern_dim32"></span><h1>Films<a class="headerlink" href="#films" title="Permalink to this headline">¶</a></h1>
-<p>A film defines how conducted measurements are stored and converted into the final
-output file that is written to disk at the end of the rendering process.</p>
-<p>In the XML scene description language, a normal film configuration might look
-as follows:</p>
+<div class="section" id="sec-films">
+<span id="fig-ldsampler-pattern_dim32"></span><span id="id28"></span><h1>胶片<a class="headerlink" href="#sec-films" title="Permalink to this headline">¶</a></h1>
+<p>film 定义了如何存储所进行的测量并将其转换为最终的输出文件，该文件将在渲染过程结束时写入磁盘。</p>
+<p>在 XML 场景描述语言中，一个常规的 film 配置应该看上去如下所示：</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;scene</span> <span class="na">version=</span><span class="s">2.0.0</span><span class="nt">&gt;</span>
     <span class="c">&lt;!-- .. scene contents --&gt;</span>
 
@@ -4066,11 +3991,8 @@ as follows:</p>
 <span class="nt">&lt;/scene&gt;</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">&lt;film&gt;</span></code> plugin should be instantiated nested inside a <code class="docutils literal notranslate"><span class="pre">&lt;sensor&gt;</span></code>
-declaration. Note how the output filename is never specified—it is automatically
-inferred from the scene filename and can be manually overridden by passing the
-configuration parameter <code class="docutils literal notranslate"><span class="pre">-o</span></code> to the <code class="docutils literal notranslate"><span class="pre">mitsuba</span></code> executable when rendering
-from the command line.</p>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;film&gt;</span></code> 插件应该嵌套在 <code class="docutils literal notranslate"><span class="pre">&lt;sensor&gt;</span></code> 声明中实例化。请注意输出文件名是不指定的，它从场景文件名自动推断出来，
+同时也可以在命令行渲染时通过将配置参数 <code class="docutils literal notranslate"><span class="pre">-o</span></code> 传递给 <code class="docutils literal notranslate"><span class="pre">mitsuba</span></code> 可执行文件来手动覆盖。</p>
 <div class="section" id="high-dynamic-range-film-hdrfilm">
 <span id="film-hdrfilm"></span><h2>High dynamic range film (<span class="monosp">hdrfilm</span>)<a class="headerlink" href="#high-dynamic-range-film-hdrfilm" title="Permalink to this headline">¶</a></h2>
 <table class="paramstable docutils align-default">
@@ -4158,17 +4080,12 @@ the ITU-R Rec. BT.709-3 primaries with a D65 white point.</p>
 </div>
 </div>
 </div>
-<div class="section" id="reconstruction-filters">
-<span id="sec-rfilters"></span><h1>Reconstruction filters<a class="headerlink" href="#reconstruction-filters" title="Permalink to this headline">¶</a></h1>
-<p>Image reconstruction filters are responsible for converting a series of radiance samples generated
-jointly by the sampler and integrator into the final output image that will be written to disk at
-the end of a rendering process. This section gives a brief overview of the reconstruction filters
-that are available in Mitsuba. There is no universally superior filter, and the final choice depends
-on a trade-off between sharpness, ringing, and aliasing, and computational efficiency.</p>
-<p>Desireable properties of a reconstruction filter are that it sharply captures all of the details
-that are displayable at the requested image resolution, while avoiding aliasing and ringing.
-Aliasing is the incorrect leakage of high-frequency into low-frequency detail, and ringing denotes
-oscillation artifacts near discontinuities, such as a light-shadow transiton.</p>
+<div class="section" id="sec-rfilters">
+<span id="id29"></span><h1>重构滤波器<a class="headerlink" href="#sec-rfilters" title="Permalink to this headline">¶</a></h1>
+<p>图像重构滤波器（Image reconstruction filter）负责将 sampler 和 integrator 共同生成的一系列辐射度样本转换为最终输出图像，并在渲染过程结束时写入磁盘。
+本节给出了 Mitsuba 中可用重构滤波器的一个简明概览。没有一种普遍来讲更好的滤波器，最终的选择在于锐度、振铃和走样以及计算效率之间的权衡。</p>
+<p>重建滤波器的理想特性是它能在要求的图像分辨率下清晰地捕捉到所有的细节，同时避免走样和振铃现象。走样是不正确的以低频采样高频细节，
+而振铃则表示不连续点附近的振荡图像误差，如 light-shadow transiton。</p>
 <div class="section" id="box-filter-box">
 <span id="rfilter-box"></span><h2>Box filter (<span class="monosp">box</span>)<a class="headerlink" href="#box-filter-box" title="Permalink to this headline">¶</a></h2>
 <p>This is the fastest, but also about the worst possible reconstruction filter,
@@ -4195,7 +4112,7 @@ pixels be default.</p>
 </div>
 <div class="section" id="mitchell-filter-mitchell">
 <span id="rfilter-mitchell"></span><h2>Mitchell filter (<span class="monosp">mitchell</span>)<a class="headerlink" href="#mitchell-filter-mitchell" title="Permalink to this headline">¶</a></h2>
-<p>Separable cubic spline reconstruction filter by Mitchell and Netravali <a class="bibtex reference internal" href="../zz_bibliography.html#mitchellnetravali88" id="id21">[MN88]</a>.
+<p>Separable cubic spline reconstruction filter by Mitchell and Netravali <a class="bibtex reference internal" href="../zz_bibliography.html#mitchellnetravali88" id="id30">[MN88]</a>.
 This is often a good compromise between sharpness and ringing.</p>
 <p>This plugin has two <span class="paramtype">float</span>-valued parameters <span class="paramtype">B</span> and
 <span class="paramtype">C</span> that correspond to the two parameters in the original paper.

@@ -15,7 +15,7 @@
   <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap-theme.min.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-    <title>选择变体 &#8212; mitsuba2 0.1.dev0 documentation</title>
+    <title>Choosing variants &#8212; mitsuba2 0.1.dev0 documentation</title>
     <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/theme_overrides.css" />
@@ -46,7 +46,7 @@
           <a href="cloning.html" title="Cloning the repository"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">选择变体</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Choosing variants</a></li> 
       </ul>
     </div>
     <div class="container-wrapper">
@@ -68,7 +68,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cloning.html">Cloning the repository</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">选择变体</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Choosing variants</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#part-1-computational-backend">Part 1: Computational backend</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#part-2-color-representation">Part 2: Color representation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#part-3-polarization">Part 3: Polarization</a></li>
@@ -114,7 +114,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../plugin_reference/intro.html">Plugin reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html">Shapes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#bsdfs">BSDFs 大大大</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#bsdfs">BSDFs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#phase-functions">Phase functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#emitters">Emitters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#sensors">Sensors</a></li>
@@ -162,20 +162,25 @@
             <ol class="breadcrumb">
               <li><a href="../../index.html">Docs</a></li>
               
-              <li>选择变体</li>
+              <li>Choosing variants</li>
             </ol>
           </div>
           
           <div class="document clearer body">
             
-  <div class="section" id="sec-variants">
-<span id="id1"></span><h1>选择变体<a class="headerlink" href="#sec-variants" title="Permalink to this headline">¶</a></h1>
-<p>Mitsuba 2是一个可被用户重新定义的渲染系统，通过提供一系列不同的 “<em>变体 variants</em>” 以改变系统在模拟时的表现，
-诸如改变颜色的表现形式为单色光，RGB，频谱，甚至可以是偏振光照明（polarized illumination）。
-类似的，在渲染过程下的数值处理形式也可以进行更换，如使用更高的准确度，矢量化一次处理多条光路，或者在数学上求解
-反问题。 所有这些变体（variants）都是从通用代码库中自动创建的。</p>
-<p>目前为止有多达36种不同的渲染器变体可用，如下面列表所示。 因此，在构建 Mitsuba 2之前，你需要确定其中哪些是
-与你想要的应用功能相关的。</p>
+  <div class="section" id="choosing-variants">
+<span id="sec-variants"></span><h1>Choosing variants<a class="headerlink" href="#choosing-variants" title="Permalink to this headline">¶</a></h1>
+<p>Mitsuba 2 is a retargetable rendering system that provides a set of different
+system “<em>variants</em>” that change elementary aspects of simulation—they can for
+instance replace the representation of color to support monochromatic, RGB,
+spectral, or even polarized illumination. Similarly, the numerical
+representation underlying the simulation can be exchanged to perform renderings
+using a higher amount of precision, vectorization to process many light paths
+at once, or it can be mathematically differentiated to to solve inverse
+problems. All variants are automatically created from a single generic codebase.</p>
+<p>As many as 36 different variants of the renderer are presently available, shown
+in the list below. Before building Mitsuba 2, you will therefore need to decide
+which of these are relevant for your intended application.</p>
 <blockquote>
 <div><div class="toggle docutils container">
 <div class="header docutils container">
@@ -221,147 +226,200 @@
 </ul>
 </div>
 </div></blockquote>
-<p>需要注意的是，编译时间和编译内存的占用量与启用的变体数目成正比， 因此包含过多的变体数目（如超过5个）
-是不可取的。 Mitsuba 2 开发者通常会想要限制当前实验使用1-2个系统变体，以最大程度的减少编辑后的重新编译时间。
-每一个变体都与一个标识名称相关联，该名称由几个部分组成：</p>
+<p>Note that compilation time and compilation memory usage is roughly proportional
+to the number of enabled variants, hence including many of them (more than
+five) may not be advisable. Mitsuba 2 developers will typically want to
+restrict themselves to 1-2 variants used by their current experiment to
+minimize edit-recompile times. Each variant is associated with an identifying
+name that is composed of several parts:</p>
 <a class="reference internal image-reference" href="../../_images/variant.svg"><img alt="../../_images/variant.svg" class="align-center" src="../../_images/variant.svg" width="80%" /></a>
-<p>接下来我们将依次讨论每一部分的含义。</p>
+<p>We will now discuss each part in turn.</p>
 <div class="section" id="part-1-computational-backend">
 <h2>Part 1: Computational backend<a class="headerlink" href="#part-1-computational-backend" title="Permalink to this headline">¶</a></h2>
-<p>计算后端部分控制系统如何去实现加法或者乘法等基本运算模块。有以下选项可以选择：</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">scalar</span></code> 后端在 CPU 上使用和旧版 Mitsuba 类似的普通浮点数运算。</p></li>
-</ul>
-<blockquote>
-<div><p>这是在命令行上使用 <span class="monosp">mitsuba</span> 指令或者通过图形用户界面生成渲染图时的默认设置。</p>
-</div></blockquote>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">packet</span></code> 后端使用SSE4.2、AVX、AVX2 及 AVX512扩展指令集，可以高效的对4、8或16的</p></li>
-</ul>
-<blockquote>
-<div><p>浮点数组进行计算。因此在 packet 模式下, 渲染算法中的每个单一操作（光线追踪， BSDF 采样等）
-将一次对多个输入进行操作。下面👇可视化出来的光路很好的展示出了scalar 和 packet 两种模式的
-不同之处：</p>
-<a class="reference internal image-reference" href="../../_images/vectorization.jpg"><img alt="../../_images/vectorization.jpg" class="align-center" src="../../_images/vectorization.jpg" style="width: 100%;" /></a>
-<p>然而，需要注意的是，packet 模式不是万能解药：标准算法不会就此简单的加快8倍或16倍。
-Packet 模式需要特殊的算法设计，而且意在给那些能利用并行特性的软件开发者使用。</p>
-</div></blockquote>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">gpu</span></code> 后端通过使用 <a class="reference external" href="https://github.com/mitsuba-renderer/enoki">Enoki’s</a></p></li>
-</ul>
-<blockquote>
-<div><p>just-in-time (JIT) 编译器将计算转移到 CUDA 内核中。 通过使用这个后端，每个操作通常需要
-同时操作数百万个输入。之后 Mitsuba 就变成了我们熟知的 <em>波阵面(wavefront)路径追踪器</em> 其中</p>
-<blockquote>
-<div><p>GPU 上的光线追踪部分委托给了 NVIDIA 的 OptiX 库。 需要注意的是，我们需要相对较新的 NVIDIA GPU 架构:</p>
-</div></blockquote>
-<p>最好是 <em>Turing</em> 或者其他更新的版本。较旧的 <em>Pascal</em> 架构也是支持的，但速度往往会比较慢，因为它
-缺乏光线跟踪的硬件加速。</p>
-</div></blockquote>
+<p>The computational backend controls how basic arithmetic operations like
+additions or multiplications are realized by the system. The following choices
+are available:</p>
 <ul>
-<li><p>在 <code class="docutils literal notranslate"><span class="pre">gpu</span></code> 后端构建项目时，此外可以使用 <code class="docutils literal notranslate"><span class="pre">gpu_autodiff</span></code> 通过模拟器传播导数信息, 这是渲染算法
-解决 <em>逆问题</em> 的关键要素。</p>
-<p>下面展示了来自 :cite:<a href="#id2"><span class="problematic" id="id3">`</span></a>NimierDavidVicini2019Mitsuba2`的示例。在这里，Mitsuba 2 被用来计算透明玻璃
-板的高度轮廓，该玻璃板可以折射红、绿、蓝光，以此来重现指定的彩色图像。</p>
-<p><span class="math notranslate nohighlight">\(f(\mathbf{x})\)</span> 将输入 <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> (场景描述信息) 转化为输出 <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> (渲染结果)。
-随后对此函数 <span class="math notranslate nohighlight">\(f\)</span> 求微分得到 <span class="math notranslate nohighlight">\(\frac{\mathrm{d}\mathbf{y}}{\mathrm{d}\mathbf{x}}\)</span>，这提供了一个
-关于输出 <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> (渲染结果) 随着输入 <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> (场景描述信息) 改变而理想化改变的一阶近似。
-再加上一个可微 <em>目标函数</em> <span class="math notranslate nohighlight">\(g(\mathbf{y})\)</span> 来量化场景参数的适用性再再搞一个梯度优化算法，这样一个可微渲染器就
-可以用来解决涉及到光的复杂逆问题了。</p>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">scalar</span></code> backend performs computation on the CPU using normal floating
+point arithmetic similar to older versions of Mitsuba. This is the default
+choice for generating renderings using the <span class="monosp">mitsuba</span> command line
+executable, or using the graphical user interface.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">packet</span></code> backend efficiently performs calculations on groups of 4, 8,
+or 16 floating point numbers, exploiting instruction set extensions such as
+SSE4.2, AVX, AVX2, and AVX512. In packet mode, every single operation in a
+rendering algorithm (ray tracing, BSDF sampling, etc.) will therefore operate on
+multiple inputs at once. The following visualizations of tracing light
+paths in scalar and packet mode gives an idea of this difference:</p>
+<a class="reference internal image-reference" href="../../_images/vectorization.jpg"><img alt="../../_images/vectorization.jpg" class="align-center" src="../../_images/vectorization.jpg" style="width: 100%;" /></a>
+<p>Note, however, that packet mode is not a magic bullet: standard algorithms
+won’t automatically be 8 or 16x faster. Packet mode requires special
+algorithms and is intended to be used by developers, whose software can
+exploit this type of parallelism.</p>
+</li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gpu</span></code> backend offloads computation to the GPU using <a class="reference external" href="https://github.com/mitsuba-renderer/enoki">Enoki’s</a> just-in-time (JIT) compiler
+that transforms computation into CUDA kernels. Using this backend, each
+operation typically operates on millions of inputs at the same time. Mitsuba
+then becomes what is known as a <em>wavefront path tracer</em> and delegates ray
+tracing on the GPU to NVIDIA’s OptiX library. Note that this requires a
+relatively recent NVIDIA GPU: ideally <em>Turing</em> or newer. The older <em>Pascal</em>
+architecture is also supported but tends to be slower because it lacks ray
+tracing hardware acceleration.</p></li>
+<li><p>Building on the <code class="docutils literal notranslate"><span class="pre">gpu</span></code> backend, <code class="docutils literal notranslate"><span class="pre">gpu_autodiff</span></code> furthermore propagates
+derivative information through the simulation, which is a crucial ingredient
+for solving <em>inverse problems</em> using rendering algorithms.</p>
+<p>The following shows an example from <a class="bibtex reference internal" href="../../zz_bibliography.html#nimierdavidvicini2019mitsuba2" id="id1">[NDVZJ19]</a>.
+Here, Mitsuba 2 is used to compute the height profile of a transparent glass
+panel that refracts red, green, and blue light in such a way as to reproduce
+a specified color image.</p>
+<a class="reference internal image-reference" href="../../_images/caustic.jpg"><img alt="../../_images/caustic.jpg" class="align-center" src="../../_images/caustic.jpg" style="width: 100%;" /></a>
+<p>The main use case of the <code class="docutils literal notranslate"><span class="pre">gpu_autodiff</span></code> backend is <em>differentiable
+rendering</em>, which interprets the rendering algorithm as a function
+<span class="math notranslate nohighlight">\(f(\mathbf{x})\)</span> that converts an input <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> (the scene
+description) into an output <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> (the rendering). This function
+<span class="math notranslate nohighlight">\(f\)</span> is then mathematically differentiated to obtain
+<span class="math notranslate nohighlight">\(\frac{\mathrm{d}\mathbf{y}}{\mathrm{d}\mathbf{x}}\)</span>, providing a
+first-order approximation of how a desired change in the output
+<span class="math notranslate nohighlight">\(\mathbf{y}\)</span> (the rendering) can be achieved by changing the inputs
+<span class="math notranslate nohighlight">\(\mathbf{x}\)</span> (the scene description). Together with a differentiable
+<em>objective function</em> <span class="math notranslate nohighlight">\(g(\mathbf{y})\)</span> that quantifies the suitability of
+tentative scene parameters and a gradient-based optimization algorithm, a
+differentiable renderer can be used to solve complex inverse problems
+involving light.</p>
 <a class="reference internal image-reference" href="../../_images/autodiff.jpg"><img alt="../../_images/autodiff.jpg" class="align-center" src="../../_images/autodiff.jpg" style="width: 100%;" /></a>
-<p>文档提供了几个关于 <a class="reference internal" href="../inverse_rendering/intro.html#sec-inverse-rendering"><span class="std std-ref">differentiable and inverse rendering</span></a>。的应用示例。</p>
+<p>The documentations provides several applied examples on <a class="reference internal" href="../inverse_rendering/intro.html#sec-inverse-rendering"><span class="std std-ref">differentiable
+and inverse rendering</span></a>.</p>
 </li>
 </ul>
-<p>一个关于 <code class="docutils literal notranslate"><span class="pre">packet</span></code>， <code class="docutils literal notranslate"><span class="pre">gpu</span></code>，和 <code class="docutils literal notranslate"><span class="pre">gpu_autodiff</span></code> 模式的吸引人的地方在于，它们公开了对任意大的输入集进行矢量化操作
-的 Python 接口（即使在小容量序列上工作 <code class="docutils literal notranslate"><span class="pre">packet</span></code> 模式下，C++ 还是实现覆盖了较大的输入）。 这意味着可以通过
-一个 Python 函数调用执行数百万次光线追踪操作或 BSDF 计算，从而在 Python 或 Jupyter notebook中实现高效的原型设计，
-而无需对许多元素进行昂贵的迭代操作。</p>
-<div class="section" id="id4">
-<h3>如何去选择合适的变体模式？<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
-<p>我们一般建议通过命令行渲染时编译 <code class="docutils literal notranslate"><span class="pre">scalar</span></code> 变体，至于 <code class="docutils literal notranslate"><span class="pre">packet</span></code> 或 <code class="docutils literal notranslate"><span class="pre">gpu_autodiff</span></code> 变体则是为 Python 开发准备
-的—而后者只有在用到可微渲染时才会被需要。</p>
+<p>An appealing aspect of <code class="docutils literal notranslate"><span class="pre">packet</span></code>, <code class="docutils literal notranslate"><span class="pre">gpu</span></code>, and <code class="docutils literal notranslate"><span class="pre">gpu_autodiff</span></code> modes, is that
+they expose <em>vectorized</em> Python interfaces that operate on arbitrarily large
+set of inputs (even in the case of <code class="docutils literal notranslate"><span class="pre">packet</span></code> mode that works with smaller
+arrays. The C++ implementation sweeps over larger inputs in this case). This
+means that millions of ray tracing operations or BSDF evaluations can be
+performed with a single Python function call, enabling efficient prototyping
+within Python or Jupyter notebooks without costly iteration over many elements.</p>
+<div class="section" id="how-to-choose">
+<h3>How to choose?<a class="headerlink" href="#how-to-choose" title="Permalink to this headline">¶</a></h3>
+<p>We generally recommend compiling <code class="docutils literal notranslate"><span class="pre">scalar</span></code> variants for command line
+rendering, and <code class="docutils literal notranslate"><span class="pre">packet</span></code> or <code class="docutils literal notranslate"><span class="pre">gpu_autodiff</span></code> variants for Python
+development—the latter only if differentiable rendering is desired.</p>
 </div>
 </div>
 <div class="section" id="part-2-color-representation">
 <h2>Part 2: Color representation<a class="headerlink" href="#part-2-color-representation" title="Permalink to this headline">¶</a></h2>
-<p>下一部分决定了 Mitsuba 如何表示颜色信息。有以下选项可供选择：</p>
+<p>The next part determines how Mitsuba represents color information. The
+following choices are available:</p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">mono</span></code> 模式完全禁用了颜色的概念，这在模拟具有固定单一颜色的场景时会十分有用（例如激光照明）。
-这种模式非常适合编写那些颜色完全不相关的测试用例。当输入场景提供颜色信息时，<span class="monosp">mono</span>
-模式会自动将其转换为灰度。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">rgb</span></code> 模式使用基于 RGB 的颜色表示。这是一个个合乎逻辑的默认选项，并且符合上一代 Mitsuba 的默认
-行为。而在另一方面，RGB 模式可能与现实世界中的颜色工作方式不太接近。 请点击以下内容查看更详细的解释。</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">mono</span></code> completely disables the concept of color, which is useful when
+simulating scenes that are inherently monochromatic (e.g. illumination due to
+a laser). This mode is great for writing testcases where color is simply not
+relevant. When an input scene provides color information, <span class="monosp">mono</span> mode
+automatically converts it to grayscale.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rgb</span></code> mode selects an RGB-based color representation. This is a reasonable
+default choice and matches the typical behavior of the previous generation of
+Mitsuba. On the flipside, RGB mode can be a poor approximation of how color
+works in the real world. Please click on the following for a longer
+explanation.</p>
 <blockquote>
 <div><div class="toggle docutils container">
 <div class="header docutils container">
-<p><strong>基于 RGB 渲染的问题 (点击展开)</strong></p>
+<p><strong>Issues involving RGB-based rendering (click to expand)</strong></p>
 </div>
-<p><strong>基于 RGB 表示 的颜色存在的问题：</strong> RGB 渲染算法通常执行两种与颜色相关的操作:逐分量相加以组
-合不同的光源，在模型间相互反射时 RGB 颜色向量逐分量相乘。虽然加法很好，但 RGB 乘法结果是一个荒
-谬的操作，根据底层 RGB 颜色空间，它可以给出非常不同的答案。</p>
-<p>假设我们在 sRGB 颜色空间中渲染一个场景，有一个辐射度为:math:<code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">0,</span> <span class="pre">1]</span></code> 的绿色光源，其在一个
-绿色平面上的反射率是 <span class="math notranslate nohighlight">\([0, 0, 1]\)</span>。逐分量相乘 <span class="math notranslate nohighlight">\([0, 0, 1] \otimes [0, 0, 1] = [0, 0, 1]\)</span>
-的结果诉我们没有光被该绿色表面吸收。到目前为止还不错。</p>
-<p>接下来让我们切换到一个更大一些的颜色空间 <em>Rec. 2020</em>。这时同样的绿色不在位于色域的边界上，而是处于色域内部的
-某个地方。</p>
+<p><strong>Problematic aspects of RGB-based color representations:</strong> A RGB
+rendering algorithm frequently performs two color-related operations:
+component-wise addition to combine different sources of light, and
+component-wise multiplication of RGB color vectors to model
+interreflection. While addition is fine, RGB multiplication turns out
+to be a nonsensical operation, that can give very different answers
+depending on the underlying RGB color space.</p>
+<p>Suppose we are rendering a scene in an sRGB color space, where a green
+light with radiance <span class="math notranslate nohighlight">\([0, 0, 1]\)</span> reflects from a very green
+surface with albedo <span class="math notranslate nohighlight">\([0, 0, 1]\)</span>. The component-wise
+multiplication <span class="math notranslate nohighlight">\([0, 0, 1] \otimes [0, 0, 1] = [0, 0, 1]\)</span> tells us
+that no light is absorbed by the surface. So good so far.</p>
+<p>Let’s now switch to a larger color space named <em>Rec. 2020</em>. That same
+green color is no longer at the extreme of the color gamut but lies
+somewhere inside.</p>
 <a class="reference internal image-reference" href="../../_images/rgb-mode-issue.svg"><img alt="../../_images/rgb-mode-issue.svg" class="align-center" src="../../_images/rgb-mode-issue.svg" width="100%" /></a>
-<p>简单起见，我们假设其坐标为 <span class="math notranslate nohighlight">\([0, 0, \frac{1}{2}]\)</span> 。根据与之前相同的计算过程 <span class="math notranslate nohighlight">\([0, 0, \frac{1}{2}]\otimes[0, 0, \frac{1}{2}]=[0, 0, \frac{1}{4}]\)</span>
-我们能得到一个结论：有一半的光被表面吸收掉了，而这恰恰说明了 RGB 乘法的问题。这个问题的解决方案就是在光谱域中进行颜色相乘。</p>
+<p>For simplicity, let’s suppose it has coordinates <span class="math notranslate nohighlight">\([0, 0,
+\frac{1}{2}]\)</span>. Now, the same calculation <span class="math notranslate nohighlight">\([0, 0,
+\frac{1}{2}]\otimes[0, 0, \frac{1}{2}]=[0, 0, \frac{1}{4}]\)</span> tells us
+that half of the light is absorbed by the surface, which illustrates
+the problem with RGB multiplication. The solution to this problem is to
+multiply colors in the spectral domain instead.</p>
 </div>
 </div></blockquote>
 </li>
-<li><p>最后要说的是，<code class="docutils literal notranslate"><span class="pre">spectral</span></code> 模式下生成了一个横贯可见范围的全光谱颜色表示 <span class="math notranslate nohighlight">\((360\ldots 830 \mathrm{nm})\)</span>。
-波长的维度可以被简单地看作是渲染算法整合的光路空间的另一个维度。</p>
-<p>这提高了计算的精度，特别是在光谱测量数据可用的情况下。例如，以下两个 Cornell box 的渲染结果：
-左侧的渲染图，首先将所有材质的光谱反射率数据转换成 RGB ，随后使用 <code class="docutils literal notranslate"><span class="pre">scalar_rgb</span></code> 变体进行渲染，
-从而生成了具有欺骗性的彩色渲染图。相比之下，能够正确解释光谱特性的 <code class="docutils literal notranslate"><span class="pre">scalar_spectral</span></code> 变体模式，
-渲染出来的结果更为柔和。</p>
+<li><p>Finally, <code class="docutils literal notranslate"><span class="pre">spectral</span></code> mode switches to a fully spectral color representation
+spanning the visible range <span class="math notranslate nohighlight">\((360\ldots 830 \mathrm{nm})\)</span>. The
+wavelength domain is simply treated as yet another dimension of the space of
+light paths over which the rendering algorithm must integrate.</p>
+<p>This improves accuracy especially in scenarios where measured spectral data
+is available. Consider for example the two Cornell box renderings below: on
+the left side, the spectral reflectance data of all materials is first
+converted to RGB and rendered using the <code class="docutils literal notranslate"><span class="pre">scalar_rgb</span></code> variant, producing a
+deceivingly colorful image. In contrast, the <code class="docutils literal notranslate"><span class="pre">scalar_spectral</span></code> variant that
+correctly accounts for the spectral characteristics, produces a more muted
+coloration.</p>
 <div class="figure compound align-center" id="fig-cbox-spectral">
-<div style="width: 49%" class="subfigure align-center" id="id7">
+<div style="width: 49%" class="subfigure align-center" id="id4">
 <a class="reference internal image-reference" href="../../_images/variants_cbox_rgb.jpg"><img alt="../../_images/variants_cbox_rgb.jpg" src="../../_images/variants_cbox_rgb.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">RGB Mode</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">RGB Mode</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
 </div>
-<div style="width: 49%" class="subfigure align-center" id="id8">
+<div style="width: 49%" class="subfigure align-center" id="id5">
 <a class="reference internal image-reference" href="../../_images/variants_cbox_spectral.jpg"><img alt="../../_images/variants_cbox_spectral.jpg" src="../../_images/variants_cbox_spectral.jpg" style="width: 95%;" /></a>
-<p class="caption"><span class="caption-text">Spectral Mode</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Spectral Mode</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
 </div>
-</div><p id="fig-cbox-spectral">需要注意的是，即使在光谱模式被激活时，Mitsuba 在默认情况下仍会生成 RGB 输出图像。除此之外，许多
-现有的 Mitsuba 场景只提供 RGB 颜色信息。不过光谱模式下 Mitsuba 仍然可以渲染这些的场景，
-它可以确定指定 RGB 颜色所对应的近似平滑光谱 <a class="bibtex reference internal" href="../../zz_bibliography.html#jakob2019spectral" id="id5">[JH19]</a>。</p>
+</div><p id="fig-cbox-spectral">Note that Mitsuba still generates RGB output images by default even when
+spectral mode is active. It is also important to note that many existing
+Mitsuba scenes only specify RGB color information. Spectral Mitsuba can still
+render such scenes – in this case, it determines plausible smooth spectra
+corresponding to the specified RGB colors <a class="bibtex reference internal" href="../../zz_bibliography.html#jakob2019spectral" id="id2">[JH19]</a>.</p>
 </li>
 </ul>
 </div>
 <div class="section" id="part-3-polarization">
 <h2>Part 3: Polarization<a class="headerlink" href="#part-3-polarization" title="Permalink to this headline">¶</a></h2>
-<p>如果需要的话，Mitsuba 2 可以追踪光的整个偏振状态。偏振是指光的振荡方向垂直于传播方向的特性，属于电磁波特性。
-振荡的形状有无数多种，下面的图片展示的是 <em>水平型</em> 和 <em>椭圆型</em> 偏振的例子。</p>
+<p>If desired, Mitsuba 2 can keep track of the full polarization state of light.
+Polarization refers to the property that light is an electromagnetic wave that
+oscillates perpendicularly to the direction of travel. This oscillation can
+take on infinitely many different shapes—the following images show examples
+of <em>horizontal</em> and <em>elliptical</em> polarization.</p>
 <a class="reference internal image-reference" href="../../_images/polarization_wave_variations.svg"><img alt="../../_images/polarization_wave_variations.svg" class="align-center" src="../../_images/polarization_wave_variations.svg" width="90%" /></a>
-<p>因为人类感觉不到偏振，所以在渲染视觉效果逼真的图像时，通常不需要考虑偏振。然而，使用各种测量设备和
-摄像机可以很容易地观察到偏振，并且偏振往往可以提供丰富的关于可见物体材料和形状之类的信息。因此，偏
-振是解决渲染逆问题的有力工具，这也是我们在 Mitsuba 2 中选择支持这一功能特性的原因之一。需要注意的是，
-让系统考虑到偏振是有时间代价的—大约要花费渲染时间的1.5到2倍。</p>
-<dl class="simple">
-<dt>在光传播的模拟中，<em>Stokes vectors</em> 被用来模拟横向椭圆型振动的参数化，</dt><dd><p><em>Mueller matrices</em> 被用来计算表面散射对偏振对影响 <a class="bibtex reference internal" href="../../zz_bibliography.html#collett1993polarizedlight" id="id6">[Col93]</a>。</p>
-</dd>
-</dl>
-<p>更多有关偏振渲染模式的实现细节，请参考开发者手册 <a class="reference internal" href="../developer_guide/polarization.html#developer-guide-polarization"><span class="std std-ref">Polarization</span></a> 章节。</p>
+<p>Because humans do not perceive polarization, accounting for it is usually not
+necessary when rendering images that are intended to be look realistic.
+However, polarization is easily observed using a variety of measurement devices
+and cameras, and it tends to provide a wealth of information about the material
+and shape of visible objects. For this reason, polarization is a powerful tool
+for solving inverse problems, and this is one of the reasons why we chose to
+support it in Mitsuba 2. Note that accounting for polarization comes at a
+cost—roughly a 1.5-2X increase in rendering time.</p>
+<p>Inside the light transport simulation, <em>Stokes vectors</em> are used to
+parameterize the elliptical shape of the transverse oscillations, and <em>Mueller
+matrices</em> are used to compute the effect of surface scattering on the
+polarization <a class="bibtex reference internal" href="../../zz_bibliography.html#collett1993polarizedlight" id="id3">[Col93]</a>. For more details regarding the
+implementation of the polarized rendering modes, please refer to the
+<a class="reference internal" href="../developer_guide/polarization.html#developer-guide-polarization"><span class="std std-ref">Polarization</span></a> section in the developer guide.</p>
 </div>
 <div class="section" id="part-4-precision">
 <h2>Part 4: Precision<a class="headerlink" href="#part-4-precision" title="Permalink to this headline">¶</a></h2>
-<p>Mitsuba 2通常依赖于单精度(32位)运算，但也可以选择双精度(64位)。我们发现这在 debug 时会特别有用：
-在切换到双精度后，通常可以确定观察到的问题是否是由于浮点不精确而引发的。需要注意的是，双精度目前不适
-用于 <code class="docutils literal notranslate"><span class="pre">gpu_*</span></code> 变体。这是因为 OptiX 是以单精度执行光线追踪部分的。</p>
+<p>Mitsuba 2 normally relies on single precision (32 bit) arithmetic, but double
+precision (64 bit) is optionally available. We find this particularly helpful
+for debugging: whether or not an observed problem arises due to floating point
+imprecisions can normally be determined after switching to double precision.
+Note that double precision currently not available for <code class="docutils literal notranslate"><span class="pre">gpu_*</span></code> variants. This
+is because OptiX performs ray tracing in single precision.</p>
 </div>
 <div class="section" id="configuring-mitsuba-conf">
 <h2>Configuring <span class="monosp">mitsuba.conf</span><a class="headerlink" href="#configuring-mitsuba-conf" title="Permalink to this headline">¶</a></h2>
-<p>Mitsuba 2 的变体模式在 <span class="monosp">mitsuba.conf</span> 文件中指定。开始之前，首先将默认模板复制到 Mitsuba 2
-本地存储仓库的根目录。</p>
+<p>Mitsuba 2 variants are specified in the file <span class="monosp">mitsuba.conf</span>. To get
+started, first copy the default template to the root directory of the Mitsuba 2
+repository.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> &lt;..mitsuba repository..&gt;
 cp resources/mitsuba.conf.template mitsuba.conf
 </pre></div>
 </div>
-<p>接下来，在你喜欢的文本编辑器中打开 <span class="monosp">mitsuba.conf</span> ，然后滚动到启用变体的声明
-部分（第70行附近）</p>
+<p>Next, open <span class="monosp">mitsuba.conf</span> in your favorite text editor and scroll down
+to the declaration of the enabled variants (around line 70):</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&quot;enabled&quot;: [
     # The &quot;scalar_rgb&quot; variant *must* be included at the moment.
     &quot;scalar_rgb&quot;,
@@ -369,21 +427,26 @@ cp resources/mitsuba.conf.template mitsuba.conf
 ],
 </pre></div>
 </div>
-<p>默认情况下，指定了两个 scalar 变体，你可能想要根据你的需要和上面的解释来扩展这两个变体。
-请注意，可以移除 <code class="docutils literal notranslate"><span class="pre">scalar_spectral</span></code> ，但``scalar_rgb`` <em>目前必须</em> 是列表的一部分，
-因为 Mitsuba 的一些核心组件依赖于它。你也许想要改变在没有显式指定变体时执行的 <em>默认变体</em>
-（这必须在 <code class="docutils literal notranslate"><span class="pre">enabled</span></code> 列表中）</p>
+<p>The default file specifies two scalar variants that you may wish to extend
+according to your requirements and the explanations given above. Note that
+<code class="docutils literal notranslate"><span class="pre">scalar_spectral</span></code> can be removed, but <code class="docutils literal notranslate"><span class="pre">scalar_rgb</span></code> <em>must</em> currently be part
+of the list as some core components of Mitsuba depend on it. You may also wish
+to change the <em>default</em> variant that is executed if no variant is explicitly
+specified (this must be one of the entries of the <code class="docutils literal notranslate"><span class="pre">enabled</span></code> list):</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span># If mitsuba is launched without any specific mode parameter,
 # the configuration below will be used by default
 
 &quot;default&quot;: &quot;scalar_spectral&quot;,
 </pre></div>
 </div>
-<p>该配置文件的其余部分定义的是 C++ 类型的可用变体，你可以安全地忽略它们。</p>
-<p>简单的讲：如果你计划在 Python 中使用 Mitsuba，我们建议在 CPU 渲染时添加
-<code class="docutils literal notranslate"><span class="pre">packet_rgb</span></code> 或 <code class="docutils literal notranslate"><span class="pre">packet_spectral</span></code> 其中之一，相应的对于 GPU 渲染添加
-<code class="docutils literal notranslate"><span class="pre">gpu_autodiff_rgb</span></code> 或 <code class="docutils literal notranslate"><span class="pre">gpu_autodiff_spectral</span></code> 之一。</p>
-<p>一旦你完成了 <span class="monosp">mitsuba.conf</span> 中变体的设置，请继续下一节 <a class="reference internal" href="compiling.html#sec-compiling"><span class="std std-ref">编译整个系统</span></a>。</p>
+<p>The remainder of this file lists the C++ types defining the available variants
+and can safely be ignored.</p>
+<p>TLDR: If you plan to use Mitsuba from Python, we recommend adding one of
+<code class="docutils literal notranslate"><span class="pre">packet_rgb</span></code> or <code class="docutils literal notranslate"><span class="pre">packet_spectral</span></code> for CPU rendering, or one of
+<code class="docutils literal notranslate"><span class="pre">gpu_autodiff_rgb</span></code> or <code class="docutils literal notranslate"><span class="pre">gpu_autodiff_spectral</span></code> for differentiable GPU
+rendering.</p>
+<p>Once you are finished with <span class="monosp">mitsuba.conf</span>, proceed to the next section
+on <a class="reference internal" href="compiling.html#sec-compiling"><span class="std std-ref">compiling the system</span></a>.</p>
 </div>
 </div>
 
@@ -418,7 +481,7 @@ cp resources/mitsuba.conf.template mitsuba.conf
           <a href="cloning.html" title="Cloning the repository"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">选择变体</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Choosing variants</a></li> 
       </ul>
     </div>
  <script type="text/javascript">

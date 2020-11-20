@@ -5,7 +5,7 @@ Getting started
     :width: 100%
     :align: center
 
-Mitsuba 2 是一个研究向的 rendering system written in portable C++17. It
+Mitsuba 2 is a research-oriented rendering system written in portable C++17. It
 consists of a small set of core libraries and a wide variety of plugins that
 implement functionality ranging from materials and light sources to complete
 rendering algorithms. Mitsuba 2 strives to retain scene compatibility with its

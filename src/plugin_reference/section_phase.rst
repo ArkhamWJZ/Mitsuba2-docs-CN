@@ -1,10 +1,8 @@
 .. _sec-phase:
 
-Phase functions
+相位函数
 ===============
 
-This section contains a description of all implemented medium scattering models,
-which are also known as phase functions. These are very similar in principle to
-surface scattering models (or BSDFs), and essentially describe where light
-travels after hitting a particle within the medium. Currently, only the most
-commonly used models for smoke, fog, and other homogeneous media are implemented.
+本节包含了有关所有介质散射模型实现的描述，这也被称作相位函数（phase function）。
+在原则上这些模型与表面散射模型（或 BSDF）非常相似，本质上描述了光在击中介质中一个粒子后的传播路径。
+目前为止，只有大部分常见烟、雾和其他均匀介质是被实现了的。

@@ -1,15 +1,10 @@
 .. _sec-rfilters:
 
-Reconstruction filters
+重构滤波器
 ======================
 
-Image reconstruction filters are responsible for converting a series of radiance samples generated
-jointly by the sampler and integrator into the final output image that will be written to disk at
-the end of a rendering process. This section gives a brief overview of the reconstruction filters
-that are available in Mitsuba. There is no universally superior filter, and the final choice depends
-on a trade-off between sharpness, ringing, and aliasing, and computational efficiency.
+图像重构滤波器（Image reconstruction filter）负责将 sampler 和 integrator 共同生成的一系列辐射度样本转换为最终输出图像，并在渲染过程结束时写入磁盘。
+本节给出了 Mitsuba 中可用重构滤波器的一个简明概览。没有一种普遍来讲更好的滤波器，最终的选择在于锐度、振铃和走样以及计算效率之间的权衡。
 
-Desireable properties of a reconstruction filter are that it sharply captures all of the details
-that are displayable at the requested image resolution, while avoiding aliasing and ringing.
-Aliasing is the incorrect leakage of high-frequency into low-frequency detail, and ringing denotes
-oscillation artifacts near discontinuities, such as a light-shadow transiton.
+重建滤波器的理想特性是它能在要求的图像分辨率下清晰地捕捉到所有的细节，同时避免走样和振铃现象。走样是不正确的以低频采样高频细节，
+而振铃则表示不连续点附近的振荡图像误差，如 light-shadow transiton。

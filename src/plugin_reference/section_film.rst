@@ -1,13 +1,11 @@
 .. _sec-films:
 
-Films
+胶片
 =====
 
-A film defines how conducted measurements are stored and converted into the final
-output file that is written to disk at the end of the rendering process.
+film 定义了如何存储所进行的测量并将其转换为最终的输出文件，该文件将在渲染过程结束时写入磁盘。
 
-In the XML scene description language, a normal film configuration might look
-as follows:
+在 XML 场景描述语言中，一个常规的 film 配置应该看上去如下所示：
 
 .. code-block:: xml
 
@@ -30,8 +28,5 @@ as follows:
         </sensor>
     </scene>
 
-The ``<film>`` plugin should be instantiated nested inside a ``<sensor>``
-declaration. Note how the output filename is never specified---it is automatically
-inferred from the scene filename and can be manually overridden by passing the
-configuration parameter ``-o`` to the ``mitsuba`` executable when rendering
-from the command line.
+``<film>`` 插件应该嵌套在 ``<sensor>`` 声明中实例化。请注意输出文件名是不指定的，它从场景文件名自动推断出来，
+同时也可以在命令行渲染时通过将配置参数 ``-o`` 传递给 ``mitsuba`` 可执行文件来手动覆盖。

@@ -1,13 +1,10 @@
 .. _sec-spectra:
 
-Spectra
+光谱
 =======
 
-This section describes the plugins behind spectral reflectance or emission used
-in Mitsuba 2. On an implementation level, these behave very similarly to the
-:ref:`texture plugins <sec-textures>` described earlier (but lacking their
-spatially varying property) and can thus be used similarly as either BSDF or
-emitter parameters:
+本节介绍的是 Mitsuba 2 在光谱反射或发光背后的插件。在实现的层面上，它们的行为与之前 :ref:`texture plugins <sec-textures>` 
+中的描述非常相似（但是要缺少空间变化属性），因此，可以类似地作为 BSDF 或 emitter 的参数使用：
 
 .. code-block:: xml
 
@@ -20,14 +17,12 @@ emitter parameters:
         </bsdf>
     </scene>
 
-In practice, it is however discouraged to instantiate plugins in this explicit way
-and the XML scene description parser directly parses a number of common (shorter)
-``<spectrum>`` and ``<rgb>`` tags See the corresponding section about the
-:ref:`scene file format <sec-file-format>` for details.
+但是在实际工作中，不鼓励以这种显式方式实例化插件，XML 场景描述解析器会直接解析许多常用的插件（较短的）
+如 ``<spectrum>`` 和 ``<rgb>`` 标签。请参阅 :ref:`scene file format <sec-file-format>` 相关章节
+以获得更多信息。
 
-The following two tables summarize which underlying plugins get instantiated
-in each case, accounting for differences between reflectance and emission properties
-and all different color modes. Each plugin is briefly summarized below.
+接下来的两个表格总结了底层插件在每种情况下的实例化，考虑到了反射和发射属性以及不同颜色模式之间的差异。
+下面对于了每个插件都有简要的介绍。
 
 .. figtable::
     :label: spectrum-reflectance-table-list

@@ -1,18 +1,15 @@
 .. _sec-textures:
 
-Textures
+纹理
 ========
 
-The following section describes the available texture data sources. In Mitsuba 2,
-textures are objects that can be attached to certain surface scattering model
-parameters to introduce spatial variation. In the documentation, these are listed
-as supporting the :paramtype:`texture` type. See the last sections about
-:ref:`BSDFs <sec-bsdfs>` for many examples.
 
-Textures take an (optional) ``<transform>`` called :paramtype:`to_uv` which can
-be used to translate, scale, or rotate the lookup into the texture accordingly.
+接下来的小节描述的是纹理数据资源。在 Mitsuba 2 中纹理作为对象存在，纹理对象可以作为附加到某些表面散射模型的参数，以
+引入空间变化。在本文档中，以下列出了支持的 :paramtype:`texture` 类型。有关 BSDF 的更多示例，请参阅最后几节。
 
-An example in XML looks the following:
+Texture 有一个可选参数 ``<transform>`` 叫做 :paramtype:`to_uv` ，该参数可以用作平移、缩放、旋转以查找纹理。
+
+一个 XML 的例子如下所示：
 
 .. code-block:: xml
 
@@ -34,9 +31,7 @@ An example in XML looks the following:
         </bsdf>
     </scene>
 
-Similar to BSDFs, named textures can alternatively defined at the top level of the scene
-and later referenced. This is particularly useful if the same texture would be loaded
-many times otherwise.
+与 BSDF 类似，命名了的纹理可以在场景的顶层定义并在之后进行引用。如果相同的纹理需要多次加载，这将会特别有用。
 
 .. code-block:: xml
 

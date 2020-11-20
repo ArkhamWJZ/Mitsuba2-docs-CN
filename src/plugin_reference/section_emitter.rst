@@ -1,6 +1,6 @@
 .. _sec-emitters:
 
-Emitters
+光源
 ========
 
     .. image:: ../../resources/data/docs/images/emitter/emitter_overview.jpg
@@ -10,11 +10,9 @@ Emitters
     Schematic overview of the emitters in Mitsuba 2. The arrows indicate
     the directional distribution of light.
 
-Mitsuba 2 supports a number of different emitters/light sources, which can be
-classified into two main categories: emitters which are located somewhere within the scene, and emitters that surround the scene to simulate a distant environment.
+Mitsuba 2 支持大量不同类型的光源，这些光源大致上可以分成两类：坐落在场景内的光源，围绕在场景外模拟在远处的光源。
 
-Generally, light sources are specified as children of the ``<scene>`` element; for instance,
-the following snippet instantiates a point light emitter that illuminates a sphere:
+一般来说，光源是 ``<scene>`` 这一元素的子类；例如，下面的代码片段实例化了一个点光源发射器：
 
 .. code-block:: xml
 
@@ -27,8 +25,7 @@ the following snippet instantiates a point light emitter that illuminates a sphe
         <shape type="sphere"/>
     </scene>
 
-An exception to this are area lights, which turn a geometric object into a light source.
-These are specified as children of the corresponding ``<shape>`` element:
+有一个例外是面光源，面光源是将一个几何物体变为了光源。所以它们被指定为 ``<shape>`` 这一元素的子类：
 
 .. code-block:: xml
 

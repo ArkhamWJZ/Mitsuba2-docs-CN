@@ -1,17 +1,12 @@
 .. _sec-samplers:
 
-Samplers
+采样器
 ========
 
-When rendering an image, Mitsuba 2 has to solve a high-dimensional integration problem that involves
-the geometry, materials, lights, and sensors that make up the scene. Because of the mathematical
-complexity of these integrals, it is generally impossible to solve them analytically — instead, they
-are solved numerically by evaluating the function to be integrated at a large number of different
-positions referred to as samples. Sample generators are an essential ingredient to this process:
-they produce points in a (hypothetical) infinite dimensional hypercube :math:`[0, 1]^{\infty}`
-that constitute the canonical representation of these samples.
+在渲染图像时，Mitsuba 2 必须解决涉及构成场景的几何、材质、灯光和传感器的高维积分问题。由于这些积分的数学复杂性，
+通常不可能用解析法来解决它们，而是通过在大量不同位置采样来对要积分的函数求值并整合起来估算要求的积分。
+样本生成器是这个过程的基本组成部分：它们在无限维超立方体（假设的） :math:`[0, 1]^{\infty}` 中生成点，
+这些生层点构成了样本的标准表示。
 
-To do its work, a rendering algorithm, or integrator, will send many queries to the sample
-generator. Generally, it will request subsequent 1D or 2D components of this infinite-dimensional
-*point* and map them into a more convenient space (for instance, positions on surfaces). This allows
-it to construct light paths to eventually evaluate the flow of light through the scene.
+为了完成这一工作，渲染算法和积分器都会向样本生成器发出大量查询。通常，它们会请求这个 *无限维点* 的后面 1D 或 2D 分量，
+并将它们映射到一个更便利的空间（例如，曲面上某个位置）。这允许它构建光路，最终估算通过场景的光强。
