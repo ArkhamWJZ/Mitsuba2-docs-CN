@@ -1,14 +1,13 @@
 .. _sec-differentiable-rendering-advanced:
 
-More advanced examples
+进阶的实例
 ======================
 
 Differentiating textures
 ------------------------
 
-The previous example demonstrated differentiation of a scalar color parameter.
-We will now show how to work with textured parameters, focusing on the example
-of an environment map emitter.
+前面的示例展示了标量颜色参数的微分。现在，我们将以环境贴图发射器为例，展示如何使用纹理化参数。
+接下来我们将展示微分渲染是如何在纹理参数上工作的，重点介绍环境贴图发射器的例子。
 
 .. subfigstart::
 .. subfigure:: ../../../resources/data/docs/images/autodiff/bunny.jpg
@@ -18,10 +17,8 @@ of an environment map emitter.
 .. subfigend::
    :label: fig-bunny-autodiff
 
-The example scene can be downloaded `here
-<http://mitsuba-renderer.org/scenes/bunny.zip>`_ and contains a metallic
-Stanford bunny surrounded by a museum-like environment. As before, we load
-the scene and enumerate its differentiable parameters:
+示例场景资源可以从 `这里下载 <http://mitsuba-renderer.org/scenes/bunny.zip>`_ 包含了一个金属的 Stanford bunny 周围是
+博物馆一样的环境。和之前一样，我们先加载场景并枚举其中的可微参数：
 
 .. code-block:: python
 
@@ -41,8 +38,7 @@ the scene and enumerate its differentiable parameters:
     # Find differentiable scene parameters
     params = traverse(scene)
 
-We then make a backup copy of the ground-truth environment map and generate a
-reference rendering
+然后，我们制作真实环境图的备份副本并生成参考渲染
 
 .. code-block:: python
 
@@ -58,9 +54,8 @@ reference rendering
     crop_size = scene.sensors()[0].film().crop_size()
     write_bitmap('out_ref.png', image_ref, crop_size)
 
-Let's now change the environment map into a uniform white lighting environment.
-The ``my_envmap.data`` parameter is a RGBA bitmap linearized into a 1D array of
-size ``param_res[0] x param_res[1] x 4`` (125'000).
+现在让我们把环境图更改为统一的白色光照明环境。``my_envmap.data`` 参数是一个 RGBA bitmap ，该参数被线性化为尺寸为  ``param_res[0] x param_res[1] x 4`` （125'000）
+的 1D 数组。
 
 .. code-block:: python
 
@@ -68,9 +63,7 @@ size ``param_res[0] x param_res[1] x 4`` (125'000).
     params['my_envmap.data'] = ek.full(Float, 1.0, len(param_ref))
     params.update()
 
-Finally, we jointly estimate all 125K parameters using gradient-based
-optimization. The optimization loop is identical to previous examples except
-that we can now also write out the current environment image in each iteration.
+最后，我们使用梯度优化一起估算所有的 125K 个参数。优化循环与前面的示例相同，除此之外我们现在还可以在每次迭代中输出当前环境图像。
 
 .. code-block:: python
 
@@ -97,10 +90,8 @@ that we can now also write out the current environment image in each iteration.
         err_ref = ek.hsum(ek.sqr(param_ref - params['my_envmap.data']))
         print('Iteration %03i: error=%g' % (it, err_ref[0]))
 
-The following video shows the convergence behavior during the first 100
-iterations. The image rapidly resolves to the target image. The small black
-regions in the image correspond to parts of the mesh where inter-reflection was
-ignored due to a limit on the maximum number of light bounces.
+接下来的视频显示了前100次迭代的收敛行为。图像迅速分解为目标图像。 图像中的小黑色区域对应了由于光的最大反弹次数限制而
+忽略相互反射的网格部分。
 
 .. raw:: html
 
@@ -109,8 +100,7 @@ ignored due to a limit on the maximum number of light bounces.
         src="https:////rgl.s3.eu-central-1.amazonaws.com/media/uploads/wjakob/2020/03/03/bunny_render.mp4"></video>
     </center>
 
-The following image shows the reconstructed environment map at each step.
-Unobserved regions are unaffected by gradient steps and remain white.
+下面的图像展示了从每个步骤中重建出来的图像。未观察到的区域不受梯度步长的影响保持了白色。
 
 .. raw:: html
 
@@ -119,10 +109,6 @@ Unobserved regions are unaffected by gradient steps and remain white.
         src="https://rgl.s3.eu-central-1.amazonaws.com/media/uploads/wjakob/2020/03/03/bunny_envmap.mp4"></video>
     </center>
 
-This image is still fairly noisy and even contains some negative (!) regions.
-This is because the optimization problem defined above is highly ambiguous due
-to the loss of information that occurs in the forward rendering model above.
-The solution we found optimizes the objective well (i.e. the rendered image
-matches the target), but the reconstructed texture may not match our
-expectation. In such a case, it may be advisable to introduce further
-regularization (non-negativity, smoothness, etc.).
+该图像的噪声仍然很多，甚至包含了一些负（！）区域。这是因为上面前向渲染时发生的信息丢失问题，我们定义的优化问题是相当不明确的。
+我们发现的解决方案可以很好地优化目标（即，渲染图像与目标匹配），但是重建出来的纹理可能不符合我们的预期。 在这种情况下，建议进
+一步进行正则化（加入非负性，平滑等操作）。
