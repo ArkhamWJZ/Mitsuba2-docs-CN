@@ -1,56 +1,32 @@
 .. _sec-inverse-rendering:
 
-Introduction
+介绍
 ============
 
-Mitsuba 2 can be used to solve inverse problems involving light using a
-technique known as *differentiable rendering*. It interprets the rendering
-algorithm as a function :math:`f(\mathbf{x})` that converts an input
-:math:`\mathbf{x}` (the scene description) into an output :math:`\mathbf{y}`
-(the rendering). This function :math:`f` is then mathematically differentiated
-to obtain :math:`\frac{\mathrm{d}\mathbf{y}}{\mathrm{d}\mathbf{x}}`, providing
-a first-order approximation of how a desired change in the output
-:math:`\mathbf{y}` (the rendering) can be achieved by changing the inputs
-:math:`\mathbf{x}` (the scene description). Together with a differentiable
-*objective function* :math:`g(\mathbf{y})` that quantifies the suitability of
-tentative scene parameters, a gradient-based optimization algorithm such as
-stochastic gradient descent or Adam can then be used to find a sequence of
-scene parameters :math:`\mathbf{x}_0`, :math:`\mathbf{x}_1`,
-:math:`\mathbf{x}_2`, etc., that successively improve the objective function.
-In pictures:
+Mitsuba 2 可以使用一种称为 *可微渲染* 的技术来解决涉及光线的逆向问题。该技术将渲染算法解释为一个函数 :math:`f(\mathbf{x})` 
+这个函数将输入 :math:`\mathbf{x}` （场景描述）转化为输出 :math:`\mathbf{y}` （渲染图）。那么这个函数 :math:`f` 在数学上的
+微分就很显然了 :math:`\frac{\mathrm{d}\mathbf{y}}{\mathrm{d}\mathbf{x}}` ，这个微分提供了如何通过改变输入 :math:`\mathbf{x}`（场景描述）
+来改变输出 :math:`\mathbf{y}` （渲染图）的一阶近似。结合量化场景参数适用性的可微 *目标函数* :math:`g(\mathbf{y})` ，随后可以
+使用梯度优化算法诸如随机梯度下降或者 Adam 来查找一系列场景参数 :math:`\mathbf{x}_0`，:math:`\mathbf{x}_1`， :math:`\mathbf{x}_2` 等，从而
+逐步改善目标函数。如下面图片所示：
 
 .. image:: ../../../resources/data/docs/images/autodiff/autodiff.jpg
     :width: 100%
     :align: center
 
-Differentiable rendering in Mitsuba is based on variants that use the
-``gpu_autodiff`` backend. Note that differentiable rendering on the CPU is
-currently not supported for performance reasons, but we have some ideas on
-making this faster and plan to incorporate them in the future.
+Mitsuba 2 中的可微渲染是基于 ``gpu_autodiff`` 变体模式下的后端。需要注意的是，由于性能原因目前不支持在
+CPU 上进行可微渲染，但是我们有一些想法可以加快渲染速度并且计划在将来合并进来。
 
 Differentiable calculations using Enoki
 ---------------------------------------
 
-Mitsuba's ability to automatically differentiate entire rendering algorithms
-builds on differentiable CUDA array types provided by the Enoki library. Both
-are explained in the Enoki documentation: the section on `GPU arrays
-<https://enoki.readthedocs.io/en/master/gpu.html>`_ describes the underlying
-*just-in-time* (JIT) compiler, which fuses simple operations like additions and
-multiplications into larger computational kernels that can be executed on
-CUDA-capable GPUs. The linked document also discusses key differences compared
-to superficially similar frameworks like PyTorch and TensorFlow. The section on
-`Automatic differentiation
-<https://enoki.readthedocs.io/en/master/autodiff.html>`_ describes how Enoki
-records and simplifies computation graphs and uses them to propagate
-derivatives in forward or reverse mode. We recommend that you familiarize
-yourself with both of these documents.
+Mitsuba 能够自动微分整个渲染算法的能力来自于 Enoki 库提供的可微 CUDA 数组类型。两者在 Enoki 的文档的 `GPU arrays <https://enoki.readthedocs.io/en/master/gpu.html>`_ 章节
+中都有详细解释，描述了基本的 *just-in-time* （JIT）编译器，该编译器将加法和乘法等简单操作融合到可以在具有 CUDA 功能的 GPU 上执行的较大计算内核中。上面链接的文档
+还讨论了和 PyTorch 以及 TensorFlow 这种表面上相似的框架都有哪些区别。`Automatic differentiation <https://enoki.readthedocs.io/en/master/autodiff.html>`_ 
+这一章节描述了 Enoki 如何记录和简化计算图并使用它们以正向或反向模式传播导数。我们建议你可以熟读 Mitsuba 和 Enoki 的文档。
 
-Enoki's differentiable types are automatically imported when variant starting
-with ``gpu_autodiff_*`` is specified. They are used in both C++ and Python,
-hence it is possible to differentiate larger computations that are partly
-implemented in each language. The following program shows a simple example
-calculation conducted in Python, which differentiates the function
-:math:`f(\mathbf{x})=x_0^2 + x_1^2 + x_2^2`
+当变体模式是 ``gpu_autodiff_*`` 时，会自动导入 Enoki 的微分类型。它们在 C++ 和 Python 中都有使用，因此在每种语言下
+都可以实现大量微分计算。以下程序展示了使用 Python 编写一个简单的传播计算，来微分函数 :math:`f(\mathbf{x})=x_0^2 + x_1^2 + x_2^2` 
 
 .. code-block:: python
 
