@@ -1,23 +1,16 @@
 .. _sec-pytorch:
 
-Integration with PyTorch
+与 PyTorch 的集成
 ========================
 
-We briefly show how the example from the earlier section on
-:ref:`differentiable rendering <sec-differentiable-rendering>` can be made to
-work when combining differentiable rendering with an optimization expressed
-using PyTorch. The ability to combine these frameworks enables sandwiching
-Mitsuba 2 between neural layers and differentiating the combination end-to-end.
+我们简要地展示了将可微渲染与使用 PyTorch 的优化相结合时，如何使上一节 :ref:`differentiable rendering <sec-differentiable-rendering>` 
+中的示例变得可行。结合这些框架的能力可以将 Mitsuba 2 夹在神经层之间，并区分端到端的组合。
 
-Note that communication and synchronization between Enoki and PyTorch along
-with the complexity of traversing two separate computation graph data
-structures causes an overhead of 10-20% compared to optimization implemented
-using only Enoki. We generally recommend sticking with Enoki unless the problem
-requires neural network building blocks like fully connected layers or
-convolutions, where PyTorch provides a clear advantage.
+请注意，与仅使用 Enoki 实现的优化相比，Enoki 和 PyTorch 之间的通信和同步以及遍历两个单独的计算图数据结构
+的复杂性会导致 10-20％ 的开销。我们通常建议坚持使用 Enoki，除非问题需要神经网络构建块(例如全连接层或卷积)，
+此时使用 PyTorch 会有明显的优势。
 
-As before, we specify the relevant variant, load the scene, and retain
-relevant differentiable parameters.
+和之前一样，我们指定相关的变体，加载场景并保留相关的可微参数。
 
 .. code-block:: python
 
@@ -41,18 +34,15 @@ relevant differentiable parameters.
     # Discard all parameters except for one we want to differentiate
     params.keep(['red.reflectance.value'])
 
-The ``.torch()`` method can be used to convert any Enoki CUDA type
-into a corresponding PyTorch tensor.
+``.torch()`` 方法可以用于将任何 Enoki CUDA 类型转化为相应的 PyTorch 张量。
 
 .. code-block:: python
 
     # Print the current value and keep a backup copy
     param_ref = params['red.reflectance.value'].torch()
     print(param_ref)
-
-The :py:func:`~mitsuba.python.autodiff.render_torch()` function works
-analogously to :py:func:`~mitsuba.python.autodiff.render()` except that it
-returns a PyTorch tensor.
+:py:func:`~mitsuba.python.autodiff.render_torch()` 函数的工作方式与 :py:func:`~mitsuba.python.autodiff.render()` 类似，
+只是它返回的是一个 PyTorch 张量。
 
 .. code-block:: python
 
@@ -61,7 +51,7 @@ returns a PyTorch tensor.
     crop_size = scene.sensors()[0].film().crop_size()
     write_bitmap('out.png', image_ref, crop_size)
 
-As before, we change one of the input parameters and initialize an optimizer.
+和之前一样，我们更改输入参数之一，并初始化优化器。
 
 .. code-block:: python
 
@@ -76,17 +66,12 @@ As before, we change one of the input parameters and initialize an optimizer.
     opt = torch.optim.Adam(params_torch.values(), lr=.2)
     objective = torch.nn.MSELoss()
 
-Note that the scene parameters are effectively duplicated: we represent them
-once using Enoki arrays (``params``), and once using PyTorch arrays
-(``params_torch``). To perform a differentiable rendering, the function
-:py:func:`~mitsuba.python.autodiff.render_torch()` requires that both are given
-as arguments. Due to technical specifics of how PyTorch detects differentiable
-parameters, it is furthermore necessary that ``params_torch`` is expanded into
-a list of keyword arguments (``**params_torch``). The function then keeps both
-representation in sync and creates an interface between the underlying
-computation graphs.
+需要注意的是，场景参数是有效复制的：我们曾经使用 Enoki 数组（``params``）和 PyTorch 数组（``params_torch``）表示。
+为了执行可微渲染，函数 :py:func:`~mitsuba.python.autodiff.render_torch()` 需要两者均作为参数。因为 PyTorch 识别
+可微参数的技术特点，将  ``params_torch`` 扩展为关键字参数列表（``**params_torch``）还是很有必要的。然后该函数使两种
+表示保持同步，并在底层计算图之间创建接口。
 
-The main optimization loop looks as follows:
+主要的优化循环如下所示：
 
 .. code-block:: python
 
@@ -115,26 +100,17 @@ The main optimization loop looks as follows:
 
 .. warning::
 
-    **Memory caching**: When a GPU array in Enoki or PyTorch is destroyed, its
-    memory is not immediately released back to the GPU. The reason for this is
-    that allocating and releasing GPU memory are both extremely expensive
-    operations, and any unused memory is therefore instead placed into a cache
-    for later re-use.
+    **Memory caching**: 当 Enoki 或 PyTorch 中的 GPU 序列被销毁时，其内存不会立即释放回 GPU。 
+    这样做的原因是分配和释放 GPU 内存都是非常昂贵的操作，因此，任何未使用的内存都将放入缓存中以供以后重用。
 
-    The fact that this happens is normally irrelevant when *only* using Enoki
-    or *only* using PyTorch, but it can be a problem when using *both* at the
-    same time, as the cache of one system may grow sufficiently large that
-    allocations by the other system fail, despite plenty of free memory
-    technically being available.
 
-    If you notice that your programs crash with out-of-memory errors, try
-    passing ``malloc_trim=True`` to the ``render_torch`` function. This
-    flushes PyTorch's memory cache before executing any Enoki code, and vice
-    versa. This is something of a last resort---generally, it's better to
-    reduce memory requirements by lowering the number of samples per pixel,
-    as flushing the cache causes severe performance penalty.
+    事实是当只使用 Enoki 时或者只使用 PyTorch 时这个问题并不要紧，但是当两者同时使用时可能就会有问题了，
+    因为一个系统的缓存可能会变得非常大，以至于另一个系统的分配失败，尽管技术上有大量可用内存可用。
+
+    如果你注意到你的程序崩溃并报错 out-of-memory error，请尝试将参数 ``malloc_trim=True`` 传递给函数 ``render_torch`` 。
+    这会在执行任何 Enkio 代码之前刷新 PyTorch 的缓存，反之亦然。这应该是不得已的方法---通常来讲，最好通过降低每像素采样
+    来减少内存需要，因为刷新缓存会导致严重的性能损耗。
 
 .. note::
 
-    The full Python script of this tutorial can be found in the file:
-    :file:`docs/examples/10_diff_render/invert_cbox_torch.py`.
+    可以在 :file:`docs/examples/10_diff_render/invert_cbox_torch.py`. 中找到本节教程的完整脚本。
