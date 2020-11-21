@@ -15,7 +15,7 @@
   <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap-theme.min.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-    <title>Differentiable rendering &#8212; mitsuba2 0.1.dev0 documentation</title>
+    <title>可微渲染 &#8212; mitsuba2 0.1.dev0 documentation</title>
     <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/theme_overrides.css" />
@@ -27,8 +27,8 @@
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="More advanced examples" href="advanced.html" />
-    <link rel="prev" title="Introduction" href="intro.html" />
+    <link rel="next" title="进阶的实例" href="advanced.html" />
+    <link rel="prev" title="引言" href="intro.html" />
   
    
 
@@ -40,13 +40,13 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="advanced.html" title="More advanced examples"
+          <a href="advanced.html" title="进阶的实例"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="intro.html" title="Introduction"
+          <a href="intro.html" title="引言"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Differentiable rendering</a></li> 
+        <li class="nav-item nav-item-this"><a href="">可微渲染</a></li> 
       </ul>
     </div>
     <div class="container-wrapper">
@@ -69,64 +69,64 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/intro.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/cloning.html">Cloning the repository</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/variants.html">Choosing variants</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started/compiling.html">Compiling the system</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started/file_format.html">Scene file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/compiling.html">编译系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/file_format.html">场景文件格式</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/differences.html">Differences to Mitsuba 0.6</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started/faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/faq.html">常见问题概览</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../release_notes.html">Release notes</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Python interface</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../python_interface/intro.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../python_interface/parsing_xml.html">Parsing XML code</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../python_interface/rendering_scene.html">Rendering a scene</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../python_interface/bsdf_eval.html">Custom applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/intro.html">引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/parsing_xml.html">XML 代码解析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/rendering_scene.html">渲染场景</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/bsdf_eval.html">自定义应用</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Inverse rendering</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Differentiable rendering</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">引言</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">可微渲染</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#enumerating-scene-parameters">Enumerating scene parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#problem-statement">Problem statement</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#gradient-based-optimization">Gradient-based optimization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#forward-mode-differentiation">Forward-mode differentiation</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="advanced.html">More advanced examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pytorch.html">Integration with PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">进阶的实例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pytorch.html">与 PyTorch 的集成</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Developer guide</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../developer_guide/intro.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../developer_guide/variants_cpp.html">Variants in C++</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../developer_guide/writing_plugin.html">Plugins &amp; Macros</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../developer_guide/testing.html">Testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../developer_guide/debugging.html">Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/intro.html">引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/variants_cpp.html">C++ 中的变体</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/writing_plugin.html">插件 &amp; 宏</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/testing.html">测试</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/debugging.html">调试 Debug</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../developer_guide/building_documentation.html">Building the documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../developer_guide/polarization.html">Polarization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/polarization.html">偏振</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Advanced topics</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/custom_plugins.html">Custom plugins in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/custom_plugins.html">在 Python 中自定义插件</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Plugin reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../plugin_reference/intro.html">Plugin reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html">Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugin_reference/intro.html">Plugin 参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html">形状插件 Shape</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#bsdfs">BSDFs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#phase-functions">Phase functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#emitters">Emitters</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#sensors">Sensors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#textures">Textures</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#spectra">Spectra</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#integrators">Integrators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#samplers">Samplers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#films">Films</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#reconstruction-filters">Reconstruction filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#sec-phase">相位函数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#sec-emitters">光源</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#sec-sensors">传感器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#sec-textures">纹理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#sec-spectra">光谱</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#sec-integrators">积分器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#sec-samplers">采样器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#sec-films">胶片</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../generated/plugins.html#sec-rfilters">重构滤波器</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../api_reference/intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/intro.html">引言</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/core_api.html">Core API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/render_api.html">Render API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/python_api.html">Python API Reference</a></li>
@@ -161,44 +161,38 @@
             <ol class="breadcrumb">
               <li><a href="../../index.html">Docs</a></li>
               
-              <li>Differentiable rendering</li>
+              <li>可微渲染</li>
             </ol>
           </div>
           
           <div class="document clearer body">
             
-  <div class="section" id="differentiable-rendering">
-<span id="sec-differentiable-rendering"></span><h1>Differentiable rendering<a class="headerlink" href="#differentiable-rendering" title="Permalink to this headline">¶</a></h1>
-<p>We now progressively build up a simple example application that showcases
-differentiation and optimization of a light transport simulation involving the
-well-known Cornell Box scene that can be downloaded <a class="reference external" href="http://mitsuba-renderer.org/scenes/cbox.zip">here</a>.</p>
-<p>Please make the following three changes to the <code class="docutils literal notranslate"><span class="pre">cbox.xml</span></code> file:</p>
+  <div class="section" id="sec-differentiable-rendering">
+<span id="id1"></span><h1>可微渲染<a class="headerlink" href="#sec-differentiable-rendering" title="Permalink to this headline">¶</a></h1>
+<p>现在我将逐步构建一个简单的示例程序，该示例程序是一个展现光线传播模拟中的微分与优化的例子，
+模拟过程成中使用的场景是著名的 Cornell Box 可以 <a class="reference external" href="http://mitsuba-renderer.org/scenes/cbox.zip">这里下载</a>。</p>
+<p>请按照下面的教程对 <code class="docutils literal notranslate"><span class="pre">cbox.xml</span></code> 文件做出三处改动：</p>
 <ol class="arabic">
-<li><p><code class="docutils literal notranslate"><span class="pre">ldsampler</span></code> must be replaced by <code class="docutils literal notranslate"><span class="pre">independent</span></code> (<code class="docutils literal notranslate"><span class="pre">ldsampler</span></code> has not yet
-been ported to Mitsuba 2). Note that the sample count specified here will be overriden
-in the optimization script below.</p></li>
-<li><p>The integrator at the top should be defined as follows:</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">ldsampler</span></code> 必须被替换为 <code class="docutils literal notranslate"><span class="pre">independent</span></code> （<code class="docutils literal notranslate"><span class="pre">ldsampler</span></code> 尚未移植到 Mitsuba 2）。
+请注意，此处指定的样本计数将在接下来的优化脚本中被覆盖。</p></li>
+<li><p>头部的积分器应该如下进行定义：</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;integrator</span> <span class="na">type=</span><span class="s">&quot;path&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;integer</span> <span class="na">name=</span><span class="s">&quot;max_depth&quot;</span> <span class="na">value=</span><span class="s">&quot;3&quot;</span><span class="nt">/&gt;</span>
 <span class="nt">&lt;/integrator&gt;</span>
 </pre></div>
 </div>
 </li>
-<li><p>The film should specify a box reconstruction filter instead of <code class="docutils literal notranslate"><span class="pre">gaussian</span></code>.</p>
+<li><p>film 应该指定一个 box 重建滤波而不是 <code class="docutils literal notranslate"><span class="pre">gaussian</span></code>。</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;rfilter</span> <span class="na">type=</span><span class="s">&quot;box&quot;</span><span class="nt">/&gt;</span>
 </pre></div>
 </div>
 </li>
 </ol>
-<p>In the context of differentiable rendering, we are typically interested in
-rendering many fairly low-quality images as quickly as possible, and the above
-changes reduce the quality of the rendered images accordingly.</p>
+<p>在可微渲染的情况中，我们通常会对尽快渲染许多低质量的图像感兴趣，出于这种考量上述更改针对的降低了渲染图像质量。</p>
 <div class="section" id="enumerating-scene-parameters">
 <h2>Enumerating scene parameters<a class="headerlink" href="#enumerating-scene-parameters" title="Permalink to this headline">¶</a></h2>
-<p>Since differentiable rendering requires a starting guess (i.e. an initial scene
-configuration), most applications will begin by loading the Cornell box scene
-and enumerating and selecting scene parameters that will subsequently be
-differentiated:</p>
+<p>由于可微渲染需要一个初始估计值（即初始场景配置），因此大多数应用程序先加载 Cornell box 场景随后枚举并
+选择待微分的场景参数：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">enoki</span> <span class="k">as</span> <span class="nn">ek</span>
 <span class="kn">import</span> <span class="nn">mitsuba</span>
 <span class="n">mitsuba</span><span class="o">.</span><span class="n">set_variant</span><span class="p">(</span><span class="s1">&#39;gpu_autodiff_rgb&#39;</span><span class="p">)</span>
@@ -216,10 +210,9 @@ differentiated:</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The call to <a class="reference internal" href="../../generated/python_api.html#mitsuba.python.util.traverse" title="mitsuba.python.util.traverse"><code class="xref py py-func docutils literal notranslate"><span class="pre">traverse()</span></code></a> in the second-to-last
-line serves this purpose. It returns a dictionary-like <a class="reference internal" href="../../generated/python_api.html#mitsuba.python.util.ParameterMap" title="mitsuba.python.util.ParameterMap"><code class="xref py py-class docutils literal notranslate"><span class="pre">mitsuba.python.util.ParameterMap</span></code></a>
-instance, which exposes modifiable and differentiable scene parameters. Passing
-it to <code class="docutils literal notranslate"><span class="pre">print()</span></code> yields the following summary (abbreviated):</p>
+<p>倒数第二行调用的函数 <a class="reference internal" href="../../generated/python_api.html#mitsuba.python.util.traverse" title="mitsuba.python.util.traverse"><code class="xref py py-func docutils literal notranslate"><span class="pre">traverse()</span></code></a> 就完成了这一任务。
+它会返回一个类似于字典的 <a class="reference internal" href="../../generated/python_api.html#mitsuba.python.util.ParameterMap" title="mitsuba.python.util.ParameterMap"><code class="xref py py-class docutils literal notranslate"><span class="pre">mitsuba.python.util.ParameterMap</span></code></a> 实例，该实例
+公开出来可修改和可微分的场景参数。将其传递给 <code class="docutils literal notranslate"><span class="pre">print()</span></code> 打印出来，会输出以下摘要信息：</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ParameterMap[
     ...
   * box.reflectance.value,
@@ -246,38 +239,29 @@ it to <code class="docutils literal notranslate"><span class="pre">print()</span
 ]
 </pre></div>
 </div>
-<p>The Cornell box scene consists of a single light source, and multiple multiple
-meshes and BRDFs. Each component contributes certain entries to the above
-list—for instance, meshes specify their face and vertex counts in addition to
-per-face (<code class="docutils literal notranslate"><span class="pre">.faces</span></code>) and per-vertex data (<code class="docutils literal notranslate"><span class="pre">.vertex_positions</span></code>,
-<code class="docutils literal notranslate"><span class="pre">.vertex_normals</span></code>, <code class="docutils literal notranslate"><span class="pre">.vertex_texcoords</span></code>). Each BRDF adds a
-<code class="docutils literal notranslate"><span class="pre">.reflectance.value</span></code> entry. Not all of these parameters are
-differentiable—some, e.g., store integer values. The asterisk (<code class="docutils literal notranslate"><span class="pre">*</span></code>) on the
-left of some parameters indicates that they are differentiable.</p>
-<p>The parameter names are generated using a simple naming scheme based on the
-position in the scene graph and class name of the underlying implementation.
-Whenever an object was assigned a unique identifier via the <code class="docutils literal notranslate"><span class="pre">id=&quot;...&quot;</span></code>
-attribute in the XML scene description, this identifier has precedence. For
-instance, The <code class="docutils literal notranslate"><span class="pre">red.reflectance.value</span></code> entry corresponds to the albedo of the
-following declaration in the original scene description:</p>
+<p>Cornell box 场景包含了一个光源和多个多重网格和 BRDF 组成。每个组件都为上述列表提供了某些条目—例如，
+网格除了指定它们所属的面元和顶点序号外还有 per-face (<code class="docutils literal notranslate"><span class="pre">.faces</span></code>) 以及 per-vertex data (<code class="docutils literal notranslate"><span class="pre">.vertex_positions</span></code>，
+<code class="docutils literal notranslate"><span class="pre">.vertex_normals</span></code>， <code class="docutils literal notranslate"><span class="pre">.vertex_texcoords</span></code>)。每种 BRDF 都添加了 <code class="docutils literal notranslate"><span class="pre">.reflectance.value</span></code> 这一条目。
+不是所有的函数都是可微分的—例如存储的一些整数值。左侧带有星号（<code class="docutils literal notranslate"><span class="pre">*</span></code>）的参数表示它们是可微的。</p>
+<p>参数的命名是使用基于场景图中的位置和底层实现的类名的简单命名方案。
+只要通过 XML 场景描述中的 <code class="docutils literal notranslate"><span class="pre">id=&quot;...&quot;</span></code> 属性为对象分配了唯一标识符，则该标识符具有优先权。
+例如，<code class="docutils literal notranslate"><span class="pre">red.reflectance.value</span></code> 条目对应于下面所示的原始场景描述中声明的反射率：</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;bsdf</span> <span class="na">type=</span><span class="s">&quot;diffuse&quot;</span> <span class="na">id=</span><span class="s">&quot;red&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;spectrum</span> <span class="na">name=</span><span class="s">&quot;reflectance&quot;</span> <span class="na">value=</span><span class="s">&quot;400:0.04, 404:0.046, ..., 696:0.635, 700:0.642&quot;</span><span class="nt">/&gt;</span>
 <span class="nt">&lt;/bsdf&gt;</span>
 </pre></div>
 </div>
-<p>We can also query the <a class="reference internal" href="../../generated/python_api.html#mitsuba.python.util.ParameterMap" title="mitsuba.python.util.ParameterMap"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterMap</span></code></a> to see the actual parameter value:</p>
+<p>我们还可以参阅 <a class="reference internal" href="../../generated/python_api.html#mitsuba.python.util.ParameterMap" title="mitsuba.python.util.ParameterMap"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterMap</span></code></a> 以查看实际参数值：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;red.reflectance.value&#39;</span><span class="p">])</span>
 
 <span class="c1"># Prints:</span>
 <span class="c1"># [[0.569717, 0.0430141, 0.0443234]]</span>
 </pre></div>
 </div>
-<p>Here, we can see how Mitsuba converted the original spectral curve from the
-above XML fragment into an RGB value due to the <code class="docutils literal notranslate"><span class="pre">gpu_autodiff_rgb</span></code> variant
-being used to run this example.</p>
-<p>In most cases, we will only be interested in differentiating a small subset of
-the (typically very large) parameter map. Use the <a class="reference internal" href="../../generated/python_api.html#mitsuba.python.util.ParameterMap.keep" title="mitsuba.python.util.ParameterMap.keep"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ParameterMap.keep()</span></code></a>
-method to discard all entries except for the specified list of keys.</p>
+<p>这里可以看到，由于我们是使用了 <code class="docutils literal notranslate"><span class="pre">gpu_autodiff_rgb</span></code> 变体来运行此示例，Mitsuba 将上述的 XML 片段的原始
+光谱曲线转换为 RGB 值。</p>
+<p>在大多数的情况下，我们只对可微参数映射的一小部分（这一小部分通常也很大）感兴趣。通过使用 <a class="reference internal" href="../../generated/python_api.html#mitsuba.python.util.ParameterMap.keep" title="mitsuba.python.util.ParameterMap.keep"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ParameterMap.keep()</span></code></a>
+方法，丢弃除了指定列表外的所有条目。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">params</span><span class="o">.</span><span class="n">keep</span><span class="p">([</span><span class="s1">&#39;red.reflectance.value&#39;</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
 
@@ -295,17 +279,11 @@ method to discard all entries except for the specified list of keys.</p>
 </div>
 <div class="section" id="problem-statement">
 <h2>Problem statement<a class="headerlink" href="#problem-statement" title="Permalink to this headline">¶</a></h2>
-<p>In contrast to the <a class="reference internal" href="../python_interface/rendering_scene.html#sec-rendering-scene"><span class="std std-ref">previous example</span></a> on using the
-Python API to render images, the differentiable rendering path involves another
-rendering function <a class="reference internal" href="../../generated/python_api.html#mitsuba.python.autodiff.render" title="mitsuba.python.autodiff.render"><code class="xref py py-func docutils literal notranslate"><span class="pre">mitsuba.python.autodiff.render()</span></code></a> that is more
-optimized for this use case. It directly returns a GPU array containing the
-generated image. The function
-<a class="reference internal" href="../../generated/python_api.html#mitsuba.python.autodiff.write_bitmap" title="mitsuba.python.autodiff.write_bitmap"><code class="xref py py-func docutils literal notranslate"><span class="pre">write_bitmap()</span></code></a> reshapes the output into an
-image of the correct size and exports it to any of the supported image formats
-(OpenEXR, PNG, JPG, RGBE, PFM) while automatically performing format conversion
-and gamma correction in the case of an 8-bit output format.</p>
-<p>Using this functionality, we will now generate a reference image using 8
-samples per pixel (<code class="docutils literal notranslate"><span class="pre">spp</span></code>).</p>
+<p>与使用 Python API 的 <a class="reference internal" href="../python_interface/rendering_scene.html#sec-rendering-scene"><span class="std std-ref">previous example</span></a> 相比，可微渲染路径涉及到了另一个
+渲染函数 <a class="reference internal" href="../../generated/python_api.html#mitsuba.python.autodiff.render" title="mitsuba.python.autodiff.render"><code class="xref py py-func docutils literal notranslate"><span class="pre">mitsuba.python.autodiff.render()</span></code></a> 对于这用例会更为优化。它直接返回包含生成图像的 GPU 序列。
+函数 <a class="reference internal" href="../../generated/python_api.html#mitsuba.python.autodiff.write_bitmap" title="mitsuba.python.autodiff.write_bitmap"><code class="xref py py-func docutils literal notranslate"><span class="pre">write_bitmap()</span></code></a> 将输出重新整型为正确大小的图像，并导出为任何支持的图像
+格式（OpenEXR，PNG，JPG，RGBE，PFM）同时在 8-bit 输出格式下自动执行格式转换和伽马矫正。</p>
+<p>使用此功能，我们现在需要使用每像素8采样（<code class="docutils literal notranslate"><span class="pre">spp</span></code>）来生成参考图。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Render a reference image (no derivatives used yet)</span>
 <span class="kn">from</span> <span class="nn">mitsuba.python.autodiff</span> <span class="kn">import</span> <span class="n">render</span><span class="p">,</span> <span class="n">write_bitmap</span>
 <span class="n">image_ref</span> <span class="o">=</span> <span class="n">render</span><span class="p">(</span><span class="n">scene</span><span class="p">,</span> <span class="n">spp</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
@@ -313,14 +291,9 @@ samples per pixel (<code class="docutils literal notranslate"><span class="pre">
 <span class="n">write_bitmap</span><span class="p">(</span><span class="s1">&#39;out_ref.png&#39;</span><span class="p">,</span> <span class="n">image_ref</span><span class="p">,</span> <span class="n">crop_size</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Our first experiment is going to be very simple: we will change the color of
-the red wall and then try to recover the original color using differentiation
-along with the reference image generated above.</p>
-<p>For this, let’s first change the current color value: the parameter map enables
-such changes without having to reload the scene. The call to the
-<a class="reference internal" href="../../generated/python_api.html#mitsuba.python.util.ParameterMap.update" title="mitsuba.python.util.ParameterMap.update"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ParameterMap.update()</span></code></a> method at the end is
-mandatory to inform changed scene objects that they should refresh their
-internal state.</p>
+<p>我们的第一个实验非常简单：我们将会改变红墙上的颜色，随后尝试使用微分以及上面生成的参考图来恢复一开始的颜色。</p>
+<p>为此，让我们首先改变当前颜色值：参数映射允许我们不用重新加载场景就可以做到这种改变。最后调用的 <a class="reference internal" href="../../generated/python_api.html#mitsuba.python.util.ParameterMap.update" title="mitsuba.python.util.ParameterMap.update"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ParameterMap.update()</span></code></a> 方法
+强制通知场景对象做出刷新它们内部状态的修改。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Change the left wall into a bright white surface</span>
 <span class="n">params</span><span class="p">[</span><span class="s1">&#39;red.reflectance.value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">.</span><span class="mi">9</span><span class="p">,</span> <span class="o">.</span><span class="mi">9</span><span class="p">,</span> <span class="o">.</span><span class="mi">9</span><span class="p">]</span>
 <span class="n">params</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
@@ -329,30 +302,23 @@ internal state.</p>
 </div>
 <div class="section" id="gradient-based-optimization">
 <h2>Gradient-based optimization<a class="headerlink" href="#gradient-based-optimization" title="Permalink to this headline">¶</a></h2>
-<p>Mitsuba can either optimize scene parameters in <em>standalone mode</em> using
-optimization algorithms implemented on top of Enoki, or it can be used as a
-differentiable node within a larger PyTorch computation graph. Communication
-between PyTorch and Enoki causes certain overheads, hence we generally
-recommend standalone mode unless your computation contains elements where
-PyTorch provides a clear advantage (for example, neural network building blocks
-like fully connected layers or convolutions). The remainder of this section
-discusses standalone mode, and the section on <a class="reference internal" href="pytorch.html#sec-pytorch"><span class="std std-ref">PyTorch integration</span></a> shows how to adapt the example code for PyTorch.</p>
-<p>Mitsuba ships with standard optimizers including <em>Stochastic Gradient Descent</em>
-(<a class="reference internal" href="../../generated/python_api.html#mitsuba.python.autodiff.SGD" title="mitsuba.python.autodiff.SGD"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGD</span></code></a>) with and without momentum, as well
-as <a class="reference internal" href="../../generated/python_api.html#mitsuba.python.autodiff.Adam" title="mitsuba.python.autodiff.Adam"><code class="xref py py-class docutils literal notranslate"><span class="pre">Adam</span></code></a> <a class="bibtex reference internal" href="../../zz_bibliography.html#kingma2014adam" id="id1">[KB14]</a> We will
-instantiate the latter and optimize our reduced
-<a class="reference internal" href="../../generated/python_api.html#mitsuba.python.util.ParameterMap" title="mitsuba.python.util.ParameterMap"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterMap</span></code></a> <code class="docutils literal notranslate"><span class="pre">params</span></code> with a learning rate
-of 0.2. The optimizer class automatically requests derivative information for
-selected parameters and updates their value after each step, hence it is not
-necessary to directly modify <code class="docutils literal notranslate"><span class="pre">params</span></code> or call <code class="docutils literal notranslate"><span class="pre">ek.set_requires_gradient</span></code> as
-explained in the introduction.</p>
+<p>Mitsuba 可以使用在 Enoki 中实现的优化算法在 <em>standalone mode</em> 下优化场景参数，
+也可以将其作为一个较大的 PyTorch 计算图中的可微节点。PyTorch 和 Enoki 之间的通信
+通常会导致某些开销，因此我们通常会建议你能够坚持使用 standalone mode 除非你的计算会
+涉及到 PyTorch 能够提供的具有明显优势的模块（例如，神经网络构建模块像是全连接层或卷积）。
+本节的其余部分将继续讨论 standalone mode，<a class="reference internal" href="pytorch.html#sec-pytorch"><span class="std std-ref">PyTorch integration</span></a>
+的相关章节会展示如何在 PyTorch 中适配示例代码。</p>
+<p>Mitsuba 附带的标准优化器包括有无动量的 <em>随机梯度下降</em> （<a class="reference internal" href="../../generated/python_api.html#mitsuba.python.autodiff.SGD" title="mitsuba.python.autodiff.SGD"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGD</span></code></a>），
+就像 <a class="reference internal" href="../../generated/python_api.html#mitsuba.python.autodiff.Adam" title="mitsuba.python.autodiff.Adam"><code class="xref py py-class docutils literal notranslate"><span class="pre">Adam</span></code></a> <a class="bibtex reference internal" href="../../zz_bibliography.html#kingma2014adam" id="id3">[KB14]</a> 一样我们将在稍后进行实例化，
+并按照 0.2 的学习率通过优化减少 <a class="reference internal" href="../../generated/python_api.html#mitsuba.python.util.ParameterMap" title="mitsuba.python.util.ParameterMap"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterMap</span></code></a> <code class="docutils literal notranslate"><span class="pre">params</span></code> 。
+优化器类自动请求所选参数的梯度信息，并在每一步之后更新它们的值，因此不需要直接修改 <code class="docutils literal notranslate"><span class="pre">params</span></code> 或调用  <code class="docutils literal notranslate"><span class="pre">ek.set_requires_gradient</span></code>
+，正如引言中所述。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Construct an Adam optimizer that will adjust the parameters &#39;params&#39;</span>
 <span class="kn">from</span> <span class="nn">mitsuba.python.autodiff</span> <span class="kn">import</span> <span class="n">Adam</span>
 <span class="n">opt</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">lr</span><span class="o">=.</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The remaining commands are all part of a loop that executes 100 differentiable
-rendering iterations.</p>
+<p>其余命令都是执行 100 次可微渲染迭代的一部分。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
     <span class="c1"># Perform a differentiable rendering of the scene</span>
     <span class="n">image</span> <span class="o">=</span> <span class="n">render</span><span class="p">(</span><span class="n">scene</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="n">opt</span><span class="p">,</span> <span class="n">unbiased</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">spp</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -362,36 +328,22 @@ rendering iterations.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><strong>Regarding bias in gradients</strong>: One potential issue when naively
-differentiating a rendering algorithm is that the same set of Monte Carlo
-sample is used to generate both the primal output (i.e. the image) along
-with derivative output. When the rendering algorithm and objective are
-jointly differentiated, we end up with expectations of products that do
-<em>not</em> satisfy the equality <span class="math notranslate nohighlight">\(\mathbb{E}[X Y]=\mathbb{E}[X]\,
-\mathbb{E}[Y]\)</span> due to correlations between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> that
-result from this sample re-use.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">unbiased=True</span></code> parameter to the
-<a class="reference internal" href="../../generated/python_api.html#mitsuba.python.autodiff.render" title="mitsuba.python.autodiff.render"><code class="xref py py-func docutils literal notranslate"><span class="pre">render()</span></code></a> function switches the function
-into a special unbiased mode that de-correlates primal and derivative
-components, which boils down to rendering the image twice and naturally
-comes at some cost in performance <span class="math notranslate nohighlight">\((\sim 1.6 \times\!)\)</span>. Often,
-biased gradients are good enough, in which case <code class="docutils literal notranslate"><span class="pre">unbiased=False</span></code> should
-be specified instead.</p>
+<p><strong>关于梯度的偏置</strong>: 在对渲染算法进行简单的微分时，有一个潜在的问题就是使用相同的蒙特卡洛样本集
+来生成原始输出（即图像）和导数输出。当渲染算法和目标都可微时，我们最终得到的输出期望是不满足等式  <span class="math notranslate nohighlight">\(\mathbb{E}[X Y]=\mathbb{E}[X]\,\mathbb{E}[Y]\)</span></p>
+<blockquote>
+<div><p>这是因为 <span class="math notranslate nohighlight">\(X\)</span> 和 <span class="math notranslate nohighlight">\(Y\)</span> 之间的相关性，这是重用样本集的结果。</p>
+</div></blockquote>
+<p><a class="reference internal" href="../../generated/python_api.html#mitsuba.python.autodiff.render" title="mitsuba.python.autodiff.render"><code class="xref py py-func docutils literal notranslate"><span class="pre">render()</span></code></a> 函数的 <code class="docutils literal notranslate"><span class="pre">unbiased=True</span></code> 参数将函数切换到一种特殊的无偏模式，
+使原始组件和导数组件不相关，这可以归结为进行来两次渲染图像，自然要付出一定的性能代价 <span class="math notranslate nohighlight">\((\sim 1.6 \times\!)\)</span> 。
+通常情况下有偏的梯度已经很好了，在这种情况下应该将参数设置为 <code class="docutils literal notranslate"><span class="pre">unbiased=False</span></code> 。</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><strong>Regarding the number of samples per pixel</strong>: An extremely low number of
-samples per pixel (<code class="docutils literal notranslate"><span class="pre">spp=1</span></code>) is being used in the differentiable rendering
-iterations above, which produces both noisy renderings and noisy gradients.
-Alternatively, we could have used many more samples to take correspondingly
-larger gradient steps (i.e. a higher <code class="docutils literal notranslate"><span class="pre">lr=..</span></code> parameter to the optimizer).
-We generally find the first variant with few samples preferable, since it
-greatly reduces memory usage and is more adaptive to changes in the
-parameter value.</p>
+<p><strong>关于每样本采样数</strong>: 一个非常极端的例子是在上述微分渲染的迭代中使用很少的采样数（<code class="docutils literal notranslate"><span class="pre">spp=1</span></code>），
+这会导致渲染结果和梯度都是充满噪声的。或者，我们可以对于更大的梯度步数相应采用更多的采样数（即，在优化中使用更高的 <code class="docutils literal notranslate"><span class="pre">lr=..</span></code> 参数）。
+一般情况下我们发现低采样数表现的很好，因为它大大减少了内存使用并且更适应参数值的变化。</p>
 </div>
-<p>Still within the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop, we can now evaluate a suitable objective
-function, propagate derivatives with respect to the objective, and take
-gradient steps.</p>
+<p>在 for 循环内，我们现在可以评估合适的目标函数了，按照梯度步数传播目标函数的导数。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># for loop body (continued)</span>
     <span class="c1"># Objective: MSE between &#39;image&#39; and &#39;image_ref&#39;</span>
     <span class="n">ob_val</span> <span class="o">=</span> <span class="n">ek</span><span class="o">.</span><span class="n">hsum</span><span class="p">(</span><span class="n">ek</span><span class="o">.</span><span class="n">sqr</span><span class="p">(</span><span class="n">image</span> <span class="o">-</span> <span class="n">image_ref</span><span class="p">))</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
@@ -403,58 +355,37 @@ gradient steps.</p>
     <span class="n">opt</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>We can also plot the error during each iteration. Note that it makes little
-sense to visualize the objective <code class="docutils literal notranslate"><span class="pre">ob_val</span></code>, since differences between
-<code class="docutils literal notranslate"><span class="pre">image</span></code> and <code class="docutils literal notranslate"><span class="pre">image_ref</span></code> are by far dominated by Monte Carlo noise that is
-not related to the parameter being optimized. Since we know the “true” target
-parameter in this scene (previously stored in <code class="docutils literal notranslate"><span class="pre">param_ref</span></code>), we can validate
-the convergence of the iteration:</p>
+<p>我还可以把每次迭代中的误差画成图表。需要注意的是，可视化目标对象的 <code class="docutils literal notranslate"><span class="pre">ob_val</span></code> 是几乎没有任何意义的，
+因为 <code class="docutils literal notranslate"><span class="pre">image</span></code> 和 <code class="docutils literal notranslate"><span class="pre">image_ref</span></code> 之间的差异主要由蒙特卡洛噪声控制与优化的参数是没有关系的。
+由于我们知道场景中的 “true” 目标参数（之前储存在了 <code class="docutils literal notranslate"><span class="pre">param_ref</span></code> 中），因此我们可以验证迭代的敛散性：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">err_ref</span> <span class="o">=</span> <span class="n">ek</span><span class="o">.</span><span class="n">hsum</span><span class="p">(</span><span class="n">ek</span><span class="o">.</span><span class="n">sqr</span><span class="p">(</span><span class="n">param_ref</span> <span class="o">-</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;red.reflectance.value&#39;</span><span class="p">]))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Iteration </span><span class="si">%03i</span><span class="s1">: error=</span><span class="si">%g</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">err_ref</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
 </pre></div>
 </div>
-<p>The following video shows a recording of the convergence during the first 100
-iterations. The gradient steps quickly recover the original red color of the
-left wall.</p>
+<p>接下来的视频展示了前 100 次迭代过程的收敛记录。随着梯度步数的增加左边红色墙的颜色被迅速恢复。</p>
 <center>
     <video controls loop autoplay muted
     src="https://rgl.s3.eu-central-1.amazonaws.com/media/uploads/wjakob/2020/03/02/convergence.mp4"></video>
-</center><p>Note the oscillatory behavior, which is also visible in the convergence plot
-shown below. This indicates that the learning rate is potentially set to an
-overly large value.</p>
+</center><p>注意振荡行为，在下面所示的收敛图中可以看到。这表明学习率的值设置过大了。</p>
 <a class="reference internal image-reference" href="../../_images/convergence.png"><img alt="../../_images/convergence.png" class="align-center" src="../../_images/convergence.png" style="width: 50%;" /></a>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><strong>Regarding performance</strong>: this optimization should finish very quickly. On
-an NVIDIA Titan RTX, it takes roughly 50 ms per iteration when the
-<code class="docutils literal notranslate"><span class="pre">write_bitmap</span></code> routine is commented out, and 27 ms per iteration when
-furthermore setting <code class="docutils literal notranslate"><span class="pre">unbiased=False</span></code>.</p>
-<p>We have noticed that simultaneous GPU usage by another application (e.g.
-Chrome or Firefox) that appears completely innocuous (YouTube open in a
-tab, etc.) can reduce differentiable rendering performance ten-fold. If you
-find that your numbers are very different from the ones mentioned above,
-try closing all other software.</p>
+<p><strong>性能相关</strong>: 此优化应该很快完成。在 NVIDIA Titan RTX 上，当 <code class="docutils literal notranslate"><span class="pre">write_bitmap</span></code> 例程被注释掉时每次迭代大概需要
+50 ms，当设置 <code class="docutils literal notranslate"><span class="pre">unbiased=False</span></code> 时每次迭代大约需要 27 ms。</p>
+<p>我们注意到了其他应用程序也会同时使用 GPU （比如 Chrome 或 Firefox）这种看上去无害的使用（比如在打开一个 YouTube 标签等）
+会降低可微渲染的性能，有十倍之多。如果发现你的数值与上述数值有很大差异，请尝试关闭所有其他软件。</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The full Python script of this tutorial can be found in the file:
-<code class="file docutils literal notranslate"><span class="pre">docs/examples/10_diff_render/invert_cbox.py</span></code>.</p>
+<p>上述教程的完整 Python 脚本可以在 <code class="file docutils literal notranslate"><span class="pre">docs/examples/10_diff_render/invert_cbox.py</span></code> 文件中找到。</p>
 </div>
 </div>
 <div class="section" id="forward-mode-differentiation">
 <h2>Forward-mode differentiation<a class="headerlink" href="#forward-mode-differentiation" title="Permalink to this headline">¶</a></h2>
-<p>The previous example demonstrated <em>reverse-mode differentiation</em> (a.k.a.
-backpropagation) where a desired small change to the output image was converted
-into a small change to the scene parameters. Mitsuba and Enoki can also
-propagate derivatives in the other direction, i.e., from input parameters to
-the output image. This technique, known as <em>forward mode differentiation</em>, is
-not usable for optimization, as each parameter must be handled using a separate
-rendering pass. That said, this mode can be very educational since it enables
-visualizations of the effect of individual scene parameters on the rendered
-image.</p>
-<p>Forward mode differentiable rendering begins analogously to reverse mode, by
-declaring parameters and marking them as differentiable (we do so manually
-instead of using an <a class="reference internal" href="../../generated/python_api.html#mitsuba.python.autodiff.Optimizer" title="mitsuba.python.autodiff.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">mitsuba.python.autodiff.Optimizer</span></code></a>).</p>
+<p>之前的示例展现的是 <em>反向模式微分</em> （别名，反向传播），将输出图像的所需的细微变化转化为了场景参数的细微变化。
+Mitsuba 和 Enoki 也可以按照另一个方向传播导数，例如，从输入参数到输出的渲染图。这种技术被称为 <em>正向模式微分</em> ，
+该技术对参数优化是没有用的，因为每个参数必须使用独立的渲染过程进行处理。即便如此，这种模式也是非常有参考价值的，因为它可视化</p>
+<p>正向模式的微分渲染类似与反向模式，由声明参数并将其标记为可微的（我们将手动进行，而不是使用 <a class="reference internal" href="../../generated/python_api.html#mitsuba.python.autodiff.Optimizer" title="mitsuba.python.autodiff.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">mitsuba.python.autodiff.Optimizer</span></code></a>）。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Keep track of derivatives with respect to one parameter</span>
 <span class="n">param_0</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;red.reflectance.value&#39;</span><span class="p">]</span>
 <span class="n">ek</span><span class="o">.</span><span class="n">set_requires_gradient</span><span class="p">(</span><span class="n">param_0</span><span class="p">)</span>
@@ -463,9 +394,7 @@ instead of using an <a class="reference internal" href="../../generated/python_a
 <span class="n">image</span> <span class="o">=</span> <span class="n">render</span><span class="p">(</span><span class="n">scene</span><span class="p">,</span> <span class="n">spp</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Once the computation has been recorded, we can specify a perturbation with
-respect to the previously flagged parameter and forward-propagate it through
-the graph.</p>
+<p>一但完成记录计算后，我们可以对之前标记的参数进行一个扰动，并通过图进行正向传播。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign the gradient [1, 1, 1] to the &#39;red.reflectance.value&#39; input</span>
 <span class="n">ek</span><span class="o">.</span><span class="n">set_gradient</span><span class="p">(</span><span class="n">param_0</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">backward</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
@@ -478,9 +407,8 @@ the graph.</p>
 <span class="n">Float</span><span class="o">.</span><span class="n">forward</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>See Enoki’s documentation regarding <a class="reference external" href="https://enoki.readthedocs.io/en/master/autodiff.html">automatic differentiation</a> for further details on
-these steps. Finally, we can write the resulting gradient visualization to
-disk.</p>
+<p>参阅 Enoki 文档中 <a class="reference external" href="https://enoki.readthedocs.io/en/master/autodiff.html">automatic differentiation</a> 章节以获得关于这一步的更多技术细节。
+最后我们将生成的可视化梯度写入磁盘中。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># The gradients have been propagated to the output image</span>
 <span class="n">image_grad</span> <span class="o">=</span> <span class="n">ek</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
 
@@ -489,15 +417,13 @@ disk.</p>
 <span class="n">write_bitmap</span><span class="p">(</span><span class="s1">&#39;out.png&#39;</span><span class="p">,</span> <span class="n">image_grad</span><span class="p">,</span> <span class="n">crop_size</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>This should produce a result similar to the following image:</p>
+<p>这将产生类似于下图的结果：</p>
 <a class="reference internal image-reference" href="../../_images/forward.jpg"><img alt="../../_images/forward.jpg" class="align-center" src="../../_images/forward.jpg" style="width: 50%;" /></a>
-<p>Observe how changing the color of the red wall has a global effect on the
-entire image due to global illumination. Since we are differentiating with
-respect to albedo, the red color disappears.</p>
+<p>观察在全局光照中，改变红墙颜色是如何对整幅图像产生影响的。由于我们在反射率方面做出的变更，
+因此红色消失了。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The full Python script of this tutorial can be found in the file:
-<code class="file docutils literal notranslate"><span class="pre">docs/examples/10_diff_render/forward_diff.py</span></code>.</p>
+<p>上述教程的完整 Python 脚本可以在 <code class="file docutils literal notranslate"><span class="pre">docs/examples/10_diff_render/forward_diff.py</span></code> 文件中找到。</p>
 </div>
 </div>
 </div>
@@ -508,11 +434,11 @@ respect to albedo, the red color disappears.</p>
   <div class="footer-relations">
     
       <div class="pull-left">
-        <a class="btn btn-default" href="intro.html" title="previous chapter (use the left arrow)">Introduction</a>
+        <a class="btn btn-default" href="intro.html" title="previous chapter (use the left arrow)">引言</a>
       </div>
     
       <div class="pull-right">
-        <a class="btn btn-default" href="advanced.html" title="next chapter (use the right arrow)">More advanced examples</a>
+        <a class="btn btn-default" href="advanced.html" title="next chapter (use the right arrow)">进阶的实例</a>
       </div>
     </div>
     <div class="clearer"></div>
@@ -527,13 +453,13 @@ respect to albedo, the red color disappears.</p>
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="advanced.html" title="More advanced examples"
+          <a href="advanced.html" title="进阶的实例"
              >next</a> |</li>
         <li class="right" >
-          <a href="intro.html" title="Introduction"
+          <a href="intro.html" title="引言"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Differentiable rendering</a></li> 
+        <li class="nav-item nav-item-this"><a href="">可微渲染</a></li> 
       </ul>
     </div>
  <script type="text/javascript">

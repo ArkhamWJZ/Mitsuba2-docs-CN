@@ -1,6 +1,6 @@
 .. _sec-python:
 
-介绍
+引言
 ==============
 
 Mitsuba 2 为系统中的几乎每一个函数都提供了极其细颗粒度的 Python 绑定。这样就可以将渲染器导入到 Jupyter notebook 中，

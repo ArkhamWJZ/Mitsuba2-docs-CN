@@ -1,6 +1,6 @@
 .. _sec-devguide:
 
-介绍
+引言
 ============
 
 我们希望在开发者查阅任何 Mitsuba 代码之前，先 *仔仔细细* 阅读 `Enoki <https://enoki.readthedocs.io/en/master/index.html>`_ 

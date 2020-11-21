@@ -1,6 +1,6 @@
 .. _sec-api:
 
-介绍
+引言
 ============
 
 本章的 API 相关文档将通过 `Autodoc <http://www.sphinx-doc.org/en/master/usage/extensions/autodoc.htm>`_ Sphinx

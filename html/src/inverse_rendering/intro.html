@@ -15,7 +15,7 @@
   <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap-theme.min.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-    <title>介绍 &#8212; mitsuba2 0.1.dev0 documentation</title>
+    <title>引言 &#8212; mitsuba2 0.1.dev0 documentation</title>
     <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/theme_overrides.css" />
@@ -27,7 +27,7 @@
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Differentiable rendering" href="diff_render.html" />
+    <link rel="next" title="可微渲染" href="diff_render.html" />
     <link rel="prev" title="自定义应用" href="../python_interface/bsdf_eval.html" />
   
    
@@ -40,13 +40,13 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="diff_render.html" title="Differentiable rendering"
+          <a href="diff_render.html" title="可微渲染"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="../python_interface/bsdf_eval.html" title="自定义应用"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">介绍</a></li> 
+        <li class="nav-item nav-item-this"><a href="">引言</a></li> 
       </ul>
     </div>
     <div class="container-wrapper">
@@ -77,24 +77,24 @@
 </ul>
 <p class="caption"><span class="caption-text">Python interface</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../python_interface/intro.html">介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_interface/intro.html">引言</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../python_interface/parsing_xml.html">XML 代码解析</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../python_interface/rendering_scene.html">渲染场景</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../python_interface/bsdf_eval.html">自定义应用</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Inverse rendering</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">介绍</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">引言</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#differentiable-calculations-using-enoki">Differentiable calculations using Enoki</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="diff_render.html">Differentiable rendering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="diff_render.html">可微渲染</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced.html">进阶的实例</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pytorch.html">Integration with PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pytorch.html">与 PyTorch 的集成</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Developer guide</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../developer_guide/intro.html">介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/intro.html">引言</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../developer_guide/variants_cpp.html">C++ 中的变体</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../developer_guide/writing_plugin.html">插件 &amp; 宏</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../developer_guide/testing.html">测试</a></li>
@@ -123,7 +123,7 @@
 </ul>
 <p class="caption"><span class="caption-text">API reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../api_reference/intro.html">介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/intro.html">引言</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/core_api.html">Core API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/render_api.html">Render API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../generated/python_api.html">Python API Reference</a></li>
@@ -158,14 +158,14 @@
             <ol class="breadcrumb">
               <li><a href="../../index.html">Docs</a></li>
               
-              <li>介绍</li>
+              <li>引言</li>
             </ol>
           </div>
           
           <div class="document clearer body">
             
   <div class="section" id="sec-inverse-rendering">
-<span id="id1"></span><h1>介绍<a class="headerlink" href="#sec-inverse-rendering" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>引言<a class="headerlink" href="#sec-inverse-rendering" title="Permalink to this headline">¶</a></h1>
 <p>Mitsuba 2 可以使用一种称为 <em>可微渲染</em> 的技术来解决涉及光线的逆向问题。该技术将渲染算法解释为一个函数 <span class="math notranslate nohighlight">\(f(\mathbf{x})\)</span>
 这个函数将输入 <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> （场景描述）转化为输出 <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> （渲染图）。那么这个函数 <span class="math notranslate nohighlight">\(f\)</span> 在数学上的
 微分就很显然了 <span class="math notranslate nohighlight">\(\frac{\mathrm{d}\mathbf{y}}{\mathrm{d}\mathbf{x}}\)</span> ，这个微分提供了如何通过改变输入 <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>mathbf{y}` （渲染图）的一阶近似。结合量化场景参数适用性的可微 <em>目标函数</em> <span class="math notranslate nohighlight">\(g(\mathbf{y})\)</span> ，随后可以
@@ -219,7 +219,7 @@ CPU 上进行可微渲染，但是我们有一些想法可以加快渲染速度�
       </div>
     
       <div class="pull-right">
-        <a class="btn btn-default" href="diff_render.html" title="next chapter (use the right arrow)">Differentiable rendering</a>
+        <a class="btn btn-default" href="diff_render.html" title="next chapter (use the right arrow)">可微渲染</a>
       </div>
     </div>
     <div class="clearer"></div>
@@ -234,13 +234,13 @@ CPU 上进行可微渲染，但是我们有一些想法可以加快渲染速度�
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="diff_render.html" title="Differentiable rendering"
+          <a href="diff_render.html" title="可微渲染"
              >next</a> |</li>
         <li class="right" >
           <a href="../python_interface/bsdf_eval.html" title="自定义应用"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">mitsuba2 0.1.dev0 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">介绍</a></li> 
+        <li class="nav-item nav-item-this"><a href="">引言</a></li> 
       </ul>
     </div>
  <script type="text/javascript">
